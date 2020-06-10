@@ -1,0 +1,35 @@
+{
+    "name": "brixi-components",
+    "version": "0.1.0",
+    "description": "",
+    "scripts": {
+        "cleanup": "node ./build-tools/cleanup.js",
+        "bundle": "snowpack",
+        "brixi": "brixi",
+        "compile": "tsc",
+        "sass:dev": "cssmonster --e dev",
+        "sass:prod": "cssmonster",
+        "build": "npm run cleanup && npm run compile && npm run sass:dev && djinnjs -e dev && npm run cleanup",
+        "production": "npm run cleanup && npm run compile && npm run sass:prod && djinnjs -e production && npm run cleanup"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/codewithkyle/brixi-components.git"
+    },
+    "author": "",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/codewithkyle/brixi-components/issues"
+    },
+    "homepage": "https://components.brixi.dev/",
+    "devDependencies": {
+        "cssmonster": "^0.2.1",
+        "djinnjs": "0.0.28",
+        "prettier": "^2.0.5",
+        "snowpack": "^2.4.0",
+        "typescript": "^3.9.5"
+    },
+    "dependencies": {
+        "brixi": "^0.2.1"
+    }
+}
