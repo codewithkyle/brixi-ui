@@ -1,7 +1,7 @@
 const ghPages = require('gh-pages');
 require('dotenv').config();
 
-ghPages.publish('build', {
+ghPages.publish('public', {
     user: {
         name: process.env.NAME,
         email: process.env.EMAIL
