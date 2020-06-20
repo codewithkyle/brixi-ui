@@ -60,6 +60,7 @@ a {
 
                     a {
                         font-size: var(--font-xs);
+                        min-height: 36px;
                     }
                 }
             }
@@ -67,7 +68,7 @@ a {
 
         a,
         label {
-            min-height: 36px;
+            min-height: 42px;
             color: var(--grey-700);
             display: flex;
             align-items: center;
@@ -75,6 +76,7 @@ a {
             text-transform: capitalize;
             position: relative;
             cursor: pointer;
+            font-weight: var(--font-medium);
 
             &:hover {
                 color: var(--primary-700);
