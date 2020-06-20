@@ -11,11 +11,11 @@ email-component {
             border-color: var(--danger-400);
 
             &:hover {
-                border-color: var(--danger-400);
+                border-color: var(--danger-500);
             }
 
             &:focus {
-                border-color: var(--danger-400);
+                border-color: var(--danger-500);
                 box-shadow: 0 0 0 5px var(--danger-100);
             }
         }
