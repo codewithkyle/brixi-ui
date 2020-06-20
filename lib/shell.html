@@ -223,7 +223,7 @@
                 z-index: 2000;
             }
         </style>
-        <link rel="stylesheet" href="assets/noscript.css">
+        <link rel="stylesheet" href="/assets/noscript.css">
     </noscript>
 
     <!-- Web Components polyfill for Edge -->
@@ -233,7 +233,7 @@
         }
     </script>
 
-    <script type="module" src="assets/runtime.mjs"></script>
+    <script type="module" src="/assets/runtime.mjs"></script>
 </head>
 <body style="width:100vw;overflow-x:hidden;display:block;">
     <page-loading>
@@ -253,18 +253,16 @@
     <page-transition>
         <page-transition-bar></page-transition-bar>
     </page-transition>
-    <main eager-load-css="normalize layout brixi">
-        <aside id="primary-nav">
-            <nav>
-                REPLACE_WITH_NAV
-            </nav>
-        </aside>
-        <article id="content">
-            <demo-wrapper>
-                REPLACE_WITH_HTML
-            </demo-wrapper>
-        </article>
-    </main>
+    <aside id="primary-nav">
+        <nav>
+            REPLACE_WITH_NAV
+        </nav>
+    </aside>
+    <article id="content" eager-load-css="normalize layout brixi">
+        <main>
+            REPLACE_WITH_HTML
+        </main>
+    </article>
     <noscript>
         <p id="noscript-message">Parts of this website require JavaScript. Please re-enable JavaScript and reload the page. We apologize for the inconvenience.</p>
     </noscript>
