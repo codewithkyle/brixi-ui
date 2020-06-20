@@ -1,10 +1,12 @@
 class InputComponent extends HTMLElement {
     private input: HTMLInputElement;
+
     constructor() {
         super();
         this.input = this.querySelector("input");
     }
-    private validateInput: EventListener = () => {
+
+    private validateInput() {
         if (this.input.required) {
             if (this.input.value === "") {
                 if (this.getAttribute("state") !== "invalid") {
@@ -35,7 +37,7 @@ class InputComponent extends HTMLElement {
             this.setAttribute("state", "valid");
             this.input.setCustomValidity("");
         }
-    };
+    }
 
     public reportError(error: string) {
         this.input.setCustomValidity(error);
@@ -48,9 +50,18 @@ class InputComponent extends HTMLElement {
         this.setAttribute("state", "valid");
     }
 
+    private handleBlur: EventListener = () => {
+        this.validateInput();
+    };
+
+    private handleInput: EventListener = () => {
+        this.setAttribute("state", "valid");
+        this.input.setCustomValidity("");
+    };
+
     connectedCallback() {
-        this.input.addEventListener("input", this.validateInput);
-        this.input.addEventListener("blur", this.validateInput);
+        this.input.addEventListener("input", this.handleInput);
+        this.input.addEventListener("blur", this.handleBlur);
     }
 }
 customElements.define("input-component", InputComponent);
