@@ -1,4 +1,4 @@
-class InputComponent extends HTMLElement {
+class EmailComponent extends HTMLElement {
     private input: HTMLInputElement;
 
     constructor() {
@@ -14,8 +14,16 @@ class InputComponent extends HTMLElement {
                 }
                 this.setAttribute("state", "invalid");
             } else {
-                this.setAttribute("state", "valid");
-                this.input.setCustomValidity("");
+                if (new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/).test(this.input.value)) {
+                    this.setAttribute("state", "valid");
+                    this.input.setCustomValidity("");
+                } else {
+                    if (this.getAttribute("state") !== "invalid") {
+                        this.input.setCustomValidity("Invalid email format.");
+                        this.input.reportValidity();
+                    }
+                    this.setAttribute("state", "invalid");
+                }
             }
         } else {
             this.setAttribute("state", "valid");
@@ -48,4 +56,4 @@ class InputComponent extends HTMLElement {
         this.input.addEventListener("blur", this.handleBlur);
     }
 }
-customElements.define("input-component", InputComponent);
+customElements.define("email-component", EmailComponent);

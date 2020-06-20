@@ -1,0 +1,57 @@
+email-component {
+    display: inline-block;
+    width: 100%;
+    position: relative;
+
+    &[state="invalid"] {
+        label {
+            color: var(--danger-700);
+        }
+        input {
+            box-shadow: 0 0 0 5px var(--danger-100);
+            border-color: var(--danger-400);
+
+            &:hover {
+                border-color: var(--danger-400);
+            }
+
+            &:focus {
+                border-color: var(--danger-400);
+                box-shadow: 0 0 0 5px var(--danger-100);
+            }
+        }
+    }
+
+    label {
+        display: block;
+        width: 100%;
+        font-size: var(--font-sm);
+        font-weight: var(--font-medium);
+        color: var(--grey-700);
+        margin-bottom: 0.5rem;
+    }
+
+    input {
+        height: 48px;
+        display: block;
+        width: 100%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        line-height: 48px;
+        padding: 0 1rem;
+        background-color: var(--white);
+        border: 1px solid var(--grey-300);
+        border-radius: 0.25rem;
+        color: var(--grey-900);
+        transition: all 150ms var(--ease-in-out);
+
+        &:hover {
+            border-color: var(--grey-400);
+        }
+
+        &:focus {
+            border-color: var(--primary-400);
+            box-shadow: 0 0 0 5px var(--primary-100);
+        }
+    }
+}
