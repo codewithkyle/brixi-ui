@@ -7,10 +7,12 @@
         "bundle": "snowpack",
         "brixi": "brixi",
         "compile": "tsc",
+        "render": "node ./build-tools/renderer.js",
         "sass:dev": "cssmonster --e dev",
         "sass:prod": "cssmonster",
-        "build": "npm run cleanup && npm run compile && npm run sass:dev && djinnjs -e dev && npm run cleanup",
-        "production": "npm run cleanup && npm run compile && npm run sass:prod && djinnjs -e production && npm run cleanup"
+        "build": "npm run cleanup && npm run render && npm run compile && npm run sass:dev && djinnjs -e dev && npm run cleanup",
+        "production": "npm run cleanup && npm run render && npm run compile && npm run sass:prod && djinnjs -e production && npm run cleanup",
+        "preview": "serve ./public"
     },
     "repository": {
         "type": "git",
@@ -26,7 +28,8 @@
         "cssmonster": "^0.2.1",
         "djinnjs": "0.0.28",
         "prettier": "^2.0.5",
-        "snowpack": "^2.4.0",
+        "serve": "^11.3.2",
+        "snowpack": "^2.5.2",
         "typescript": "^3.9.5"
     },
     "dependencies": {
