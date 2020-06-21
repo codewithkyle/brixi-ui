@@ -61,6 +61,7 @@ a {
                     a {
                         font-size: var(--font-xs);
                         min-height: 36px;
+                        padding: 0 1.5rem;
                     }
                 }
             }
@@ -131,7 +132,7 @@ a {
     flex-flow: column wrap;
     overflow: auto;
     padding: 2rem;
-    border: 1px solid var(--grey-300);
+    border: 1px solid var(--neutral-300);
 
     @media (min-width: 1024px) {
         width: calc(100vw - 300px - 0.5rem);
@@ -144,7 +145,7 @@ main {
 .global-buttons {
     position: fixed;
     top: 2rem;
-    right: 2.5rem;
+    right: 2rem;
     z-index: 100;
 
     a,
@@ -153,7 +154,7 @@ main {
         padding: 0 1rem;
         border-radius: 0.25rem;
         background-color: var(--white);
-        color: rgba(51, 51, 51, 0.87);
+        color: var(--grey-700);
         line-height: 36px;
         margin-left: 1rem;
         font-size: var(--font-sm);
