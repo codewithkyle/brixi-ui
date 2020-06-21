@@ -11,9 +11,10 @@
         "sass:dev": "cssmonster --e dev",
         "sass:prod": "cssmonster",
         "build": "npm run cleanup && npm run render && npm run compile && npm run sass:dev && djinnjs -e dev && npm run cleanup",
-        "production": "npm run cleanup && npm run render && npm run compile && npm run sass:prod && djinnjs -e production && npm run cleanup",
+        "production": "npm run cleanup && npm run render && npm run compile && npm run sass:prod && djinnjs -e production && npm run cleanup && npm run zip",
         "preview": "serve ./public",
-        "deploy": "node ./build-tools/deploy.js"
+        "deploy": "node ./build-tools/deploy.js",
+        "zip": "node ./build-tools/zipper.js"
     },
     "repository": {
         "type": "git",
@@ -26,6 +27,7 @@
     },
     "homepage": "https://components.brixi.dev/",
     "devDependencies": {
+        "archiver": "^4.0.1",
         "cssmonster": "^0.2.1",
         "djinnjs": "0.0.28",
         "dotenv": "^8.2.0",
