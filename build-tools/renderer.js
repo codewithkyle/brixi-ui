@@ -27,7 +27,7 @@ for (let i = 0; i < dirs.length; i++) {
         .trim();
     if (fs.existsSync(path.join(dirs[i], "index.html"))) {
         navigation.push({
-            title: dirName,
+            title: dirName.replace(/\-/, " "),
             slug: dirName,
             file: path.join(dirs[i], "index.html"),
             subs: [],
@@ -48,7 +48,7 @@ for (let i = 0; i < dirs.length; i++) {
                 .trim();
             if (fs.existsSync(path.join(subDirs[k], "index.html"))) {
                 nav.subs.push({
-                    title: subDirName,
+                    title: subDirName.replace(/\-/, " "),
                     slug: subDirName,
                     file: path.join(subDirs[k], "index.html"),
                 });
