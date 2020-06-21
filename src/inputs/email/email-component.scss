@@ -9,6 +9,7 @@ email-component {
         }
         input {
             border-color: var(--danger-400);
+            background-color: var(--danger-100);
 
             &:hover {
                 border-color: var(--danger-500);
@@ -26,7 +27,7 @@ email-component {
         width: 100%;
         font-size: var(--font-sm);
         font-weight: var(--font-medium);
-        color: var(--grey-700);
+        color: var(--grey-800);
         margin-bottom: 0.5rem;
     }
 
@@ -38,7 +39,7 @@ email-component {
         overflow: hidden;
         line-height: 48px;
         padding: 0 1rem;
-        background-color: var(--white);
+        background-color: var(--grey-100);
         border: 1px solid var(--grey-300);
         border-radius: 0.25rem;
         color: var(--grey-900);
@@ -51,6 +52,7 @@ email-component {
         &:focus {
             border-color: var(--primary-400);
             box-shadow: 0 0 0 5px var(--primary-100);
+            background-color: var(--white);
         }
     }
 }
