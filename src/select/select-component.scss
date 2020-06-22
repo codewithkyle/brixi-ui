@@ -1,0 +1,100 @@
+select-component {
+    display: inline-block;
+    width: 100%;
+    position: relative;
+
+    &[state="invalid"] {
+        label {
+            color: var(--danger-700);
+        }
+        select {
+            border-color: var(--danger-400);
+            background-color: var(--danger-100);
+
+            &:hover {
+                border-color: var(--danger-500);
+
+                & + i {
+                    color: var(--danger-700);
+                }
+            }
+
+            &:focus {
+                border-color: var(--danger-500);
+                box-shadow: 0 0 0 5px var(--danger-100);
+
+                & + i {
+                    color: var(--danger-700);
+                }
+            }
+        }
+        i {
+            color: var(--danger-600);
+        }
+    }
+
+    label {
+        display: block;
+        width: 100%;
+        font-size: var(--font-sm);
+        font-weight: var(--font-medium);
+        color: var(--grey-800);
+        margin-bottom: 0.5rem;
+    }
+
+    select {
+        height: 48px;
+        display: block;
+        width: 100%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        line-height: 48px;
+        padding: 0 40px 0 1rem;
+        background-color: var(--grey-100);
+        border: 1px solid var(--grey-300);
+        border-radius: 0.25rem;
+        color: var(--grey-900);
+        transition: all 150ms var(--ease-in-out);
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+
+        &:hover {
+            border-color: var(--grey-400);
+
+            & + i {
+                color: var(--grey-700);
+            }
+        }
+
+        &:focus {
+            border-color: var(--primary-400);
+            box-shadow: 0 0 0 5px var(--primary-100);
+            background-color: var(--white);
+
+            & + i {
+                color: var(--grey-700);
+            }
+        }
+    }
+
+    i {
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        bottom: 12px;
+        right: 0.5rem;
+        color: var(--grey-600);
+        padding: 0;
+
+        svg {
+            width: 18px;
+            height: 18px;
+            position: relative;
+            transition: all 150ms var(--ease-in-out);
+        }
+    }
+}
