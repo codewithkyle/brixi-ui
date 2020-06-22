@@ -1,4 +1,4 @@
-checkbox-component {
+radio-component {
     display: inline-block;
     width: 100%;
     position: relative;
@@ -26,12 +26,12 @@ checkbox-component {
             & + label {
                 i {
                     &::before {
-                        border-color: var(--primary-800);
-                        background-color: var(--primary-700);
+                        border-color: var(--primary-700);
+                        background-color: var(--white);
                     }
 
-                    svg {
-                        opacity: 1;
+                    &::after {
+                        transform: scale(1);
                     }
                 }
             }
@@ -55,9 +55,14 @@ checkbox-component {
         &:active {
             i {
                 &::before {
-                    border-color: var(--primary-400);
+                    border-color: var(--primary-400) !important;
                     box-shadow: 0 0 0 5px var(--primary-100);
                     background-color: var(--white);
+                }
+
+                &::after {
+                    transform: scale(1.15) !important;
+                    background-color: var(--primary-400);
                 }
             }
         }
@@ -75,20 +80,23 @@ checkbox-component {
                 position: absolute;
                 width: 18px;
                 height: 18px;
-                border-radius: 0.25rem;
+                border-radius: 50%;
                 border: 1px solid var(--grey-400);
                 transition: all 150ms var(--ease-in-out);
                 background-color: var(--grey-100);
             }
 
-            svg {
+            &::after {
+                content: "";
+                display: inline-block;
+                position: absolute;
                 width: 10px;
                 height: 10px;
-                color: var(--white);
-                opacity: 0;
-                position: absolute;
-                z-index: 2;
-                transition: all 150ms var(--ease-in-out);
+                border-radius: 50%;
+                background-color: var(--primary-700);
+                transition: all 150ms var(--ease-bounce);
+                transform: scale(0);
+                transform-origin: center;
             }
         }
 
