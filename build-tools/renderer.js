@@ -14,6 +14,16 @@ fs.mkdirSync(publicDir);
 const cnameFile = path.join(cwd, "lib", "CNAME");
 fs.copyFileSync(cnameFile, path.join(publicDir, "CNAME"));
 
+const publicApiDir = path.join(publicDir, "api", "v1");
+fs.mkdirSync(publicApiDir, { recursive: true });
+
+const apiDir = path.join(cwd, "api");
+const apiFiles = glob.sync(`${apiDir}/*.json`);
+for (let i = 0; i < apiFiles.length; i++) {
+    const fileName = apiFiles[i].replace(/.*[\\\/]/, "");
+    fs.copyFileSync(apiFiles[i], `${publicApiDir}/${fileName}`);
+}
+
 const srcDir = path.join(cwd, "src");
 const dirs = glob.sync(`${srcDir}/*`);
 
