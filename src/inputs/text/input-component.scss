@@ -62,7 +62,7 @@ input-component {
         transition: all 150ms var(--ease-in-out);
 
         &:hover {
-            border-color: var(--grey-400);
+            border-color: var(--primary-400);
         }
 
         &:focus {

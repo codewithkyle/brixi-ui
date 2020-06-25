@@ -60,7 +60,7 @@ select-component {
         appearance: none;
 
         &:hover {
-            border-color: var(--grey-400);
+            border-color: var(--primary-400);
 
             & + i {
                 color: var(--grey-700);

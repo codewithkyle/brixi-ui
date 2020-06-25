@@ -47,7 +47,7 @@ checkbox-component {
         &:hover {
             i {
                 &::before {
-                    border-color: var(--grey-500);
+                    border-color: var(--primary-400);
                 }
             }
         }

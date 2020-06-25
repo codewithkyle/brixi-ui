@@ -52,7 +52,11 @@ lightswitch-component {
         &:hover {
             i {
                 &::before {
-                    border-color: var(--grey-500);
+                    border-color: var(--primary-400);
+                }
+
+                &::after {
+                    background-color: var(--primary-400);
                 }
             }
         }
@@ -63,10 +67,6 @@ lightswitch-component {
                     border-color: var(--primary-400);
                     box-shadow: 0 0 0 5px var(--primary-100);
                     background-color: var(--white);
-                }
-
-                &::after {
-                    background-color: var(--primary-400);
                 }
             }
         }
