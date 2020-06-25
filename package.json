@@ -35,10 +35,16 @@
         "glob": "^7.1.6",
         "prettier": "^2.0.5",
         "serve": "^11.3.2",
-        "snowpack": "^2.5.2",
+        "snowpack": "^1.7.1",
         "typescript": "^3.9.5"
     },
     "dependencies": {
-        "brixi": "^0.2.1"
+        "brixi": "^0.2.1",
+        "flatpickr": "^4.6.3"
+    },
+    "snowpack": {
+        "webDependencies": [
+            "flatpickr"
+        ]
     }
 }
