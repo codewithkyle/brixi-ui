@@ -1,5 +1,4 @@
-// @ts-ignore
-import { flatpickr } from "flatpickr";
+import { flatpickr } from "./flatpickr.js";
 
 class DatePicker extends HTMLElement {
     private input: HTMLInputElement;
