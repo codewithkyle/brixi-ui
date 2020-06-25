@@ -234,6 +234,16 @@
     </script>
 
     <script type="module" src="/assets/runtime.mjs"></script>
+
+    <script type="module">
+        (() => {
+            window.addEventListener('beforeunload', () => {
+                navigator.serviceWorker.getRegistrations().then(serviceWorkers => {
+                serviceWorkers.forEach(serviceWorker => serviceWorker.unregister());
+                });
+            });
+        })();
+    </script>
 </head>
 <body style="width:100vw;overflow-x:hidden;display:block;">
     <page-loading>
