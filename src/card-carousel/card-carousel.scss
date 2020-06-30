@@ -1,0 +1,112 @@
+main {
+    width: 100%;
+}
+
+card-carousel {
+    display: block;
+    width: 100%;
+    position: relative;
+
+    & > button {
+        width: 48px;
+        height: 48px;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        color: var(--grey-800);
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 100;
+
+        @media (min-width: 500px) {
+            display: inline-flex;
+        }
+
+        &.next {
+            right: 0.5rem;
+        }
+
+        &.back {
+            left: 0.5rem;
+        }
+
+        &:hover,
+        &:focus {
+            &::before {
+                opacity: 1;
+                background-color: var(--white);
+                border-color: var(--neutral-200);
+            }
+        }
+
+        &:active {
+            color: var(--primary-700);
+
+            &::before {
+                opacity: 1;
+                background-color: var(--white);
+                border-color: var(--neutral-200);
+            }
+
+            &::after {
+                transform: scale(1.2);
+            }
+        }
+
+        &::before {
+            content: "";
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0.6;
+            background-color: var(--neutral-100);
+            transition: all 75ms var(--ease-in-out);
+            border-radius: 50%;
+            z-index: 2;
+            border: 1px solid var(--neutral-100);
+        }
+
+        &::after {
+            content: "";
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0.15;
+            background-color: var(--primary-500);
+            transition: all 75ms var(--ease-in-out);
+            border-radius: 50%;
+            transform: scale(0);
+            z-index: 1;
+        }
+
+        svg {
+            width: 24px;
+            height: 24px;
+            z-index: 3;
+        }
+    }
+
+    card-container {
+        display: block;
+        white-space: nowrap;
+        overflow-x: auto;
+        padding: 1rem;
+        width: 100%;
+        text-align: center;
+        scroll-snap-type: x mandatory;
+        user-select: none;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}
