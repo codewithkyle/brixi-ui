@@ -94,20 +94,21 @@ for (let i = 0; i < navigation.length; i++) {
 const shellHTML = fs.readFileSync(shellFile).toString();
 for (let i = 0; i < navigation.length; i++) {
     if (navigation[i].file) {
-        renderPage(fs.readFileSync(navigation[i].file).toString(), navigation[i].slug);
+        renderPage(fs.readFileSync(navigation[i].file).toString(), navigation[i].slug, navigation[i].slug);
     } else if (navigation[i].subs.length) {
         for (let k = 0; k < navigation[i].subs.length; k++) {
-            renderPage(fs.readFileSync(navigation[i].subs[k].file).toString(), `${navigation[i].slug}/${navigation[i].subs[k].slug}`);
+            renderPage(fs.readFileSync(navigation[i].subs[k].file).toString(), `${navigation[i].slug}/${navigation[i].subs[k].slug}`, navigation[i].subs[k].slug);
         }
     }
 }
 
-renderPage("", "");
+renderPage("", "", "");
 
-function renderPage(fileHTML, output) {
+function renderPage(fileHTML, output, pageId) {
     let pageHTML = shellHTML;
     pageHTML = pageHTML.replace("REPLACE_WITH_HTML", fileHTML);
     pageHTML = pageHTML.replace("REPLACE_WITH_NAV", navHTML);
+    pageHTML = pageHTML.replace("REPLACE_WITH_ID", pageId);
     if (!fs.existsSync(path.join(publicDir, output))) {
         fs.mkdirSync(path.join(publicDir, output), { recursive: true });
     }

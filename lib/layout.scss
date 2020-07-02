@@ -139,8 +139,20 @@ a {
     }
 }
 main {
-    display: inline-block;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column wrap;
     position: relative;
+    width: 100%;
+    height: 100%;
+
+    view-wrapper {
+        display: inline-block;
+        position: relative;
+        max-width: 100%;
+        max-height: 100%;
+    }
 }
 .global-buttons {
     position: fixed;
