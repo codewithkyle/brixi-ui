@@ -1,36 +1,47 @@
 export default class TextareaComponent extends HTMLElement {
-    private textarea: HTMLTextAreaElement;
+    private input: HTMLTextAreaElement;
+    private textEl: HTMLElement;
+    private errorEl: HTMLElement;
 
     constructor() {
         super();
-        this.textarea = this.querySelector("textarea");
+        this.input = this.querySelector("textarea");
+        this.textEl = this.querySelector("p");
+        const errorEl = document.createElement("p");
+        errorEl.className = "error";
+        errorEl.style.display = "none";
+        this.insertBefore(errorEl, this.input);
+        this.errorEl = errorEl;
     }
 
     private validateInput() {
-        if (this.textarea.required) {
-            if (this.textarea.value === "") {
+        if (this.input.required) {
+            if (this.input.value === "") {
                 if (this.getAttribute("state") !== "invalid") {
-                    this.textarea.reportValidity();
+                    this.reportError("This field is required.");
                 }
-                this.setAttribute("state", "invalid");
             } else {
-                this.setAttribute("state", "valid");
-                this.textarea.setCustomValidity("");
+                this.clearError();
             }
         } else {
-            this.setAttribute("state", "valid");
-            this.textarea.setCustomValidity("");
+            this.clearError();
         }
     }
 
     public reportError(error: string) {
-        this.textarea.setCustomValidity(error);
-        this.textarea.reportValidity();
+        this.errorEl.innerHTML = error;
+        this.errorEl.style.display = "block";
+        if (this.textEl){
+            this.textEl.style.display = "none";
+        }
         this.setAttribute("state", "invalid");
     }
 
     public clearError() {
-        this.textarea.setCustomValidity("");
+        this.errorEl.style.display = "none";
+        if (this.textEl){
+            this.textEl.style.display = "block";
+        }
         this.setAttribute("state", "valid");
     }
 
@@ -38,13 +49,10 @@ export default class TextareaComponent extends HTMLElement {
         this.validateInput();
     };
 
-    private handleInput: EventListener = () => {
-        this.setAttribute("state", "valid");
-        this.textarea.setCustomValidity("");
-    };
+    private handleInput: EventListener = this.clearError.bind(this);
 
     connectedCallback() {
-        this.textarea.addEventListener("input", this.handleInput);
-        this.textarea.addEventListener("blur", this.handleBlur);
+        this.input.addEventListener("input", this.handleInput);
+        this.input.addEventListener("blur", this.handleBlur);
     }
 }

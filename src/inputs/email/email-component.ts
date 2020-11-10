@@ -1,44 +1,53 @@
 export default class EmailComponent extends HTMLElement {
     private input: HTMLInputElement;
+    private textEl: HTMLElement;
+    private errorEl: HTMLElement;
 
     constructor() {
         super();
         this.input = this.querySelector("input");
+        this.textEl = this.querySelector("p");
+        const errorEl = document.createElement("p");
+        errorEl.className = "error";
+        errorEl.style.display = "none";
+        this.insertBefore(errorEl, this.input);
+        this.errorEl = errorEl;
     }
 
     private validateInput() {
         if (this.input.required) {
             if (this.input.value === "") {
                 if (this.getAttribute("state") !== "invalid") {
-                    this.input.reportValidity();
+                    this.reportError("This field is required.");
                 }
-                this.setAttribute("state", "invalid");
             } else {
                 if (new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/).test(this.input.value)) {
-                    this.setAttribute("state", "valid");
-                    this.input.setCustomValidity("");
+                    this.clearError();
                 } else {
                     if (this.getAttribute("state") !== "invalid") {
-                        this.input.setCustomValidity("Invalid email format.");
-                        this.input.reportValidity();
+                        this.reportError("Invalid email format.");
                     }
-                    this.setAttribute("state", "invalid");
                 }
             }
         } else {
-            this.setAttribute("state", "valid");
-            this.input.setCustomValidity("");
+            this.clearError();
         }
     }
 
     public reportError(error: string) {
-        this.input.setCustomValidity(error);
-        this.input.reportValidity();
+        this.errorEl.innerHTML = error;
+        this.errorEl.style.display = "block";
+        if (this.textEl){
+            this.textEl.style.display = "none";
+        }
         this.setAttribute("state", "invalid");
     }
 
     public clearError() {
-        this.input.setCustomValidity("");
+        this.errorEl.style.display = "none";
+        if (this.textEl){
+            this.textEl.style.display = "block";
+        }
         this.setAttribute("state", "valid");
     }
 
@@ -46,10 +55,7 @@ export default class EmailComponent extends HTMLElement {
         this.validateInput();
     };
 
-    private handleInput: EventListener = () => {
-        this.setAttribute("state", "valid");
-        this.input.setCustomValidity("");
-    };
+    private handleInput: EventListener = this.clearError.bind(this);
 
     connectedCallback() {
         this.input.addEventListener("input", this.handleInput);

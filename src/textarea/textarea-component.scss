@@ -19,22 +19,10 @@ textarea-component {
                 border-color: var(--danger-500);
                 box-shadow: 0 0 0 5px var(--danger-100);
             }
-        }
-        helper-icon {
-            color: var(--danger-700);
-            border-color: var(--danger-700);
 
-            &:hover,
-            &:focus {
-                color: var(--danger-800);
-                border-color: var(--danger-800);
+            &::placeholder {
+                color: var(--danger-700);
             }
-        }
-    }
-
-    &.has-helper {
-        textarea {
-            padding-right: calc(0.75rem + 24px + 0.75rem);
         }
     }
 
@@ -69,57 +57,21 @@ textarea-component {
             box-shadow: 0 0 0 5px var(--primary-100);
             background-color: var(--white);
         }
-    }
 
-    helper-icon {
-        position: absolute;
-        top: 36px;
-        right: 0.75rem;
-        width: 24px;
-        height: 24px;
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 50%;
-        border: 2px solid var(--grey-700);
-        color: var(--grey-700);
-        cursor: help;
-        transition: all 150ms var(--ease-in-out);
-
-        &:hover,
-        &:focus {
-            color: var(--grey-800);
-            border-color: var(--grey-800);
-
-            & + helper-text {
-                opacity: 1;
-                visibility: visible;
-            }
-        }
-
-        svg {
-            width: 12px;
-            height: 12px;
+        &::placeholder {
+            color: var(--grey-700);
         }
     }
 
-    helper-text {
-        background-color: var(--neutral-800);
-        color: var(--white);
+    p{
+        display: block;
+        margin-bottom: 0.5rem;
         font-size: var(--font-xs);
-        font-weight: var(--font-medium);
-        border-radius: 0.25rem;
-        padding: 0.5rem;
+        color: var(--grey-700);
         line-height: 1.375;
-        max-width: 200px;
-        position: absolute;
-        top: calc(36px + 24px + 4px);
-        right: 0.75rem;
-        visibility: hidden;
-        opacity: 0;
-        transition: all 150ms var(--ease-in-out);
-        z-index: 1000;
-        box-shadow: var(--shadow-md);
-        user-select: none;
+
+        &.error{
+            color: var(--danger-700);
+        }
     }
 }

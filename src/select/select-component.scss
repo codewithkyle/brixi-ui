@@ -89,12 +89,25 @@ select-component {
         right: 0.5rem;
         color: var(--grey-600);
         padding: 0;
+        pointer-events: none;
 
         svg {
             width: 18px;
             height: 18px;
             position: relative;
             transition: all 150ms var(--ease-in-out);
+        }
+    }
+
+    p{
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 0.75rem;
+        color: var(--grey-700);
+        line-height: 1.375;
+
+        &.error{
+            color: var(--danger-700);
         }
     }
 }

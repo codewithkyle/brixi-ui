@@ -1,36 +1,17 @@
 export default class PhoneComponent extends HTMLElement {
     private input: HTMLInputElement;
+    private textEl: HTMLElement;
+    private errorEl: HTMLElement;
 
     constructor() {
         super();
         this.input = this.querySelector("input");
-    }
-
-    private validateInput() {
-        if (this.input.required) {
-            if (this.input.value === "") {
-                if (this.getAttribute("state") !== "invalid") {
-                    this.input.reportValidity();
-                }
-                this.setAttribute("state", "invalid");
-            } else {
-                const formattedValue = this.formatPhoneNumber(this.input.value);
-                if (formattedValue) {
-                    this.input.value = formattedValue;
-                    this.setAttribute("state", "valid");
-                    this.input.setCustomValidity("");
-                } else {
-                    if (this.getAttribute("state") !== "invalid") {
-                        this.input.setCustomValidity("Provide a valid US phone number.");
-                        this.input.reportValidity();
-                    }
-                    this.setAttribute("state", "invalid");
-                }
-            }
-        } else {
-            this.setAttribute("state", "valid");
-            this.input.setCustomValidity("");
-        }
+        this.textEl = this.querySelector("p");
+        const errorEl = document.createElement("p");
+        errorEl.className = "error";
+        errorEl.style.display = "none";
+        this.insertBefore(errorEl, this.input);
+        this.errorEl = errorEl;
     }
 
     /**
@@ -48,14 +29,42 @@ export default class PhoneComponent extends HTMLElement {
         return null;
     }
 
+    private validateInput() {
+        if (this.input.required) {
+            if (this.input.value === "") {
+                if (this.getAttribute("state") !== "invalid") {
+                    this.reportError("This field is required.");
+                }
+            } else {
+                const formattedValue = this.formatPhoneNumber(this.input.value);
+                if (formattedValue) {
+                    this.input.value = formattedValue;
+                    this.clearError();
+                } else {
+                    if (this.getAttribute("state") !== "invalid") {
+                        this.reportError("Provide a valid US phone number.");
+                    }
+                }
+            }
+        } else {
+            this.clearError();
+        }
+    }
+
     public reportError(error: string) {
-        this.input.setCustomValidity(error);
-        this.input.reportValidity();
+        this.errorEl.innerHTML = error;
+        this.errorEl.style.display = "block";
+        if (this.textEl){
+            this.textEl.style.display = "none";
+        }
         this.setAttribute("state", "invalid");
     }
 
     public clearError() {
-        this.input.setCustomValidity("");
+        this.errorEl.style.display = "none";
+        if (this.textEl){
+            this.textEl.style.display = "block";
+        }
         this.setAttribute("state", "valid");
     }
 
@@ -63,10 +72,7 @@ export default class PhoneComponent extends HTMLElement {
         this.validateInput();
     };
 
-    private handleInput: EventListener = () => {
-        this.setAttribute("state", "valid");
-        this.input.setCustomValidity("");
-    };
+    private handleInput: EventListener = this.clearError.bind(this);
 
     private handleFocus: EventListener = () => {
         if (this.input.value.length) {

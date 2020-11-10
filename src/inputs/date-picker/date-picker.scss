@@ -5,7 +5,7 @@ date-picker {
 
     &[state="invalid"] {
         label {
-            color: var(--danger-700);
+            color: var(--danger-700) !important;
         }
         input {
             border-color: var(--danger-400);
@@ -19,12 +19,10 @@ date-picker {
                 border-color: var(--danger-500);
                 box-shadow: 0 0 0 5px var(--danger-100);
             }
-        }
-    }
 
-    &.has-helper {
-        input {
-            padding-right: calc(0.75rem + 24px + 0.75rem);
+            &::placeholder {
+                color: var(--danger-700);
+            }
         }
     }
 
@@ -50,7 +48,10 @@ date-picker {
         border-radius: 0.25rem;
         color: var(--grey-900);
         transition: all 150ms var(--ease-in-out);
-        cursor: text !important;
+
+        &::placeholder {
+            color: var(--grey-700);
+        }
 
         &:hover {
             border-color: var(--primary-400);
@@ -60,6 +61,18 @@ date-picker {
             border-color: var(--primary-400);
             box-shadow: 0 0 0 5px var(--primary-100);
             background-color: var(--white);
+        }
+    }
+
+    p{
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: var(--font-xs);
+        color: var(--grey-700);
+        line-height: 1.375;
+
+        &.error{
+            color: var(--danger-700);
         }
     }
 }
