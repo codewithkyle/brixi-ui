@@ -24,6 +24,9 @@ pin-component {
                 color: var(--danger-700);
             }
         }
+        i{
+            color: var(--danger-700);
+        }
     }
 
     label {
@@ -61,6 +64,10 @@ pin-component {
             border-color: var(--primary-400);
             box-shadow: 0 0 0 5px var(--primary-100);
             background-color: var(--white);
+        }
+
+        &.has-icon{
+            padding-left: calc(24px + 1rem);
         }
     }
 
@@ -101,6 +108,24 @@ pin-component {
             width: 18px;
             height: 18px;
             position: relative;
+        }
+    }
+
+    i{
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 24px;
+        height: 24px;
+        pointer-events: none;
+        position: absolute;
+        bottom: calc((48px - 24px) / 2);
+        left: 0.5rem;
+        color: var(--grey-700);
+
+        svg{
+            width: 18px;
+            height: 18px;
         }
     }
 }
