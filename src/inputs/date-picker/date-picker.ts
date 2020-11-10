@@ -1,6 +1,6 @@
 import { flatpickr } from "./flatpickr.js";
 
-class DatePicker extends HTMLElement {
+export default class DatePicker extends HTMLElement {
     private input: HTMLInputElement;
 
     constructor() {
@@ -53,4 +53,3 @@ class DatePicker extends HTMLElement {
         });
     }
 }
-customElements.define("date-picker", DatePicker);

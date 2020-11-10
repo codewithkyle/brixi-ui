@@ -1,4 +1,4 @@
-class InputComponent extends HTMLElement {
+export default class InputComponent extends HTMLElement {
     private input: HTMLInputElement;
 
     constructor() {
@@ -48,4 +48,3 @@ class InputComponent extends HTMLElement {
         this.input.addEventListener("blur", this.handleBlur);
     }
 }
-customElements.define("input-component", InputComponent);

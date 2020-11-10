@@ -1,4 +1,4 @@
-class EmailComponent extends HTMLElement {
+export default class EmailComponent extends HTMLElement {
     private input: HTMLInputElement;
 
     constructor() {
@@ -56,4 +56,3 @@ class EmailComponent extends HTMLElement {
         this.input.addEventListener("blur", this.handleBlur);
     }
 }
-customElements.define("email-component", EmailComponent);

@@ -8,7 +8,7 @@ type RowData = {
     col5: string;
 };
 
-class DataTable extends HTMLElement {
+export default class DataTable extends HTMLElement {
     private foot: HTMLElement;
     private body: HTMLElement;
     private nextButton: HTMLButtonElement;
@@ -154,4 +154,3 @@ class DataTable extends HTMLElement {
         this.fetchData();
     }
 }
-customElements.define("data-table", DataTable);

@@ -1,4 +1,4 @@
-class PhoneComponent extends HTMLElement {
+export default class PhoneComponent extends HTMLElement {
     private input: HTMLInputElement;
 
     constructor() {
@@ -80,4 +80,3 @@ class PhoneComponent extends HTMLElement {
         this.input.addEventListener("focus", this.handleFocus);
     }
 }
-customElements.define("phone-component", PhoneComponent);

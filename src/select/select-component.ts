@@ -1,4 +1,4 @@
-class SelectComponent extends HTMLElement {
+export default class SelectComponent extends HTMLElement {
     private select: HTMLSelectElement;
 
     constructor() {
@@ -37,4 +37,3 @@ class SelectComponent extends HTMLElement {
         this.select.addEventListener("blur", this.handleBlur);
     }
 }
-customElements.define("select-component", SelectComponent);

@@ -1,4 +1,4 @@
-class TextareaComponent extends HTMLElement {
+export default class TextareaComponent extends HTMLElement {
     private textarea: HTMLTextAreaElement;
 
     constructor() {
@@ -48,4 +48,3 @@ class TextareaComponent extends HTMLElement {
         this.textarea.addEventListener("blur", this.handleBlur);
     }
 }
-customElements.define("textarea-component", TextareaComponent);

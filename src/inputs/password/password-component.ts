@@ -1,4 +1,4 @@
-class PasswordComponent extends HTMLElement {
+export default class PasswordComponent extends HTMLElement {
     private input: HTMLInputElement;
     private button: HTMLButtonElement;
     private visibleIcon: HTMLElement;
@@ -67,4 +67,3 @@ class PasswordComponent extends HTMLElement {
         this.button.addEventListener("click", this.handleClick);
     }
 }
-customElements.define("password-component", PasswordComponent);

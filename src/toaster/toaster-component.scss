@@ -10,7 +10,10 @@ toaster-component {
     // right: 0;
     // z-index: 2000;
     // overflow-y: auto;
+    // overflow-x: hidden;
     // pointer-events: none;
+    // padding: 0 1rem;
+    // width: calc(300px + 2rem);
 
     toast-component {
         background-color: var(--neutral-800);
@@ -26,8 +29,9 @@ toaster-component {
         transition: all 300ms var(--ease-in-out);
         pointer-events: all;
         position: relative;
-        // transform: translateX(150%);
-        // animation: grow 300ms forwards var(--ease-in);
+        transform: translateY(50%);
+        opacity: 0;
+        animation: grow 300ms forwards var(--ease-in);
 
         &.-yellow {
             border-color: $yellow;
@@ -88,7 +92,7 @@ toaster-component {
             }
         }
 
-        button {
+        .close {
             width: 24px;
             height: 24px;
             position: absolute;
@@ -129,13 +133,88 @@ toaster-component {
                 height: 14px;
             }
         }
+
+        toast-timer{
+            position: absolute;
+            background-color: var(--white);
+            
+            &.vertical{
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0.07;
+                transform-origin: bottom center;
+                z-index: 1;
+            }
+            &.horizontal{
+                opacity: 0.3;
+                bottom: 0;
+                left: 0;
+                height: 6px;
+                width: 100%;
+                transform-origin: right center;
+            }
+        }
+
+        toast-actions{
+            display: flex;
+            width: 100%;
+            width: 100%;
+            flex-flow: row wrap;
+            align-items: center;
+            justify-content: flex-end;
+            margin-top: 0.75rem;
+
+            button{
+                height: 36px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.75rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                padding: 0 0.5rem;
+                color: var(--primary-300);
+                margin-left: 0.5rem;
+                position: relative;
+
+                &:hover,
+                &:focus{
+                    &::before{
+                        transform:scale(1)
+                    }
+                }
+                &:active{
+                    &::before{
+                        opacity:.15
+                    }
+                }
+                &::before{
+                    content:"";
+                    display:inline-block;
+                    width:100%;
+                    height:100%;
+                    border-radius:0.25rem;
+                    background-color:var(--primary-500);
+                    opacity:.06;
+                    position:absolute;
+                    top:0;
+                    left:0;
+                    transform:scale(0);
+                    transition:all 150ms var(--ease-bounce);
+                }
+            }
+        }
     }
 }
-@keyframes grow {
-    from {
-        transform: translateX(150%);
+@keyframes grow{
+    from{
+        transform:translateY(50%);
+        opacity: 0;
     }
-    to {
-        transform: translateX(0);
+    to{
+        transform:translateY(0);
+        opacity: 1;
     }
 }

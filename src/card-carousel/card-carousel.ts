@@ -1,4 +1,4 @@
-class CardCarousel extends HTMLElement {
+export default class CardCarousel extends HTMLElement {
     private nextButton: HTMLElement;
     private backButton: HTMLElement;
     private container: HTMLElement;
@@ -33,4 +33,3 @@ class CardCarousel extends HTMLElement {
         this.backButton.addEventListener("click", this.handleBackClick);
     }
 }
-customElements.define("card-carousel", CardCarousel);
