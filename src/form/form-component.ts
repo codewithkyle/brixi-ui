@@ -5,6 +5,11 @@ type ILoginResponse = {
     };
 };
 
+interface IFormField extends HTMLElement {
+    validate: () => boolean;
+    reportError: (error: string) => void;
+}
+
 export default class FormComponent extends HTMLElement {
     private form: HTMLFormElement;
 
@@ -13,22 +18,22 @@ export default class FormComponent extends HTMLElement {
         this.form = this.querySelector("form");
     }
 
-    public validate() {
-        const fields: Array<HTMLElement> = Array.from(
+    public validate(): boolean {
+        const fields: Array<IFormField> = Array.from(
             this.form.querySelectorAll(
                 "input-component, select-component, textarea-component, radio-group, checkbox-group, pin-component, phone-component, password-component, email-component, date-picker, date-component"
             )
         );
         let isValid = true;
         for (let i = 0; i < fields.length; i++) {
-            // @ts-expect-error
-            const fieldIsValid = fields[i].validate();
+            const fieldIsValid = fields[i]?.validate() ?? true;
             if (!fieldIsValid) {
                 isValid = false;
             }
         }
         return isValid;
     }
+
     private handleSubmit: EventListener = async (e: Event) => {
         e.preventDefault();
         if (this.validate()) {
@@ -46,9 +51,8 @@ export default class FormComponent extends HTMLElement {
                     location.reload();
                 } else {
                     for (const fieldName in response.errors) {
-                        const field = this.form.querySelector(`[name="${fieldName}"]`)?.closest("[web-component]") ?? null;
-                        if (field) {
-                            // @ts-expect-error
+                        const field: IFormField = this.form.querySelector(`[name="${fieldName}"]`)?.closest("[web-component]") ?? null;
+                        if (field && field?.reportError) {
                             field.reportError(response.errors[fieldName]);
                         } else {
                             console.error(`Failed to locate a web component containing: [name="${fieldName}"]`);
