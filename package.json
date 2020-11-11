@@ -10,11 +10,13 @@
         "render": "node ./build-tools/renderer.js",
         "sass:dev": "cssmonster --e dev",
         "sass:prod": "cssmonster",
-        "build": "npm run cleanup && npm run render && npm run compile && npm run sass:dev && djinnjs -e dev && npm run cleanup",
+        "build": "npm run cleanup && npm run render && npm run prettier && npm run compile && npm run sass:dev && djinnjs -e dev && npm run cleanup",
         "production": "npm run cleanup && npm run render && npm run compile && npm run sass:prod && djinnjs -e production && npm run cleanup && npm run zip",
         "preview": "serve ./public",
         "deploy": "node ./build-tools/deploy.js",
-        "zip": "node ./build-tools/zipper.js"
+        "zip": "node ./build-tools/zipper.js",
+        "dev": "npm run build && npm run preview",
+        "prettier": "prettier --write \"src/**/*.ts\" \"src/**/*.scss\""
     },
     "repository": {
         "type": "git",

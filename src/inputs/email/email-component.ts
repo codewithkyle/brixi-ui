@@ -14,9 +14,11 @@ export default class EmailComponent extends HTMLElement {
         this.errorEl = errorEl;
     }
 
-    private validateInput() {
+    public validate(): boolean {
+        let isValid = true;
         if (this.input.required) {
             if (this.input.value === "") {
+                isValid = false;
                 if (this.getAttribute("state") !== "invalid") {
                     this.reportError("This field is required.");
                 }
@@ -24,6 +26,7 @@ export default class EmailComponent extends HTMLElement {
                 if (new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/).test(this.input.value)) {
                     this.clearError();
                 } else {
+                    isValid = false;
                     if (this.getAttribute("state") !== "invalid") {
                         this.reportError("Invalid email format.");
                     }
@@ -32,12 +35,13 @@ export default class EmailComponent extends HTMLElement {
         } else {
             this.clearError();
         }
+        return isValid;
     }
 
     public reportError(error: string) {
         this.errorEl.innerHTML = error;
         this.errorEl.style.display = "block";
-        if (this.textEl){
+        if (this.textEl) {
             this.textEl.style.display = "none";
         }
         this.setAttribute("state", "invalid");
@@ -45,14 +49,14 @@ export default class EmailComponent extends HTMLElement {
 
     public clearError() {
         this.errorEl.style.display = "none";
-        if (this.textEl){
+        if (this.textEl) {
             this.textEl.style.display = "block";
         }
         this.setAttribute("state", "valid");
     }
 
     private handleBlur: EventListener = () => {
-        this.validateInput();
+        this.validate();
     };
 
     private handleInput: EventListener = this.clearError.bind(this);

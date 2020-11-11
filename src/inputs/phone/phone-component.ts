@@ -29,9 +29,11 @@ export default class PhoneComponent extends HTMLElement {
         return null;
     }
 
-    private validateInput() {
+    public validate(): boolean {
+        let isValid = true;
         if (this.input.required) {
             if (this.input.value === "") {
+                isValid = false;
                 if (this.getAttribute("state") !== "invalid") {
                     this.reportError("This field is required.");
                 }
@@ -41,6 +43,7 @@ export default class PhoneComponent extends HTMLElement {
                     this.input.value = formattedValue;
                     this.clearError();
                 } else {
+                    isValid = false;
                     if (this.getAttribute("state") !== "invalid") {
                         this.reportError("Provide a valid US phone number.");
                     }
@@ -49,12 +52,13 @@ export default class PhoneComponent extends HTMLElement {
         } else {
             this.clearError();
         }
+        return isValid;
     }
 
     public reportError(error: string) {
         this.errorEl.innerHTML = error;
         this.errorEl.style.display = "block";
-        if (this.textEl){
+        if (this.textEl) {
             this.textEl.style.display = "none";
         }
         this.setAttribute("state", "invalid");
@@ -62,14 +66,14 @@ export default class PhoneComponent extends HTMLElement {
 
     public clearError() {
         this.errorEl.style.display = "none";
-        if (this.textEl){
+        if (this.textEl) {
             this.textEl.style.display = "block";
         }
         this.setAttribute("state", "valid");
     }
 
     private handleBlur: EventListener = () => {
-        this.validateInput();
+        this.validate();
     };
 
     private handleInput: EventListener = this.clearError.bind(this);

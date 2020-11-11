@@ -21,9 +21,11 @@ export default class DateComponent extends HTMLElement {
         this.yearInput = this.querySelector("input#year");
     }
 
-    private validateInput() {
+    public validate(): boolean {
+        let isValid = true;
         if (this.input.required) {
             if (this.input.value === "") {
+                isValid = false;
                 if (this.getAttribute("state") !== "invalid") {
                     this.reportError("This field is required.");
                 }
@@ -33,12 +35,13 @@ export default class DateComponent extends HTMLElement {
         } else {
             this.clearError();
         }
+        return isValid;
     }
 
     public reportError(error: string) {
         this.errorEl.innerHTML = error;
         this.errorEl.style.display = "block";
-        if (this.textEl){
+        if (this.textEl) {
             this.textEl.style.display = "none";
         }
         this.setAttribute("state", "invalid");
@@ -46,30 +49,30 @@ export default class DateComponent extends HTMLElement {
 
     public clearError() {
         this.errorEl.style.display = "none";
-        if (this.textEl){
+        if (this.textEl) {
             this.textEl.style.display = "block";
         }
         this.setAttribute("state", "valid");
     }
 
     private handleBlur: EventListener = () => {
-        if (this.monthInput.value && this.dayInput.value && this.yearInput.value){
+        if (this.monthInput.value && this.dayInput.value && this.yearInput.value) {
             const date = Date.parse(`${this.monthInput.value}/${this.dayInput.value}/${this.yearInput.value}`);
-            if (!isNaN(date)){
+            if (!isNaN(date)) {
                 this.input.value = new Date(date).toISOString();
-            }else{
+            } else {
                 this.input.value = "";
             }
-        }else{
+        } else {
             this.input.value = "";
         }
-        this.validateInput();
+        this.validate();
     };
 
     private handleInput: EventListener = this.clearError.bind(this);
 
     connectedCallback() {
-        this.querySelectorAll("input").forEach(input => {
+        this.querySelectorAll("input").forEach((input) => {
             input.addEventListener("input", this.handleInput);
             input.addEventListener("blur", this.handleBlur);
         });

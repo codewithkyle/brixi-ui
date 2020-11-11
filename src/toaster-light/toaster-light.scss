@@ -40,7 +40,7 @@ toaster-component {
                 color: $yellow;
             }
 
-            &::before{
+            &::before {
                 background-color: $yellow;
             }
         }
@@ -52,7 +52,7 @@ toaster-component {
                 color: $red;
             }
 
-            &::before{
+            &::before {
                 background-color: $red;
             }
         }
@@ -64,12 +64,12 @@ toaster-component {
                 color: $green;
             }
 
-            &::before{
+            &::before {
                 background-color: $green;
             }
         }
 
-        &::before{
+        &::before {
             content: "";
             display: inline-block;
             position: absolute;
@@ -158,11 +158,11 @@ toaster-component {
             }
         }
 
-        toast-timer{
+        toast-timer {
             position: absolute;
             background-color: var(--white);
-            
-            &.vertical{
+
+            &.vertical {
                 top: 0;
                 left: 0;
                 width: 100%;
@@ -171,7 +171,7 @@ toaster-component {
                 transform-origin: bottom center;
                 z-index: 1;
             }
-            &.horizontal{
+            &.horizontal {
                 opacity: 0.3;
                 bottom: 0;
                 left: 0;
@@ -181,7 +181,7 @@ toaster-component {
             }
         }
 
-        toast-actions{
+        toast-actions {
             display: flex;
             width: 100%;
             width: 100%;
@@ -190,7 +190,7 @@ toaster-component {
             justify-content: flex-end;
             margin-top: 0.75rem;
 
-            button{
+            button {
                 height: 36px;
                 display: inline-flex;
                 align-items: center;
@@ -204,41 +204,41 @@ toaster-component {
                 position: relative;
 
                 &:hover,
-                &:focus{
-                    &::before{
-                        transform:scale(1)
+                &:focus {
+                    &::before {
+                        transform: scale(1);
                     }
                 }
-                &:active{
-                    &::before{
-                        opacity:.15
+                &:active {
+                    &::before {
+                        opacity: 0.15;
                     }
                 }
-                &::before{
-                    content:"";
-                    display:inline-block;
-                    width:100%;
-                    height:100%;
-                    border-radius:0.25rem;
-                    background-color:var(--primary-500);
-                    opacity:.06;
-                    position:absolute;
-                    top:0;
-                    left:0;
-                    transform:scale(0);
-                    transition:all 150ms var(--ease-bounce);
+                &::before {
+                    content: "";
+                    display: inline-block;
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 0.25rem;
+                    background-color: var(--primary-500);
+                    opacity: 0.06;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    transform: scale(0);
+                    transition: all 150ms var(--ease-bounce);
                 }
             }
         }
     }
 }
-@keyframes grow{
-    from{
-        transform:translateY(50%);
+@keyframes grow {
+    from {
+        transform: translateY(50%);
         opacity: 0;
     }
-    to{
-        transform:translateY(0);
+    to {
+        transform: translateY(0);
         opacity: 1;
     }
 }

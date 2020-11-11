@@ -20,49 +20,52 @@ export default class PinComponent extends HTMLElement {
         this.hiddenIcon = this.querySelector(".js-hidden");
     }
 
-    private validateInput() {
+    public validate(): boolean {
+        let isValid = true;
         if (this.input.required) {
             if (this.input.value === "") {
+                isValid = false;
                 if (this.getAttribute("state") !== "invalid") {
                     this.reportError("This field is required.");
                 }
             } else {
-                if (new RegExp(/^[0-9]+$/).test(this.input.value)){
-                    if (this.input.minLength || this.input.maxLength){
-                        if (this.input.minLength){
-                            if (this.input.minLength > this.input.value.length){
+                if (new RegExp(/^[0-9]+$/).test(this.input.value)) {
+                    if (this.input.minLength || this.input.maxLength) {
+                        if (this.input.minLength) {
+                            if (this.input.minLength > this.input.value.length) {
+                                isValid = false;
                                 this.reportError(`Pins must be at least ${this.input.minLength} numbers.`);
-                                return;
-                            }else{
+                            } else {
                                 this.clearError();
                             }
-                        }else{
-                            if (this.input.maxLength < this.input.value.length){
+                        } else {
+                            if (this.input.maxLength < this.input.value.length) {
+                                isValid = false;
                                 this.reportError(`Pins cannot be more than ${this.input.maxLength} numbers.`);
-                                return;
-                            }else{
+                            } else {
                                 this.clearError();
                             }
                         }
-                    }else{
+                    } else {
                         this.clearError();
                     }
-                }else{
+                } else {
+                    isValid = false;
                     if (this.getAttribute("state") !== "invalid") {
                         this.reportError("Invalid pin format.");
                     }
                 }
-                
             }
         } else {
             this.clearError();
         }
+        return isValid;
     }
 
     public reportError(error: string) {
         this.errorEl.innerHTML = error;
         this.errorEl.style.display = "block";
-        if (this.textEl){
+        if (this.textEl) {
             this.textEl.style.display = "none";
         }
         this.setAttribute("state", "invalid");
@@ -70,14 +73,14 @@ export default class PinComponent extends HTMLElement {
 
     public clearError() {
         this.errorEl.style.display = "none";
-        if (this.textEl){
+        if (this.textEl) {
             this.textEl.style.display = "block";
         }
         this.setAttribute("state", "valid");
     }
 
     private handleBlur: EventListener = () => {
-        this.validateInput();
+        this.validate();
     };
 
     private handleInput: EventListener = this.clearError.bind(this);

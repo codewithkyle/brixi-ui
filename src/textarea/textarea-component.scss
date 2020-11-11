@@ -63,14 +63,14 @@ textarea-component {
         }
     }
 
-    p{
+    p {
         display: block;
         margin-bottom: 0.5rem;
         font-size: var(--font-xs);
         color: var(--grey-700);
         line-height: 1.375;
 
-        &.error{
+        &.error {
             color: var(--danger-700);
         }
     }

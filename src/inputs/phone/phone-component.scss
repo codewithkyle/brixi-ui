@@ -24,7 +24,7 @@ phone-component {
                 color: var(--danger-700);
             }
         }
-        i{
+        i {
             color: var(--danger-700);
         }
     }
@@ -66,24 +66,24 @@ phone-component {
             background-color: var(--white);
         }
 
-        &.has-icon{
+        &.has-icon {
             padding-left: calc(24px + 1rem);
         }
     }
 
-    p{
+    p {
         display: block;
         margin-bottom: 0.5rem;
         font-size: var(--font-xs);
         color: var(--grey-700);
         line-height: 1.375;
 
-        &.error{
+        &.error {
             color: var(--danger-700);
         }
     }
 
-    i{
+    i {
         display: inline-flex;
         justify-content: center;
         align-items: center;
@@ -95,7 +95,7 @@ phone-component {
         left: 0.5rem;
         color: var(--grey-700);
 
-        svg{
+        svg {
             width: 18px;
             height: 18px;
         }
