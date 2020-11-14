@@ -1,4 +1,4 @@
-class GithubDownloadComponent extends HTMLElement {
+export default class GithubDownloadComponent extends HTMLElement {
     private handleClick: EventListener = () => {
         const fileName = location.pathname
             .replace(/.*[\\\/]/, "")
@@ -15,4 +15,3 @@ class GithubDownloadComponent extends HTMLElement {
         this.addEventListener("click", this.handleClick);
     }
 }
-customElements.define("github-download-component", GithubDownloadComponent);
