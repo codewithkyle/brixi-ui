@@ -1,7 +1,7 @@
 export default class GithubDownloadComponent extends HTMLElement {
     private handleClick: EventListener = () => {
         const fileName = location.pathname
-            .replace(/.*[\\\/]/, "")
+            .replace(/(https:\/\/components.codewithkyle.com\/)|[\/]/g, "")
             .toLowerCase()
             .trim();
         const link = document.createElement("a");
