@@ -68,6 +68,26 @@
             }
         }
 
+        &.-grey {
+            &:active {
+                color: var(--grey-900);
+            }
+
+            &::before {
+                background-color: var(--grey-500);
+            }
+        }
+
+        &.-neutral {
+            &:active {
+                color: var(--neutral-900);
+            }
+
+            &::before {
+                background-color: var(--neutral-500);
+            }
+        }
+
         &.-white {
             color: var(--white);
 
@@ -165,13 +185,28 @@
             &:focus {
                 background-color: var(--primary-600);
                 border-color: var(--primary-600);
-                color: var(--white);
             }
 
             &:active {
                 background-color: var(--primary-800);
                 border-color: var(--primary-800);
-                color: var(--white);
+            }
+
+            &.-light {
+                background-color: var(--primary-200);
+                border-color: var(--primary-200);
+                color: var(--black);
+
+                &:hover,
+                &:focus {
+                    background-color: var(--primary-300);
+                    border-color: var(--primary-300);
+                }
+
+                &:active {
+                    background-color: var(--primary-400);
+                    border-color: var(--primary-400);
+                }
             }
         }
 
@@ -191,6 +226,40 @@
                 background-color: var(--black);
                 border-color: var(--black);
                 color: var(--white);
+            }
+        }
+
+        &.-grey {
+            background-color: var(--grey-200);
+            border-color: var(--grey-200);
+            color: var(--grey-900);
+
+            &:hover,
+            &:focus {
+                background-color: var(--grey-300);
+                border-color: var(--grey-300);
+            }
+
+            &:active {
+                background-color: var(--grey-400);
+                border-color: var(--grey-400);
+            }
+        }
+
+        &.-neutral {
+            background-color: var(--neutral-200);
+            border-color: var(--neutral-200);
+            color: var(--neutral-900);
+
+            &:hover,
+            &:focus {
+                background-color: var(--neutral-300);
+                border-color: var(--neutral-300);
+            }
+
+            &:active {
+                background-color: var(--neutral-400);
+                border-color: var(--neutral-400);
             }
         }
 
@@ -226,12 +295,29 @@
                 background-color: var(--success-800);
                 border-color: var(--success-800);
             }
+
+            &.-light {
+                background-color: var(--success-200);
+                border-color: var(--success-200);
+                color: var(--black);
+
+                &:hover,
+                &:focus {
+                    background-color: var(--success-300);
+                    border-color: var(--success-300);
+                }
+
+                &:active {
+                    background-color: var(--success-400);
+                    border-color: var(--success-400);
+                }
+            }
         }
 
         &.-warning {
             background-color: var(--warning-400);
             border-color: var(--warning-400);
-            color: var(--neutral-900);
+            color: var(--black);
 
             &:hover,
             &:focus {
@@ -242,6 +328,23 @@
             &:active {
                 background-color: var(--warning-500);
                 border-color: var(--warning-500);
+            }
+
+            &.-light {
+                background-color: var(--warning-200);
+                border-color: var(--warning-200);
+                color: var(--black);
+
+                &:hover,
+                &:focus {
+                    background-color: var(--warning-300);
+                    border-color: var(--warning-300);
+                }
+
+                &:active {
+                    background-color: var(--warning-400);
+                    border-color: var(--warning-400);
+                }
             }
         }
 
@@ -259,6 +362,23 @@
             &:active {
                 background-color: var(--danger-800);
                 border-color: var(--danger-800);
+            }
+
+            &.-light {
+                background-color: var(--danger-200);
+                border-color: var(--danger-200);
+                color: var(--black);
+
+                &:hover,
+                &:focus {
+                    background-color: var(--danger-300);
+                    border-color: var(--danger-300);
+                }
+
+                &:active {
+                    background-color: var(--danger-400);
+                    border-color: var(--danger-400);
+                }
             }
         }
     }
@@ -289,6 +409,32 @@
 
             &::before {
                 background-color: var(--grey-900);
+            }
+        }
+
+        &.-grey {
+            border-color: var(--grey-300);
+            color: var(--grey-800);
+
+            &:active {
+                color: var(--grey-900);
+            }
+
+            &::before {
+                background-color: var(--grey-500);
+            }
+        }
+
+        &.-neutral {
+            border-color: var(--neutral-300);
+            color: var(--neutral-800);
+
+            &:active {
+                color: var(--neutral-900);
+            }
+
+            &::before {
+                background-color: var(--neutral-500);
             }
         }
 

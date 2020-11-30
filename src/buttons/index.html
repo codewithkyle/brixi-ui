@@ -1,15 +1,23 @@
-<div css="buttons" style="display: grid;gap:0.5rem;grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;">
+<div css="buttons" style="display: grid;gap:0.5rem;grid-template-columns: repeat(8, 1fr);">
     <!-- Solid -->
     <button class="button -solid -primary">Example Button</button>
     <button class="button -solid -black">Example Button</button>
+    <button class="button -solid -grey">Example Button</button>
+    <button class="button -solid -neutral">Example Button</button>
     <button class="button -solid -white">Example Button</button>
     <button class="button -solid -success">Example Button</button>
     <button class="button -solid -warning">Example Button</button>
     <button class="button -solid -danger">Example Button</button>
+    <button class="button -solid -light -primary">Example Button</button>
+    <button class="button -solid -light -success">Example Button</button>
+    <button class="button -solid -light -warning">Example Button</button>
+    <button class="button -solid -light -danger">Example Button</button>
 
     <!-- Solid Raised Rounded -->
     <button class="button -solid -raised -rounded -primary">Example Button</button>
     <button class="button -solid -raised -rounded -black">Example Button</button>
+    <button class="button -solid -raised -rounded -grey">Example Button</button>
+    <button class="button -solid -raised -rounded -neutral">Example Button</button>
     <button class="button -solid -raised -rounded -white">Example Button</button>
     <button class="button -solid -raised -rounded -success">Example Button</button>
     <button class="button -solid -raised -rounded -warning">Example Button</button>
@@ -18,6 +26,8 @@
     <!-- Solid Pill -->
     <button class="button -solid -pill -primary">Example Button</button>
     <button class="button -solid -pill -black">Example Button</button>
+    <button class="button -solid -pill -grey">Example Button</button>
+    <button class="button -solid -pill -neutral">Example Button</button>
     <button class="button -solid -pill -white">Example Button</button>
     <button class="button -solid -pill -success">Example Button</button>
     <button class="button -solid -pill -warning">Example Button</button>
@@ -26,6 +36,8 @@
     <!-- Outline Rounded -->
     <button class="button -outline -rounded -primary">Example Button</button>
     <button class="button -outline -rounded -black">Example Button</button>
+    <button class="button -outline -grey">Example Button</button>
+    <button class="button -outline -neutral">Example Button</button>
     <button class="button -outline -rounded -white">Example Button</button>
     <button class="button -outline -rounded -success">Example Button</button>
     <button class="button -outline -rounded -warning">Example Button</button>
@@ -34,6 +46,8 @@
     <!-- Text Rounded -->
     <button class="button -text -rounded -primary">Example Button</button>
     <button class="button -text -rounded -black">Example Button</button>
+    <button class="button -text -rounded -grey">Example Button</button>
+    <button class="button -text -rounded -neutral">Example Button</button>
     <button class="button -text -rounded -white">Example Button</button>
     <button class="button -text -rounded -success">Example Button</button>
     <button class="button -text -rounded -warning">Example Button</button>
@@ -47,6 +61,18 @@
         Example Button
     </button>
     <button class="button -solid -rounded -black -icon">
+        <i>
+            <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M528.12 301.319l47.273-208C578.806 78.301 567.391 64 551.99 64H159.208l-9.166-44.81C147.758 8.021 137.93 0 126.529 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24h69.883l70.248 343.435C147.325 417.1 136 435.222 136 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-15.674-6.447-29.835-16.824-40h209.647C430.447 426.165 424 440.326 424 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-22.172-12.888-41.332-31.579-50.405l5.517-24.276c3.413-15.018-8.002-29.319-23.403-29.319H218.117l-6.545-32h293.145c11.206 0 20.92-7.754 23.403-18.681z"></path></svg>
+        </i>
+        Example Button
+    </button>
+    <button class="button -solid -rounded -grey -icon">
+        <i>
+            <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M528.12 301.319l47.273-208C578.806 78.301 567.391 64 551.99 64H159.208l-9.166-44.81C147.758 8.021 137.93 0 126.529 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24h69.883l70.248 343.435C147.325 417.1 136 435.222 136 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-15.674-6.447-29.835-16.824-40h209.647C430.447 426.165 424 440.326 424 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-22.172-12.888-41.332-31.579-50.405l5.517-24.276c3.413-15.018-8.002-29.319-23.403-29.319H218.117l-6.545-32h293.145c11.206 0 20.92-7.754 23.403-18.681z"></path></svg>
+        </i>
+        Example Button
+    </button>
+    <button class="button -solid -rounded -neutral -icon">
         <i>
             <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M528.12 301.319l47.273-208C578.806 78.301 567.391 64 551.99 64H159.208l-9.166-44.81C147.758 8.021 137.93 0 126.529 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24h69.883l70.248 343.435C147.325 417.1 136 435.222 136 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-15.674-6.447-29.835-16.824-40h209.647C430.447 426.165 424 440.326 424 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-22.172-12.888-41.332-31.579-50.405l5.517-24.276c3.413-15.018-8.002-29.319-23.403-29.319H218.117l-6.545-32h293.145c11.206 0 20.92-7.754 23.403-18.681z"></path></svg>
         </i>
@@ -88,6 +114,16 @@
             <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M12.41 276.3l232.94 105.59c6.8 3.08 14.49 3.08 21.29 0L499.59 276.3c16.55-7.5 16.55-32.5 0-40L266.65 130.72a25.682 25.682 0 0 0-21.29 0L12.41 236.3c-16.55 7.5-16.55 32.5 0 40zM304 64h192c8.84 0 16-7.16 16-16V16c0-8.84-7.16-16-16-16H304c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16zm195.59 300.1l-58.09-26.33-161.63 73.27c-7.56 3.43-15.59 5.17-23.86 5.17s-16.29-1.74-23.86-5.17L70.51 337.77l-58.1 26.33c-16.55 7.5-16.55 32.5 0 40l232.94 105.59c6.8 3.08 14.49 3.08 21.29 0L499.59 404.1c16.55-7.5 16.55-32.5 0-40z"></path></svg>
         </i>
     </button>
+    <button class="button -solid -rounded -grey -icon-only">
+        <i>
+            <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M12.41 276.3l232.94 105.59c6.8 3.08 14.49 3.08 21.29 0L499.59 276.3c16.55-7.5 16.55-32.5 0-40L266.65 130.72a25.682 25.682 0 0 0-21.29 0L12.41 236.3c-16.55 7.5-16.55 32.5 0 40zM304 64h192c8.84 0 16-7.16 16-16V16c0-8.84-7.16-16-16-16H304c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16zm195.59 300.1l-58.09-26.33-161.63 73.27c-7.56 3.43-15.59 5.17-23.86 5.17s-16.29-1.74-23.86-5.17L70.51 337.77l-58.1 26.33c-16.55 7.5-16.55 32.5 0 40l232.94 105.59c6.8 3.08 14.49 3.08 21.29 0L499.59 404.1c16.55-7.5 16.55-32.5 0-40z"></path></svg>
+        </i>
+    </button>
+    <button class="button -solid -rounded -neutral -icon-only">
+        <i>
+            <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M12.41 276.3l232.94 105.59c6.8 3.08 14.49 3.08 21.29 0L499.59 276.3c16.55-7.5 16.55-32.5 0-40L266.65 130.72a25.682 25.682 0 0 0-21.29 0L12.41 236.3c-16.55 7.5-16.55 32.5 0 40zM304 64h192c8.84 0 16-7.16 16-16V16c0-8.84-7.16-16-16-16H304c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16zm195.59 300.1l-58.09-26.33-161.63 73.27c-7.56 3.43-15.59 5.17-23.86 5.17s-16.29-1.74-23.86-5.17L70.51 337.77l-58.1 26.33c-16.55 7.5-16.55 32.5 0 40l232.94 105.59c6.8 3.08 14.49 3.08 21.29 0L499.59 404.1c16.55-7.5 16.55-32.5 0-40z"></path></svg>
+        </i>
+    </button>
     <button class="button -solid -rounded -white -icon-only">
         <i>
             <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M12.41 276.3l232.94 105.59c6.8 3.08 14.49 3.08 21.29 0L499.59 276.3c16.55-7.5 16.55-32.5 0-40L266.65 130.72a25.682 25.682 0 0 0-21.29 0L12.41 236.3c-16.55 7.5-16.55 32.5 0 40zM304 64h192c8.84 0 16-7.16 16-16V16c0-8.84-7.16-16-16-16H304c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16zm195.59 300.1l-58.09-26.33-161.63 73.27c-7.56 3.43-15.59 5.17-23.86 5.17s-16.29-1.74-23.86-5.17L70.51 337.77l-58.1 26.33c-16.55 7.5-16.55 32.5 0 40l232.94 105.59c6.8 3.08 14.49 3.08 21.29 0L499.59 404.1c16.55-7.5 16.55-32.5 0-40z"></path></svg>
@@ -120,6 +156,16 @@
             <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M304 144h64v64c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16v-64h64c8.84 0 16-7.16 16-16V96c0-8.84-7.16-16-16-16h-64V16c0-8.84-7.16-16-16-16h-32c-8.84 0-16 7.16-16 16v64h-64c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16zm195.59 220.1l-58.54-26.53-161.19 73.06c-7.56 3.43-15.59 5.17-23.86 5.17s-16.29-1.74-23.86-5.17L70.95 337.57 12.41 364.1c-16.55 7.5-16.55 32.5 0 40l232.94 105.59c6.8 3.08 14.49 3.08 21.29 0L499.59 404.1c16.55-7.5 16.55-32.5 0-40zM12.41 275.9l232.94 105.59c6.8 3.08 14.49 3.08 21.29 0L448 299.28V280.7c-15.32 4.38-31.27 7.29-48 7.29-88.01 0-160.72-64.67-173.72-149.04L12.41 235.9c-16.55 7.5-16.55 32.5 0 40z"></path></svg>
         </i>
     </button>
+    <button class="button -solid -round -grey -icon-only -tall">
+        <i>
+            <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M304 144h64v64c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16v-64h64c8.84 0 16-7.16 16-16V96c0-8.84-7.16-16-16-16h-64V16c0-8.84-7.16-16-16-16h-32c-8.84 0-16 7.16-16 16v64h-64c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16zm195.59 220.1l-58.54-26.53-161.19 73.06c-7.56 3.43-15.59 5.17-23.86 5.17s-16.29-1.74-23.86-5.17L70.95 337.57 12.41 364.1c-16.55 7.5-16.55 32.5 0 40l232.94 105.59c6.8 3.08 14.49 3.08 21.29 0L499.59 404.1c16.55-7.5 16.55-32.5 0-40zM12.41 275.9l232.94 105.59c6.8 3.08 14.49 3.08 21.29 0L448 299.28V280.7c-15.32 4.38-31.27 7.29-48 7.29-88.01 0-160.72-64.67-173.72-149.04L12.41 235.9c-16.55 7.5-16.55 32.5 0 40z"></path></svg>
+        </i>
+    </button>
+    <button class="button -solid -round -neutral -icon-only -tall">
+        <i>
+            <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M304 144h64v64c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16v-64h64c8.84 0 16-7.16 16-16V96c0-8.84-7.16-16-16-16h-64V16c0-8.84-7.16-16-16-16h-32c-8.84 0-16 7.16-16 16v64h-64c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16zm195.59 220.1l-58.54-26.53-161.19 73.06c-7.56 3.43-15.59 5.17-23.86 5.17s-16.29-1.74-23.86-5.17L70.95 337.57 12.41 364.1c-16.55 7.5-16.55 32.5 0 40l232.94 105.59c6.8 3.08 14.49 3.08 21.29 0L499.59 404.1c16.55-7.5 16.55-32.5 0-40zM12.41 275.9l232.94 105.59c6.8 3.08 14.49 3.08 21.29 0L448 299.28V280.7c-15.32 4.38-31.27 7.29-48 7.29-88.01 0-160.72-64.67-173.72-149.04L12.41 235.9c-16.55 7.5-16.55 32.5 0 40z"></path></svg>
+        </i>
+    </button>
     <button class="button -solid -round -white -icon-only -tall">
         <i>
             <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M304 144h64v64c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16v-64h64c8.84 0 16-7.16 16-16V96c0-8.84-7.16-16-16-16h-64V16c0-8.84-7.16-16-16-16h-32c-8.84 0-16 7.16-16 16v64h-64c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16zm195.59 220.1l-58.54-26.53-161.19 73.06c-7.56 3.43-15.59 5.17-23.86 5.17s-16.29-1.74-23.86-5.17L70.95 337.57 12.41 364.1c-16.55 7.5-16.55 32.5 0 40l232.94 105.59c6.8 3.08 14.49 3.08 21.29 0L499.59 404.1c16.55-7.5 16.55-32.5 0-40zM12.41 275.9l232.94 105.59c6.8 3.08 14.49 3.08 21.29 0L448 299.28V280.7c-15.32 4.38-31.27 7.29-48 7.29-88.01 0-160.72-64.67-173.72-149.04L12.41 235.9c-16.55 7.5-16.55 32.5 0 40z"></path></svg>
@@ -144,6 +190,8 @@
     <!-- Solid Disabled -->
     <button disabled class="button -solid -primary">Example Button</button>
     <button disabled class="button -solid -black">Example Button</button>
+    <button disabled class="button -solid -grey">Example Button</button>
+    <button disabled class="button -solid -neutral">Example Button</button>
     <button disabled class="button -solid -white">Example Button</button>
     <button disabled class="button -solid -success">Example Button</button>
     <button disabled class="button -solid -warning">Example Button</button>
