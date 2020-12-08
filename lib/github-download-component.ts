@@ -8,7 +8,7 @@ export default class GithubDownloadComponent extends HTMLElement {
         const link = document.createElement("a");
         link.target = "_blank";
         link.href = `${location.origin}/downloads/${fileName}.zip`;
-        link.download = fileName;
+        link.download = `${fileName}.zip`;
         link.click();
     };
 

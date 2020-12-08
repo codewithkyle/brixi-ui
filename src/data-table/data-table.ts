@@ -1,4 +1,5 @@
-import { env } from "djinnjs/env";
+// @ts-expect-error
+import { html, render } from "https://unpkg.com/lit-html?module";
 
 type RowData = {
     col1: string;
@@ -109,7 +110,6 @@ export default class DataTable extends HTMLElement {
     }
 
     private async fetchData() {
-        const ticket = env.startLoading();
         const reqeust = await fetch(`${location.origin}/api/v1/data-table.json`, {
             method: "GET",
             credentials: "include",
@@ -127,9 +127,8 @@ export default class DataTable extends HTMLElement {
                 console.error(error);
             }
         } else {
-            console.error(`Server error occured -- ${reqeust.status}: ${reqeust.statusText}`);
+            console.error(`Server error occured - ${reqeust.status}: ${reqeust.statusText}`);
         }
-        env.stopLoading(ticket);
     }
 
     private handleNext: EventListener = () => {
