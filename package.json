@@ -28,6 +28,6 @@
     },
     "dependencies": {
         "brixi": "^0.2.3",
-        "djinnjs": "^0.3.0"
+        "djinnjs": "^0.3.1"
     }
 }
