@@ -115,8 +115,12 @@ data-table {
         display: none;
         width: 100%;
         font-size: var(--font-sm);
-        color: var(--grey-700);
+        color: var(--danger-700);
         text-align: center;
         padding: 1rem 0;
+        border-width: 0 1px 1px 1px;
+        border-style: solid;
+        border-color: var(--neutral-200);
+        border-radius: 0 0 0.25rem 0.25rem;
     }
 }
