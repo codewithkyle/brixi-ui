@@ -12,6 +12,14 @@
             width: 100%;
             padding-bottom: 75%;
         }
+
+        &.-round {
+            border-radius: 50%;
+
+            &::before {
+                padding-bottom: 100%;
+            }
+        }
     }
 
     &.-heading {
