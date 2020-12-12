@@ -24,9 +24,9 @@ export default class DataTable extends Component<DataTableState> {
 
     constructor() {
         super();
-        this.foot = this.querySelector("tfoot");
+        this.foot = null;
         this.body = this.querySelector("tbody");
-        this.emptyMessage = this.querySelector("empty-message");
+        this.emptyMessage = null;
 
         this.state = {
             rowsPerPage: 3,
@@ -84,14 +84,28 @@ export default class DataTable extends Component<DataTableState> {
 
     render() {
         if (!this.state.rows.length) {
-            this.foot.style.display = "none";
+            if (this.foot) {
+                this.foot.style.display = "none";
+            }
+
             this.body.style.display = "none";
-            this.emptyMessage.innerText = "Failed to load. Try refreshing the page.";
+
+            // Dynamically generate error message element
+            if (!this.emptyMessage) {
+                this.emptyMessage = document.createElement("empty-message");
+                this.emptyMessage.innerText = "Failed to load. Try refreshing the page.";
+                this.appendChild(this.emptyMessage);
+            }
             this.emptyMessage.style.display = "block";
         } else {
             this.body.style.display = "block";
-            this.emptyMessage.style.display = "none";
 
+            if (this.emptyMessage) {
+                this.emptyMessage.remove();
+                this.emptyMessage = null;
+            }
+
+            // Render body content
             const rows: Array<RowData> = this.state.rows.slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage);
             const body = html`
                 ${rows.map((row) => {
@@ -106,14 +120,19 @@ export default class DataTable extends Component<DataTableState> {
             `;
             render(body, this.body);
 
+            // Dynamically generate table footer when needed
             if (this.state.totalPages > 1) {
+                if (!this.foot) {
+                    this.foot = document.createElement("tfoot");
+                    this.body.insertAdjacentElement("afterend", this.foot);
+                }
                 this.foot.style.display = "block";
 
                 const foot = html`
                     <tr>
                         <td>Page ${this.state.page + 1} of ${this.state.totalPages}</td>
                         <td>
-                            <button @click=${(e) => this.back()} ?disabled=${this.state.page === 0}>
+                            <button @click=${() => this.back()} ?disabled=${this.state.page === 0}>
                                 <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
                                     <path
                                         fill="currentColor"
@@ -123,7 +142,7 @@ export default class DataTable extends Component<DataTableState> {
                             </button>
                         </td>
                         <td>
-                            <button @click=${(e) => this.next()} ?disabled=${this.state.page === this.state.totalPages - 1}>
+                            <button @click=${() => this.next()} ?disabled=${this.state.page === this.state.totalPages - 1}>
                                 <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
                                     <path
                                         fill="currentColor"
