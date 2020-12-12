@@ -1,7 +1,7 @@
 .button {
     display: inline-flex;
-    height: 36px;
-    line-height: 36px;
+    min-height: 36px;
+    line-height: 1.375;
     border-width: 1px;
     border-style: solid;
     border-color: transparent;

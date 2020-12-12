@@ -4,12 +4,7 @@ const glob = require("glob");
 
 const cwd = process.cwd();
 const shellFile = path.join(cwd, "lib", "shell.html");
-
 const publicDir = path.join(cwd, "public");
-if (fs.existsSync(publicDir)) {
-    fs.rmdirSync(publicDir, { recursive: true });
-}
-fs.mkdirSync(publicDir);
 
 const cnameFile = path.join(cwd, "lib", "CNAME");
 fs.copyFileSync(cnameFile, path.join(publicDir, "CNAME"));
@@ -94,23 +89,47 @@ for (let i = 0; i < navigation.length; i++) {
 const shellHTML = fs.readFileSync(shellFile).toString();
 for (let i = 0; i < navigation.length; i++) {
     if (navigation[i].file) {
-        renderPage(fs.readFileSync(navigation[i].file).toString(), navigation[i].slug, navigation[i].slug);
+        const html = fs.readFileSync(navigation[i].file).toString();
+        const css = getCSS(html);
+        renderPage(html, navigation[i].slug, navigation[i].slug, css);
     } else if (navigation[i].subs.length) {
         for (let k = 0; k < navigation[i].subs.length; k++) {
-            renderPage(fs.readFileSync(navigation[i].subs[k].file).toString(), `${navigation[i].slug}/${navigation[i].subs[k].slug}`, navigation[i].subs[k].slug);
+            const html = fs.readFileSync(navigation[i].subs[k].file).toString();
+            const css = getCSS(html);
+            renderPage(html, `${navigation[i].slug}/${navigation[i].subs[k].slug}`, navigation[i].subs[k].slug, css);
         }
     }
 }
 
-renderPage("", "", "");
+renderPage("", "", "", "");
 
-function renderPage(fileHTML, output, pageId) {
+function renderPage(fileHTML, output, pageId, pageCSS) {
     let pageHTML = shellHTML;
     pageHTML = pageHTML.replace("REPLACE_WITH_HTML", fileHTML);
     pageHTML = pageHTML.replace("REPLACE_WITH_NAV", navHTML);
     pageHTML = pageHTML.replace("REPLACE_WITH_ID", pageId);
+    pageHTML = pageHTML.replace("REPLACE_WITH_CSS", pageCSS)
     if (!fs.existsSync(path.join(publicDir, output))) {
         fs.mkdirSync(path.join(publicDir, output), { recursive: true });
     }
     fs.writeFileSync(path.join(publicDir, output, "index.html"), pageHTML);
+}
+
+function getCSS(html){
+    let css = "<style>";
+    const attributes = html.match(/css\=\".*?\"/g);
+    const files = [];
+    for (let i = 0; i < attributes.length; i++){
+        const fileStrings = attributes[i].replace(/css\=|\"/g, "").replace(/\s+/g, " ").trim().split(" ");
+        for (let j = 0; j < fileStrings.length; j++){
+            const filePath = path.join(cwd, "_css", `${fileStrings[j].trim()}.css`);
+            files.push(filePath);
+        }
+    }
+    for (let i = 0; i < files.length; i++){
+        css += fs.readFileSync(files[i]).toString();
+        css += "\n";
+    }
+    css += "</style>";
+    return css;
 }
