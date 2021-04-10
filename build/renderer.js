@@ -122,7 +122,7 @@ function getCSS(html){
     for (let i = 0; i < attributes.length; i++){
         const fileStrings = attributes[i].replace(/css\=|\"/g, "").replace(/\s+/g, " ").trim().split(" ");
         for (let j = 0; j < fileStrings.length; j++){
-            const filePath = path.join(cwd, "_css", `${fileStrings[j].trim()}.css`);
+            const filePath = path.join(cwd, "public", "css", `${fileStrings[j].trim()}.css`);
             files.push(filePath);
         }
     }

@@ -3,13 +3,13 @@
         "cleanup": "node ./build/cleanup.js",
         "bundle": "snowpack",
         "brixi": "brixi",
-        "compile": "tsc",
+        "compile": "twist --src=./src --output=./public/js",
         "render": "node ./build/renderer.js",
         "sass:dev": "cssmonster --e dev",
         "sass:prod": "cssmonster",
         "reset": "rm -rf ./public && mkdir ./public",
-        "build": "npm run cleanup && npm run reset && npm run prettier && npm run compile && npm run sass:dev && djinnjs -e dev && npm run render",
-        "production": "npm run cleanup && npm run reset && npm run compile && npm run sass:prod && djinnjs -e production && npm run render && npm run cleanup && npm run zip",
+        "build": "npm run cleanup && npm run reset && npm run prettier && npm run compile && npm run sass:dev && npm run render",
+        "production": "npm run cleanup && npm run reset && npm run compile && npm run sass:prod && npm run render && npm run cleanup && npm run zip",
         "preview": "serve ./public",
         "deploy": "node ./build/deploy.js",
         "zip": "node ./build/zipper.js",
@@ -17,18 +17,13 @@
         "prettier": "prettier --write \"src/**/*.ts\" \"src/**/*.scss\""
     },
     "devDependencies": {
+        "@codewithkyle/twist": "^1.0.1",
         "archiver": "^4.0.2",
-        "cssmonster": "^0.2.1",
+        "cssmonster": "^0.3.1",
         "dotenv": "^8.2.0",
         "gh-pages": "^3.1.0",
         "glob": "^7.1.6",
         "prettier": "^2.2.1",
-        "serve": "^11.3.2",
-        "snowpack": "^1.7.1",
-        "typescript": "^4.1.3"
-    },
-    "dependencies": {
-        "brixi": "^0.3.0",
-        "djinnjs": "^0.3.1"
+        "serve": "^11.3.2"
     }
 }
