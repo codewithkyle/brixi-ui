@@ -13,7 +13,7 @@ jobs:
     - name: Setup Node and NPM
       uses: actions/setup-node@v1
       with:
-        node-version: 14.4.0
+        node-version: 14.5.0
 
     - name: Install NPM Packages
       run: npm ci
