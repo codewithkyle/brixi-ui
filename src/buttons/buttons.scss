@@ -90,6 +90,7 @@
 
     &[kind="solid"] {
         &[color="primary"] {
+            border-color: var(--primary-800);
             background-color: var(--primary-700);
             color: var(--white);
 
@@ -106,6 +107,7 @@
             }
         }
         &[color="success"] {
+            border-color: var(--success-800);
             background-color: var(--success-700);
             color: var(--white);
 
@@ -122,6 +124,7 @@
             }
         }
         &[color="warning"] {
+            border-color: var(--warning-800);
             background-color: var(--warning-700);
             color: var(--white);
 
@@ -138,6 +141,7 @@
             }
         }
         &[color="danger"] {
+            border-color: var(--danger-800);
             background-color: var(--danger-700);
             color: var(--white);
 
@@ -154,6 +158,7 @@
             }
         }
         &[color="grey"] {
+            border-color: var(--grey-800);
             background-color: var(--grey-700);
             color: var(--white);
 
