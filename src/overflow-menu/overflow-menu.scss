@@ -1,9 +1,63 @@
 overflow-button {
-    &:focus {
-        & + overflow-menu {
+    display: inline-block;
+    position: relative;
+    transition: all 150ms var(--ease-in-out);
+    height: 36px;
+    width: 36px;
+    user-select: none;
+    cursor: pointer;
+    color: var(--grey-700);
+
+    &:hover,
+    &:focus-visible {
+        color: var(--grey-800);
+
+        &::before {
+            opacity: 0.1;
+        }
+    }
+
+    &:active {
+        color: var(--grey-800);
+
+        &::before {
+            opacity: 0.2;
+        }
+    }
+
+    &::before {
+        content: "";
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: all 75ms var(--ease-in-out);
+        opacity: 0;
+        background-color: var(--grey-500);
+        border-radius: 50%;
+    }
+
+    &:focus,
+    &:focus-within {
+        overflow-menu {
             opacity: 1;
             visibility: visible;
             pointer-events: all;
+        }
+    }
+
+    i {
+        width: 36px;
+        height: 36px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+
+        svg {
+            width: 18px;
+            height: 18px;
         }
     }
 }
@@ -23,13 +77,8 @@ overflow-menu {
     z-index: 1000;
     pointer-events: none;
 
-    &:focus-within {
-        opacity: 1;
-        visibility: visible;
-        pointer-events: all;
-    }
-
-    button {
+    button,
+    a {
         width: 100%;
         display: inline-flex;
         align-items: center;
@@ -45,12 +94,16 @@ overflow-menu {
 
         &:hover,
         &:focus-visible {
+            color: var(--grey-800);
+
             &::before {
                 opacity: 0.1;
             }
         }
 
         &:active {
+            color: var(--grey-800);
+
             &::before {
                 opacity: 0.2;
             }
@@ -75,13 +128,20 @@ overflow-menu {
             &::before {
                 background-color: var(--danger-500);
             }
+
+            &:hover,
+            &:focus-visible,
+            &:active {
+                color: var(--danger-800);
+            }
         }
 
         i {
             display: inline-flex;
             justify-content: center;
             align-items: center;
-            margin-right: 0.75rem;
+            margin-right: 0.25rem;
+            margin-left: -0.5rem;
 
             svg {
                 width: 16px;
