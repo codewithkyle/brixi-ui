@@ -27,6 +27,12 @@
         transition: all 75ms var(--ease-in-out);
     }
 
+    &:focus-visible {
+        border-radius: 0px !important;
+        border: 1px solid var(--white) !important;
+        outline: 1px solid var(--black) !important;
+    }
+
     &[shape="rounded"] {
         border-radius: 0.25rem;
 
