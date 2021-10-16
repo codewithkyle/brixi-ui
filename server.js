@@ -85,8 +85,9 @@ app.get('/raw/*', async (req, res) => {
                 break;
         }
         if (fs.existsSync(file)){
-            const content = await fs.promises.readFile(file, { encoding: "utf-8"});
-            return res.status(200).setHeader("content-type", "text/plain").send(content.replace(/\t/g, "    "));
+            let content = await fs.promises.readFile(file, { encoding: "utf-8"});
+            content = content.replace(/\t/g, "    ");
+            return res.status(200).send(content).setHeader("content-type", "text/plain");
         } else {
             throw 404;
         }
