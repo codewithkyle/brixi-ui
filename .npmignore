@@ -1,0 +1,10 @@
+build/
+brixi/
+audio/
+static/
+*.config.js
+server.js
+src/
+brixi.config.js
+cssmonster.config.js
+tsconfig.json
