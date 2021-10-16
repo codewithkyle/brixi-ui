@@ -23,7 +23,7 @@ jobs:
       run: npm ci
 
     - name: Compile
-      run: npm run production
+      run: npm run build
 
     - name: Load SSH Key
       uses: webfactory/ssh-agent@v0.4.1
