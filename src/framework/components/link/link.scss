@@ -1,0 +1,18 @@
+.link{
+    text-decoration: none;
+    color: var(--primary-700);
+
+    &:focus-visible{
+        box-shadow: var(--focus-ring);
+    }
+
+    &:hover{
+        color: var(--primary-600);
+        text-decoration: underline;
+    }
+
+    &:active{
+        color: var(--primary-800);
+        text-decoration: underline;
+    }
+}

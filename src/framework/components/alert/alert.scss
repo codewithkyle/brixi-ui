@@ -1,0 +1,231 @@
+alert-component {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+    position: relative;
+    border-radius: 0.5rem;
+    padding: 1rem;
+
+    &[flex="items-center"]{
+        .close{
+            position: relative;
+            top: auto;
+            right: 0;
+            order: 3;
+            margin-left: auto;
+        }
+        
+        .copy{
+            padding-right: 1rem;
+        }
+    }
+
+    &[kind="warning"]{
+        background-color: var(--warning-50);
+        color: var(--warning-700);
+
+        h3{
+            color: var(--warning-800);
+        }
+
+        .close{
+            color: var(--warning-500);
+
+            &:hover{
+                color: var(--warning-600);
+
+                &::before{
+                    background-color: var(--warning-100);
+                }
+            }
+
+            &:active{
+                color: var(--warning-700);
+
+                &::before{
+                    background-color: var(--warning-200);
+                }
+            }
+        }
+    }
+
+    &[kind="info"]{
+        background-color: var(--primary-50);
+        color: var(--primary-700);
+
+        h3{
+            color: var(--primary-800);
+        }
+
+        .close{
+            color: var(--primary-500);
+
+            &:hover{
+                color: var(--primary-600);
+
+                &::before{
+                    background-color: var(--primary-100);
+                }
+            }
+
+            &:active{
+                color: var(--primary-700);
+
+                &::before{
+                    background-color: var(--primary-200);
+                }
+            }
+        }
+    }
+
+    &[kind="danger"]{
+        background-color: var(--danger-50);
+        color: var(--danger-700);
+
+        h3{
+            color: var(--danger-800);
+        }
+
+        .close{
+            color: var(--danger-500);
+
+            &:hover{
+                color: var(--danger-600);
+
+                &::before{
+                    background-color: var(--danger-100);
+                }
+            }
+
+            &:active{
+                color: var(--danger-700);
+
+                &::before{
+                    background-color: var(--danger-200);
+                }
+            }
+        }
+    }
+
+    &[kind="success"]{
+        background-color: var(--success-50);
+        color: var(--success-700);
+
+        h3{
+            color: var(--success-800);
+        }
+
+        .close{
+            color: var(--success-500);
+
+            &:hover{
+                color: var(--success-600);
+
+                &::before{
+                    background-color: var(--success-100);
+                }
+            }
+
+            &:active{
+                color: var(--success-700);
+
+                &::before{
+                    background-color: var(--success-200);
+                }
+            }
+        }
+    }
+
+    h3{
+        display: block;
+        font-weight: var(--font-medium);
+        line-height: 1.618;
+
+        &:not(:last-child){
+            margin-bottom: 0.25rem;
+        }
+    }
+
+    p{
+        display: block;
+        line-height: 1.618;
+        font-size: var(--font-sm);
+
+        &:not(:last-child){
+            margin-bottom: 0.25rem;
+        }
+    }
+
+    ul{
+        padding-left: 0.5rem;
+
+        &:not(:last-child){
+            margin-bottom: 0.25rem;
+        }
+
+        li{
+            font-size: var(--font-sm);
+            line-height: 1.618;
+            list-style-type: disc;
+        }
+    }
+
+    i{
+        width: 24px;
+        height: 24px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 0.75rem;
+
+        svg{
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    .actions{
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        width: 100%;
+        margin-left: -0.5rem;
+        margin-top: 0.5rem;
+
+        button{
+            margin-right: 0.5rem;
+        }
+    }
+
+    .close{
+        position: absolute;
+        top: 0.25rem;
+        right: 0.25rem;
+        width: 36px;
+        height: 36px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 80ms var(--ease-in-out);
+
+        &:focus-visible{
+            box-shadow: var(--focus-ring);
+        }
+
+        &::before{
+            content: "";
+            display: inline-block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+        svg{
+            width: 18px;
+            height: 18px;
+        }
+    }
+}

@@ -1,0 +1,48 @@
+<script type="module">
+import Component from "/alert.js";
+const example = new Component({
+    type: "warning",
+    heading: "Attention needed",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    list: [
+        "Lorem ipsum dolor sit amet.",
+        "Consectetur adipiscing elit.",
+        "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    ],
+    closeable: true,
+    closeCallback: () => { console.log("closed") }
+});
+document.body.appendChild(example);
+const example2 = new Component({
+    type: "info",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    closeable: true,
+});
+document.body.appendChild(example2);
+const example3 = new Component({
+    type: "success",
+    heading: "Kit Processed Successfully",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    actions: [
+        {
+            label: "View status",
+            callback: () => { console.log("View status"); }
+        },
+        {
+            label: "Details",
+            callback: () => { console.log("View details"); }
+        },
+    ],
+});
+document.body.appendChild(example3);
+const example4 = new Component({
+    type: "danger",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+});
+document.body.appendChild(example4);
+
+example.classList.add("mb-1");
+example2.classList.add("mb-1");
+example3.classList.add("mb-1");
+example4.classList.add("mb-1");
+</script>

@@ -1,0 +1,36 @@
+tool-tip {
+    background-color: var(--grey-800);
+    color: var(--white);
+    border-radius: 0.5rem;
+    line-height: 24px;
+    height: 24px;
+    white-space: nowrap;
+    padding: 0 0.5rem;
+    font-size: var(--font-xs);
+    font-weight: var(--font-medium);
+    box-shadow: var(--shadow-md);
+    pointer-events: none;
+    transform-origin: center;
+    display: inline-block;
+    user-select: none;
+    border: 1px solid var(--grey-900);
+
+    &.visible {
+        animation: limitedTooltip 1725ms 150ms linear forwards;
+    }
+}
+@keyframes limitedTooltip {
+    0% {
+        opacity: 1;
+    }
+    4% {
+        opacity: 1;
+    }
+    96% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        animation-timing-function: ease-in-out;
+    }
+}

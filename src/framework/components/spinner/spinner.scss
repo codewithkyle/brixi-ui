@@ -1,0 +1,19 @@
+spinner-component {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+        width: 100%;
+        height: 100%;
+        animation: spinner 800ms linear infinite;
+    }
+}
+@keyframes spinner {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

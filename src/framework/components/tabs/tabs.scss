@@ -1,0 +1,64 @@
+tabs-component {
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: 36px;
+    display: block;
+    width: 100%;
+    
+    button{
+        padding: 0 1rem;
+        height: 100%;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        flex-flow: row nowrap;
+        color: var(--grey-700);
+        overflow: hidden;
+        position: relative;
+        font-size: var(--font-sm);
+        font-weight: var(--font-medium);
+        vertical-align: bottom;
+
+        &:hover{
+            &::before{
+                transform: translate(-50%, 0);
+            }
+        }
+
+        &.is-active{
+            color: var(--primary-900);
+
+            &::before{
+                transform: translate(-50%, 0);
+                background-color: var(--primary-700);
+            }
+        }
+
+        &::before{
+            transition: all 80ms var(--ease-in-out);
+            content: "";
+            display: inline-block;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: calc(100% - 1rem);
+            height: 3px;
+            border-radius: 3px 3px 0 0;
+            transform: translate(-50%, 4px);
+            background-color: var(--grey-200);
+        }
+        
+        i{
+            margin-right: 0.5rem;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+
+            svg{
+                width: 14px;
+                height: 14px;
+            }
+        }
+    }
+}
