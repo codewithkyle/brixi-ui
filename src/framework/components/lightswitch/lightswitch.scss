@@ -52,7 +52,7 @@ lightswitch-component {
         background-color: var(--grey-50);
         transition: all 80ms var(--ease-in-out);
         height: 32px;
-        padding: 0 10px;
+        padding: 0 8px;
         overflow: hidden;
         // min-width: 64px;
 
@@ -109,8 +109,8 @@ lightswitch-component {
 
             svg{
                 display: inline-block;
-                width: 16px;
-                height: 16px;
+                width: 18px;
+                height: 18px;
                 vertical-align: middle;
             }
         }

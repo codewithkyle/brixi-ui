@@ -88,16 +88,16 @@ export default class Lightswitch extends SuperComponent<ILightswitch>{
             const span2:HTMLElement = label.querySelector("span:last-of-type");
             const i = this.querySelector("i");
             if (this.model.enabled){
-                label.style.width = `${span1.scrollWidth + 23 + 18}px`;
+                label.style.width = `${span1.scrollWidth + 23 + 16}px`;
                 span1.style.transform = `translateX(0)`;
                 span2.style.transform = `translateX(0)`;
                 i.style.transform = `translateX(0)`;
             }
             else {
                 label.style.width = `${span2.scrollWidth + 23 + 18}px`;
-                span1.style.transform = `translateX(-${span1.scrollWidth + 10}px)`;
-                span2.style.transform = `translateX(-${span1.scrollWidth + 10}px)`;
-                i.style.transform = `translateX(-${span1.scrollWidth + 10}px)`;
+                span1.style.transform = `translateX(-${span1.scrollWidth + 8}px)`;
+                span2.style.transform = `translateX(-${span1.scrollWidth + 8}px)`;
+                i.style.transform = `translateX(-${span1.scrollWidth + 8}px)`;
             }
         }, 15);
     }
