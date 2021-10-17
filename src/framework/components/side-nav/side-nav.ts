@@ -62,8 +62,12 @@ export default class SideNav extends SuperComponent<ISideNav>{
 
     override connected(){
         window.addEventListener("resize", this.debounce(()=>{
+            let isOpen = localStorage.getItem("side-nav-state") === "false" ? false : true;
+            if (window.innerWidth <= 350){
+                isOpen = false;
+            }
             this.update({
-                isOpen: false,
+                isOpen: isOpen,
             });
         }, 300), {passive:true});
     }
