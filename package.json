@@ -70,7 +70,7 @@
     "lit-html": "^1.4.1",
     "npm-run-all": "^4.1.5",
     "npm-watch": "^0.9.0",
-    "tooltipper": "^1.0.0",
+    "tooltipper": "^1.0.1",
     "typescript": "^4.3.5"
   },
   "watch": {

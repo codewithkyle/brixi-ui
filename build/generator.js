@@ -95,7 +95,8 @@ env.mount("${tagName}", ${name.toPascalCase()});
 
 function renderSass(tagName){
 return `${tagName} {
-
+    display: block;
+    position: relative;
 }
 `;
 }

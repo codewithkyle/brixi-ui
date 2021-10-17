@@ -169,6 +169,7 @@ return `<!DOCTYPE html>
     <link rel="stylesheet" href="/core.css">
     <link rel="stylesheet" href="/brixi.css">
     <link rel="stylesheet" href="/component-layout.css">
+    <link rel="stylesheet" href="/tooltip.css">
     ${ css.length ? `<style>${css}</style>` : "" }
     ${ js.length ? `<script type="module">${js}</script>` : "" }
     <script type="module" src="/soundscape.js"></script>
