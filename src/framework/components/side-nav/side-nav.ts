@@ -37,7 +37,7 @@ export default class SideNav extends SuperComponent<ISideNav>{
     constructor(settings:SideNavSettings){
         super();
         let isOpen = localStorage.getItem("side-nav-state") === "false" ? false : true;
-        if (window.innerWidth <= 300){
+        if (window.innerWidth <= 350){
             isOpen = false;
         }
         this.model = {

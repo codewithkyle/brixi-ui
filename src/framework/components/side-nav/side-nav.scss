@@ -85,7 +85,7 @@ side-nav {
             justify-content: space-between;
             padding: 0 0.5rem 0 1rem;
 
-            @media (min-width: 300px){
+            @media (min-width: 350px){
                 display: inline-flex;
             }
 
@@ -136,7 +136,7 @@ side-nav {
             display: block;
             padding: 0.5rem;
 
-            @media (min-width: 300px){
+            @media (min-width: 350px){
                 height: calc(100% - 64px * 2);
             }
 
