@@ -1,0 +1,37 @@
+<script type="module">
+    import Component from "/divider.js";
+    const colors = ["primary", "success", "warning", "danger", "black", "grey"];
+    colors.map(color => {
+        const example = new Component({
+            color: color,
+            class: "mb-1"
+        });
+        document.body.appendChild(example);
+    });
+    colors.map(color => {
+        const example = new Component({
+            label: "Solid Divider",
+            color: color,
+            class: "mb-1"
+        });
+        document.body.appendChild(example);
+    });
+    colors.map(color => {
+        const example = new Component({
+            label: "Dashed Divider",
+            color: color,
+            type: "dashed",
+            class: "mb-1"
+        });
+        document.body.appendChild(example);
+    });
+    colors.map(color => {
+        const example = new Component({
+            label: "Dotted Divider",
+            color: color,
+            type: "dotted",
+            class: "mb-1"
+        });
+        document.body.appendChild(example);
+    });
+</script>
