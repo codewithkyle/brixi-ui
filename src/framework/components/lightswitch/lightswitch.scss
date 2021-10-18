@@ -3,6 +3,54 @@ lightswitch-component {
     width: 100%;
     position: relative;
 
+    &[color="primary"]{
+        label{
+            &::before{
+                background-color: var(--primary-700);
+            }
+        }
+    }
+
+    &[color="grey"]{
+        label{
+            &::before{
+                background-color: var(--grey-400);
+            }
+        }
+    }
+
+    &[color="success"]{
+        label{
+            &::before{
+                background-color: var(--success-500);
+            }
+        }
+    }
+
+    &[color="warning"]{
+        label{
+            &::before{
+                background-color: var(--warning-400);
+            }
+        }
+    }
+
+    &[color="danger"]{
+        label{
+            &::before{
+                background-color: var(--danger-500);
+            }
+        }
+    }
+
+    &[color="black"]{
+        label{
+            &::before{
+                background-color: var(--grey-700);
+            }
+        }
+    }
+
     input {
         position: absolute;
         opacity: 0;
@@ -36,10 +84,6 @@ lightswitch-component {
                 &::before{
                     transform: translateX(0);
                 }
-
-                span{
-                    color: var(--white);
-                }
             }
         }
     }
@@ -65,7 +109,7 @@ lightswitch-component {
             width: 100%;
             height: 100%;
             transform: translateX(-101%);
-            background-color: var(--primary-700);
+            background-color: var(--grey-400);
             border-radius: 16px;
             transition: all 150ms var(--ease-in-out);
         }
@@ -107,11 +151,25 @@ lightswitch-component {
             height: 32px;
             min-width: 20px;
 
+            &:first-of-type{
+                color: var(--white);
+
+                svg{
+                    color: var(--white);
+                }
+            }
+
             svg{
                 display: inline-block;
                 width: 18px;
                 height: 18px;
                 vertical-align: middle;
+                color: var(--grey-600);
+            }
+
+            svg + div{
+                display: inline-block;
+                padding-left: 0.25rem;
             }
         }
     }

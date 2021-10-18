@@ -4,6 +4,7 @@ import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import env from "~controllers/env";
 import { noop } from "~utils/general";
 
+export type LightswitchColor = "primary" | "success" | "warning" | "danger" | "black" | "grey";
 export interface ILightswitch {
     label: string,
     labelIcon: string,
@@ -14,6 +15,7 @@ export interface ILightswitch {
     disabled: boolean,
     className: string,
     callback: Function,
+    color: LightswitchColor,
 };
 export interface LightswitchSettings{
     name?: string,
@@ -25,6 +27,7 @@ export interface LightswitchSettings{
     disabled?: boolean,
     className?: string,
     callback?: Function,
+    color?: LightswitchColor,
 };
 export default class Lightswitch extends SuperComponent<ILightswitch>{
     constructor(settings:LightswitchSettings){
@@ -39,6 +42,7 @@ export default class Lightswitch extends SuperComponent<ILightswitch>{
             disabled: false,
             className: "",
             callback: noop,
+            color: "primary",
         };
         env.css("lightswitch").then(()=>{
             this.update(settings);
@@ -61,19 +65,33 @@ export default class Lightswitch extends SuperComponent<ILightswitch>{
         this.model.callback(target.checked);
     }
 
+    private renderText(text:string){
+        let out;
+        if (text.length){
+            out = html`
+                <div>${this.model.altLabel}</div>
+            `;
+        }
+        else {
+            out = "";
+        }
+        return out;
+    }
+
     override render(){
+        this.setAttribute("color", this.model.color);
         const id = `${this.model.altLabel.replace(/\s+/g, "-").trim()}-${this.model.name}-${this.model.label.replace(/\s+/g, "-").trim()}`;
         const view = html`
             <input @change=${this.handleChange} type="checkbox" name="${this.model.name}" id="${id}" ?disabled=${this.model.disabled} .checked=${this.model.enabled} />
             <label for="${id}">
                 <span>
-                    ${unsafeHTML(this.model.labelIcon)}
-                    ${this.model.altLabel}
+                    ${unsafeHTML(this.model.altLabelIcon)}
+                    ${this.renderText(this.model.altLabel)}
                 </span>
                 <i></i>
                 <span>
-                    ${unsafeHTML(this.model.altLabelIcon)}
-                    ${this.model.label}
+                    ${unsafeHTML(this.model.labelIcon)}
+                    ${this.renderText(this.model.label)}
                 </span>
             </label>
         `;
