@@ -181,7 +181,10 @@ return `<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brixi Design System</title>
+    <title>Brixi UI</title>
+    <meta name="description" content="A sleek & slender design system built on web components.">
+    <link rel="alternate icon" href="/favicon.png">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="stylesheet" href="/normalize.css">
     <link rel="stylesheet" href="/framework-core.css">
     <link rel="stylesheet" href="/core.css">
@@ -206,15 +209,21 @@ return `<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brixi Design System</title>
+    <title>Brixi UI</title>
+    <meta name="description" content="A sleek & slender design system built on web components.">
+    <link rel="alternate icon" href="/favicon.png">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="stylesheet" href="/normalize.css">
     <link rel="stylesheet" href="/framework-core.css">
     <link rel="stylesheet" href="/core.css">
     <link rel="stylesheet" href="/brixi.css">
     <link rel="stylesheet" href="/base-layout.css">
+    <link rel="stylesheet" href="/css/button.css">
+    <link rel="stylesheet" href="/css/tooltip.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/github-dark-dimmed.min.css">
     <script defer src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js"></script>
     <script type="module" src="/bootstrap.js"></script>
+    <script type="module" src="/js/tooltipper.js"></script>
 </head>
 <body>
     <nav-component></nav-component>
