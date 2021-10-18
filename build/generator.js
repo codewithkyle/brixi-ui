@@ -18,11 +18,11 @@ async function getDirectories(basePath){
 
 function renderIndex(name){
 return `<script type="module">
-import Component from "/${name.toKebabCase()}.js";
-const example = new Component({
+    import Component from "/${name.toKebabCase()}.js";
+    const example = new Component({
 
-});
-document.body.appendChild(example);
+    });
+    document.body.appendChild(example);
 </script>
 `;
 }
