@@ -107,7 +107,7 @@ export default class Chips extends SuperComponent<IChips>{
                     kind = "solid";
                 }
                 return html`
-                    <button kind="${kind}" @click=${this.handleClick} data-name="${chip.name}" data-index="${index}" class="chip" kind="outline" ?icon=${chip?.icon} ?closeable=${this.model.type === "dynamic"}>
+                    <button sfx="button" kind="${kind}" @click=${this.handleClick} data-name="${chip.name}" data-index="${index}" class="chip" kind="outline" ?icon=${chip?.icon} ?closeable=${this.model.type === "dynamic"}>
                         ${this.renderIcon(chip?.icon ?? "")}
                         ${chip.label}
                         ${this.renderCloseIcon()}

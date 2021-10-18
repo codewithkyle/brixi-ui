@@ -63,7 +63,7 @@ export default class Steps extends SuperComponent<ISteps>{
             state = "pending";
         }
         return html`
-            <button state="${state}" @click=${this.handleClick} data-name="${step?.name}" data-index="${index}">
+            <button sfx="${state === "completed" ? "button" : ""}" state="${state}" @click=${this.handleClick} data-name="${step?.name}" data-index="${index}">
                 <i>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
@@ -87,7 +87,7 @@ export default class Steps extends SuperComponent<ISteps>{
             state = "pending";
         }
         return html`
-            <button state="${state}" @click=${this.handleClick} data-name="${step?.name}" data-index="${index}">
+            <button sfx="${state === "completed" ? "button" : ""}" state="${state}" @click=${this.handleClick} data-name="${step?.name}" data-index="${index}">
                 <h4>Step ${index + 1}</h4>
                 <h3>${step.label}</h3>
                 ${step?.description ? html`<p>${step.description}</p>` : ""}

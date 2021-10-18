@@ -3,6 +3,7 @@ import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~controllers/env";
 import { noop } from "~utils/general";
+import soundscape from "~controllers/soundscape";
 
 export interface IInput {
     label: string,
@@ -93,6 +94,7 @@ export default class Input extends SuperComponent<IInput> {
             error: error,
         });
         this.trigger("ERROR");
+        soundscape.error();
     }
 
     public validate(input:HTMLInputElement = null, clearOnly:boolean = false): boolean {
@@ -106,7 +108,6 @@ export default class Input extends SuperComponent<IInput> {
         }
         if (this.model.required || !this.model.required && input.value.length){
             if (this.model.minlength > input.value.length){
-                console.log(input.value);
                 isValid = false;
                 this.setError(`This input requires a least ${this.model.minlength} characters.`, clearOnly);
             }

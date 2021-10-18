@@ -2,6 +2,7 @@ import { html, render } from "lit-html";
 import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~controllers/env";
 import { noop } from "~utils/general";
+import soundscape from "~controllers/soundscape";
 
 export interface ICheckbox {
     label: string,
@@ -44,6 +45,12 @@ export default class Checkbox extends SuperComponent<ICheckbox>{
             checked: target.checked,
         });
         this.model.callback(target.checked);
+        if (target.checked){
+            soundscape.activate();
+        }
+        else {
+            soundscape.deactivate();
+        }
     }
 
     public getName():string{
@@ -65,17 +72,19 @@ export default class Checkbox extends SuperComponent<ICheckbox>{
     render(){
         const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${this.model.name}`;
         const view = html`
-            <input @change=${this.handleChange} type="checkbox" name="${this.model.name}" id="${id}" .checked=${this.model.checked} ?disabled=${this.model.disabled} >
-            <label for="${id}">
-                <check-box role="button" tabindex="0" aria-label=${`click to ${this.model.checked ? "uncheck" : "check"} the box ${this.model.label}`}>
-                    <i>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                    </i>
-                </check-box>
-                <span>${this.model.label}</span>
-            </label>
+            <div class="inline-block mr-auto">
+                <input @change=${this.handleChange} type="checkbox" name="${this.model.name}" id="${id}" .checked=${this.model.checked} ?disabled=${this.model.disabled} >
+                <label for="${id}">
+                    <check-box role="button" tabindex="0" aria-label=${`click to ${this.model.checked ? "uncheck" : "check"} the box ${this.model.label}`}>
+                        <i>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </i>
+                    </check-box>
+                    <span>${this.model.label}</span>
+                </label>
+            </div>
         `;
         this.setAttribute("state", this.state);
         this.className = `checkbox js-input ${this.model.className}`;

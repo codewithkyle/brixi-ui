@@ -28,7 +28,7 @@ export default class Accordion extends SuperComponent<IAccordion>{
         return html`
             <div class="section">
                 <input type="checkbox" name="${name}" id="${name}" />
-                <label role="button" tabindex="0" for="${name}">
+                <label sfx="button" role="button" tabindex="0" for="${name}">
                     <span>${section.label}</span>
                     <i>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

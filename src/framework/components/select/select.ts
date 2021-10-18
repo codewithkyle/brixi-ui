@@ -3,6 +3,7 @@ import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~controllers/env";
 import { noop } from "~utils/general";
+import soundscape from "~controllers/soundscape";
 
 export type SelectOption = {
     label: string,
@@ -116,6 +117,7 @@ export default class Select extends SuperComponent<ISelect>{
             error: error,
         });
         this.trigger("ERROR");
+        soundscape.error();
     }
 
     public validate(input:HTMLSelectElement, clearOnly:boolean = false): boolean {

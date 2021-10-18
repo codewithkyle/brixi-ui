@@ -51,6 +51,29 @@
         align-items: center;
         width: 100%;
         min-height: 36px;
+        cursor: pointer;
+
+        &:hover,
+        &:focus-within{
+            i{
+                &::after{
+                    transform: scale(0.5);
+                }
+            }
+        }
+
+        &:active{
+            i{
+                &::after{
+                    transform: scale(1.25);
+                    background-color: var(--primary-500);
+                }
+
+                &::before{
+                    border-color: var(--primary-500);
+                }
+            }
+        }
 
         i{
             width: 24px;
@@ -84,7 +107,7 @@
                 width: 20px;
                 height: 20px;
                 border-radius: 50%;
-                border: 1px solid var(--grey-200);
+                border: 1px solid var(--grey-300);
                 transition: all 80ms var(--ease-in-out);
                 background-color: var(--white);
                 box-shadow: inset 0 0 1px rgba(0,0,0,0.05);

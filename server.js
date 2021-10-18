@@ -10,12 +10,30 @@ const cwd = process.cwd();
 app.use(express.static('test'));
 app.use(express.static('test/js'));
 app.use(express.static('test/css'));
-app.use(express.static('audio'));
 app.use(express.static('static'));
 
 const jsDir = path.join(cwd, "test", "js");
 const cssDir = path.join(cwd, "test", "css");
 const frameworkDir = path.join(cwd, "src", "framework");
+const audioDir = path.join(cwd, "audio");
+
+app.get('/audio/*', async (req, res) => {
+    try {
+        const file = path.join(audioDir, req.path.replace(/[\/]audio\/|\/$/g, "").trim().toLowerCase());
+        if (fs.existsSync(file)){
+            return res.status(200).sendFile(file);
+        } else {
+            throw 404;
+        }
+    } catch (e) {
+        let status = 500;
+        if (typeof e === "number"){
+            status = e;
+        }
+        return res.status(status).send();
+    }
+});
+
 
 app.get('/docs/*', async (req, res) => {
     try {

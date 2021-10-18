@@ -39,6 +39,14 @@
         align-items: center;
         width: 100%;
         min-height: 36px;
+        cursor: pointer;
+
+        &:active{
+            check-box i{
+                box-shadow: none;
+                transform: translateY(1px);
+            }
+        }
 
         check-box{
             width: 24px;

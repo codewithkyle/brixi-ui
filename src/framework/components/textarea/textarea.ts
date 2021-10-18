@@ -3,6 +3,7 @@ import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~controllers/env";
 import { noop } from "~utils/general";
+import soundscape from "~controllers/soundscape";
 
 export interface ITextarea {
     label: string,
@@ -90,6 +91,7 @@ export default class Textarea extends SuperComponent<ITextarea> {
             error: error,
         });
         this.trigger("ERROR");
+        soundscape.error();
     }
 
     public validate(input:HTMLInputElement, clearOnly:boolean = false): boolean {

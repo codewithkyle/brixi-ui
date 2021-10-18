@@ -110,6 +110,7 @@ export default class Button extends SuperComponent<IButton>{
         if (this.model.tooltip){
             this.setAttribute("tooltip", this.model.tooltip);
         }
+        this.setAttribute("sfx", "button");
         render(view, this);
     }
 }

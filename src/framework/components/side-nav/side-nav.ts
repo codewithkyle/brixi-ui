@@ -144,7 +144,7 @@ export default class SideNav extends SuperComponent<ISideNav>{
             if (!link?.url?.length && link?.subnav?.length){
                 out = html`
                     <div class="link">
-                        <label for="${name}">
+                        <label sfx="button" for="${name}">
                             ${this.renderIcon(link)}
                             <span>${link.label}</span>
                         </label>
@@ -157,7 +157,7 @@ export default class SideNav extends SuperComponent<ISideNav>{
             }
             else {
                 out = html`
-                    <a class="${this.model.currentPage === link.url.replace(/^\//, "".trim()) ? "is-active" : ""}" href="${link.url}" target="_${link?.target?.length ? link.target : "self" }">
+                    <a sfx="button" class="${this.model.currentPage === link.url.replace(/^\//, "".trim()) ? "is-active" : ""}" href="${link.url}" target="_${link?.target?.length ? link.target : "self" }">
                         ${this.renderIcon(link)}
                         <span>${link.label}</span>
                     </a>
@@ -168,7 +168,7 @@ export default class SideNav extends SuperComponent<ISideNav>{
             if (!link?.url?.length && link?.subnav?.length){
                 out = html`
                     <div class="link">
-                        <label for="${name}" tooltip="${link.label}">
+                        <label sfx="button" for="${name}" tooltip="${link.label}">
                             ${this.renderIcon(link)}
                             <span>${link.label}</span>
                         </label>
@@ -181,7 +181,7 @@ export default class SideNav extends SuperComponent<ISideNav>{
             }
             else {
                 out = html`
-                    <a class="${this.model.currentPage === link.url.replace(/^\//, "".trim()) ? "is-active" : ""}" tooltip="${link.label}" href="${link.url}" target="_${link?.target?.length ? link.target : "self" }">
+                    <a sfx="button" class="${this.model.currentPage === link.url.replace(/^\//, "".trim()) ? "is-active" : ""}" tooltip="${link.label}" href="${link.url}" target="_${link?.target?.length ? link.target : "self" }">
                         ${this.renderIcon(link)}
                         <span>${link.label}</span>
                     </a>
@@ -201,7 +201,7 @@ export default class SideNav extends SuperComponent<ISideNav>{
                         <img src="/logo.png">
                         <h1>Brixi UI</h1>
                     </div>
-                    <button @click=${this.handleMenuClick} tooltip="${this.model.isOpen ? "Collapse menu" : "Open menu"}" class="menu">
+                    <button sfx="button" @click=${this.handleMenuClick} tooltip="${this.model.isOpen ? "Collapse menu" : "Open menu"}" class="menu">
                         ${this.renderMenuIcon()}
                     </button>
                 </header>
@@ -221,7 +221,7 @@ export default class SideNav extends SuperComponent<ISideNav>{
                             ${this.model.role?.length ? html`<h4 title="${this.model.role}">${this.model.role}</h4>` : ""}
                         </div>
                     </div>
-                    <button class="logout" tooltip="Logout">
+                    <button sfx="button" class="logout" tooltip="Logout">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                         </svg>

@@ -59,7 +59,7 @@ export default class OverflowMenu extends SuperComponent<IOverflowMenu>{
             return html`<hr>`;
         }
         return html`
-            <button type="button" @click=${item.callback} class="${item?.danger ? "danger" : ""}">
+            <button sfx="button" type="button" @click=${item.callback} class="${item?.danger ? "danger" : ""}">
                 ${item?.icon ? html`
                     <i>
                         ${unsafeHTML(item.icon)}
@@ -72,7 +72,7 @@ export default class OverflowMenu extends SuperComponent<IOverflowMenu>{
 
     override render(){
         const view = html`
-            <button type="button" aria-label="${this.model.tooltip || "open overflow menu"}" ?tooltip=${this.model.tooltip}>
+            <button sfx="button" type="button" aria-label="${this.model.tooltip || "open overflow menu"}" ?tooltip=${this.model.tooltip}>
                 ${this.renderIcon()}
             </button>
             <overflow-container class="${this.model.position}">

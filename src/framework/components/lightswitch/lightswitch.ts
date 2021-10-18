@@ -2,6 +2,7 @@ import SuperComponent from "@codewithkyle/supercomponent";
 import { html, render } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import env from "~controllers/env";
+import soundscape from "~controllers/soundscape";
 import { noop } from "~utils/general";
 
 export type LightswitchColor = "primary" | "success" | "warning" | "danger" | "black" | "grey";
@@ -63,6 +64,12 @@ export default class Lightswitch extends SuperComponent<ILightswitch>{
             enabled: target.checked,
         });
         this.model.callback(target.checked);
+        if (target.checked){
+            soundscape.activate();
+        }
+        else {
+            soundscape.deactivate();
+        }
     }
 
     private renderText(text:string){
