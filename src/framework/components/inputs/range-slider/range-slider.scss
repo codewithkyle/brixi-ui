@@ -114,17 +114,6 @@ range-slider{
         align-items: center;
         width: 100%;
         background-color: var(--white);
-
-        &:hover{
-            i{
-                color: var(--grey-500);
-            }
-        }
-        &:focus-within{
-            i{
-                color: var(--primary-500);
-            }
-        }
     }
 
     i {
