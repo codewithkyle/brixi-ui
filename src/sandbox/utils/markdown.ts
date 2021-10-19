@@ -10,7 +10,7 @@ class MarkdownRenderer {
     private messageId:number;
 
     constructor(){
-        this.worker = new Worker('/markdown-worker.js');
+        this.worker = new Worker('/js/markdown-worker.js');
         this.worker.onmessage = this.inbox.bind(this);
         this.messageId = 0;
         this.promises = {};

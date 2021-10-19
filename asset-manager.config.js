@@ -14,7 +14,7 @@ module.exports = {
         },
         {
             files: "./static/*",
-            publicDir: "",
+            publicDir: "/static",
         },
     ],
     output: "./service-worker-assets.js",

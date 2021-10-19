@@ -1,5 +1,5 @@
 // @ts-ignore
-importScripts("/marked.js");
+importScripts("/static/marked.js");
 
 declare function marked(markdown:string):string;
 

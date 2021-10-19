@@ -7,12 +7,16 @@ const app = express();
 const port = 5000;
 const cwd = process.cwd();
 
-app.use(express.static('static'));
-
 const jsDir = path.join(cwd, "test", "js");
 const cssDir = path.join(cwd, "test", "css");
+const staticDir = path.join(cwd, "static");
 const frameworkDir = path.join(cwd, "src", "framework");
 const audioDir = path.join(cwd, "audio");
+
+app.use(express.static('test'));
+app.use(express.static('test/js'));
+app.use(express.static('test/css'));
+app.use(express.static('static'));
 
 function setHeaders(res){
     res.append('Access-Control-Allow-Origin', '*');
@@ -20,6 +24,23 @@ function setHeaders(res){
     res.append('Access-Control-Allow-Headers', 'Content-Type');
 }
 
+app.get('/static/*', async (req, res) => {
+    try {
+        setHeaders(res);
+        const file = path.join(staticDir, req.path.replace(/[\/]static\/|\/$/g, "").trim().toLowerCase());
+        if (fs.existsSync(file)){
+            return res.status(200).sendFile(file);
+        } else {
+            throw 404;
+        }
+    } catch (e) {
+        let status = 500;
+        if (typeof e === "number"){
+            status = e;
+        }
+        return res.status(status).send();
+    }
+});
 app.get('/js/*', async (req, res) => {
     try {
         setHeaders(res);
@@ -263,7 +284,6 @@ return `<!DOCTYPE html>
     <meta name="description" content="A sleek & slender design system built on web components.">
     <link rel="alternate icon" href="/favicon.png">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <script>navigator.serviceWorker.register('/service-worker.js');</script>
     <link rel="stylesheet" href="/css/normalize.css">
     <link rel="stylesheet" href="/css/framework-core.css">
     <link rel="stylesheet" href="/css/core.css">
