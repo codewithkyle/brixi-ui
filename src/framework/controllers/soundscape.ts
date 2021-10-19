@@ -120,28 +120,28 @@ class Soundscape {
 
     public errorAlert(){
         const temp = this.notifications.error.cloneNode() as HTMLAudioElement;
-        temp.volume = 0.5;
+        temp.volume = 1;
         // @ts-ignore
         temp.play();
     }
 
     public warning(){
         const temp = this.notifications.warning.cloneNode() as HTMLAudioElement;
-        temp.volume = 0.5;
+        temp.volume = 1;
         // @ts-ignore
         temp.play();
     }
 
     public alert(){
         const temp = this.notifications.alert.cloneNode() as HTMLAudioElement;
-        temp.volume = 0.5;
+        temp.volume = 1;
         // @ts-ignore
         temp.play();
     }
 
     public success(){
         const temp = this.notifications.success.cloneNode() as HTMLAudioElement;
-        temp.volume = 0.5;
+        temp.volume = 1;
         // @ts-ignore
         temp.play();
     }
@@ -155,7 +155,7 @@ class Soundscape {
 
     public snackbar(){
         const temp = this.notifications.snackbar.cloneNode() as HTMLAudioElement;
-        temp.volume = 0.5;
+        temp.volume = 1;
         // @ts-ignore
         temp.play();
     }
