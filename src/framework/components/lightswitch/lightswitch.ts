@@ -14,9 +14,10 @@ export interface ILightswitch {
     enabled: boolean,
     name: string,
     disabled: boolean,
-    className: string,
     callback: Function,
     color: LightswitchColor,
+    css: string,
+    class: string,
 };
 export interface LightswitchSettings{
     name?: string,
@@ -26,9 +27,10 @@ export interface LightswitchSettings{
     altLabelIcon?: string,
     enabled?: boolean,
     disabled?: boolean,
-    className?: string,
     callback?: Function,
     color?: LightswitchColor,
+    css?: string,
+    class?: string,
 };
 export default class Lightswitch extends SuperComponent<ILightswitch>{
     constructor(settings:LightswitchSettings){
@@ -41,9 +43,10 @@ export default class Lightswitch extends SuperComponent<ILightswitch>{
             altLabelIcon: "",
             enabled: false,
             disabled: false,
-            className: "",
             callback: noop,
             color: "primary",
+            css: "",
+            class: "",
         };
         env.css("lightswitch").then(()=>{
             this.update(settings);
@@ -102,7 +105,8 @@ export default class Lightswitch extends SuperComponent<ILightswitch>{
                 </span>
             </label>
         `;
-        this.className = this.model.className;
+        this.className = this.model.class;
+        this.style.cssText = this.model.css;
         render(view, this);
     }
 

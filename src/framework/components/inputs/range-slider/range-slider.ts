@@ -40,7 +40,8 @@ export default class RangeSlider extends Input{
             min: 0,
             max: 9999,
             step: 1,
-            className: "",
+            css: "",
+            class: "",
             callback: noop,
         };
         env.css(["range-slider"]).then(()=>{
@@ -114,7 +115,8 @@ export default class RangeSlider extends Input{
             </input-container>
         `;
         this.setAttribute("state", this.state);
-        this.className = `js-input ${this.model.className}`;
+        this.className = `js-input ${this.model.class}`;
+        this.style.cssText = this.model.css;
         render(view, this);
     }
 }

@@ -50,7 +50,8 @@ export default class NumberInput extends Input {
             max: 9999,
             step: 1,
             disabled: false,
-            className: "",
+            css: "",
+            class: "",
             callback: noop,
         };
         env.css("input").then(()=>{
@@ -94,7 +95,8 @@ export default class NumberInput extends Input {
             </input-container>
         `;
         this.setAttribute("state", this.state);
-        this.className = `input js-input ${this.model.className}`;
+        this.className = `input js-input ${this.model.class}`;
+        this.style.cssText = this.model.css;
         render(view, this);
     }
 }

@@ -13,10 +13,14 @@ export interface ITabs {
     tabs: Array<Tab>,
     callback: (tab:string)=>void,
     active: number,
+    css: string,
+    class: string,
 }
 export interface TabsSettings {
     tabs: Array<Tab>,
     callback: (tab:string)=>void,
+    css?: string,
+    class?: string,
 }
 export default class Tabs extends SuperComponent<ITabs>{
     constructor(settings:TabsSettings){
@@ -25,6 +29,8 @@ export default class Tabs extends SuperComponent<ITabs>{
             tabs: [],
             callback: noop,
             active: 0,
+            css: "",
+            class: "",
         };
         env.css(["tabs"]).then(()=>{
             this.update(settings);
@@ -54,6 +60,8 @@ export default class Tabs extends SuperComponent<ITabs>{
     }
 
     override render(){
+        this.className = this.model.class;
+        this.style.cssText = this.model.css;
         const view = html`
             ${this.model.tabs.map((tab, index) => {
                 const isActive = index === this.model.active;

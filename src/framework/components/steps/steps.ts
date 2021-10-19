@@ -14,12 +14,16 @@ export interface ISteps {
     activeStep: number,
     step: string,
     layout: "horizontal" | "vertical",
+    css: string,
+    class: string,
 }
 export interface StepsSettings {
     steps: Array<Step>,
     callback?: Function,
     step: string,
     layout?: "horizontal" | "vertical",
+    css?: string,
+    class?: string,
 }
 export default class Steps extends SuperComponent<ISteps>{
     constructor(settings:StepsSettings){
@@ -30,6 +34,8 @@ export default class Steps extends SuperComponent<ISteps>{
             activeStep: 0,
             step: null,
             layout: "vertical",
+            css: "",
+            class: "",
         };
         for (let i = 0; i < settings.steps.length; i++){
             if (settings.steps[i].name === settings.step){
@@ -108,7 +114,8 @@ export default class Steps extends SuperComponent<ISteps>{
                 }
             })}
         `;
-        this.className = this.model.layout;
+        this.className = `${this.model.layout} ${this.model.class}`;
+        this.style.cssText = this.model.css;
         if (this.model.layout === "horizontal"){
             this.style.gridTemplateColumns = `repeat(${this.model.steps.length}, minmax(300px, ${Math.floor(calcPercent(1, this.model.steps.length))}%))`;
         }

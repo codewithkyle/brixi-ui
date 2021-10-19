@@ -14,6 +14,8 @@ export interface IButton {
     size: "default" | "slim",
     callback: Function,
     tooltip: string,
+    css: string,
+    class: string,
 }
 export interface ButtonSettings {
     label: string,
@@ -25,6 +27,8 @@ export interface ButtonSettings {
     icon?: string,
     iconPosition?: "left" | "right" | "center",
     tooltip?: string,
+    css?: string,
+    class?: string,
 }
 export default class Button extends SuperComponent<IButton>{
     constructor(settings:ButtonSettings){
@@ -39,6 +43,8 @@ export default class Button extends SuperComponent<IButton>{
             iconPosition: "left",
             callback: noop,
             tooltip: null,
+            css: "",
+            class: "",
         };
         const classes = ["button"];
         if (settings?.tooltip?.length){
@@ -93,6 +99,8 @@ export default class Button extends SuperComponent<IButton>{
     }
 
     override render(){
+        this.style.cssText = this.model.css;
+        this.className = this.model.class;
         const view = html`
             ${this.renderIcon()}
             ${this.model.label}

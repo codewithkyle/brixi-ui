@@ -8,15 +8,21 @@ export interface AccordionSection {
 }
 export interface IAccordion {
     sections: Array<AccordionSection>,
+    css: string,
+    class: string,
 }
 export interface AccordionSettings {
     sections: Array<AccordionSection>,
+    css?: string,
+    class?: string,
 }
 export default class Accordion extends SuperComponent<IAccordion>{
     constructor(settings:AccordionSettings){
         super();
         this.model = {
             sections: [],
+            css: "",
+            class: "",
         };
         env.css(["accordion"]).then(()=>{
             this.update(settings);
@@ -42,6 +48,8 @@ export default class Accordion extends SuperComponent<IAccordion>{
     }
 
     override render(){
+        this.style.cssText = this.model.css;
+        this.className = this.model.class;
         const view = html`
             ${this.model.sections.map(this.renderSection)}
         `;

@@ -23,7 +23,8 @@ export interface ISelect {
     value: string,
     disabled: boolean,
     callback: Function,
-    className: string,
+    css: string,
+    class: string,
 }
 export interface SelectOptions {
     label?: string,
@@ -34,7 +35,8 @@ export interface SelectOptions {
     required?: boolean,
     disabled?: boolean,
     callback?:Function,
-    className?: string,
+    css?: string,
+    class?: string,
 }
 export default class Select extends SuperComponent<ISelect>{
     constructor(settings:SelectOptions){
@@ -65,7 +67,8 @@ export default class Select extends SuperComponent<ISelect>{
             value: "",
             disabled: false,
             callback: noop,
-            className: "",
+            css: "",
+            class: "",
         };
         for (let i = 0; i < settings.options.length; i++){
             if (settings.options[i]?.selected){
@@ -186,7 +189,8 @@ export default class Select extends SuperComponent<ISelect>{
             </select-container>
         `;
         this.setAttribute("state", this.state);
-        this.className = `select js-input ${this.model.className}`;
+        this.className = `select js-input ${this.model.class}`;
+        this.style.cssText = this.model.css;
         render(view, this);
     }
 }

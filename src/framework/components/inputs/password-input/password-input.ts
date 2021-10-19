@@ -41,7 +41,8 @@ export default class PasswordInput extends Input {
             maxlength: 9999,
             minlength: 0,
             type: "password",
-            className: "",
+            css: "",
+            class: "",
             callback: noop,
         };
         env.css("input").then(()=>{
@@ -115,7 +116,8 @@ export default class PasswordInput extends Input {
             </input-container>
         `;
         this.setAttribute("state", this.state);
-        this.className = `input js-input ${this.model.className}`;
+        this.className = `input js-input ${this.model.class}`;
+        this.style.cssText = this.model.css;
         render(view, this);
     }
 }

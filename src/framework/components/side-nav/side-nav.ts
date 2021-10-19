@@ -28,6 +28,8 @@ export interface ISideNav {
     currentPage: string,
     logo: string,
     title: string,
+    css: string,
+    class: string,
 }
 export interface SideNavSettings {
     nav: Array<NavLink>,
@@ -36,6 +38,8 @@ export interface SideNavSettings {
     avatar?: string,
     logo?: string,
     title: string,
+    css?: string,
+    class?: string,
 }
 export default class SideNav extends SuperComponent<ISideNav>{
     constructor(settings:SideNavSettings){
@@ -53,6 +57,8 @@ export default class SideNav extends SuperComponent<ISideNav>{
             currentPage: location.pathname.replace(/^\//, "").toLowerCase(),
             logo: "",
             title: "",
+            css: "",
+            class: "",
         };
         env.css(["side-nav"]).then(()=>{
             this.update(settings);
@@ -198,6 +204,8 @@ export default class SideNav extends SuperComponent<ISideNav>{
     }
 
     override render(){
+        this.style.cssText = this.model.css;
+        this.className = this.model.class;
         this.setAttribute("state", this.model.isOpen ? "open" : "closed");
         const initals = this.model.name.split(" ").map((n)=>n[0]).join("");
         const view = html`

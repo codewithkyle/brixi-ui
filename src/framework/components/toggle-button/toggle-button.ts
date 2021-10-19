@@ -10,6 +10,8 @@ export interface IToggleButton {
         [state:string]: ButtonSettings,
     },
     instructions: string,
+    class: string,
+    css: string,
 }
 export interface ToggleButtonSettings {
     state: string,
@@ -18,6 +20,8 @@ export interface ToggleButtonSettings {
         [state:string]: ButtonSettings,
     },
     instructions?: string,
+    class?: string,
+    css?: string,
 }
 export default class ToggleButton extends SuperComponent<IToggleButton>{
     constructor(settings:IToggleButton){
@@ -27,6 +31,8 @@ export default class ToggleButton extends SuperComponent<IToggleButton>{
             states: [],
             buttons: {},
             instructions: "",
+            css: "",
+            class: "",
         };
         env.css(["toggle-button", "button"]).then(()=>{
             this.update(settings);
@@ -69,6 +75,8 @@ export default class ToggleButton extends SuperComponent<IToggleButton>{
     }
 
     override render(){
+        this.style.cssText = this.model.css;
+        this.className = this.model.class;
         const view = html`
             ${this.renderInstructions()}
             ${this.renderButton()}

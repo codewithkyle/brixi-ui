@@ -35,7 +35,8 @@ export default class PhoneInput extends Input {
             disabled: false,
             maxlength: 9999,
             minlength: 0,
-            className: "",
+            css: "",
+            class: "",
             callback: noop,
         };
         env.css("input").then(()=>{
@@ -114,7 +115,8 @@ export default class PhoneInput extends Input {
             </input-container>
         `;
         this.setAttribute("state", this.state);
-        this.className = `input js-input ${this.model.className}`;
+        this.className = `input js-input ${this.model.class}`;
+        this.style.cssText = this.model.css;
         render(view, this);
     }
 }

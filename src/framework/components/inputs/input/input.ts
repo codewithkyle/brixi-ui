@@ -20,8 +20,9 @@ export interface IInput {
     minlength: number,
     disabled: boolean,
     readOnly: boolean,
-    className:string,
     callback: Function,
+    css: string,
+    class: string,
 };
 export interface InputSettings {
     label?: string,
@@ -37,8 +38,9 @@ export interface InputSettings {
     minlength?: number,
     disabled?: boolean,
     readOnly?: boolean,
-    className?:string,
     callback?: Function,
+    css?: string,
+    class?: string,
 };
 export default class Input extends SuperComponent<IInput> {
     constructor(settings:InputSettings){
@@ -72,8 +74,9 @@ export default class Input extends SuperComponent<IInput> {
             minlength: 0,
             disabled: false,
             readOnly: false,
-            className: "",
             callback: noop,
+            css: "",
+            class: "",
         };
         env.css("input").then(()=>{
             this.update(settings);
@@ -191,7 +194,8 @@ export default class Input extends SuperComponent<IInput> {
             </input-container>
         `;
         this.setAttribute("state", this.state);
-        this.className = `input js-input ${this.model.className}`;
+        this.className = `input js-input ${this.model.class}`;
+        this.style.cssText = this.model.css;
         render(view, this);
     }
 }

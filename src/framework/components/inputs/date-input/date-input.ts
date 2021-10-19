@@ -56,7 +56,8 @@ export default class DateInput extends Input {
             mode: "single",
             disableCalendar: false,
             timeFormat: "12",
-            className: "",
+            css: "",
+            class: "",
             callback: noop,
         };
         env.css(["input", "flatpickr"]).then(()=>{
@@ -94,7 +95,8 @@ export default class DateInput extends Input {
             </input-container>
         `;
         this.setAttribute("state", this.state);
-        this.className = `input js-input ${this.model.className}`;
+        this.className = `input js-input ${this.model.class}`;
+        this.style.cssText = this.model.css;
         render(view, this);
         const input = this.querySelector("input");
         flatpickr(input, {

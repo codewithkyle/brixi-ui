@@ -15,12 +15,16 @@ export interface IChips {
     chips: Array<Chip>,
     chipStates: {
         [name:string]: boolean,
-    }
+    },
+    css: string,
+    class: string,
 }
 export interface ChipsSettings {
     chips: Array<Chip>,
     callback: Function,
     type?: "static" | "dynamic",
+    css?: string,
+    class?: string,
 }
 
 export default class Chips extends SuperComponent<IChips>{
@@ -31,6 +35,8 @@ export default class Chips extends SuperComponent<IChips>{
             callback: noop,
             chips: [],
             chipStates: {},
+            class: "",
+            css: "",
         };
         for (const chip of settings?.chips){
             this.model.chipStates[chip.name] = false;
@@ -100,6 +106,8 @@ export default class Chips extends SuperComponent<IChips>{
     }
 
     override render(){
+        this.className = this.model.class;
+        this.style.cssText = this.model.css;
         const view = html`
             ${this.model.chips.map((chip, index) => {
                 let kind = "outline";

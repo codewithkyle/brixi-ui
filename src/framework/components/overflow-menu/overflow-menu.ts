@@ -14,12 +14,16 @@ export interface IOverflowMenu {
     items: Array<OverflowItem>,
     position: "left" | "right",
     tooltip: string,
+    class: string,
+    css: string,
 };
 export interface OverflowMenuSettings{
     items: Array<OverflowItem>,
     icon?: "vertical" | "horizontal" | string,
     position?: "left" | "right",
     tooltip?: string,
+    css?: string,
+    class?: string,
 };
 export default class OverflowMenu extends SuperComponent<IOverflowMenu>{
     constructor(settings:OverflowMenuSettings){
@@ -29,6 +33,8 @@ export default class OverflowMenu extends SuperComponent<IOverflowMenu>{
             items: [],
             position: "right",
             tooltip: null,
+            class: "",
+            css: "",
         };
         env.css("overflow-menu").then(()=>{
             this.update(settings);
@@ -71,6 +77,8 @@ export default class OverflowMenu extends SuperComponent<IOverflowMenu>{
     }
 
     override render(){
+        this.style.cssText = this.model.css;
+        this.className = this.model.class;
         const view = html`
             <button sfx="button" type="button" aria-label="${this.model.tooltip || "open overflow menu"}" ?tooltip=${this.model.tooltip}>
                 ${this.renderIcon()}

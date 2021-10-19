@@ -10,8 +10,9 @@ export interface ICheckbox {
     name: string,
     checked: boolean,
     disabled: boolean,
-    className: string,
     callback: Function,
+    css: string,
+    class: string,
 }
 export interface CheckboxSettings {
     label: string,
@@ -19,8 +20,9 @@ export interface CheckboxSettings {
     required?: boolean,
     checked?: boolean,
     disabled?: boolean,
-    className?: string,
     callback?: Function,
+    css?: string,
+    class?: string,
 }
 export default class Checkbox extends SuperComponent<ICheckbox>{
     constructor(settings:CheckboxSettings){
@@ -31,8 +33,9 @@ export default class Checkbox extends SuperComponent<ICheckbox>{
             name: "",
             checked: false,
             disabled: false,
-            className: "",
             callback: noop,
+            css: "",
+            class: "",
         };
         env.css("checkbox").then(() => {
             this.update(settings);
@@ -87,7 +90,8 @@ export default class Checkbox extends SuperComponent<ICheckbox>{
             </div>
         `;
         this.setAttribute("state", this.state);
-        this.className = `checkbox js-input ${this.model.className}`;
+        this.className = `checkbox js-input ${this.model.class}`;
+        this.style.cssText = this.model.css;
         render(view, this);
     }
 }

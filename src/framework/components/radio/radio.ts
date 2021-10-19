@@ -10,8 +10,9 @@ export interface IRadio {
     name: string,
     checked: boolean,
     disabled: boolean,
-    className: string,
     callback: Function,
+    class: string,
+    css: string,
 }
 export interface RadioSettings {
     label: string,
@@ -19,8 +20,9 @@ export interface RadioSettings {
     required?: boolean,
     checked?: boolean,
     disabled?: boolean,
-    className?: string,
     callback?: Function,
+    class?: string,
+    css?: string,
 }
 export default class Radio extends SuperComponent<IRadio>{
     constructor(settings:RadioSettings){
@@ -31,8 +33,9 @@ export default class Radio extends SuperComponent<IRadio>{
             name: "",
             checked: false,
             disabled: false,
-            className: "",
             callback: noop,
+            css: "",
+            class: "",
         };
         env.css("radio").then(() => {
             this.update(settings);
@@ -69,7 +72,8 @@ export default class Radio extends SuperComponent<IRadio>{
             </div>
         `;
         this.setAttribute("state", this.state);
-        this.className = `radio js-input ${this.model.className}`;
+        this.className = `radio js-input ${this.model.class}`;
+        this.style.cssText = this.model.css;
         render(view, this);
     }
 }

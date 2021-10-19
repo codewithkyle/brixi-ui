@@ -16,6 +16,8 @@ export interface IAlert {
     closeable: boolean,
     actions: Array<Action>,
     closeCallback: Function,
+    css: string,
+    class: string,
 }
 export interface AlertSettings {
     type?: "warning" | "info" | "danger" | "success",
@@ -25,6 +27,8 @@ export interface AlertSettings {
     closeable?: boolean,
     actions?: Array<Action>,
     closeCallback?: Function,
+    css?: string,
+    class?: string,
 }
 export default class Alert extends SuperComponent<IAlert>{
     constructor(settings:AlertSettings){
@@ -37,6 +41,8 @@ export default class Alert extends SuperComponent<IAlert>{
             closeable: false,
             actions: [],
             closeCallback: noop,
+            css: "",
+            class: "",
         };
         env.css(["alert"]).then(()=>{
             this.update(settings);
@@ -124,6 +130,8 @@ export default class Alert extends SuperComponent<IAlert>{
     }
 
     override render(){
+        this.style.cssText = this.model.css;
+        this.className = this.model.class;
         const view = html`
             ${this.renderCloseButton()}
             <i>

@@ -19,8 +19,9 @@ export interface ITextarea {
     disabled: boolean,
     readOnly: boolean,
     rows: number,
-    className: string,
     callback: Function,
+    css: string,
+    class: string,
 };
 export interface TextareaSettings {
     label?: string,
@@ -35,8 +36,9 @@ export interface TextareaSettings {
     disabled?: boolean,
     readOnly?: boolean,
     rows?: number,
-    className?: string,
     callback?: Function,
+    css?: string,
+    class?: string,
 };
 export default class Textarea extends SuperComponent<ITextarea> {
     constructor(settings:TextareaSettings){
@@ -69,8 +71,9 @@ export default class Textarea extends SuperComponent<ITextarea> {
             disabled: false,
             readOnly: false,
             rows: 5,
-            className: "",
             callback: noop,
+            css: "",
+            class: "",
         };
         env.css("textarea").then(()=>{
             this.update(settings);
@@ -169,7 +172,8 @@ export default class Textarea extends SuperComponent<ITextarea> {
             <textarea @input=${this.handleInput} @blur=${this.handleBlur} placeholder="${this.model.placeholder}" autocomplete="${this.model.autocomplete}" rows="${this.model.rows}" maxlength="${this.model.maxlength}" minlength="${this.model.minlength}" name="${this.model.name}" id="${id}" ?readonly=${this.model.readOnly} ?required=${this.model.required} ?disabled=${this.model.disabled}></textarea>
         `;
         this.setAttribute("state", this.state);
-        this.className = `textarea js-input ${this.model.className}`;
+        this.className = `textarea js-input ${this.model.class}`;
+        this.style.cssText = this.model.css;
         render(view, this);
     }
 }

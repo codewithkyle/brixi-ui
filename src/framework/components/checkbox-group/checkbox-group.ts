@@ -9,7 +9,8 @@ export interface ICheckboxGroup {
     disabled: boolean,
     label: string,
     name: string,
-    className: string,
+    css: string,
+    class: string,
 }
 export interface CheckboxGroupSettings {
     label: string,
@@ -17,7 +18,8 @@ export interface CheckboxGroupSettings {
     options: Array<CheckboxSettings>,
     disabled?: boolean,
     name: string,
-    className?: string,
+    css?: string,
+    class?: string,
 }
 export default class CheckboxGroup extends SuperComponent<ICheckboxGroup>{
     constructor(settings:CheckboxGroupSettings){
@@ -32,7 +34,8 @@ export default class CheckboxGroup extends SuperComponent<ICheckboxGroup>{
             disabled: false,
             name: "",
             options: [],
-            className: "",
+            css: "",
+            class: "",
         };
         env.css("checkbox-group").then(() => {
             this.update(settings);
@@ -61,7 +64,8 @@ export default class CheckboxGroup extends SuperComponent<ICheckboxGroup>{
                 return new Checkbox(option);
             })}
         `;
-        this.className = `${this.model.className} ${this.model.disabled ? "is-disabled" : ""}`;
+        this.className = `${this.model.class} ${this.model.disabled ? "is-disabled" : ""}`;
+        this.style.cssText = this.model.css;
         render(view, this);
     }
 }
