@@ -1,3 +1,5 @@
+import { debounce } from "~utils/general";
+
 export default class Resizer extends HTMLElement {
     private width: number;
     private _resizeElement: HTMLElement;
@@ -12,15 +14,29 @@ export default class Resizer extends HTMLElement {
         this.dragging = false;
     }
 
-    private initDrag = (e: MouseEvent) => {
-        this.x = e.clientX;
+    private initDrag = (e: MouseEvent|TouchEvent) => {
+        let clientX;
+        if (e instanceof MouseEvent){
+            clientX = e.clientX;
+        }
+        else if (e instanceof TouchEvent){
+            clientX = e.touches[0].clientX;
+        }
+        this.x = clientX;
         this.dragging = true;
         this.setAttribute("dragging", "true");
     }
 
-    private doDrag = (e: MouseEvent): void => {
+    private doDrag = (e: MouseEvent|TouchEvent): void => {
+        let clientX;
+        if (e instanceof MouseEvent){
+            clientX = e.clientX;
+        }
+        else if (e instanceof TouchEvent){
+            clientX = e.touches[0].clientX;
+        }
         if (this.dragging){
-            const x = e.clientX;
+            const x = clientX;
             const diff = x - this.x;
             let newWidth = this.width + diff;
             if (newWidth > this.maxWidth){
@@ -41,6 +57,8 @@ export default class Resizer extends HTMLElement {
 
     private resize:EventListener = () => {
         this.maxWidth = this.getBoundingClientRect().width;
+        this.container.style.width = `${this.maxWidth}px`;
+        this.width = this.maxWidth;
     }
 
     connectedCallback() {
@@ -50,6 +68,11 @@ export default class Resizer extends HTMLElement {
         this._resizeElement.addEventListener('mousedown', this.initDrag);
         document.addEventListener('mousemove', this.doDrag);
         document.addEventListener('mouseup', this.stopDrag);
-        window.addEventListener("resize", this.resize);
+
+        this._resizeElement.addEventListener("touchstart", this.initDrag);
+        document.addEventListener("touchmove", this.doDrag);
+        document.addEventListener("touchend", this.stopDrag);
+        // @ts-expect-error
+        window.addEventListener("resize", debounce(this.resize.bind(this), 300));
     }
 }
