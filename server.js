@@ -313,24 +313,6 @@ return `<!DOCTYPE html>
     <meta name="description" content="A sleek & slender design system built on web components.">
     <link rel="alternate icon" href="/favicon.png">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <script type="module">
-        import { snackbar } from "/js/notifyjs.js";
-        navigator.serviceWorker.addEventListener('message', event => {
-            snackbar({
-                message: "A new version of this site is available.",
-                closeable: true,
-                duration: Infinity,
-                buttons: [
-                    {
-                        label: "Refresh",
-                        callback: () => {
-                            location.reload();
-                        },
-                    },
-                ]
-            });
-        });
-    </script>
     <script>navigator.serviceWorker.register('/service-worker.js');</script>
     <link rel="stylesheet" href="/css/normalize.css">
     <link rel="stylesheet" href="/css/framework-core.css">
