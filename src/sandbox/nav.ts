@@ -60,6 +60,10 @@ export default class Nav extends SuperComponent<NavData>{
         target.classList.toggle("is-open");
     }
 
+    private handleMenuClick:EventListener = (e:Event) => {
+        document.body.classList.toggle("is-open");
+    }
+
     private renderLink(link){
         return html`
             <button class="${link.slug === this.model.active ? "is-active" : ""}" @click=${ this.navigate } data-slug="${ link.slug }">
@@ -118,6 +122,14 @@ export default class Nav extends SuperComponent<NavData>{
                             ${link.children.length ? this.renderLinkWithChildren(link) : this.renderLink(link)}
                         `;
                     }) }
+                    <button @click=${this.handleMenuClick} style="position:fixed;top:1rem;" class="bttn menu" kind="outline" color="grey" icon="center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="open" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="close" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                        </svg>
+                    </button>
                 `;
                 break;
         }

@@ -96,8 +96,8 @@ export default class View extends SuperComponent<ViewData>{
         let view = html`<p class="font-grey-800 absolute center">Select a component to begin.</p>`;
         if (this.model.component){
             view = html`
-                <div class="mb-0.5 text-capitalize px-1" flex="row nowrap justify-between items-center">
-                    <h1 class="font-md font-bold">${this.model.component.replace(/.*\//, "").trim().replace(/\-/g, " ")}</h1>
+                <div class="head mb-0.5 text-capitalize scroll-x-auto" flex="row nowrap justify-between items-center">
+                    <h1 class="font-md font-bold mr-2">${this.model.component.replace(/.*\//, "").trim().replace(/\-/g, " ")}</h1>
                     <view-switcher>
                         <button @click=${this.switchView} data-view="demo" class="${this.model.view === "demo" ? "is-selected" : ""}">
                             <i>

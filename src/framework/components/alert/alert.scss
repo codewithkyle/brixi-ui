@@ -146,6 +146,10 @@ alert-component {
         }
     }
 
+    .copy{
+        flex: 1;
+    }
+
     p{
         display: block;
         line-height: 1.618;
@@ -207,6 +211,7 @@ alert-component {
         justify-content: center;
         align-items: center;
         transition: all 80ms var(--ease-in-out);
+        z-index: 10;
 
         &:focus-visible{
             box-shadow: var(--focus-ring);
