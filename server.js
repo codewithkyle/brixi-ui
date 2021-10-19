@@ -17,6 +17,39 @@ const cssDir = path.join(cwd, "test", "css");
 const frameworkDir = path.join(cwd, "src", "framework");
 const audioDir = path.join(cwd, "audio");
 
+app.get('/service-worker.js', async (req, res) => {
+    try {
+        const file = path.join(cwd, "service-worker.js");
+        if (fs.existsSync(file)){
+            return res.status(200).sendFile(file);
+        } else {
+            throw 404;
+        }
+    } catch (e) {
+        let status = 500;
+        if (typeof e === "number"){
+            status = e;
+        }
+        return res.status(status).send();
+    }
+});
+app.get('/service-worker-assets.js', async (req, res) => {
+    try {
+        const file = path.join(cwd, "service-worker-assets.js");
+        if (fs.existsSync(file)){
+            return res.status(200).sendFile(file);
+        } else {
+            throw 404;
+        }
+    } catch (e) {
+        let status = 500;
+        if (typeof e === "number"){
+            status = e;
+        }
+        return res.status(status).send();
+    }
+});
+
 app.get('/audio/*', async (req, res) => {
     try {
         const file = path.join(audioDir, req.path.replace(/[\/]audio\/|\/$/g, "").trim().toLowerCase());
@@ -185,12 +218,14 @@ return `<!DOCTYPE html>
     <meta name="description" content="A sleek & slender design system built on web components.">
     <link rel="alternate icon" href="/favicon.png">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <script>navigator.serviceWorker.register('/service-worker.js');</script>
     <link rel="stylesheet" href="/normalize.css">
     <link rel="stylesheet" href="/framework-core.css">
     <link rel="stylesheet" href="/core.css">
     <link rel="stylesheet" href="/brixi.css">
     <link rel="stylesheet" href="/component-layout.css">
     <link rel="stylesheet" href="/tooltip.css">
+    <link rel="stylesheet" href="/css/snackbar.css">
     ${ css.length ? `<style>${css}</style>` : "" }
     ${ js.length ? `<script type="module">${js}</script>` : "" }
     <script type="module" src="/soundscape.js"></script>
@@ -213,6 +248,25 @@ return `<!DOCTYPE html>
     <meta name="description" content="A sleek & slender design system built on web components.">
     <link rel="alternate icon" href="/favicon.png">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <script type="module">
+        import { snackbar } from "/js/notifyjs.js";
+        navigator.serviceWorker.addEventListener('message', event => {
+            snackbar({
+                message: "A new version of this site is available.",
+                closeable: true,
+                duration: Infinity,
+                buttons: [
+                    {
+                        label: "Refresh",
+                        callback: () => {
+                            location.reload();
+                        },
+                    },
+                ]
+            });
+        });
+    </script>
+    <script>navigator.serviceWorker.register('/service-worker.js');</script>
     <link rel="stylesheet" href="/normalize.css">
     <link rel="stylesheet" href="/framework-core.css">
     <link rel="stylesheet" href="/core.css">
@@ -220,6 +274,7 @@ return `<!DOCTYPE html>
     <link rel="stylesheet" href="/base-layout.css">
     <link rel="stylesheet" href="/css/button.css">
     <link rel="stylesheet" href="/css/tooltip.css">
+    <link rel="stylesheet" href="/css/snackbar.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/github-dark-dimmed.min.css">
     <script defer src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js"></script>
     <script type="module" src="/bootstrap.js"></script>

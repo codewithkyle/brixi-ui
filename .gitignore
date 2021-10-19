@@ -4,3 +4,4 @@ dist
 test
 brixi/
 _types
+service-worker-assets.js

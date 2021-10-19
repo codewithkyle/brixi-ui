@@ -26,9 +26,11 @@
     "watch:server": "node ./server",
     "prerelease": "rm -rf ./dist && mkdir ./dist && npm run bundle && npm run brixi && run-s make:* && npm run lint",
     "make:src": "mkdir ./dist/framework && cp -r ./src/framework/* ./dist/framework",
-    "make:audio": "cp -r ./audio ./dist/audio"
+    "make:audio": "cp -r ./audio ./dist/audio",
+    "wrangle": "asset-manager"
   },
   "dependencies": {
+    "@codewithkyle/asset-manager": "^1.0.1",
     "fs-extra": "^10.0.0",
     "yargs": "^17.0.1"
   },
