@@ -26,12 +26,16 @@ export interface ISideNav {
     role: string,
     avatar: string,
     currentPage: string,
+    logo: string,
+    title: string,
 }
 export interface SideNavSettings {
     nav: Array<NavLink>,
     name: string,
     role?: string,
-    avatar: string,
+    avatar?: string,
+    logo?: string,
+    title: string,
 }
 export default class SideNav extends SuperComponent<ISideNav>{
     constructor(settings:SideNavSettings){
@@ -47,6 +51,8 @@ export default class SideNav extends SuperComponent<ISideNav>{
             role: "",
             avatar: "",
             currentPage: location.pathname.replace(/^\//, "").toLowerCase(),
+            logo: "",
+            title: "",
         };
         env.css(["side-nav"]).then(()=>{
             this.update(settings);
@@ -198,8 +204,8 @@ export default class SideNav extends SuperComponent<ISideNav>{
             <div class="container">
                 <header>
                     <div flex="row nowrap items-center">
-                        <img src="/logo.png">
-                        <h1>Brixi UI</h1>
+                        ${this.model.logo?.length ? html`<img src="${this.model.logo}">` : ""}
+                        <h1>${this.model.title}</h1>
                     </div>
                     <button sfx="button" @click=${this.handleMenuClick} tooltip="${this.model.isOpen ? "Collapse menu" : "Open menu"}" class="menu">
                         ${this.renderMenuIcon()}
