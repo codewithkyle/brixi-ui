@@ -103,7 +103,7 @@ export default class Nav extends SuperComponent<NavData>{
             default:
                 view = html`
                     <div flex="row nowrap items-center" class="mb-1">
-                        <a sfx="button" href="/" class="mr-0.5" flex="row nowrap items-center">
+                        <a sfx="button" href="/" class="mr-0.25" flex="row nowrap items-center">
                             <img src="/logo.png" width="32" class="mr-0.5">
                             <h1 class="font-xl font-bold font-grey-800">Brixi UI</h1>
                         </a>
