@@ -33,16 +33,19 @@ import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~controllers/env";
 
 export interface I${name.toPascalCase()} {
-
+    css: string,
+    class: string,
 }
 export interface ${name.toPascalCase()}Settings {
-    
+    css?: string,
+    class?: string,
 }
 export default class ${name.toPascalCase()} extends SuperComponent<I${name.toPascalCase()}>{
     constructor(settings:${name.toPascalCase()}Settings){
         super();
         this.model = {
-            
+            css: "",
+            class: "",
         };
         env.css(["${name.toKebabCase()}"]).then(()=>{
             this.update(settings);
@@ -50,6 +53,8 @@ export default class ${name.toPascalCase()} extends SuperComponent<I${name.toPas
     }
 
     override render(){
+        this.className = this.model.class;
+        this.style.cssText = this.model.css;
         const view = html\`
 
         \`;
