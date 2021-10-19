@@ -32,7 +32,7 @@ app.get('/js/*', async (req, res) => {
 });
 app.get('/css/*', async (req, res) => {
     try {
-        const file = path.join(cssDir, req.path.replace(/[\/]js\/|\/$/g, "").trim().toLowerCase());
+        const file = path.join(cssDir, req.path.replace(/[\/]css\/|\/$/g, "").trim().toLowerCase());
         if (fs.existsSync(file)){
             return res.status(200).sendFile(file);
         } else {
