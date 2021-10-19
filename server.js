@@ -275,6 +275,7 @@ return `<!DOCTYPE html>
     <link rel="stylesheet" href="/css/button.css">
     <link rel="stylesheet" href="/css/tooltip.css">
     <link rel="stylesheet" href="/css/snackbar.css">
+    <link rel="stylesheet" href="/css/link.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/github-dark-dimmed.min.css">
     <script defer src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js"></script>
     <script type="module" src="/bootstrap.js"></script>

@@ -93,7 +93,88 @@ export default class View extends SuperComponent<ViewData>{
     }
 
     render(){
-        let view = html`<p class="font-grey-800 absolute center">Select a component to begin.</p>`;
+        let view = html`
+            <div class="w-full max-w-768 mx-auto block py-4 h-screen scroll-y-auto">
+                <h1 class="block font-grey-700 font-3xl font-bold line-normal">Howdy stranger!</h1>
+                <p class=" mb-0.5 font-grey-700 font-sm line-normal">Brixi UI is a sleek & slender design system built on the <a href="https://brixi.dev/" target="_blank" rel="noopener">Brixi</a> CSS framework. The goal of Brixi UI is to provide me with a lightweight accessibility-conscious design system built on web standards such as ES Modules and Web Components while providing fast JIT resource fetching using the dynamic import syntax.</p>
+                <p class=" mb-0.5 font-grey-700 font-sm line-normal">Brixi UI is built on two primary NPM packages: <a class="link" href="https://lit-html.polymer-project.org/guide" target="_blank" rel="noopener">lit-html</a> and <a class="link" href="https://github.com/codewithkyle/supercomponent" target="_blank" rel="noopener">SuperComponents</a>. The lit-html library lets you write HTML templates in JavaScript using template literals with embedded JavaScript expressions. lit-html identifies the static and dynamic parts of your templates so it can efficiently update just the changed portions without using a virtual DOM. lit-html is not tied to any component model, it focuses only on creating and updating DOM and that's where SuperComponents come in.</p>
+                <p class=" mb-0.5 font-grey-700 font-sm line-normal">The SuperComponent library gives your Web Components modern-day superpowers like creating stateful Web Components (similar to <a href="https://reactjs.org/" class="link" target="_blank" rel="noopener">React</a> components) along with the ability to manage your components state with an <a href="https://xstate.js.org/" class="link" target="_blank" rel="noopener">xstate</a> inspired state machine.</p>
+                <p class=" mb-0.5 font-grey-700 font-sm line-normal">If you're interested in learning more about lit-html or xstate you can watch the videos below where the authors of each library provide insights and a deep dive into the inner workings of their projects.</p>
+                <div class="w-full mb-2" grid="columns 2 gap-1">
+                    <iframe class="w-full ar-16:9" src="https://www.youtube.com/embed/Io6JjgckHbg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe class="w-full ar-16:9" src="https://www.youtube.com/embed/VU1NKX6Qkxc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                
+                <h2 class="block font-grey-700 font-lg font-bold line-normal">How Brixi UI works.</h2>
+                <p class=" mb-0.5 font-grey-700 font-sm line-normal">There are two ways to use Brixi UI. You can install the UI components via NPM using the command <code class="inline-block font-xs font-warning-700 bg-warning-100 px-0.25 radius-0.25">npm i -S brixi-ui</code> or you can browse the source code of individual components using the menu on the left. Each component provides a default class export that can be instanciated and appended to the DOM.</p>
+                <p class=" mb-2 font-grey-700 font-sm line-normal">The benifit of downloading the UI package instead of cherry-picking individual components is all the extra utility classes that the library provides.</p>
+
+                <h2 class="block font-grey-700 font-lg font-bold line-normal">What does Brixi UI provide?</h2>
+                <ul class="font-sm line-normal mb-2">
+                    <li style="list-style-type:disc;list-style-position: outside;margin-left:14px;">Dozens of Web Components that can be rendered/configured at runtime.</li>
+                    <li style="list-style-type:disc;list-style-position: outside;margin-left:14px;">An enviroment class which can be used to bootstrap new components or load CSS.</li>
+                    <li style="list-style-type:disc;list-style-position: outside;margin-left:14px;">A soundscape class which provides generic sound effects such as hover, tap, notifications, and toggles.</li>
+                    <li style="list-style-type:disc;list-style-position: outside;margin-left:14px;">Utility functions such as native UUID v4 generation and a debounce function.</li>
+                    <li style="list-style-type:disc;list-style-position: outside;margin-left:14px;">A Web Component based dynamic runtime router that can be used to build SPAs.</li>
+                    <li style="list-style-type:disc;list-style-position: outside;margin-left:14px;">Several pre-bundled 3rd party libraries such as lit-html, flatpickr, day.js, fuse.js, tooltips, pubsub, snackbar/toaster notifications, and modal creation.</li>
+                </ul>
+
+                <h2 class="block font-grey-700 font-lg font-bold line-normal">What doesn't Brixi UI provide?</h2>
+                <ul class="font-sm line-normal mb-2">
+                    <li style="list-style-type:disc;list-style-position: outside;margin-left:14px;">Tools for compiling/bundling your JavaScript or CSS.</li>
+                    <li style="list-style-type:disc;list-style-position: outside;margin-left:14px;">A built in web server for developing or demoing your project.</li>
+                </ul>
+                
+                <h2 class="block font-grey-700 font-lg font-bold line-normal">Who should use Brixi UI?</h2>
+                <p class=" mb-2 font-grey-700 font-sm line-normal">Everybody, or maybe nobody. The Brixi UI design system is a tool I created to help myself create SPAs faster and easier. All of the components are licensed under MIT. Feel free to download and use any component for any commercial/non-commercial project.</p>
+
+                <h2 class="block font-grey-700 font-lg font-bold line-normal">Why create yet another CSS/JS framework?</h2>
+                <p class=" mb-0.5 font-grey-700 font-sm line-normal">Like most framework authors I wanted something that solved my specific problem. I noticed while using <a class="link" href="https://tailwindcss.com/" target="_blank" rel="noopener">Tailwind CSS</a> that I often only used a handful of classes, such as font, text, border, background, margin, and padding. At the time I was working on a server-side rendered PHP project and I decided it would be easier to create my own lightweight utility-first CSS framework than it would be to figure out how to use <a class="link" href="https://purgecss.com/" target="_blank" rel="noopener">Purge CSS</a> with my templating system. I created the <a class="link" href="https://brixi.dev/" target="_blank" rel="noopener">Brixi</a> CSS framework by listing every Tailwind CSS class I used along with a longer and somewhat incomplete list of the classes I didn't. From there I created a list of classes/features I wanted in a utility-first CSS framework.</p>
+                <p class=" mb-0.5 font-grey-700 font-sm line-normal">After building the CSS framework I created <a class="link" href="https://github.com/codewithkyle/supercomponent" target="_blank" rel="noopener">SuperComponents</a>. I wanted something that used Web Components while providing similar functionality to <a href="https://reactjs.org/" class="link" target="_blank" rel="noopener">React</a> without the overhead of the virtual DOM. Super Components separate the components state and model allowing developers to define and trigger state transitions without touching the components data model.</p>
+                <p class=" mb-2 font-grey-700 font-sm line-normal">I also didn't want to limit myself to JavaScript based UI frameworks. Using a tool like <a class="link" href="https://github.com/codewithkyle/lazy-loader" target="_blank" rel="noopener">Lazy Loader</a> I can create Super Components that will automatically load and mount on server-side rendered projects.</p>
+
+                <h2 class="block font-grey-700 font-lg font-bold line-normal">Why Web Components?</h2>
+                <p class=" mb-2 font-grey-700 font-sm line-normal">Web Components are (and have been) supported in <a class="link" href="https://caniuse.com/custom-elementsv1" target="_blank" rel="noopener">every major browser</a> for a while. They provide native component mount/unmount functionality and with the way Web Components bind to the DOM nodes they can be queried and their functions can be immediately invoked. This means you don't need to provide state/prop callbacks between components, just <code class="inline-block font-xs font-warning-700 bg-warning-100 px-0.25 radius-0.25">querySelector</code> your component's custom element name to gain access to any of it's public methods.</p>
+
+                <h2 class="block font-grey-700 font-lg font-bold line-normal">What if I don't want to use your framework/libraries?</h2>
+                <p class=" mb-2 font-grey-700 font-sm line-normal">That's okay. You can use the menu on the left to pick-and-choose what component you like and you can use the Source view to copy the SCSS and TypeScript source code. Each component can (somewhat) easily be converted to use Vue, React, or any other JavaScript based UI framework.</p>
+
+                <h2 class="block font-grey-700 font-lg font-bold line-normal">Contributing to Brixi UI.</h2>
+                <p class=" mb-2 font-grey-700 font-sm line-normal">Contributions are welcome, however, this is my personal design system. Any contributions are likely to be subject to scrutiny and multiple revisions until I feel like the component fits the look and feel of the overall design system.</p>
+                
+                <h2 class="block font-grey-700 font-lg font-bold line-normal">Attribution and Inspiration.</h2>
+                <p class=" mb-1 font-grey-700 font-sm line-normal">Brixi UI was built on the sholders of giants like:</p>
+                <ul class="font-sm line-normal">
+                    <li style="list-style-type:disc;list-style-position: outside;margin-left:14px;">
+                        <a class="link" href="https://tailwindui.com/" target="_blank" rel="noopener">Tailwind UI</a>
+                    </li>
+                    <li style="list-style-type:disc;list-style-position: outside;margin-left:14px;">
+                        <a class="link" href="https://getbootstrap.com/" target="_blank" rel="noopener">Bootstrap</a>
+                    </li>
+                    <li style="list-style-type:disc;list-style-position: outside;margin-left:14px;">
+                        <a class="link" href="https://polaris.shopify.com/" target="_blank" rel="noopener">Shopify Polaris</a>
+                    </li>
+                    <li style="list-style-type:disc;list-style-position: outside;margin-left:14px;">
+                        <a class="link" href="https://stripe.com/payments/elements" target="_blank" rel="noopener">Stripe</a>
+                    </li>
+                    <li style="list-style-type:disc;list-style-position: outside;margin-left:14px;">
+                        <a class="link" href="https://vuesax.com/" target="_blank" rel="noopener">Vuesax</a>
+                    </li>
+                    <li style="list-style-type:disc;list-style-position: outside;margin-left:14px;">
+                        <a class="link" href="https://lit-html.polymer-project.org/guide" target="_blank" rel="noopener">lit-html</a>
+                    </li>
+                    <li style="list-style-type:disc;list-style-position: outside;margin-left:14px;">
+                        <a class="link" href="https://flatpickr.js.org/" target="_blank" rel="noopener">flatpickr</a>
+                    </li>
+                    <li style="list-style-type:disc;list-style-position: outside;margin-left:14px;">
+                        <a class="link" href="https://day.js.org/" target="_blank" rel="noopener">day.js</a>
+                    </li>
+                    <li style="list-style-type:disc;list-style-position: outside;margin-left:14px;">
+                        <a class="link" href="https://fusejs.io/" target="_blank" rel="noopener">fuse.js</a>
+                    </li>
+                </ul>
+            </div>
+        `;
         if (this.model.component){
             view = html`
                 <div class="head mb-0.5 text-capitalize scroll-x-auto" flex="row nowrap justify-between items-center">
