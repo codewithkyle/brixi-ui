@@ -14,8 +14,15 @@ const cssDir = path.join(cwd, "test", "css");
 const frameworkDir = path.join(cwd, "src", "framework");
 const audioDir = path.join(cwd, "audio");
 
+function setHeaders(res){
+    res.append('Access-Control-Allow-Origin', '*');
+    res.append('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.append('Access-Control-Allow-Headers', 'Content-Type');
+}
+
 app.get('/js/*', async (req, res) => {
     try {
+        setHeaders(res);
         const file = path.join(jsDir, req.path.replace(/[\/]js\/|\/$/g, "").trim().toLowerCase());
         if (fs.existsSync(file)){
             return res.status(200).sendFile(file);
@@ -32,6 +39,7 @@ app.get('/js/*', async (req, res) => {
 });
 app.get('/css/*', async (req, res) => {
     try {
+        setHeaders(res);
         const file = path.join(cssDir, req.path.replace(/[\/]css\/|\/$/g, "").trim().toLowerCase());
         if (fs.existsSync(file)){
             return res.status(200).sendFile(file);
@@ -82,6 +90,7 @@ app.get('/service-worker-assets.js', async (req, res) => {
 
 app.get('/audio/*', async (req, res) => {
     try {
+        setHeaders(res);
         const file = path.join(audioDir, req.path.replace(/[\/]audio\/|\/$/g, "").trim().toLowerCase());
         if (fs.existsSync(file)){
             return res.status(200).sendFile(file);
@@ -100,6 +109,7 @@ app.get('/audio/*', async (req, res) => {
 
 app.get('/docs/*', async (req, res) => {
     try {
+        setHeaders(res);
         const file = path.join(frameworkDir, req.path.replace(/[\/]docs\/|\/$/g, "").trim().toLowerCase(), "readme.md");
         if (fs.existsSync(file)){
             return res.status(200).sendFile(file);
@@ -117,6 +127,7 @@ app.get('/docs/*', async (req, res) => {
 
 app.get("/lookup/*", async (req, res) => {
     try {
+        setHeaders(res);
         const dir = path.join(frameworkDir, req.path.replace(/[\/]lookup\/|\/$/g, "").trim().toLowerCase());
         if (fs.existsSync(dir)){
             const files = glob.sync(`${dir}/*`);
@@ -146,6 +157,7 @@ app.get("/lookup/*", async (req, res) => {
 
 app.get('/raw/*', async (req, res) => {
     try {
+        setHeaders(res);
         const ext = req.path.match(/\.[0-9a-z]+$/)?.[0] ?? ".html";
         let file;
         switch (ext){
@@ -183,6 +195,7 @@ app.get('/raw/*', async (req, res) => {
 
 app.get('/components/*', async (req, res) => {
     try {
+        setHeaders(res);
         const dir = path.join(frameworkDir, req.path.replace(/^\/|\/$/g, "").trim().toLowerCase());
         const page = path.join(dir, "index.html");
         const component = req.path.replace(/.*?\/|\/$/g, "").trim().toLowerCase();
@@ -204,6 +217,7 @@ app.get('/components/*', async (req, res) => {
 });
 
 app.get("/navigation.json", async (req, res) => {
+    setHeaders(res);
     const dirs = await getDirectories(path.join(frameworkDir, "components"));
     let data = [];
     for (let i = 0; i < dirs.length; i++){
@@ -231,6 +245,7 @@ app.get("/navigation.json", async (req, res) => {
 });
 
 app.get("/*", async (req, res) => {
+    setHeaders(res);
     return res.status(200).send(renderBasePage());
 });
 
@@ -249,17 +264,17 @@ return `<!DOCTYPE html>
     <link rel="alternate icon" href="/favicon.png">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <script>navigator.serviceWorker.register('/service-worker.js');</script>
-    <link rel="stylesheet" href="/normalize.css">
-    <link rel="stylesheet" href="/framework-core.css">
-    <link rel="stylesheet" href="/core.css">
-    <link rel="stylesheet" href="/brixi.css">
-    <link rel="stylesheet" href="/component-layout.css">
-    <link rel="stylesheet" href="/tooltip.css">
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/framework-core.css">
+    <link rel="stylesheet" href="/css/core.css">
+    <link rel="stylesheet" href="/css/brixi.css">
+    <link rel="stylesheet" href="/css/component-layout.css">
+    <link rel="stylesheet" href="/css/tooltip.css">
     <link rel="stylesheet" href="/css/snackbar.css">
     ${ css.length ? `<style>${css}</style>` : "" }
     ${ js.length ? `<script type="module">${js}</script>` : "" }
-    <script type="module" src="/soundscape.js"></script>
-    <script type="module" src="/tooltipper.js"></script>
+    <script type="module" src="/js/soundscape.js"></script>
+    <script type="module" src="/js/tooltipper.js"></script>
 </head>
 <body>
     ${content}
@@ -297,18 +312,18 @@ return `<!DOCTYPE html>
         });
     </script>
     <script>navigator.serviceWorker.register('/service-worker.js');</script>
-    <link rel="stylesheet" href="/normalize.css">
-    <link rel="stylesheet" href="/framework-core.css">
-    <link rel="stylesheet" href="/core.css">
-    <link rel="stylesheet" href="/brixi.css">
-    <link rel="stylesheet" href="/base-layout.css">
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/framework-core.css">
+    <link rel="stylesheet" href="/css/core.css">
+    <link rel="stylesheet" href="/css/brixi.css">
+    <link rel="stylesheet" href="/css/base-layout.css">
     <link rel="stylesheet" href="/css/button.css">
     <link rel="stylesheet" href="/css/tooltip.css">
     <link rel="stylesheet" href="/css/snackbar.css">
     <link rel="stylesheet" href="/css/link.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/github-dark-dimmed.min.css">
-    <script defer src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js"></script>
-    <script type="module" src="/bootstrap.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/github-dark-dimmed.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js"></script>
+    <script type="module" src="/js/bootstrap.js"></script>
     <script type="module" src="/js/tooltipper.js"></script>
 </head>
 <body>
