@@ -25,6 +25,9 @@ jobs:
     - name: Compile
       run: npm run prerelease
 
+    - name: Cachebust
+      run: npm run wrangle
+
     - name: Load SSH Key
       uses: webfactory/ssh-agent@v0.4.1
       with:
