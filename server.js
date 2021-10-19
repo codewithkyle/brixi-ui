@@ -345,6 +345,21 @@ return `<!DOCTYPE html>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js"></script>
     <script type="module" src="/js/bootstrap.js"></script>
     <script type="module" src="/js/tooltipper.js"></script>
+
+    <meta property="og:url" content="https://ui.brixi.dev/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Brixi UI" />
+    <meta property="og:image" content="https://ui.brixi.dev/brixi-ui-card.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="A sleek & slender design system built on web components." />
+    <meta property="og:site_name" content="Brixi UI" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://ui.brixi.dev/" />
+    <meta name="twitter:description" content="A sleek & slender design system built on web components." />
+    <meta name="twitter:title" content="Brixi UI" />
+    <meta name="twitter:image" content="https://ui.brixi.dev/brixi-ui-card.png" />
 </head>
 <body>
     <nav-component></nav-component>
