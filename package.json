@@ -24,7 +24,7 @@
     "watch": "run-p watch:*",
     "watch:src": "npm-watch",
     "watch:server": "node ./server",
-    "prerelease": "rm -rf ./dist && mkdir ./dist && npm run bundle && npm run brixi && run-s make:* && npm run lint",
+    "prerelease": "rm -rf ./dist && mkdir ./dist && npm run bundle && npm run brixi && run-s make:* && npm run build && npm run lint",
     "make:src": "mkdir ./dist/framework && cp -r ./src/framework/* ./dist/framework",
     "make:audio": "cp -r ./audio ./dist/audio",
     "wrangle": "asset-manager"
