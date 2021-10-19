@@ -180,7 +180,7 @@ export default class View extends SuperComponent<ViewData>{
                 <div class="head mb-0.5 text-capitalize scroll-x-auto" flex="row nowrap justify-between items-center">
                     <h1 class="font-md font-bold mr-2">${this.model.component.replace(/.*\//, "").trim().replace(/\-/g, " ")}</h1>
                     <view-switcher>
-                        <button @click=${this.switchView} data-view="demo" class="${this.model.view === "demo" ? "is-selected" : ""}">
+                        <button sfx="button" @click=${this.switchView} data-view="demo" class="${this.model.view === "demo" ? "is-selected" : ""}">
                             <i>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -189,7 +189,7 @@ export default class View extends SuperComponent<ViewData>{
                             </i>
                             Preview
                         </button>
-                        <button @click=${this.switchView} data-view="docs" class="${this.model.view === "docs" ? "is-selected" : ""}">
+                        <button sfx="button" @click=${this.switchView} data-view="docs" class="${this.model.view === "docs" ? "is-selected" : ""}">
                             <i>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -197,7 +197,7 @@ export default class View extends SuperComponent<ViewData>{
                             </i>
                             Documentation
                         </button>
-                        <button @click=${this.switchView} data-view="code" class="${this.model.view === "code" ? "is-selected" : ""}">
+                        <button sfx="button" @click=${this.switchView} data-view="code" class="${this.model.view === "code" ? "is-selected" : ""}">
                             <i>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />

@@ -345,6 +345,7 @@ return `<!DOCTYPE html>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js"></script>
     <script type="module" src="/js/bootstrap.js"></script>
     <script type="module" src="/js/tooltipper.js"></script>
+    \<script type="module" src="/js/soundscape.js"></script>
 
     <meta property="og:url" content="https://ui.brixi.dev/" />
     <meta property="og:type" content="website" />
