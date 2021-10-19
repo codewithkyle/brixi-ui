@@ -7,14 +7,10 @@ self.addEventListener('fetch', event => event.respondWith(onFetch(event)));
 const cacheNamePrefix = 'resource-cache-';
 const cacheName = `${cacheNamePrefix}${self.manifest.version}`;
 
-const assets = [...self.manifest.assets, ...[
-    "/",
-]];
-
 // Cache files when the service worker is installed or updated
 async function onInstall(event) {
     self.skipWaiting();
-    const assetsRequests = assets.map(asset => {
+    const assetsRequests = self.manifest.assets.map(asset => {
         return new Request(asset, {
             cache: "reload",
         });
