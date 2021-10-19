@@ -103,7 +103,7 @@ export default class CodeViewer extends SuperComponent<CodeViewerData>{
             view = html`
                 <code-tabs>
                     ${this.model.sourceCode.map(src => {
-                        return html`<button class="${src.ext === this.model.activeExt ? "is-active" : ""}" @click=${this.switchSource} data-ext="${src.ext}">${src.ext.replace(/^\./, "").trim()}</button></button>`;
+                        return html`<button sfx="button" class="${src.ext === this.model.activeExt ? "is-active" : ""}" @click=${this.switchSource} data-ext="${src.ext}">${src.ext.replace(/^\./, "").trim()}</button></button>`;
                     })}
                 </code-tabs>
                 <code-container>
