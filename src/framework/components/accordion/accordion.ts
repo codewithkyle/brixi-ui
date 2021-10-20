@@ -10,11 +10,17 @@ export interface IAccordion {
     sections: Array<AccordionSection>,
     css: string,
     class: string,
+    attributes: {
+        [name:string]: string|number,
+    },
 }
 export interface AccordionSettings {
     sections: Array<AccordionSection>,
     css?: string,
     class?: string,
+    attributes?: {
+        [name:string]: string|number,
+    },
 }
 export default class Accordion extends SuperComponent<IAccordion>{
     constructor(settings:AccordionSettings){
@@ -23,7 +29,13 @@ export default class Accordion extends SuperComponent<IAccordion>{
             sections: [],
             css: "",
             class: "",
+            attributes: {},
         };
+        Object.keys(this.dataset).map(key => {
+            if (key in this.model){
+                this.model[key] = this.dataset[key];
+            }
+        });
         env.css(["accordion"]).then(()=>{
             this.update(settings);
         });
@@ -50,6 +62,9 @@ export default class Accordion extends SuperComponent<IAccordion>{
     override render(){
         this.style.cssText = this.model.css;
         this.className = this.model.class;
+        Object.keys(this.model.attributes).map((key) => {
+            this.setAttribute(key, `${this.model.attributes[key]}`);
+        });
         const view = html`
             ${this.model.sections.map(this.renderSection)}
         `;

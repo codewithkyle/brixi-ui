@@ -18,6 +18,9 @@ export interface IChips {
     },
     css: string,
     class: string,
+    attributes: {
+        [name:string]: string|number,
+    },
 }
 export interface ChipsSettings {
     chips: Array<Chip>,
@@ -25,6 +28,9 @@ export interface ChipsSettings {
     type?: "static" | "dynamic",
     css?: string,
     class?: string,
+    attributes?: {
+        [name:string]: string|number,
+    },
 }
 
 export default class Chips extends SuperComponent<IChips>{
@@ -37,7 +43,13 @@ export default class Chips extends SuperComponent<IChips>{
             chipStates: {},
             class: "",
             css: "",
+            attributes: {},
         };
+        Object.keys(this.dataset).map(key => {
+            if (key in this.model){
+                this.model[key] = this.dataset[key];
+            }
+        });
         for (const chip of settings?.chips){
             this.model.chipStates[chip.name] = false;
         }
@@ -108,6 +120,9 @@ export default class Chips extends SuperComponent<IChips>{
     override render(){
         this.className = this.model.class;
         this.style.cssText = this.model.css;
+        Object.keys(this.model.attributes).map((key) => {
+            this.setAttribute(key, `${this.model.attributes[key]}`);
+        });
         const view = html`
             ${this.model.chips.map((chip, index) => {
                 let kind = "outline";

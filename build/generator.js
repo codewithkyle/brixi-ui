@@ -35,10 +35,16 @@ import env from "~controllers/env";
 export interface I${name.toPascalCase()} {
     css: string,
     class: string,
+    attributes: {
+        [name:string]: string|number,
+    },
 }
 export interface ${name.toPascalCase()}Settings {
     css?: string,
     class?: string,
+    attributes?: {
+        [name:string]: string|number,
+    },
 }
 export default class ${name.toPascalCase()} extends SuperComponent<I${name.toPascalCase()}>{
     constructor(settings:${name.toPascalCase()}Settings){
@@ -46,7 +52,13 @@ export default class ${name.toPascalCase()} extends SuperComponent<I${name.toPas
         this.model = {
             css: "",
             class: "",
+            attributes: {},
         };
+        Object.keys(this.dataset).map(key => {
+            if (key in this.model){
+                this.model[key] = this.dataset[key];
+            }
+        });
         env.css(["${name.toKebabCase()}"]).then(()=>{
             this.update(settings);
         });
@@ -55,6 +67,9 @@ export default class ${name.toPascalCase()} extends SuperComponent<I${name.toPas
     override render(){
         this.className = this.model.class;
         this.style.cssText = this.model.css;
+        Object.keys(this.model.attributes).map(key => {
+            this.setAttribute(key, \`\$\{this.model.attributes[key]\}\`);
+        });
         const view = html\`
 
         \`;

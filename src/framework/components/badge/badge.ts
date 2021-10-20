@@ -8,6 +8,9 @@ export interface IBadge {
     offsetY: number,
     css: string,
     class: string,
+    attributes: {
+        [name:string]: string|number,
+    },    
 }
 export interface BadgeSettings {
     value?: number,
@@ -15,6 +18,9 @@ export interface BadgeSettings {
     offsetY?: number,
     css?: string,
     class?: string,
+    attributes?: {
+        [name:string]: string|number,
+    },
 }
 export default class Badge extends SuperComponent<IBadge>{
     constructor(settings:BadgeSettings = {}){
@@ -25,7 +31,13 @@ export default class Badge extends SuperComponent<IBadge>{
             offsetY: 0,
             css: "",
             class: "",
+            attributes: {},
         };
+        Object.keys(this.dataset).map(key => {
+            if (key in this.model){
+                this.model[key] = this.dataset[key];
+            }
+        });
         env.css(["badge"]).then(()=>{
             this.update(settings);
         });
@@ -34,6 +46,9 @@ export default class Badge extends SuperComponent<IBadge>{
     override render(){
         this.style.cssText = `${this.model.css} transform: translate(${this.model.offsetX}px, ${this.model.offsetY}px);`
         this.className = this.model.class;
+        Object.keys(this.model.attributes).map((key) => {
+            this.setAttribute(key, `${this.model.attributes[key]}`);
+        });
         const hasValue = this.model.value !== null;
         if (hasValue){
             this.className = "-text";

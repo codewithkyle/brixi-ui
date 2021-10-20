@@ -11,6 +11,9 @@ export interface IDivider {
     type: "solid" | "dashed" | "dotted",
     css: string,
     class: string,
+    attributes: {
+        [name:string]: string|number,
+    },
 }
 export interface DividerSettings {
     label?: string,
@@ -19,6 +22,9 @@ export interface DividerSettings {
     type?: "solid" | "dashed" | "dotted",
     css?: string,
     class?: string,
+    attributes?: {
+        [name:string]: string|number,
+    },
 }
 export default class Divider extends SuperComponent<IDivider>{
     constructor(settings:DividerSettings){
@@ -30,7 +36,13 @@ export default class Divider extends SuperComponent<IDivider>{
             type: "solid",
             css: "",
             class: "",
+            attributes: {},
         };
+        Object.keys(this.dataset).map(key => {
+            if (key in this.model){
+                this.model[key] = this.dataset[key];
+            }
+        });
         env.css(["divider"]).then(()=>{
             this.update(settings);
         });
@@ -42,6 +54,9 @@ export default class Divider extends SuperComponent<IDivider>{
         this.setAttribute("line-style", this.model.type);
         this.style.cssText = this.model.css;
         this.className = this.model.class;
+        Object.keys(this.model.attributes).map((key) => {
+            this.setAttribute(key, `${this.model.attributes[key]}`);
+        });
         let view;
         if (this.model.label?.length){
             view = html`

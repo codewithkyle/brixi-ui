@@ -16,6 +16,9 @@ export interface IButton {
     tooltip: string,
     css: string,
     class: string,
+    attributes: {
+        [name:string]: string|number,
+    },
 }
 export interface ButtonSettings {
     label: string,
@@ -29,6 +32,9 @@ export interface ButtonSettings {
     tooltip?: string,
     css?: string,
     class?: string,
+    attributes?: {
+        [name:string]: string|number,
+    },
 }
 export default class Button extends SuperComponent<IButton>{
     constructor(settings:ButtonSettings){
@@ -45,9 +51,15 @@ export default class Button extends SuperComponent<IButton>{
             tooltip: null,
             css: "",
             class: "",
+            attributes: {},
         };
+        Object.keys(this.dataset).map(key => {
+            if (key in this.model){
+                this.model[key] = this.dataset[key];
+            }
+        });
         const classes = ["button"];
-        if (settings?.tooltip?.length){
+        if (settings?.tooltip?.length || this.dataset?.tooltip?.length){
             classes.push("tooltip");
         }
         env.css(classes).then(()=>{
@@ -101,6 +113,9 @@ export default class Button extends SuperComponent<IButton>{
     override render(){
         this.style.cssText = this.model.css;
         this.className = this.model.class;
+        Object.keys(this.model.attributes).map((key) => {
+            this.setAttribute(key, `${this.model.attributes[key]}`);
+        });
         const view = html`
             ${this.renderIcon()}
             ${this.model.label}

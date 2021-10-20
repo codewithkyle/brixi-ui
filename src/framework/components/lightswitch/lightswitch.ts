@@ -18,6 +18,9 @@ export interface ILightswitch {
     color: LightswitchColor,
     css: string,
     class: string,
+    attributes: {
+        [name:string]: string|number,
+    },
 };
 export interface LightswitchSettings{
     name?: string,
@@ -31,6 +34,9 @@ export interface LightswitchSettings{
     color?: LightswitchColor,
     css?: string,
     class?: string,
+    attributes?: {
+        [name:string]: string|number,
+    },
 };
 export default class Lightswitch extends SuperComponent<ILightswitch>{
     constructor(settings:LightswitchSettings){
@@ -47,7 +53,13 @@ export default class Lightswitch extends SuperComponent<ILightswitch>{
             color: "primary",
             css: "",
             class: "",
+            attributes: {},
         };
+        Object.keys(this.dataset).map(key => {
+            if (key in this.model){
+                this.model[key] = this.dataset[key];
+            }
+        });
         env.css("lightswitch").then(()=>{
             this.update(settings);
         });
@@ -107,6 +119,9 @@ export default class Lightswitch extends SuperComponent<ILightswitch>{
         `;
         this.className = this.model.class;
         this.style.cssText = this.model.css;
+        Object.keys(this.model.attributes).map((key) => {
+            this.setAttribute(key, `${this.model.attributes[key]}`);
+        });
         render(view, this);
     }
 

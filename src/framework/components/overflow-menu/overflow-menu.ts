@@ -16,6 +16,9 @@ export interface IOverflowMenu {
     tooltip: string,
     class: string,
     css: string,
+    attributes: {
+        [name:string]: string|number,
+    },
 };
 export interface OverflowMenuSettings{
     items: Array<OverflowItem>,
@@ -24,6 +27,9 @@ export interface OverflowMenuSettings{
     tooltip?: string,
     css?: string,
     class?: string,
+    attributes?: {
+        [name:string]: string|number,
+    },
 };
 export default class OverflowMenu extends SuperComponent<IOverflowMenu>{
     constructor(settings:OverflowMenuSettings){
@@ -35,7 +41,13 @@ export default class OverflowMenu extends SuperComponent<IOverflowMenu>{
             tooltip: null,
             class: "",
             css: "",
+            attributes: {},
         };
+        Object.keys(this.dataset).map(key => {
+            if (key in this.model){
+                this.model[key] = this.dataset[key];
+            }
+        });
         env.css("overflow-menu").then(()=>{
             this.update(settings);
         });
@@ -79,6 +91,9 @@ export default class OverflowMenu extends SuperComponent<IOverflowMenu>{
     override render(){
         this.style.cssText = this.model.css;
         this.className = this.model.class;
+        Object.keys(this.model.attributes).map((key) => {
+            this.setAttribute(key, `${this.model.attributes[key]}`);
+        });
         const view = html`
             <button sfx="button" type="button" aria-label="${this.model.tooltip || "open overflow menu"}" ?tooltip=${this.model.tooltip}>
                 ${this.renderIcon()}

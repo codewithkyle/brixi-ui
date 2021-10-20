@@ -7,12 +7,18 @@ export interface ISpinner {
     size: number,
     css: string,
     class: string,
+    attributes: {
+        [name:string]: string|number,
+    },
 }
 export interface SpinnerSettings {
     color?: "primary" | "grey" | "white",
     size?: number,
     css?: string,
     class?: string,
+    attributes?: {
+        [name:string]: string|number,
+    },
 }
 export default class Spinner extends SuperComponent<ISpinner>{
     constructor(settings:SpinnerSettings){
@@ -22,13 +28,22 @@ export default class Spinner extends SuperComponent<ISpinner>{
             size: 18,
             css: "",
             class: "",
+            attributes: {},
         };
+        Object.keys(this.dataset).map(key => {
+            if (key in this.model){
+                this.model[key] = this.dataset[key];
+            }
+        });
         env.css(["spinner"]).then(()=>{
             this.update(settings);
         });
     }
 
     override render(){
+        Object.keys(this.model.attributes).map((key) => {
+            this.setAttribute(key, `${this.model.attributes[key]}`);
+        });
         this.style.cssText = `${this.model.css}`;
         if (this.model.color !== "white"){
             this.style.color = `var(--${this.model.color}-700)`;

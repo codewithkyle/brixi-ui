@@ -59,7 +59,13 @@ export default class DateInput extends Input {
             css: "",
             class: "",
             callback: noop,
+            attributes: {},
         };
+        Object.keys(this.dataset).map(key => {
+            if (key in this.model){
+                this.model[key] = this.dataset[key];
+            }
+        });
         env.css(["input", "flatpickr"]).then(()=>{
             this.update(settings);
         });
@@ -97,7 +103,11 @@ export default class DateInput extends Input {
         this.setAttribute("state", this.state);
         this.className = `input js-input ${this.model.class}`;
         this.style.cssText = this.model.css;
+        Object.keys(this.model.attributes).map((key) => {
+            this.setAttribute(key, `${this.model.attributes[key]}`);
+        });
         render(view, this);
+        
         const input = this.querySelector("input");
         flatpickr(input, {
             dateFormat: this.model.dateFormat,

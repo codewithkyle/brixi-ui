@@ -11,6 +11,9 @@ export interface IRadioGroup {
     name: string,
     css: string,
     class: string,
+    attributes: {
+        [name:string]: string|number,
+    },
 }
 export interface RadioGroupSettings {
     label: string,
@@ -20,6 +23,9 @@ export interface RadioGroupSettings {
     name: string,
     css?: string,
     class?: string,
+    attributes?: {
+        [name:string]: string|number,
+    },
 }
 export default class RadioGroup extends SuperComponent<IRadioGroup>{
     constructor(settings:RadioGroupSettings){
@@ -36,7 +42,13 @@ export default class RadioGroup extends SuperComponent<IRadioGroup>{
             options: [],
             css: "",
             class: "",
+            attributes: {},
         };
+        Object.keys(this.dataset).map(key => {
+            if (key in this.model){
+                this.model[key] = this.dataset[key];
+            }
+        });
         env.css("radio-group").then(() => {
             this.update(settings);
         });
@@ -63,6 +75,9 @@ export default class RadioGroup extends SuperComponent<IRadioGroup>{
         `;
         this.className = `${this.model.class} ${this.model.disabled ? "is-disabled" : ""}`;
         this.style.cssText = this.model.css;
+        Object.keys(this.model.attributes).map((key) => {
+            this.setAttribute(key, `${this.model.attributes[key]}`);
+        });
         render(view, this);
     }
 }

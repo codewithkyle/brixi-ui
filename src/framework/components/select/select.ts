@@ -25,6 +25,9 @@ export interface ISelect {
     callback: Function,
     css: string,
     class: string,
+    attributes: {
+        [name:string]: string|number,
+    },
 }
 export interface SelectOptions {
     label?: string,
@@ -37,6 +40,9 @@ export interface SelectOptions {
     callback?:Function,
     css?: string,
     class?: string,
+    attributes?: {
+        [name:string]: string|number,
+    },
 }
 export default class Select extends SuperComponent<ISelect>{
     constructor(settings:SelectOptions){
@@ -61,7 +67,7 @@ export default class Select extends SuperComponent<ISelect>{
             name: "",
             icon: "",
             instructions: "",
-            options: [],
+            options: settings?.options ?? [],
             required: false,
             error: null,
             value: "",
@@ -69,9 +75,15 @@ export default class Select extends SuperComponent<ISelect>{
             callback: noop,
             css: "",
             class: "",
+            attributes: {},
         };
-        for (let i = 0; i < settings.options.length; i++){
-            if (settings.options[i]?.selected){
+        Object.keys(this.dataset).map(key => {
+            if (key in this.model){
+                this.model[key] = this.dataset[key];
+            }
+        });
+        for (let i = 0; i < this.model.options.length; i++){
+            if (this.model.options[i]?.selected){
                 this.model.selected = i;
             }
         }
@@ -191,6 +203,9 @@ export default class Select extends SuperComponent<ISelect>{
         this.setAttribute("state", this.state);
         this.className = `select js-input ${this.model.class}`;
         this.style.cssText = this.model.css;
+        Object.keys(this.model.attributes).map((key) => {
+            this.setAttribute(key, `${this.model.attributes[key]}`);
+        });
         render(view, this);
     }
 }

@@ -23,6 +23,9 @@ export interface IInput {
     callback: Function,
     css: string,
     class: string,
+    attributes: {
+        [name:string]: string|number,
+    },
 };
 export interface InputSettings {
     label?: string,
@@ -41,6 +44,9 @@ export interface InputSettings {
     callback?: Function,
     css?: string,
     class?: string,
+    attributes?: {
+        [name:string]: string|number,
+    },
 };
 export default class Input extends SuperComponent<IInput> {
     constructor(settings:InputSettings){
@@ -77,7 +83,13 @@ export default class Input extends SuperComponent<IInput> {
             callback: noop,
             css: "",
             class: "",
+            attributes: {},
         };
+        Object.keys(this.dataset).map(key => {
+            if (key in this.model){
+                this.model[key] = this.dataset[key];
+            }
+        });
         env.css("input").then(()=>{
             this.update(settings);
         });
@@ -196,6 +208,9 @@ export default class Input extends SuperComponent<IInput> {
         this.setAttribute("state", this.state);
         this.className = `input js-input ${this.model.class}`;
         this.style.cssText = this.model.css;
+        Object.keys(this.model.attributes).map((key) => {
+            this.setAttribute(key, `${this.model.attributes[key]}`);
+        });
         render(view, this);
     }
 }

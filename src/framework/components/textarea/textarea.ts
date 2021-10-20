@@ -22,6 +22,9 @@ export interface ITextarea {
     callback: Function,
     css: string,
     class: string,
+    attributes: {
+        [name:string]: string|number,
+    },
 };
 export interface TextareaSettings {
     label?: string,
@@ -39,6 +42,9 @@ export interface TextareaSettings {
     callback?: Function,
     css?: string,
     class?: string,
+    attributes?: {
+        [name:string]: string|number,
+    },
 };
 export default class Textarea extends SuperComponent<ITextarea> {
     constructor(settings:TextareaSettings){
@@ -74,7 +80,13 @@ export default class Textarea extends SuperComponent<ITextarea> {
             callback: noop,
             css: "",
             class: "",
+            attributes: {},
         };
+        Object.keys(this.dataset).map(key => {
+            if (key in this.model){
+                this.model[key] = this.dataset[key];
+            }
+        });
         env.css("textarea").then(()=>{
             this.update(settings);
         });
@@ -174,6 +186,9 @@ export default class Textarea extends SuperComponent<ITextarea> {
         this.setAttribute("state", this.state);
         this.className = `textarea js-input ${this.model.class}`;
         this.style.cssText = this.model.css;
+        Object.keys(this.model.attributes).map((key) => {
+            this.setAttribute(key, `${this.model.attributes[key]}`);
+        });
         render(view, this);
     }
 }

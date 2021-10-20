@@ -16,6 +16,9 @@ export interface ISteps {
     layout: "horizontal" | "vertical",
     css: string,
     class: string,
+    attributes: {
+        [name:string]: string|number,
+    },
 }
 export interface StepsSettings {
     steps: Array<Step>,
@@ -24,21 +27,30 @@ export interface StepsSettings {
     layout?: "horizontal" | "vertical",
     css?: string,
     class?: string,
+    attributes?: {
+        [name:string]: string|number,
+    },
 }
 export default class Steps extends SuperComponent<ISteps>{
     constructor(settings:StepsSettings){
         super();
         this.model = {
             callback: noop,
-            steps: [],
+            steps: settings?.steps ?? [],
             activeStep: 0,
-            step: null,
+            step: settings?.step ?? null,
             layout: "vertical",
             css: "",
             class: "",
+            attributes: {},
         };
-        for (let i = 0; i < settings.steps.length; i++){
-            if (settings.steps[i].name === settings.step){
+        Object.keys(this.dataset).map(key => {
+            if (key in this.model){
+                this.model[key] = this.dataset[key];
+            }
+        });
+        for (let i = 0; i < this.model.steps.length; i++){
+            if (this.model.steps[i].name === this.model.step){
                 this.model.activeStep = i;
                 break;
             }
@@ -119,6 +131,9 @@ export default class Steps extends SuperComponent<ISteps>{
         if (this.model.layout === "horizontal"){
             this.style.gridTemplateColumns = `repeat(${this.model.steps.length}, minmax(300px, ${Math.floor(calcPercent(1, this.model.steps.length))}%))`;
         }
+        Object.keys(this.model.attributes).map((key) => {
+            this.setAttribute(key, `${this.model.attributes[key]}`);
+        });
         render(view, this);
     }
 }

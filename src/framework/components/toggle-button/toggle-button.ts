@@ -12,6 +12,9 @@ export interface IToggleButton {
     instructions: string,
     class: string,
     css: string,
+    attributes: {
+        [name:string]: string|number,
+    },
 }
 export interface ToggleButtonSettings {
     state: string,
@@ -22,6 +25,9 @@ export interface ToggleButtonSettings {
     instructions?: string,
     class?: string,
     css?: string,
+    attributes?: {
+        [name:string]: string|number,
+    },
 }
 export default class ToggleButton extends SuperComponent<IToggleButton>{
     constructor(settings:IToggleButton){
@@ -33,7 +39,13 @@ export default class ToggleButton extends SuperComponent<IToggleButton>{
             instructions: "",
             css: "",
             class: "",
+            attributes: {},
         };
+        Object.keys(this.dataset).map(key => {
+            if (key in this.model){
+                this.model[key] = this.dataset[key];
+            }
+        });
         env.css(["toggle-button", "button"]).then(()=>{
             this.update(settings);
         });
@@ -77,6 +89,9 @@ export default class ToggleButton extends SuperComponent<IToggleButton>{
     override render(){
         this.style.cssText = this.model.css;
         this.className = this.model.class;
+        Object.keys(this.model.attributes).map((key) => {
+            this.setAttribute(key, `${this.model.attributes[key]}`);
+        });
         const view = html`
             ${this.renderInstructions()}
             ${this.renderButton()}

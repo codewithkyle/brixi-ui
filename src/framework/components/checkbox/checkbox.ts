@@ -13,6 +13,9 @@ export interface ICheckbox {
     callback: Function,
     css: string,
     class: string,
+    attributes: {
+        [name:string]: string|number,
+    },
 }
 export interface CheckboxSettings {
     label: string,
@@ -23,6 +26,9 @@ export interface CheckboxSettings {
     callback?: Function,
     css?: string,
     class?: string,
+    attributes?: {
+        [name:string]: string|number,
+    },
 }
 export default class Checkbox extends SuperComponent<ICheckbox>{
     constructor(settings:CheckboxSettings){
@@ -36,7 +42,13 @@ export default class Checkbox extends SuperComponent<ICheckbox>{
             callback: noop,
             css: "",
             class: "",
+            attributes: {},
         };
+        Object.keys(this.dataset).map(key => {
+            if (key in this.model){
+                this.model[key] = this.dataset[key];
+            }
+        });
         env.css("checkbox").then(() => {
             this.update(settings);
         });
@@ -92,6 +104,9 @@ export default class Checkbox extends SuperComponent<ICheckbox>{
         this.setAttribute("state", this.state);
         this.className = `checkbox js-input ${this.model.class}`;
         this.style.cssText = this.model.css;
+        Object.keys(this.model.attributes).map((key) => {
+            this.setAttribute(key, `${this.model.attributes[key]}`);
+        });
         render(view, this);
     }
 }
