@@ -2,14 +2,6 @@ overflow-menu {
     display: inline-block;
     position: relative;
 
-    &:focus-within {
-        overflow-container {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: all;
-        }
-    }
-
     & > button {
         width: 36px;
         height: 36px;
@@ -72,22 +64,19 @@ overflow-container {
     box-shadow: var(--shadow-md);
     padding: 0.25rem 0;
     display: inline-block;
-    position: absolute;
-    top: 100%;
+    position: fixed;
     z-index: 1000;
     pointer-events: none;
 
-    &.right{
-        right: 0;
-    }
-
-    &.left{
-        left: 0;
+    &.is-visible{
+        pointer-events: all;
+        opacity: 1;
+        visibility: visible;
     }
 
     button{
         width: 100%;
-        display: inline-flex;
+        display: flex;
         align-items: center;
         flex-flow: row nowrap;
         min-height: 36px;
