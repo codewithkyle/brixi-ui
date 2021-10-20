@@ -1,3 +1,5 @@
+import { randomFloat } from "~utils/general";
+
 /**
  * @see https://material.io/design/sound/sound-resources.html
  * @license CC-BY-4.0
@@ -176,12 +178,14 @@ class Soundscape {
 
     public activate(){
         const temp = this.toggle.activate.cloneNode() as HTMLAudioElement;
+        temp.playbackRate = randomFloat(0.75, 1);
         // @ts-ignore
         temp.play();
     }
 
     public deactivate(){
         const temp = this.toggle.deactivate.cloneNode() as HTMLAudioElement;
+        temp.playbackRate = randomFloat(0.75, 1);
         // @ts-ignore
         temp.play();
     }

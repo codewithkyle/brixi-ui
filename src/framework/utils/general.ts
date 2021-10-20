@@ -39,3 +39,11 @@ export const debounce = (callback:Function, wait:number):Function => {
     }, wait);
   };
 }
+
+export function randomInt(min:number, max:number){
+  return Math.round(Math.random() * (max - min) + min);
+}
+
+export function randomFloat(min:number, max:number, decimals = 2){
+  return parseFloat((Math.random() * (max - min) + min).toFixed(decimals));
+}
