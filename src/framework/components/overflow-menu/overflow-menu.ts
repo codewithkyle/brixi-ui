@@ -2,6 +2,7 @@ import SuperComponent from "@codewithkyle/supercomponent";
 import { html, render } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import env from "~controllers/env";
+import { uuid } from "~utils/general";
 
 export interface OverflowItem {
     label: string,
@@ -18,6 +19,7 @@ export interface IOverflowMenu {
     attributes: {
         [name:string]: string|number,
     },
+    uid: string,
 };
 export interface OverflowMenuSettings{
     items: Array<OverflowItem>,
@@ -39,6 +41,7 @@ export default class OverflowMenu extends SuperComponent<IOverflowMenu>{
             class: "",
             css: "",
             attributes: {},
+            uid: uuid(),
         };
         Object.keys(this.dataset).map(key => {
             if (key in this.model){
@@ -52,10 +55,19 @@ export default class OverflowMenu extends SuperComponent<IOverflowMenu>{
 
     override connected(){
         document.addEventListener("click", () => {
-            const container = this.querySelector("overflow-container") as HTMLElement;
-            if (container){
-                container.classList.remove("is-visible");
-            }    
+            document.body.querySelectorAll(`overflow-container[container-id="${this.model.uid}"].is-visible`).forEach((container:HTMLElement) => {
+                container.remove();
+            });
+        }, { passive: true, capture: true});
+        window.addEventListener("resize", () => {
+            document.body.querySelectorAll(`overflow-container[container-id="${this.model.uid}"].is-visible`).forEach((container:HTMLElement) => {
+                container.remove();
+            });
+        }, { passive: true, capture: true});
+        window.addEventListener("scroll", () => {
+            document.body.querySelectorAll(`overflow-container[container-id="${this.model.uid}"].is-visible`).forEach((container:HTMLElement) => {
+                container.remove();
+            });
         }, { passive: true, capture: true});
     }
 
@@ -64,6 +76,7 @@ export default class OverflowMenu extends SuperComponent<IOverflowMenu>{
         const bounds = target.getBoundingClientRect();
         const container = this.querySelector("overflow-container") as HTMLElement;
         if (container){
+            const clone = container.cloneNode(true) as HTMLElement;
             const containerBounds = container.getBoundingClientRect();
             let top = bounds.top + bounds.height;
             if (top + containerBounds.height >= window.innerHeight){
@@ -73,9 +86,10 @@ export default class OverflowMenu extends SuperComponent<IOverflowMenu>{
             if (left + containerBounds.width >= window.innerWidth){
                 left = bounds.left + bounds.width - containerBounds.width;
             }
-            container.style.top = `${top}px`;
-            container.style.left = `${left}px`;
-            container.classList.toggle("is-visible");
+            clone.style.top = `${top}px`;
+            clone.style.left = `${left}px`;
+            clone.classList.toggle("is-visible");
+            document.body.appendChild(clone);
         }
     }
 
@@ -105,7 +119,7 @@ export default class OverflowMenu extends SuperComponent<IOverflowMenu>{
             <button @click=${this.handleClick} sfx="button" type="button" aria-label="${this.model.tooltip || "open menu"}" tooltip>
                 ${unsafeHTML(this.model.icon)}
             </button>
-            <overflow-container>
+            <overflow-container container-id="${this.model.uid}">
                 ${this.model.items.map(item => {
                     return this.renderItem(item);
                 })}
