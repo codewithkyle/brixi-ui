@@ -320,6 +320,7 @@ return `<!DOCTYPE html>
     <link rel="stylesheet" href="/css/brixi.css">
     <link rel="stylesheet" href="/css/base-layout.css">
     <link rel="stylesheet" href="/css/button.css">
+    <link rel="stylesheet" href="/css/generic-list.css">
     <link rel="stylesheet" href="/css/tooltip.css">
     <link rel="stylesheet" href="/css/snackbar.css">
     <link rel="stylesheet" href="/css/link.css">
