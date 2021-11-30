@@ -8,7 +8,10 @@
 export function uuid(): string {
 	// @ts-ignore
 	return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
-		(c ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))).toString(16)
+		(
+			c ^
+			(crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
+		).toString(16)
 	);
 }
 
@@ -33,9 +36,9 @@ export const debounce = (callback: Function, wait: number): Function => {
 };
 
 /**
- * Maps a `DOMStringMap` onto an `object`.
+ * Maps a `DOMStringMap` onto an object.
  */
-export function parseDataset(dataset: DOMStringMap, model: object): object {
+export function parseDataset(dataset: DOMStringMap, model: unknown): unknown {
 	let out = { ...model };
 	Object.keys(dataset).map((key) => {
 		if (key in out) {
