@@ -16,9 +16,11 @@ export interface IDateInput extends IInput {
 }
 export default class DateInput extends Input {
 	override model: IDateInput;
+	private firstRender: boolean;
 
 	constructor(settings: InputSettings) {
 		super(settings);
+		this.firstRender = true;
 		this.state = settings?.disabled ? "DISABLED" : "IDLING";
 		this.stateMachine = {
 			IDLING: {
@@ -84,13 +86,36 @@ export default class DateInput extends Input {
 		return isValid;
 	}
 
+	override handleInput: EventListener = (e: Event) => {
+		const input = e.currentTarget as HTMLInputElement;
+		this.update({
+			// @ts-ignore
+			prevValue: this.model.value,
+			value: input.value,
+		});
+		this.validate(input, true);
+		if (this.model.mode === "range") {
+			if (
+				this.model.value.toString().search(/\bto\b/i) !== -1 ||
+				this.model.prevValue === this.model.value
+			) {
+				this.model.callback(input.value);
+			}
+		} else if (this.model.mode === "single") {
+			this.model.callback(input.value);
+		}
+	};
+
+	override handleBlur: EventListener = (e: Event) => {
+		if (this.model.mode === "multiple") {
+			const target = e.currentTarget as HTMLInputElement;
+			this.model.callback(target.value);
+		}
+	};
+
 	override render() {
 		// @ts-ignore
-		if (
-			this.model.mode === "range" &&
-			this.model.value?.length &&
-			this.model.value?.search(/\bto\b/) === -1
-		) {
+		if (this.model.mode === "range" && !this.firstRender) {
 			return;
 		}
 		const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${
@@ -136,6 +161,7 @@ export default class DateInput extends Input {
 			noCalendar: this.model.disableCalendar,
 			time_24hr: this.model.timeFormat === "24",
 		});
+		this.firstRender = false;
 	}
 }
 env.mount("date-input-component", DateInput);
