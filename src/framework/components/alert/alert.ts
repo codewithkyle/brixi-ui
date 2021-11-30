@@ -51,7 +51,7 @@ export default class Alert extends SuperComponent<IAlert> {
 			class: "",
 			attributes: {},
 		};
-		this.model = parseDataset(this.dataset, this.model);
+		this.model = parseDataset<IAlert>(this.dataset, this.model);
 		env.css(["alert"]).then(() => {
 			this.update(settings);
 		});

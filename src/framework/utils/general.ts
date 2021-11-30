@@ -38,8 +38,8 @@ export const debounce = (callback: Function, wait: number): Function => {
 /**
  * Maps a `DOMStringMap` onto an object.
  */
-export function parseDataset(dataset: DOMStringMap, model: unknown): unknown {
-	let out = { ...model };
+export function parseDataset<T>(dataset: DOMStringMap, model: T): T {
+	let out: T = { ...model };
 	Object.keys(dataset).map((key) => {
 		if (key in out) {
 			try {
