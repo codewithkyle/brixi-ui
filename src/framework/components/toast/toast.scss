@@ -37,18 +37,18 @@ toaster-component {
         }
 
         &.-red {
-            border-left-color: var(--danger-400);
+            border-left-color: var(--danger-500);
 
             i {
-                color: var(--danger-400);
+                color: var(--danger-500);
             }
         }
 
         &.-green {
-            border-left-color: var(--success-400);
+            border-left-color: var(--success-500);
 
             i {
-                color: var(--success-400);
+                color: var(--success-500);
             }
         }
 
