@@ -1,7 +1,7 @@
 import { html, render } from "lit-html";
 import env from "~controllers/env";
 import { IInput, InputSettings, default as Input } from "../input/input";
-import { noop } from "~utils/general";
+import { noop, parseDataset } from "~utils/general";
 import { calcPercent } from "~utils/numpy";
 
 export interface IRangeSlider extends IInput {
@@ -46,11 +46,7 @@ export default class RangeSlider extends Input {
 			callback: noop,
 			attributes: {},
 		};
-		Object.keys(this.dataset).map((key) => {
-			if (key in this.model) {
-				this.model[key] = this.dataset[key];
-			}
-		});
+		this.model = parseDataset<IRangeSlider>(this.dataset, this.model);
 		env.css(["range-slider"]).then(() => {
 			this.update(settings);
 		});

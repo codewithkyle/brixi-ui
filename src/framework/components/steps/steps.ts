@@ -1,7 +1,7 @@
 import { html, render } from "lit-html";
 import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~controllers/env";
-import { noop } from "~utils/general";
+import { noop, parseDataset } from "~utils/general";
 import { calcPercent } from "~utils/numpy";
 
 export interface Step {
@@ -45,11 +45,7 @@ export default class Steps extends SuperComponent<ISteps> {
 			class: "",
 			attributes: {},
 		};
-		Object.keys(this.dataset).map((key) => {
-			if (key in this.model) {
-				this.model[key] = this.dataset[key];
-			}
-		});
+		this.model = parseDataset<ISteps>(this.dataset, this.model);
 		for (let i = 0; i < this.model.steps.length; i++) {
 			if (this.model.steps[i].name === this.model.step) {
 				this.model.activeStep = i;

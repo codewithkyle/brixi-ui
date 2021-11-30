@@ -37,6 +37,7 @@ export const debounce = (callback: Function, wait: number): Function => {
 
 /**
  * Maps a `DOMStringMap` onto an object.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset
  */
 export function parseDataset<T>(dataset: DOMStringMap, model: T): T {
 	let out: T = { ...model };
