@@ -1,50 +1,60 @@
-self.importScripts('/service-worker-assets.js');
+self.importScripts("/service-worker-assets.js");
 
-self.addEventListener('install', event => event.waitUntil(onInstall(event)));
-self.addEventListener('activate', event => event.waitUntil(onActivate(event)));
-self.addEventListener('fetch', event => event.respondWith(onFetch(event)));
+self.addEventListener("install", (event) => event.waitUntil(onInstall(event)));
+self.addEventListener("activate", (event) =>
+	event.waitUntil(onActivate(event))
+);
+self.addEventListener("fetch", (event) => event.respondWith(onFetch(event)));
 
-const cacheNamePrefix = 'resource-cache-';
+const cacheNamePrefix = "resource-cache-";
 const cacheName = `${cacheNamePrefix}${self.manifest.version}`;
-
-(async () => {
-    // Cache files when the service worker is installed or updated
-    const assetsRequests = self.manifest.assets.map(asset => {
-        return new Request(asset, {
-            cache: "reload",
-        });
-    });
-    for (const request of assetsRequests){
-        await caches.open(cacheName).then(cache => cache.add(request)).catch(error => {
-            console.error("Failed to cache:", request, error);
-        });
-    }
-    // Cleanup old caches
-    const cacheKeys = await caches.keys();
-    await Promise.all(cacheKeys
-        .filter(key => key.startsWith(cacheNamePrefix) && key !== cacheName)
-        .map(key => caches.delete(key)));
-    const allClients = await clients.matchAll();
-    for (const client of allClients) {
-        client.postMessage("update");
-    }
-})();
 
 // Force new service worker
 async function onInstall(event) {
-    self.skipWaiting();    
+	self.skipWaiting();
 }
 
-// async function onActivate(event) {}
+async function onActivate(event) {
+	// Cache files when the service worker is installed or updated
+	const assetsRequests = self.manifest.assets.map((asset) => {
+		return new Request(asset, {
+			cache: "reload",
+		});
+	});
+	for (const request of assetsRequests) {
+		await caches
+			.open(cacheName)
+			.then((cache) => cache.add(request))
+			.catch((error) => {
+				console.error("Failed to cache:", request, error);
+			});
+	}
+	// Cleanup old caches
+	const cacheKeys = await caches.keys();
+	await Promise.all(
+		cacheKeys
+			.filter(
+				(key) => key.startsWith(cacheNamePrefix) && key !== cacheName
+			)
+			.map((key) => caches.delete(key))
+	);
+	const allClients = await clients.matchAll();
+	for (const client of allClients) {
+		client.postMessage("update");
+	}
+}
 
 // Try to respond with cached files
 async function onFetch(event) {
-    if (event.request.method === 'GET' && event.request.url.indexOf(self.origin) === 0) {
-        const cache = await caches.open(cacheName);
-        const cachedResponse = await cache.match(event.request);
-        if (cachedResponse){
-            return cachedResponse;
-        }
-    }
-    return fetch(event.request);
+	if (
+		event.request.method === "GET" &&
+		event.request.url.indexOf(self.origin) === 0
+	) {
+		const cache = await caches.open(cacheName);
+		const cachedResponse = await cache.match(event.request);
+		if (cachedResponse) {
+			return cachedResponse;
+		}
+	}
+	return fetch(event.request);
 }
