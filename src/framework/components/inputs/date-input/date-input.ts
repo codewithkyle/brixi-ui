@@ -13,12 +13,24 @@ export interface IDateInput extends IInput {
 	mode: "multiple" | "single" | "range";
 	disableCalendar: boolean;
 	timeFormat: "24" | "12";
+	prevValue: string | number;
+}
+export interface DateInputSettings extends InputSettings {
+	dateFormat?: string;
+	displayFormat?: string;
+	enableTime?: boolean;
+	minDate?: string;
+	maxDate?: string;
+	mode?: "multiple" | "single" | "range";
+	disableCalendar?: boolean;
+	timeFormat?: "24" | "12";
+	style?: string;
 }
 export default class DateInput extends Input {
 	override model: IDateInput;
 	private firstRender: boolean;
 
-	constructor(settings: InputSettings) {
+	constructor(settings: DateInputSettings) {
 		super(settings);
 		this.firstRender = true;
 		this.state = settings?.disabled ? "DISABLED" : "IDLING";
@@ -62,6 +74,7 @@ export default class DateInput extends Input {
 			class: "",
 			callback: noop,
 			attributes: {},
+			prevValue: null,
 		};
 		this.model = parseDataset<IDateInput>(this.dataset, this.model);
 		env.css(["input", "flatpickr"]).then(() => {
@@ -89,7 +102,6 @@ export default class DateInput extends Input {
 	override handleInput: EventListener = (e: Event) => {
 		const input = e.currentTarget as HTMLInputElement;
 		this.update({
-			// @ts-ignore
 			prevValue: this.model.value,
 			value: input.value,
 		});
