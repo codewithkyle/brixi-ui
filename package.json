@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "fs-extra": "^10.0.0",
-    "yargs": "^17.0.1"
+    "yargs": "^17.3.0"
   },
   "bundle": [
     "@codewithkyle/notifyjs",
@@ -47,6 +47,7 @@
     "@codewithkyle/messaging",
     "@codewithkyle/modal-maker",
     "@codewithkyle/pubsub",
+    "@codewithkyle/uuid",
     "tooltipper",
     "flatpickr",
     "lit-html",
@@ -62,8 +63,9 @@
     "@codewithkyle/notifyjs": "^3.1.0",
     "@codewithkyle/pubsub": "^1.1.1",
     "@codewithkyle/router": "^1.1.0",
-    "@codewithkyle/supercomponent": "^1.1.0",
-    "@codewithkyle/twist": "^1.3.1",
+    "@codewithkyle/supercomponent": "^1.3.0",
+    "@codewithkyle/twist": "^1.5.0",
+    "@codewithkyle/uuid": "^1.0.1",
     "brixi": "^0.5.2",
     "cssmonster": "^0.4.0",
     "dayjs": "^1.10.6",
@@ -73,14 +75,14 @@
     "flatpickr": "^4.6.9",
     "fuse.js": "^6.4.6",
     "glob": "^7.1.7",
-    "html2canvas": "^1.1.3",
+    "html2canvas": "^1.3.3",
     "husky": "^6.0.0",
     "inquirer": "^8.1.1",
     "lit-html": "^1.4.1",
     "npm-run-all": "^4.1.5",
     "npm-watch": "^0.9.0",
     "tooltipper": "^1.0.1",
-    "typescript": "^4.3.5"
+    "typescript": "^4.5.2"
   },
   "watch": {
     "build": {
