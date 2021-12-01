@@ -3,69 +3,69 @@ accordion-component {
     position: relative;
     width: 100%;
 
-    .section{
+    .section {
         display: block;
         width: 100%;
         position: relative;
 
-        &:first-child{
-            label{
+        &:first-child {
+            label {
                 border-radius: 0.5rem 0.5rem 0 0;
                 border-width: 1px;
             }
         }
 
-        &:last-child{
-            label{
-                border-radius:  0 0 0.5rem 0.5rem;
-            }
-
-            p{
+        &:last-child {
+            label {
                 border-radius: 0 0 0.5rem 0.5rem;
             }
 
-            input:checked + label{
+            p {
+                border-radius: 0 0 0.5rem 0.5rem;
+            }
+
+            input:checked + label {
                 border-radius: 0;
             }
         }
 
-        &:only-child{
-            label{
+        &:only-child {
+            label {
                 border-radius: 0.5rem;
             }
 
-            p{
+            p {
                 border-radius: 0 0 0.5rem 0.5rem;
             }
 
-            input:checked + label{
+            input:checked + label {
                 border-radius: 0.5rem 0.5rem 0 0;
             }
         }
 
-        input{
+        input {
             position: absolute;
             top: 0;
             left: 0;
             opacity: 0;
             visibility: hidden;
 
-            &:checked{
-                & + label{
-                    i{
-                        svg{
+            &:checked {
+                & + label {
+                    i {
+                        svg {
                             transform: rotate(90deg);
                         }
                     }
                 }
 
-                & ~ p{
+                & ~ p {
                     display: block;
                 }
             }
         }
 
-        label{
+        label {
             display: flex;
             align-items: center;
             flex-flow: row nowrap;
@@ -79,21 +79,21 @@ accordion-component {
             border-width: 0 1px 1px 1px;
 
             &:hover,
-            &:focus-visible{
+            &:focus-visible {
                 background-color: var(--grey-50);
 
-                i{
-                    svg{
+                i {
+                    svg {
                         color: var(--grey-700);
                     }
                 }
             }
 
-            &:active{
+            &:active {
                 background-color: var(--grey-100);
             }
 
-            span{
+            span {
                 display: inline-block;
                 font-size: var(--font-md);
                 font-weight: var(--font-medium);
@@ -101,14 +101,14 @@ accordion-component {
                 width: 100%;
             }
 
-            i{
+            i {
                 width: 24px;
                 height: 24px;
                 display: inline-flex;
                 justify-content: center;
                 align-items: center;
 
-                svg{
+                svg {
                     transition: all 150ms var(--ease-in-out);
                     transform: rotate(0);
                     color: var(--grey-600);
@@ -118,7 +118,7 @@ accordion-component {
             }
         }
 
-        p{
+        p {
             font-size: var(--font-sm);
             display: none;
             width: 100%;

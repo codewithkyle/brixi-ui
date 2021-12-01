@@ -26,43 +26,43 @@ chips-component {
         margin-right: 0.5rem;
         margin-bottom: 0.5rem;
 
-        &:focus-visible{
+        &:focus-visible {
             box-shadow: var(--focus-ring);
         }
-    
+
         &:hover,
         &:active {
             color: var(--grey-800);
         }
-    
+
         &[kind="solid"] {
             background-color: var(--grey-100);
             border-color: var(--grey-200);
-    
-            &:hover{
+
+            &:hover {
                 background-color: var(--grey-50);
             }
-    
+
             &:active {
                 background-color: var(--grey-200);
             }
         }
-    
+
         &[kind="outline"] {
             border-color: var(--grey-200);
-    
-            &:hover{
+
+            &:hover {
                 background-color: var(--grey-50);
             }
-    
+
             &:active {
                 background-color: var(--grey-200);
             }
         }
-    
+
         &[icon] {
             padding-left: 0.5rem;
-    
+
             i:first-of-type {
                 width: 24px;
                 height: 24px;
@@ -70,17 +70,17 @@ chips-component {
                 justify-content: center;
                 align-items: center;
                 margin-right: 0.25rem;
-    
+
                 svg {
                     width: 16px;
                     height: 16px;
                 }
             }
         }
-    
+
         &[closeable] {
             padding-right: 0.25rem;
-    
+
             i:last-of-type {
                 width: 24px;
                 height: 24px;
@@ -88,16 +88,16 @@ chips-component {
                 justify-content: center;
                 align-items: center;
                 margin-left: 0.25rem;
-    
+
                 svg {
                     width: 18px;
                     height: 18px;
-    
+
                     &:hover {
                         color: var(--grey-900);
                     }
                 }
             }
         }
-    }    
+    }
 }

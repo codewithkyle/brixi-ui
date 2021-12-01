@@ -5,91 +5,91 @@ divider-component {
     position: relative;
     width: 100%;
 
-    &[line-style="dashed"]{
-        div{
+    &[line-style="dashed"] {
+        div {
             border-style: dashed;
         }
     }
 
-    &[line-style="solid"]{
-        div{
+    &[line-style="solid"] {
+        div {
             border-style: solid;
         }
     }
 
-    &[line-style="dotted"]{
-        div{
+    &[line-style="dotted"] {
+        div {
             border-style: dotted;
         }
     }
 
-    &[color="primary"]{
-        div{
+    &[color="primary"] {
+        div {
             border-color: var(--primary-400);
         }
-        span{
+        span {
             color: var(--primary-700);
         }
     }
 
-    &[color="grey"]{
-        div{
+    &[color="grey"] {
+        div {
             border-color: var(--grey-300);
         }
-        span{
+        span {
             color: var(--grey-700);
         }
     }
 
-    &[color="success"]{
-        div{
+    &[color="success"] {
+        div {
             border-color: var(--success-400);
         }
-        span{
+        span {
             color: var(--success-700);
         }
     }
 
-    &[color="warning"]{
-        div{
+    &[color="warning"] {
+        div {
             border-color: var(--warning-400);
         }
-        span{
+        span {
             color: var(--warning-700);
         }
     }
 
-    &[color="danger"]{
-        div{
+    &[color="danger"] {
+        div {
             border-color: var(--danger-400);
         }
-        span{
+        span {
             color: var(--danger-700);
         }
     }
 
-    &[color="black"]{
-        div{
+    &[color="black"] {
+        div {
             border-color: var(--grey-700);
         }
-        span{
+        span {
             color: var(--grey-900);
         }
     }
 
-    &[layout="vertical"]{
+    &[layout="vertical"] {
         flex-flow: column wrap;
         width: 24px;
         height: 100%;
 
-        div{
+        div {
             width: 1px;
             height: 100%;
             display: block;
             border-width: 0 1px 0 0;
         }
 
-        span{
+        span {
             text-orientation: upright;
             writing-mode: vertical-rl;
             padding: 0.75rem 0;
@@ -97,7 +97,7 @@ divider-component {
         }
     }
 
-    div{
+    div {
         flex: 1;
         width: 100%;
         height: 1px;
@@ -106,13 +106,13 @@ divider-component {
         border-color: var(--grey-300);
     }
 
-    span{
+    span {
         color: var(--grey-700);
         font-size: var(--font-sm);
         padding: 0 0.75rem;
         display: inline-block;
 
-        svg{
+        svg {
             width: 18px;
             height: 18px;
         }

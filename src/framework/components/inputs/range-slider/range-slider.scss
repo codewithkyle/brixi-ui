@@ -1,4 +1,4 @@
-range-slider{
+range-slider {
     display: inline-block;
     width: 100%;
     position: relative;
@@ -22,7 +22,7 @@ range-slider{
         transition: all 80ms var(--ease-in-out);
     }
 
-    input[type="number"]{
+    input[type="number"] {
         height: 36px;
         min-width: 36px;
         margin-left: 1rem;
@@ -39,18 +39,18 @@ range-slider{
         box-shadow: var(--light-bevel);
 
         &::-webkit-inner-spin-button,
-        &::-webkit-outer-spin-button{
+        &::-webkit-outer-spin-button {
             appearance: none;
             margin: 0;
         }
 
-        &:focus{
+        &:focus {
             border-color: var(--primary-500);
             box-shadow: 0 0 0 5px var(--primary-50);
         }
     }
 
-    input[type="range"]{
+    input[type="range"] {
         display: block;
         width: 100%;
         appearance: none;
@@ -59,43 +59,42 @@ range-slider{
         background: transparent;
         flex: 1;
 
-        &:hover{
-            &::-webkit-slider-thumb{
+        &:hover {
+            &::-webkit-slider-thumb {
                 box-shadow: 0 0 0 5px var(--primary-opaque-hover);
                 background: var(--primary-400) fixed;
             }
         }
 
-        &:active{
-            &::-webkit-slider-thumb{
+        &:active {
+            &::-webkit-slider-thumb {
                 box-shadow: 0 0 0 8px var(--primary-opaque-active);
                 background: var(--primary-600) fixed;
             }
         }
 
-        &:focus-visible{
-            &::-webkit-slider-runnable-track{
+        &:focus-visible {
+            &::-webkit-slider-runnable-track {
                 box-shadow: var(--focus-ring);
             }
-            &::-webkit-slider-thumb{
+            &::-webkit-slider-thumb {
                 box-shadow: var(--focus-ring);
             }
         }
 
-        &::-webkit-slider-runnable-track{
+        &::-webkit-slider-runnable-track {
             appearance: none;
             block-size: 6px;
             border-radius: 3px;
-            background:
-              linear-gradient(
-                to right,
-                transparent var(--track-fill),
-                var(--grey-100) 0%
-              ),
-              var(--primary-400) fixed;
+            background: linear-gradient(
+                    to right,
+                    transparent var(--track-fill),
+                    var(--grey-100) 0%
+                ),
+                var(--primary-400) fixed;
         }
 
-        &::-webkit-slider-thumb{
+        &::-webkit-slider-thumb {
             appearance: none;
             cursor: ew-resize;
             border: 3px solid var(--white);
@@ -108,7 +107,7 @@ range-slider{
         }
     }
 
-    input-container{
+    input-container {
         display: flex;
         flex-flow: row nowrap;
         align-items: center;

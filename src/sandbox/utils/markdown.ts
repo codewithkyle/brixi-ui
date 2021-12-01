@@ -1,25 +1,25 @@
 type DelayedPromises = {
-    [uid:string]: {
-        resolve: Function,
-        reject: Function,
-    }
-}
+    [uid: string]: {
+        resolve: Function;
+        reject: Function;
+    };
+};
 class MarkdownRenderer {
     private promises: DelayedPromises;
     private worker: Worker;
-    private messageId:number;
+    private messageId: number;
 
-    constructor(){
-        this.worker = new Worker('/js/markdown-worker.js');
+    constructor() {
+        this.worker = new Worker("/js/markdown-worker.js");
         this.worker.onmessage = this.inbox.bind(this);
         this.messageId = 0;
         this.promises = {};
     }
 
-    private inbox(e){
+    private inbox(e) {
         const { id, html, type, error } = e.data;
-        if (id in this.promises){
-            if (type === "error"){
+        if (id in this.promises) {
+            if (type === "error") {
                 this.promises[id].reject(error);
             } else {
                 this.promises[id].resolve(html);
@@ -28,14 +28,14 @@ class MarkdownRenderer {
         }
     }
 
-    stashMessageCallback(messageId, resolve, reject){
+    stashMessageCallback(messageId, resolve, reject) {
         this.promises[`${messageId}`] = {
             resolve: resolve,
             reject: reject,
         };
     }
 
-    private sendDataToWorker(data, resolve, reject = () => {}){
+    private sendDataToWorker(data, resolve, reject = () => {}) {
         this.messageId++;
         this.stashMessageCallback(this.messageId, resolve, reject);
         this.worker.postMessage({
@@ -44,7 +44,7 @@ class MarkdownRenderer {
         });
     }
 
-    public renderMarkdown(markdown:string):Promise<string>{
+    public renderMarkdown(markdown: string): Promise<string> {
         return new Promise((resolve, reject) => {
             this.sendDataToWorker(markdown, resolve, reject);
         });

@@ -69,11 +69,11 @@ badge-component {
         box-shadow: 0 0 0px var(--rose-50);
     }
 }
-@keyframes badgeFadeIn{
-    from{
+@keyframes badgeFadeIn {
+    from {
         opacity: 0;
     }
-    to{
+    to {
         opacity: 1;
     }
 }

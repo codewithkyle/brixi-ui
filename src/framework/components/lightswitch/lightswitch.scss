@@ -3,49 +3,49 @@ lightswitch-component {
     width: 100%;
     position: relative;
 
-    &[color="primary"]{
-        label{
-            &::before{
+    &[color="primary"] {
+        label {
+            &::before {
                 background-color: var(--primary-700);
             }
         }
     }
 
-    &[color="grey"]{
-        label{
-            &::before{
+    &[color="grey"] {
+        label {
+            &::before {
                 background-color: var(--grey-400);
             }
         }
     }
 
-    &[color="success"]{
-        label{
-            &::before{
+    &[color="success"] {
+        label {
+            &::before {
                 background-color: var(--success-500);
             }
         }
     }
 
-    &[color="warning"]{
-        label{
-            &::before{
+    &[color="warning"] {
+        label {
+            &::before {
                 background-color: var(--warning-400);
             }
         }
     }
 
-    &[color="danger"]{
-        label{
-            &::before{
+    &[color="danger"] {
+        label {
+            &::before {
                 background-color: var(--danger-500);
             }
         }
     }
 
-    &[color="black"]{
-        label{
-            &::before{
+    &[color="black"] {
+        label {
+            &::before {
                 background-color: var(--grey-700);
             }
         }
@@ -58,11 +58,11 @@ lightswitch-component {
         left: 0;
         user-select: none;
 
-        &:disabled{
+        &:disabled {
             & + label {
                 cursor: not-allowed !important;
 
-                span{
+                span {
                     color: var(--grey-400) !important;
                 }
 
@@ -79,9 +79,9 @@ lightswitch-component {
             }
         }
 
-        &:checked{
-            & + label{
-                &::before{
+        &:checked {
+            & + label {
+                &::before {
                     transform: translateX(0);
                 }
             }
@@ -100,7 +100,7 @@ lightswitch-component {
         overflow: hidden;
         // min-width: 64px;
 
-        &::before{
+        &::before {
             content: "";
             display: inline-block;
             position: absolute;
@@ -151,15 +151,15 @@ lightswitch-component {
             height: 32px;
             min-width: 20px;
 
-            &:first-of-type{
+            &:first-of-type {
                 color: var(--white);
 
-                svg{
+                svg {
                     color: var(--white);
                 }
             }
 
-            svg{
+            svg {
                 display: inline-block;
                 width: 18px;
                 height: 18px;
@@ -167,7 +167,7 @@ lightswitch-component {
                 color: var(--grey-600);
             }
 
-            svg + div{
+            svg + div {
                 display: inline-block;
                 padding-left: 0.25rem;
             }

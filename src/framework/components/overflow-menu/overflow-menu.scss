@@ -13,12 +13,12 @@ overflow-menu {
         cursor: pointer;
         color: var(--grey-600);
 
-        &:focus-visible{
+        &:focus-visible {
             box-shadow: var(--focus-ring);
         }
 
         &:hover,
-        &:focus-visible{
+        &:focus-visible {
             color: var(--grey-700);
 
             &::before {
@@ -68,13 +68,13 @@ overflow-container {
     z-index: 1000;
     pointer-events: none;
 
-    &.is-visible{
+    &.is-visible {
         pointer-events: all;
         opacity: 1;
         visibility: visible;
     }
 
-    button{
+    button {
         width: 100%;
         display: flex;
         align-items: center;
@@ -88,12 +88,12 @@ overflow-container {
         line-height: 1;
         white-space: nowrap;
 
-        &:focus-visible{
+        &:focus-visible {
             box-shadow: var(--focus-ring);
         }
 
         &:hover,
-        &:focus-visible{
+        &:focus-visible {
             color: var(--grey-800);
 
             &::before {

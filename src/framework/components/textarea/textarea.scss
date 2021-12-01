@@ -3,14 +3,14 @@
     width: 100%;
     position: relative;
 
-    &[state="DISABLED"]{
+    &[state="DISABLED"] {
         cursor: not-allowed !important;
 
         label,
-        p{
+        p {
             color: var(--grey-400) !important;
         }
-        textarea{
+        textarea {
             background-color: var(--grey-50) !important;
             border-color: var(--grey-200) !important;
             box-shadow: none !important;
@@ -18,12 +18,12 @@
         }
     }
 
-    &[state="ERROR"]{
-        label{
+    &[state="ERROR"] {
+        label {
             color: var(--danger-700) !important;
         }
 
-        textarea{
+        textarea {
             border-color: var(--danger-500) !important;
         }
     }
@@ -48,16 +48,17 @@
         font-size: var(--font-sm);
         line-height: 1.618;
         border-radius: 0.375rem;
-        transition: border-color 80ms var(--ease-in-out), box-shadow 80ms var(--ease-in-out);
+        transition: border-color 80ms var(--ease-in-out),
+            box-shadow 80ms var(--ease-in-out);
         background-color: var(--white);
         box-shadow: var(--light-bevel);
         resize: vertical;
 
-        &:only-child{
+        &:only-child {
             padding: 0 1rem;
         }
 
-        &:last-child{
+        &:last-child {
             padding-right: 1rem;
         }
 
@@ -65,10 +66,10 @@
             color: var(--grey-400);
         }
 
-        &:focus{
+        &:focus {
             border-color: var(--primary-500);
 
-            i{
+            i {
                 background-color: var(--primary-50);
                 border-color: var(--primary-500);
                 color: var(--primary-600);

@@ -1,55 +1,65 @@
 class Environment {
-    public mount(tagName:string, constructor:CustomElementConstructor){
-        if (!customElements.get(tagName)){
+    public mount(tagName: string, constructor: CustomElementConstructor) {
+        if (!customElements.get(tagName)) {
             customElements.define(tagName, constructor);
         }
     }
-    public css(files:string|string[]):Promise<void>{
+    public css(files: string | string[]): Promise<void> {
         return new Promise(async (resolve) => {
-            if (!Array.isArray(files)){
+            if (!Array.isArray(files)) {
                 files = [files];
             }
-            if (!files.length){
+            if (!files.length) {
                 resolve();
             }
             let resolved = 0;
-            for (let i = 0; i < files.length; i++){
+            for (let i = 0; i < files.length; i++) {
                 const file = files[i];
-                let href:string;
-                if (file.indexOf("https://") === 0 || file.indexOf("http://") === 0){
+                let href: string;
+                if (
+                    file.indexOf("https://") === 0 ||
+                    file.indexOf("http://") === 0
+                ) {
                     href = file;
-                } else if (file.indexOf("./") === 0 || file.indexOf("../") === 0 || file.indexOf("/") === 0){
+                } else if (
+                    file.indexOf("./") === 0 ||
+                    file.indexOf("../") === 0 ||
+                    file.indexOf("/") === 0
+                ) {
                     href = file;
                 } else {
-                    href = `${location.origin}/css/${file.replace(/\.css$/g, "").trim()}.css`;
+                    href = `${location.origin}/css/${file
+                        .replace(/\.css$/g, "")
+                        .trim()}.css`;
                 }
-                let stylesheet:HTMLLinkElement = document.head.querySelector(`link[href="${href}"]`);
-                if (!stylesheet){
-                    new Promise<void>(resolve => {
+                let stylesheet: HTMLLinkElement = document.head.querySelector(
+                    `link[href="${href}"]`
+                );
+                if (!stylesheet) {
+                    new Promise<void>((resolve) => {
                         stylesheet = document.createElement("link");
                         stylesheet.href = href;
                         stylesheet.rel = "stylesheet";
                         stylesheet.onload = () => {
                             resolve();
-                        }
+                        };
                         stylesheet.onerror = () => {
                             resolve();
-                        }
+                        };
                         document.head.appendChild(stylesheet);
-                    })
-                    .then(() => {
+                    }).then(() => {
                         resolved++;
-                        if (resolved === files.length){
+                        if (resolved === files.length) {
                             resolve();
                         }
                     });
                 } else {
                     resolved++;
-                    if (resolved === files.length){
+                    if (resolved === files.length) {
                         resolve();
                     }
                 }
-            } 
+            }
         });
     }
 }

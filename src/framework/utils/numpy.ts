@@ -1,9 +1,9 @@
 export function randomInt(min: number, max: number) {
-	return Math.round(Math.random() * (max - min) + min);
+    return Math.round(Math.random() * (max - min) + min);
 }
 
 export function randomFloat(min: number, max: number, decimals = 2) {
-	return parseFloat((Math.random() * (max - min) + min).toFixed(decimals));
+    return parseFloat((Math.random() * (max - min) + min).toFixed(decimals));
 }
 
 /**
@@ -11,6 +11,6 @@ export function randomFloat(min: number, max: number, decimals = 2) {
  * @example (4, 10) => 40
  */
 export function calcPercent(value: number, max: number): number {
-	const percent = (value / max) * 100;
-	return percent;
+    const percent = (value / max) * 100;
+    return percent;
 }

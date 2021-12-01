@@ -3,97 +3,97 @@ steps-component {
     width: 100%;
     position: relative;
 
-    &.vertical{
-        button{
+    &.vertical {
+        button {
             display: flex;
             align-items: center;
             flex-flow: row nowrap;
             cursor: default;
             user-select: none;
-    
-            &:not(:last-of-type){
+
+            &:not(:last-of-type) {
                 padding-bottom: 2rem;
             }
-    
-            &:last-of-type{
-                &::before{
+
+            &:last-of-type {
+                &::before {
                     display: none;
                 }
             }
-    
-            &[state="pending"]{
-                h3{
+
+            &[state="pending"] {
+                h3 {
                     color: var(--grey-800);
                 }
-    
-                p{
+
+                p {
                     color: var(--grey-700);
                 }
             }
-    
-            &[state="active"]{
-                h3{
+
+            &[state="active"] {
+                h3 {
                     color: var(--primary-700);
                 }
-    
-                p{
+
+                p {
                     color: var(--grey-700);
                 }
-    
-                i{
+
+                i {
                     border-color: var(--primary-600);
-    
-                    &::before{
+
+                    &::before {
                         opacity: 1;
                         visibility: visible;
                     }
                 }
             }
-    
-            &[state="completed"]{
+
+            &[state="completed"] {
                 cursor: pointer;
-    
-                &::before{
+
+                &::before {
                     background-color: var(--primary-600);
                 }
-    
-                h3{
+
+                h3 {
                     color: var(--grey-800);
                 }
-    
-                p{
+
+                p {
                     color: var(--grey-700);
                 }
-    
-                i{
+
+                i {
                     background-color: var(--primary-600);
                     border-color: var(--primary-600);
-    
-                    svg{
+
+                    svg {
                         opacity: 1;
                         visibility: visible;
                     }
                 }
 
                 &:hover,
-                &:focus-visible{
-                    .copy{
-                        &::before{
+                &:focus-visible {
+                    .copy {
+                        &::before {
                             background-color: var(--grey-50);
                         }
                     }
                 }
 
-                &:active{
-                    .copy{
-                        &::before{
+                &:active {
+                    .copy {
+                        &::before {
                             background-color: var(--grey-100);
                         }
                     }
                 }
             }
-    
-            &::before{
+
+            &::before {
                 content: "";
                 display: inline-block;
                 width: 2px;
@@ -105,8 +105,8 @@ steps-component {
                 border-radius: 1px;
                 transition: all 80ms var(--ease-in-out);
             }
-    
-            .copy{
+
+            .copy {
                 display: flex;
                 flex-flow: column wrap;
                 align-items: flex-start;
@@ -116,7 +116,7 @@ steps-component {
                 flex: 1;
                 position: relative;
 
-                &::before{
+                &::before {
                     content: "";
                     transition: all 80ms var(--ease-in-out);
                     position: absolute;
@@ -128,8 +128,8 @@ steps-component {
                     background-color: transparent;
                 }
             }
-    
-            i{
+
+            i {
                 width: 36px;
                 height: 36px;
                 border: 2px solid var(--grey-200);
@@ -141,16 +141,16 @@ steps-component {
                 border-radius: 50%;
                 background-color: var(--white);
                 transition: all 80ms var(--ease-in-out);
-    
-                svg{
+
+                svg {
                     width: 24px;
                     height: 24px;
                     opacity: 0;
                     visibility: hidden;
                     transition: all 80ms var(--ease-in-out);
                 }
-    
-                &::before{
+
+                &::before {
                     content: "";
                     display: inline-block;
                     width: 10px;
@@ -166,13 +166,13 @@ steps-component {
         }
     }
 
-    &.horizontal{
+    &.horizontal {
         overflow-x: auto;
         white-space: nowrap;
         display: grid;
         gap: 2rem;
-        
-        button{
+
+        button {
             display: inline-flex;
             align-items: flex-start;
             justify-content: flex-start;
@@ -185,7 +185,7 @@ steps-component {
             min-width: 300px;
             transition: all 80ms var(--ease-in-out);
 
-            &::before{
+            &::before {
                 content: "";
                 display: inline-block;
                 width: 100%;
@@ -196,76 +196,76 @@ steps-component {
                 transition: all 80ms var(--ease-in-out);
             }
 
-            &[state="pending"]{
-                &::before{
+            &[state="pending"] {
+                &::before {
                     background-color: var(--grey-200);
                 }
 
-                h3{
+                h3 {
                     color: var(--grey-800);
                 }
-    
-                p{
+
+                p {
                     color: var(--grey-700);
                 }
             }
-    
-            &[state="active"]{
-                &::before{
+
+            &[state="active"] {
+                &::before {
                     background-color: var(--primary-600);
                 }
 
-                h3{
+                h3 {
                     color: var(--grey-800);
                 }
-    
-                p{
+
+                p {
                     color: var(--grey-700);
                 }
             }
-    
-            &[state="completed"]{
+
+            &[state="completed"] {
                 cursor: pointer;
-    
-                &::before{
+
+                &::before {
                     background-color: var(--primary-600);
                 }
 
                 &:hover,
-                &:focus-visible{
-                    &::before{
+                &:focus-visible {
+                    &::before {
                         height: 6px;
                     }
                 }
 
-                &:active{
-                    &::before{
+                &:active {
+                    &::before {
                         height: 10px;
                     }
                 }
-    
-                h3{
+
+                h3 {
                     color: var(--grey-800);
                 }
-    
-                p{
+
+                p {
                     color: var(--grey-700);
                 }
             }
 
-            h3{
+            h3 {
                 font-size: var(--font-sm);
             }
 
             h3,
             p,
-            h4{
+            h4 {
                 line-height: 1.618;
             }
         }
     }
 
-    h4{
+    h4 {
         display: block;
         line-height: 1.375;
         font-weight: var(--font-medium);
@@ -274,14 +274,14 @@ steps-component {
         text-transform: uppercase;
     }
 
-    h3{
+    h3 {
         display: block;
         line-height: 1.375;
         font-weight: var(--font-medium);
         text-transform: uppercase;
     }
 
-    p{
+    p {
         display: block;
         line-height: 1.375;
         font-size: var(--font-xs);

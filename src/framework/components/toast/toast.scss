@@ -99,11 +99,11 @@ toaster-component {
             align-items: center;
             color: var(--grey-300);
 
-            &:focus-visible{
+            &:focus-visible {
                 box-shadow: var(--focus-ring) !important;
             }
 
-            &:hover{
+            &:hover {
                 color: var(--white);
 
                 &::before {
@@ -181,12 +181,12 @@ toaster-component {
                 color: var(--primary-700);
                 margin-left: 0.5rem;
                 position: relative;
-                
-                &:focus-visible{
+
+                &:focus-visible {
                     box-shadow: var(--focus-ring) !important;
                 }
 
-                &:hover{
+                &:hover {
                     &::before {
                         opacity: 0.05;
                     }

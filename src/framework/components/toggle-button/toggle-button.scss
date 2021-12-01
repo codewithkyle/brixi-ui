@@ -1,4 +1,4 @@
-toggle-button{
+toggle-button {
     display: flex;
     align-items: center;
     flex-flow: column wrap;
@@ -6,11 +6,11 @@ toggle-button{
     width: 100%;
     position: relative;
 
-    @media (min-width: 768px){
+    @media (min-width: 768px) {
         flex-flow: row nowrap;
     }
 
-    p{
+    p {
         display: block;
         width: 100%;
         flex: 1;
@@ -19,7 +19,7 @@ toggle-button{
         line-height: 1.375;
         text-align: center;
 
-        @media (min-width: 768px){
+        @media (min-width: 768px) {
             text-align: left;
             margin-bottom: auto;
         }

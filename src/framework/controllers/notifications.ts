@@ -2,7 +2,7 @@ import { snackbar, toast } from "@codewithkyle/notifyjs";
 import sound from "./soundscape";
 
 class Notifications {
-    public snackbar(message:string){
+    public snackbar(message: string) {
         snackbar({
             duration: 10,
             closeable: true,
@@ -14,10 +14,14 @@ class Notifications {
     /**
      * Notify a user that something has happened.
      */
-    public alert(title:string, message:string, actions:Array<{
-        label: string,
-        callback: Function,
-    }> = []){
+    public alert(
+        title: string,
+        message: string,
+        actions: Array<{
+            label: string;
+            callback: Function;
+        }> = []
+    ) {
         toast({
             title: title,
             message: message,
@@ -32,10 +36,14 @@ class Notifications {
     /**
      * Notify a user that an action they triggered has succeeded.
      */
-     public success(title:string, message:string, actions:Array<{
-        label: string,
-        callback: Function,
-    }> = []){
+    public success(
+        title: string,
+        message: string,
+        actions: Array<{
+            label: string;
+            callback: Function;
+        }> = []
+    ) {
         toast({
             title: title,
             message: message,
@@ -51,10 +59,14 @@ class Notifications {
     /**
      * Warn the user of something.
      */
-     public warn(title:string, message:string, actions:Array<{
-        label: string,
-        callback: Function,
-    }> = []){
+    public warn(
+        title: string,
+        message: string,
+        actions: Array<{
+            label: string;
+            callback: Function;
+        }> = []
+    ) {
         toast({
             title: title,
             message: message,
@@ -70,10 +82,14 @@ class Notifications {
     /**
      * Notify the user that an action they triggered has failed.
      */
-     public error(title:string, message:string, actions:Array<{
-        label: string,
-        callback: Function,
-    }> = []){
+    public error(
+        title: string,
+        message: string,
+        actions: Array<{
+            label: string;
+            callback: Function;
+        }> = []
+    ) {
         toast({
             title: title,
             message: message,

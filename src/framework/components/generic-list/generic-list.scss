@@ -2,10 +2,10 @@ generic-list {
     display: block;
     position: relative;
 }
-.list{
+.list {
     display: block;
 
-    li{
+    li {
         list-style-position: outside;
         margin-left: 1rem;
         line-height: 1.618;
@@ -15,7 +15,7 @@ generic-list {
         list-style-type: disc;
     }
 
-    .list{
+    .list {
         padding-left: 1rem;
     }
 }
