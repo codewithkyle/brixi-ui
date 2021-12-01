@@ -2,7 +2,8 @@ import SuperComponent from "@codewithkyle/supercomponent";
 import { html, render } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import env from "~controllers/env";
-import { uuid, parseDataset } from "~utils/general";
+import { parseDataset } from "~utils/general";
+import { UUID as uuid } from "@codewithkyle/uuid";
 
 export interface OverflowItem {
     label: string;
