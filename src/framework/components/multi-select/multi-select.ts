@@ -193,6 +193,7 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
                     threshold: 0.0,
                 });
                 const results = fuse.search(this.model.query);
+                console.log(results);
                 options = [];
                 for (let i = 0; i < results.length; i++) {
                     options.push(results[i].item);
