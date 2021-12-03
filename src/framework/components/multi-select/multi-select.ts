@@ -188,7 +188,10 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
                     }
                 }
             } else {
-                const fuse = new Fuse(options);
+                const fuse = new Fuse(options, {
+                    ignoreLocation: true,
+                    threshold: 0.0,
+                });
                 const results = fuse.search(this.model.query);
                 options = [];
                 for (let i = 0; i < results.length; i++) {
