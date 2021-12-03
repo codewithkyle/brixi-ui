@@ -338,7 +338,7 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
                         checked: this.hasOneCheck(),
                         callback: this.checkAllCallback.bind(this),
                         type: "line",
-                        className: "inline-flex mx-0.25 js-master-checkbox",
+                        class: "inline-flex mx-0.25 js-master-checkbox",
                         css: "width:24px;height:24px;",
                     })}
                     <i>
