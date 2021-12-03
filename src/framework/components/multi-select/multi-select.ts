@@ -203,12 +203,16 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
         return options;
     }
 
-    private handleFilterInput: EventListener = (e: Event) => {
-        const target = e.currentTarget as HTMLInputElement;
-        const value = target.value;
+    private updateQuery(value) {
         this.update({
             query: value,
         });
+    }
+    private debounceFilterInput = debounce(this.updateQuery.bind(this), 300);
+    private handleFilterInput: EventListener = (e: Event) => {
+        const target = e.currentTarget as HTMLInputElement;
+        const value = target.value;
+        this.debounceFilterInput(value);
     };
 
     private checkAllCallback(value, name) {
