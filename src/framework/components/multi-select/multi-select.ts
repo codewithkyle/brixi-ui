@@ -208,7 +208,7 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
         console.log(value, name);
         const updatedModel = this.get();
         for (let i = 0; i < updatedModel.options.length; i++) {
-            if (updatedModel.options[i].value == optionValue) {
+            if (updatedModel.options[i].value == value) {
                 updatedModel.options[i].checked = updatedModel.options[i]
                     .checked
                     ? false
