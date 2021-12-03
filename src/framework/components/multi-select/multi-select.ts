@@ -4,11 +4,12 @@ import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~controllers/env";
 import { noop, parseDataset } from "~utils/general";
 import soundscape from "~controllers/soundscape";
+import Checkbox from "~components/checkbox/checkbox";
 
 export type MultiSelectOption = {
     label: string;
     value: string | number;
-    selected?: boolean;
+    checked?: boolean;
 };
 
 export interface IMultiSelect {
@@ -17,7 +18,6 @@ export interface IMultiSelect {
     instructions: string;
     options: Array<MultiSelectOption>;
     required: boolean;
-    selected: number;
     name: string;
     error: string;
     value: string;
@@ -28,6 +28,8 @@ export interface IMultiSelect {
     attributes: {
         [name: string]: string | number;
     };
+    query: string;
+    placeholder: string;
 }
 export interface MultiSelectOptions {
     label?: string;
@@ -43,6 +45,7 @@ export interface MultiSelectOptions {
     attributes?: {
         [name: string]: string | number;
     };
+    placeholder: string;
 }
 export default class MultiSelect extends SuperComponent<IMultiSelect> {
     constructor(settings: MultiSelectOptions) {
@@ -76,11 +79,13 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
             css: "",
             class: "",
             attributes: {},
+            query: "",
+            placeholder: "",
         };
         this.model = parseDataset<IMultiSelect>(this.dataset, this.model);
-        for (let i = 0; i < this.model.options.length; i++) {
-            if (this.model.options[i]?.selected) {
-                this.model.selected = i;
+        for (let i = 0; i < settings.options.length; i++) {
+            if (!settings.options[i]?.checked) {
+                settings.options[i].checked = false;
             }
         }
         env.css("select").then(() => {
@@ -129,18 +134,50 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
         soundscape.error();
     }
 
-    public validate(
-        input: HTMLSelectElement,
-        clearOnly: boolean = false
-    ): boolean {
+    public getName() {
+        return this.model.name;
+    }
+
+    public getValue() {
+        const selected = [];
+        for (let i = 0; i < this.model.options.length; i++) {
+            if (this.model.options[i].checked) {
+                selected.push(this.model.options[i].value);
+            }
+        }
+        return selected;
+    }
+
+    public validate(input, clearOnly: boolean = false): boolean {
         let isValid = true;
-        if (this.model.required && !input.value.length) {
+        if (this.model.required) {
             isValid = false;
             this.setError("This field is required.", clearOnly);
         } else {
             this.clearError();
         }
         return isValid;
+    }
+
+    private hasOneCheck() {
+        let checked = false;
+        for (let i = 0; i < this.model.options.length; i++) {
+            if (this.model.options[i]?.checked) {
+                checked = true;
+                break;
+            }
+        }
+        return checked;
+    }
+
+    private calcSelected() {
+        let selected = 0;
+        for (let i = 0; i < this.model.options.length; i++) {
+            if (this.model.options[i].checked) {
+                selected++;
+            }
+        }
+        return selected;
     }
 
     private handleChange: EventListener = (e: Event) => {
@@ -153,14 +190,6 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
         this.validate(target, true);
         this.model.callback(target.value);
     };
-
-    public getName() {
-        return this.model.name;
-    }
-
-    public getValue() {
-        this.model.value;
-    }
 
     public handleBlur: EventListener = (e: Event) => {
         const input = e.currentTarget as HTMLSelectElement;
@@ -183,26 +212,13 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
         }`;
         const view = html`
             ${this.renderLabel(id)} ${this.renderCopy()}
-            <select-container>
+            <multiselect-container>
                 ${this.renderIcon()}
-                <select
-                    @blur=${this.handleBlur}
-                    @change=${this.handleChange}
-                    id="${id}"
-                    name="${this.model.name}"
-                    ?required=${this.model.required}
-                    ?disabled=${this.model.disabled}
+                <span class="select"
+                    >${!selected
+                        ? this.model.placeholder || "Select options"
+                        : html`${this.calcSelected()} selected`}</span
                 >
-                    ${this.model.options.map((option, index) => {
-                        return html`<option
-                            value="${option.value}"
-                            ?selected=${this.model.selected === index}
-                            data-index="${index}"
-                        >
-                            ${option.label}
-                        </option>`;
-                    })}
-                </select>
                 <i class="selector">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -219,7 +235,48 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
                         />
                     </svg>
                 </i>
-            </select-container>
+            </multiselect-container>
+            <multiselect-options>
+                <div class="search">
+                    ${new Checkbox({
+                        name: `multiselect-checkall`,
+                        checked: this.hasOneCheck(),
+                        callback: this.checkAllCallback.bind(this),
+                        type: "line",
+                        className: "inline-flex mx-0.25 js-master-checkbox",
+                        css: "width:24px;height:24px;",
+                    })}
+                    <i>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-5 w-5"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                        >
+                            <path
+                                fill-rule="evenodd"
+                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                clip-rule="evenodd"
+                            />
+                        </svg>
+                    </i>
+                    <input
+                        @input=${this.filterOptions}
+                        type="text"
+                        placeholder="Search..."
+                    />
+                </div>
+                <div class="options">
+                    ${options.map((option) => {
+                        return html`${new Checkbox({
+                            name: `${id}-${option.value}`,
+                            label: option.label,
+                            checked: option.checked,
+                            callback: this.checkboxCallback.bind(this),
+                        })}`;
+                    })}
+                </div>
+            </multiselect-options>
         `;
         this.setAttribute("state", this.state);
         this.className = `multi-select js-input ${this.model.class}`;
@@ -227,7 +284,9 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
         Object.keys(this.model.attributes).map((key) => {
             this.setAttribute(key, `${this.model.attributes[key]}`);
         });
-        render(view, this);
+        setTimeout(() => {
+            render(view, this);
+        }, 80);
     }
 }
 env.mount("multi-select-component", MultiSelect);
