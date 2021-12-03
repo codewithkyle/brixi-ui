@@ -394,6 +394,7 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
                         @input=${this.handleFilterInput}
                         type="text"
                         placeholder="Search..."
+                        .value=${this.model.query}
                     />
                 </div>
                 <div class="options">
