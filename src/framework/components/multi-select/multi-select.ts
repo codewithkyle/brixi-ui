@@ -6,6 +6,7 @@ import { noop, parseDataset } from "~utils/general";
 import soundscape from "~controllers/soundscape";
 import Checkbox from "~components/checkbox/checkbox";
 import { UUID } from "@codewithkyle/uuid";
+import Fuse from "~lib/fuse.basic.esm.js";
 
 export type MultiSelectOption = {
     label: string;
@@ -31,6 +32,8 @@ export interface IMultiSelect {
     };
     query: string;
     placeholder: string;
+    search: "fuzzy" | "strict";
+    separator: string;
 }
 export interface MultiSelectOptions {
     label?: string;
@@ -46,7 +49,9 @@ export interface MultiSelectOptions {
     attributes?: {
         [name: string]: string | number;
     };
-    placeholder: string;
+    placeholder?: string;
+    search?: "fuzzy" | "strict";
+    separator?: string;
 }
 export default class MultiSelect extends SuperComponent<IMultiSelect> {
     constructor(settings: MultiSelectOptions) {
@@ -80,6 +85,8 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
             attributes: {},
             query: "",
             placeholder: "",
+            search: "fuzzy",
+            separator: null,
         };
         this.model = parseDataset<IMultiSelect>(this.dataset, this.model);
         for (let i = 0; i < this.model.options.length; i++) {
@@ -157,7 +164,42 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
         return selected;
     }
 
-    private filterOptions: EventListener = (e: Event) => {
+    private filterOptions(): array {
+        let options = [...this.model.options];
+        if (this.model.query?.length) {
+            if (this.model.search === "strict") {
+                const queryValues =
+                    this.model.separator === null
+                        ? [this.model.query]
+                        : this.model.query.trim().split(this.model.separator);
+                for (let i = options.length - 1; i >= 0; i--) {
+                    let foundOne = false;
+                    for (let q = 0; q < queryValues.length; q++) {
+                        if (
+                            options[i].value.toString().toLowerCase().trim() ===
+                            queryValues[q].toString().toLowerCase().trim()
+                        ) {
+                            foundOne = true;
+                            break;
+                        }
+                    }
+                    if (!foundOne) {
+                        options.splice(i, 1);
+                    }
+                }
+            } else {
+                const fuse = new Fuse(options);
+                const results = fuse.search(this.model.query);
+                options = [];
+                for (let i = 0; i < results.length; i++) {
+                    options.push(results[i].item);
+                }
+            }
+        }
+        return options;
+    }
+
+    private handleFilterInput: EventListener = (e: Event) => {
         const target = e.currentTarget as HTMLInputElement;
         const value = target.value;
         this.update({
@@ -282,25 +324,7 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
             .trim()}`;
         this.id = id;
         const selected = this.calcSelected();
-        const options = [...this.model.options];
-        if (this.model.query?.length) {
-            const queryValues = this.model.query.trim().split(",");
-            for (let i = options.length - 1; i >= 0; i--) {
-                let foundOne = false;
-                for (let q = 0; q < queryValues.length; q++) {
-                    if (
-                        options[i].value.toString().trim() ===
-                        queryValues[q].toString().trim()
-                    ) {
-                        foundOne = true;
-                        break;
-                    }
-                }
-                if (!foundOne) {
-                    options.splice(i, 1);
-                }
-            }
-        }
+        const options = this.filterOptions();
         this.tabIndex = 0;
         const view = html`
             ${this.renderLabel(id)} ${this.renderCopy()}
@@ -353,7 +377,7 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
                         </svg>
                     </i>
                     <input
-                        @input=${this.filterOptions}
+                        @input=${this.handleFilterInput}
                         type="text"
                         placeholder="Search..."
                     />
