@@ -101,6 +101,10 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
         });
     }
 
+    override connected() {
+        this.addEventListener("focus", this.handleFocus);
+    }
+
     public clearError() {
         if (this.state === "ERROR") {
             this.trigger("RESET");
@@ -194,8 +198,6 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
                     keys: ["label"],
                 });
                 const results = fuse.search(this.model.query);
-                console.log(options);
-                console.log(results);
                 options = [];
                 for (let i = 0; i < results.length; i++) {
                     options.push(results[i].item);
@@ -204,6 +206,12 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
         }
         return options;
     }
+
+    private handleFocus: EventListener = (e: Event) => {
+        this.set({
+            query: "",
+        });
+    };
 
     private handleFilterInput: EventListener = (e: Event) => {
         const target = e.currentTarget as HTMLInputElement;
