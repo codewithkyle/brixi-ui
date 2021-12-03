@@ -16,6 +16,7 @@ export interface ICheckbox {
     attributes: {
         [name: string]: string | number;
     };
+    type: "check" | "line";
 }
 export interface CheckboxSettings {
     label: string;
@@ -29,6 +30,7 @@ export interface CheckboxSettings {
     attributes?: {
         [name: string]: string | number;
     };
+    type?: "check" | "line";
 }
 export default class Checkbox extends SuperComponent<ICheckbox> {
     constructor(settings: CheckboxSettings) {
@@ -43,6 +45,7 @@ export default class Checkbox extends SuperComponent<ICheckbox> {
             css: "",
             class: "",
             attributes: {},
+            type: "check",
         };
         this.model = parseDataset<ICheckbox>(this.dataset, this.model);
         env.css("checkbox").then(() => {
@@ -79,6 +82,39 @@ export default class Checkbox extends SuperComponent<ICheckbox> {
         return isValid;
     }
 
+    private renderIcon() {
+        switch (this.model.type) {
+            case "line":
+                return html`<svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M18 12H6"
+                    />
+                </svg>`;
+            default:
+                return html`<svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                    />
+                </svg>`;
+        }
+    }
+
     render() {
         const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${
             this.model.name
@@ -101,22 +137,7 @@ export default class Checkbox extends SuperComponent<ICheckbox> {
                             this.model.checked ? "uncheck" : "check"
                         } the box ${this.model.label}`}
                     >
-                        <i>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M5 13l4 4L19 7"
-                                />
-                            </svg>
-                        </i>
+                        <i> ${this.renderIcon()} </i>
                     </check-box>
                     <span>${this.model.label}</span>
                 </label>
