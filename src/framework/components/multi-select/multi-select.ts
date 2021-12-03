@@ -5,11 +5,13 @@ import env from "~controllers/env";
 import { noop, parseDataset } from "~utils/general";
 import soundscape from "~controllers/soundscape";
 import Checkbox from "~components/checkbox/checkbox";
+import { UUID } from "@codewithkyle/uuid";
 
 export type MultiSelectOption = {
     label: string;
     value: string | number;
     checked?: boolean;
+    uid?: string;
 };
 
 export interface IMultiSelect {
@@ -80,11 +82,13 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
             placeholder: "",
         };
         this.model = parseDataset<IMultiSelect>(this.dataset, this.model);
-        for (let i = 0; i < settings.options.length; i++) {
-            if (!settings.options[i]?.checked) {
-                settings.options[i].checked = false;
+        for (let i = 0; i < this.model.options.length; i++) {
+            if (!this.model.options[i]?.checked) {
+                this.model.options[i].checked = false;
             }
+            this.model.options[i].uid = UUID();
         }
+        delete settings?.options;
         env.css("multi-select").then(() => {
             this.update(settings);
         });
@@ -201,11 +205,8 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
     }
 
     private checkboxCallback(value, name) {
-        const id = `${this.model.name}-${this.model.label
-            .replace(/\s+/g, "-")
-            .trim()}`;
-        const optionValue = name.replace(`${id}-`, "");
-        const updatedModel = { ...this.model };
+        console.log(value, name);
+        const updatedModel = this.get();
         for (let i = 0; i < updatedModel.options.length; i++) {
             if (updatedModel.options[i].value == optionValue) {
                 updatedModel.options[i].checked = updatedModel.options[i]
@@ -364,7 +365,7 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
                 <div class="options">
                     ${options.map((option) => {
                         return html`${new Checkbox({
-                            name: `${id}-${option.value}`,
+                            name: option.uid,
                             label: option.label,
                             checked: option.checked,
                             callback: this.checkboxCallback.bind(this),
