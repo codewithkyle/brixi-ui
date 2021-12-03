@@ -20,7 +20,6 @@ export interface IMultiSelect {
     required: boolean;
     name: string;
     error: string;
-    value: string;
     disabled: boolean;
     callback: Function;
     css: string;
@@ -65,7 +64,6 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
             },
         };
         this.model = {
-            selected: null,
             label: "",
             name: "",
             icon: "",
@@ -73,7 +71,6 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
             options: settings?.options ?? [],
             required: false,
             error: null,
-            value: "",
             disabled: false,
             callback: noop,
             css: "",
