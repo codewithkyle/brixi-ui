@@ -208,7 +208,10 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
             query: value,
         });
     }
-    private debounceFilterInput = debounce(this.updateQuery.bind(this), 300);
+    private debounceFilterInput = this.debounce(
+        this.updateQuery.bind(this),
+        300
+    );
     private handleFilterInput: EventListener = (e: Event) => {
         const target = e.currentTarget as HTMLInputElement;
         const value = target.value;
