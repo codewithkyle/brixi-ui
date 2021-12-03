@@ -13,7 +13,7 @@ tool-tip {
     transform-origin: center;
     display: inline-block;
     user-select: none;
-    border: 1px solid var(--grey-300);
+    border: 1px solid var(--grey-200);
 
     &.visible {
         animation: limitedTooltip 1725ms 150ms linear forwards;

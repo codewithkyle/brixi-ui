@@ -33,7 +33,7 @@ raw-modal {
         position: relative;
         overflow: hidden;
         box-shadow: var(--shadow-lg);
-        border: 1px solid var(--grey-300);
+        border: 1px solid var(--grey-200);
 
         &[size="small"] {
             width: 350px;
@@ -121,7 +121,7 @@ raw-modal {
             width: 100%;
             padding: 1rem;
             background-color: var(--grey-50);
-            border-top: 1px solid var(--grey-300);
+            border-top: 1px solid var(--grey-200);
 
             button {
                 display: inline-flex;
