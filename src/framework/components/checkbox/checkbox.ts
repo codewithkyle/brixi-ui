@@ -19,7 +19,7 @@ export interface ICheckbox {
     type: "check" | "line";
 }
 export interface CheckboxSettings {
-    label: string;
+    label?: string;
     name?: string;
     required?: boolean;
     checked?: boolean;
@@ -139,7 +139,9 @@ export default class Checkbox extends SuperComponent<ICheckbox> {
                     >
                         <i> ${this.renderIcon()} </i>
                     </check-box>
-                    <span>${this.model.label}</span>
+                    ${this.model.label?.length
+                        ? html`<span>${this.model.label}</span>`
+                        : ""}
                 </label>
             </div>
         `;
