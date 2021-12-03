@@ -48,8 +48,7 @@
         font-size: var(--font-sm);
         line-height: 1.618;
         border-radius: 0.375rem;
-        transition: border-color 80ms var(--ease-in-out),
-            box-shadow 80ms var(--ease-in-out);
+        transition: border-color 80ms var(--ease-in-out), box-shadow 80ms var(--ease-in-out);
         background-color: var(--white);
         box-shadow: var(--light-bevel);
         resize: vertical;

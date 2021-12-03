@@ -4,13 +4,7 @@ import env from "~controllers/env";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import { parseDataset } from "~utils/general";
 
-export type ItemStyle =
-    | "disc"
-    | "circle"
-    | "decimal"
-    | "leading-zero"
-    | "square"
-    | "custom";
+export type ItemStyle = "disc" | "circle" | "decimal" | "leading-zero" | "square" | "custom";
 export interface List {
     type: "ordered" | "unordered";
     style?: ItemStyle;
@@ -69,16 +63,7 @@ export default class GenericList extends SuperComponent<IGenericList> {
     }
 
     private renderItem(item, style: ItemStyle = "disc", customIcon = "") {
-        return html`
-            <li
-                style="list-style-type:${this.renderStyleType(
-                    style,
-                    customIcon
-                )};"
-            >
-                ${unsafeHTML(item)}
-            </li>
-        `;
+        return html` <li style="list-style-type:${this.renderStyleType(style, customIcon)};">${unsafeHTML(item)}</li> `;
     }
 
     private renderList(list: List) {
@@ -86,19 +71,13 @@ export default class GenericList extends SuperComponent<IGenericList> {
             case "ordered":
                 return html`
                     <ol class="list">
-                        ${list.items.map((item) =>
-                            this.renderItem(item, list?.style, list?.icon)
-                        )}
-                        ${list?.sub ? this.renderList(list.sub) : ""}
+                        ${list.items.map((item) => this.renderItem(item, list?.style, list?.icon))} ${list?.sub ? this.renderList(list.sub) : ""}
                     </ol>
                 `;
             default:
                 return html`
                     <ul class="list">
-                        ${list.items.map((item) =>
-                            this.renderItem(item, list?.style, list?.icon)
-                        )}
-                        ${list?.sub ? this.renderList(list.sub) : ""}
+                        ${list.items.map((item) => this.renderItem(item, list?.style, list?.icon))} ${list?.sub ? this.renderList(list.sub) : ""}
                     </ul>
                 `;
         }

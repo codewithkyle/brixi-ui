@@ -6,8 +6,7 @@
     position: relative;
     background-color: var(--primary-700);
     border: 1px solid var(--primary-800);
-    transition: transform 80ms var(--ease-in-out),
-        box-shadow 80ms var(--ease-in-out);
+    transition: transform 80ms var(--ease-in-out), box-shadow 80ms var(--ease-in-out);
     padding: 0 1rem;
     min-height: 36px;
     box-shadow: none;

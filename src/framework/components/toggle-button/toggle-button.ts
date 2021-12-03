@@ -87,9 +87,7 @@ export default class ToggleButton extends SuperComponent<IToggleButton> {
         Object.keys(this.model.attributes).map((key) => {
             this.setAttribute(key, `${this.model.attributes[key]}`);
         });
-        const view = html`
-            ${this.renderInstructions()} ${this.renderButton()}
-        `;
+        const view = html` ${this.renderInstructions()} ${this.renderButton()} `;
         render(view, this);
     }
 }

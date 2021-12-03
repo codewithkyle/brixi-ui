@@ -50,10 +50,7 @@ export default class RangeSlider extends Input {
         env.css(["range-slider"]).then(() => {
             this.update(settings);
         });
-        this.style.setProperty(
-            "--track-fill",
-            `${calcPercent(settings?.value ?? 0, settings.max)}%`
-        );
+        this.style.setProperty("--track-fill", `${calcPercent(settings?.value ?? 0, settings.max)}%`);
     }
 
     override handleInput: EventListener = (e: Event) => {
@@ -93,10 +90,7 @@ export default class RangeSlider extends Input {
         });
     };
 
-    override validate(
-        input: HTMLInputElement = null,
-        clearOnly = false
-    ): boolean {
+    override validate(input: HTMLInputElement = null, clearOnly = false): boolean {
         return true;
     }
 
@@ -123,9 +117,7 @@ export default class RangeSlider extends Input {
     }
 
     override render() {
-        const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${
-            this.model.name
-        }`;
+        const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${this.model.name}`;
         const view = html`
             ${this.renderLabel(id)} ${this.renderCopy()}
             <input-container>

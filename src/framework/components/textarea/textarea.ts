@@ -105,32 +105,20 @@ export default class Textarea extends SuperComponent<ITextarea> {
         soundscape.error();
     }
 
-    public validate(
-        input: HTMLInputElement,
-        clearOnly: boolean = false
-    ): boolean {
+    public validate(input: HTMLInputElement, clearOnly: boolean = false): boolean {
         let isValid = true;
         if (this.model.required && !input.value.length) {
             isValid = false;
             this.setError("This field is required.", clearOnly);
         }
-        if (
-            this.model.required ||
-            (!this.model.required && input.value.length)
-        ) {
+        if (this.model.required || (!this.model.required && input.value.length)) {
             if (this.model.minlength > input.value.length) {
                 console.log(input.value);
                 isValid = false;
-                this.setError(
-                    `This input requires a least ${this.model.minlength} characters.`,
-                    clearOnly
-                );
+                this.setError(`This input requires a least ${this.model.minlength} characters.`, clearOnly);
             } else if (this.model.maxlength < input.value.length) {
                 isValid = false;
-                this.setError(
-                    `This input requires a least ${this.model.minlength} characters.`,
-                    clearOnly
-                );
+                this.setError(`This input requires a least ${this.model.minlength} characters.`, clearOnly);
             }
         }
         if (isValid) {
@@ -184,9 +172,7 @@ export default class Textarea extends SuperComponent<ITextarea> {
     }
 
     render() {
-        const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${
-            this.model.name
-        }`;
+        const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${this.model.name}`;
         const view = html`
             ${this.renderLabel(id)} ${this.renderCopy()}
             <textarea

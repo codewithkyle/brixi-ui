@@ -82,10 +82,7 @@ export default class DateInput extends Input {
         });
     }
 
-    override validate(
-        input: HTMLInputElement = null,
-        clearOnly = false
-    ): boolean {
+    override validate(input: HTMLInputElement = null, clearOnly = false): boolean {
         if (!input) {
             input = this.querySelector("input");
         }
@@ -108,10 +105,7 @@ export default class DateInput extends Input {
         });
         this.validate(input, true);
         if (this.model.mode === "range") {
-            if (
-                this.model.value.toString().search(/\bto\b/i) !== -1 ||
-                this.model.prevValue === this.model.value
-            ) {
+            if (this.model.value.toString().search(/\bto\b/i) !== -1 || this.model.prevValue === this.model.value) {
                 this.model.callback(input.value);
             }
         } else if (this.model.mode === "single") {
@@ -131,9 +125,7 @@ export default class DateInput extends Input {
         if (this.model.mode === "range" && !this.firstRender) {
             return;
         }
-        const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${
-            this.model.name
-        }`;
+        const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${this.model.name}`;
         const view = html`
             ${this.renderLabel(id)} ${this.renderCopy()}
             <input-container>

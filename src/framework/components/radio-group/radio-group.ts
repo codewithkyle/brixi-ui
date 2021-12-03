@@ -70,9 +70,7 @@ export default class RadioGroup extends SuperComponent<IRadioGroup> {
                 return new Radio(option);
             })}
         `;
-        this.className = `${this.model.class} ${
-            this.model.disabled ? "is-disabled" : ""
-        }`;
+        this.className = `${this.model.class} ${this.model.disabled ? "is-disabled" : ""}`;
         this.style.cssText = this.model.css;
         Object.keys(this.model.attributes).map((key) => {
             this.setAttribute(key, `${this.model.attributes[key]}`);

@@ -11,8 +11,7 @@ snackbar-component {
     width: 100vw;
     opacity: 0;
     z-index: 9000;
-    animation: notificationPop 300ms cubic-bezier(0.68, -0.55, 0.265, 1.55)
-        forwards;
+    animation: notificationPop 300ms cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
     left: 50%;
     transform: scale(0.87) translateX(-50%);
     transform-origin: left top;

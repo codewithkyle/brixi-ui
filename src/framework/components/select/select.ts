@@ -103,9 +103,7 @@ export default class Select extends SuperComponent<ISelect> {
     public renderIcon() {
         let output;
         if (this.model.icon) {
-            output = html`
-                <i class="icon"> ${unsafeHTML(this.model.icon)} </i>
-            `;
+            output = html` <i class="icon"> ${unsafeHTML(this.model.icon)} </i> `;
         } else {
             output = "";
         }
@@ -129,10 +127,7 @@ export default class Select extends SuperComponent<ISelect> {
         soundscape.error();
     }
 
-    public validate(
-        input: HTMLSelectElement,
-        clearOnly: boolean = false
-    ): boolean {
+    public validate(input: HTMLSelectElement, clearOnly: boolean = false): boolean {
         let isValid = true;
         if (this.model.required && !input.value.length) {
             isValid = false;
@@ -178,9 +173,7 @@ export default class Select extends SuperComponent<ISelect> {
     }
 
     render() {
-        const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${
-            this.model.name
-        }`;
+        const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${this.model.name}`;
         const view = html`
             ${this.renderLabel(id)} ${this.renderCopy()}
             <select-container>
@@ -194,29 +187,12 @@ export default class Select extends SuperComponent<ISelect> {
                     ?disabled=${this.model.disabled}
                 >
                     ${this.model.options.map((option, index) => {
-                        return html`<option
-                            value="${option.value}"
-                            ?selected=${this.model.selected === index}
-                            data-index="${index}"
-                        >
-                            ${option.label}
-                        </option>`;
+                        return html`<option value="${option.value}" ?selected=${this.model.selected === index} data-index="${index}">${option.label}</option>`;
                     })}
                 </select>
                 <i class="selector">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-6 w-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M8 9l4-4 4 4m0 6l-4 4-4-4"
-                        />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
                     </svg>
                 </i>
             </select-container>

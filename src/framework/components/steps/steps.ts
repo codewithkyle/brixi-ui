@@ -78,27 +78,10 @@ export default class Steps extends SuperComponent<ISteps> {
             state = "pending";
         }
         return html`
-            <button
-                sfx="${state === "completed" ? "button" : ""}"
-                state="${state}"
-                @click=${this.handleClick}
-                data-name="${step?.name}"
-                data-index="${index}"
-            >
+            <button sfx="${state === "completed" ? "button" : ""}" state="${state}" @click=${this.handleClick} data-name="${step?.name}" data-index="${index}">
                 <i>
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-6 w-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M5 13l4 4L19 7"
-                        />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                     </svg>
                 </i>
                 <div class="copy">
@@ -119,13 +102,7 @@ export default class Steps extends SuperComponent<ISteps> {
             state = "pending";
         }
         return html`
-            <button
-                sfx="${state === "completed" ? "button" : ""}"
-                state="${state}"
-                @click=${this.handleClick}
-                data-name="${step?.name}"
-                data-index="${index}"
-            >
+            <button sfx="${state === "completed" ? "button" : ""}" state="${state}" @click=${this.handleClick} data-name="${step?.name}" data-index="${index}">
                 <h4>Step ${index + 1}</h4>
                 <h3>${step.label}</h3>
                 ${step?.description ? html`<p>${step.description}</p>` : ""}
@@ -149,11 +126,7 @@ export default class Steps extends SuperComponent<ISteps> {
         this.className = `${this.model.layout} ${this.model.class}`;
         this.style.cssText = this.model.css;
         if (this.model.layout === "horizontal") {
-            this.style.gridTemplateColumns = `repeat(${
-                this.model.steps.length
-            }, minmax(300px, ${Math.floor(
-                calcPercent(1, this.model.steps.length)
-            )}%))`;
+            this.style.gridTemplateColumns = `repeat(${this.model.steps.length}, minmax(300px, ${Math.floor(calcPercent(1, this.model.steps.length))}%))`;
         }
         Object.keys(this.model.attributes).map((key) => {
             this.setAttribute(key, `${this.model.attributes[key]}`);

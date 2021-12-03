@@ -66,12 +66,7 @@ export default class Nav extends SuperComponent<NavData> {
 
     private renderLink(link) {
         return html`
-            <button
-                sfx="button"
-                class="${link.slug === this.model.active ? "is-active" : ""}"
-                @click=${this.navigate}
-                data-slug="${link.slug}"
-            >
+            <button sfx="button" class="${link.slug === this.model.active ? "is-active" : ""}" @click=${this.navigate} data-slug="${link.slug}">
                 <span>${link.name.replace(/\-/g, " ")}</span>
             </button>
         `;
@@ -82,13 +77,7 @@ export default class Nav extends SuperComponent<NavData> {
             <button sfx="button" @click=${this.toggleGroup}>
                 <span>${link.name.replace(/\-/g, " ")}</span>
                 <i>
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        aria-hidden="true"
-                        focusable="false"
-                        role="img"
-                        viewBox="0 0 192 512"
-                    >
+                    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="img" viewBox="0 0 192 512">
                         <path
                             fill="currentColor"
                             d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
@@ -98,9 +87,7 @@ export default class Nav extends SuperComponent<NavData> {
             </button>
             <nav-children-container>
                 ${link.children.map((child) => {
-                    return child.children.length
-                        ? this.renderLinkWithChildren(child)
-                        : this.renderLink(child);
+                    return child.children.length ? this.renderLinkWithChildren(child) : this.renderLink(child);
                 })}
             </nav-children-container>
         `;
@@ -119,16 +106,9 @@ export default class Nav extends SuperComponent<NavData> {
             default:
                 view = html`
                     <div flex="row nowrap items-center" class="mb-1">
-                        <a
-                            sfx="button"
-                            href="/"
-                            class="mr-0.5"
-                            flex="row nowrap items-center"
-                        >
+                        <a sfx="button" href="/" class="mr-0.5" flex="row nowrap items-center">
                             <img src="/logo.png" width="32" class="mr-0.25" />
-                            <h1 class="font-xl font-bold font-grey-800">
-                                Brixi UI
-                            </h1>
+                            <h1 class="font-xl font-bold font-grey-800">Brixi UI</h1>
                         </a>
                         <a
                             sfx="button"
@@ -216,47 +196,14 @@ export default class Nav extends SuperComponent<NavData> {
                         </a>
                     </div>
                     ${this.model.navigation.map((link) => {
-                        return html`
-                            ${link.children.length
-                                ? this.renderLinkWithChildren(link)
-                                : this.renderLink(link)}
-                        `;
+                        return html` ${link.children.length ? this.renderLinkWithChildren(link) : this.renderLink(link)} `;
                     })}
-                    <button
-                        @click=${this.handleMenuClick}
-                        style="position:fixed;top:1rem;"
-                        class="bttn menu"
-                        kind="outline"
-                        color="grey"
-                        icon="center"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="open"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M4 6h16M4 12h16M4 18h16"
-                            />
+                    <button @click=${this.handleMenuClick} style="position:fixed;top:1rem;" class="bttn menu" kind="outline" color="grey" icon="center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="open" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="close"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M4 6h16M4 12h16m-7 6h7"
-                            />
+                        <svg xmlns="http://www.w3.org/2000/svg" class="close" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
                         </svg>
                     </button>
                 `;

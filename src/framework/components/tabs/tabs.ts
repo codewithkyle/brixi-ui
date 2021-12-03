@@ -73,13 +73,7 @@ export default class Tabs extends SuperComponent<ITabs> {
             ${this.model.tabs.map((tab, index) => {
                 const isActive = index === this.model.active;
                 return html`
-                    <button
-                        class="${isActive ? "is-active" : ""}"
-                        data-value="${tab.value}"
-                        data-index="${index}"
-                        @click=${this.handleClick}
-                        sfx="button"
-                    >
+                    <button class="${isActive ? "is-active" : ""}" data-value="${tab.value}" data-index="${index}" @click=${this.handleClick} sfx="button">
                         ${this.renderIcon(tab)} ${tab.label}
                     </button>
                 `;

@@ -57,11 +57,9 @@ export default class CheckboxGroup extends SuperComponent<ICheckboxGroup> {
 
     public getValue() {
         const out = [];
-        this.querySelectorAll("input:checked").forEach(
-            (input: HTMLInputElement) => {
-                out.push(input.value);
-            }
-        );
+        this.querySelectorAll("input:checked").forEach((input: HTMLInputElement) => {
+            out.push(input.value);
+        });
         return out;
     }
 
@@ -75,9 +73,7 @@ export default class CheckboxGroup extends SuperComponent<ICheckboxGroup> {
                 return new Checkbox(option);
             })}
         `;
-        this.className = `${this.model.class} ${
-            this.model.disabled ? "is-disabled" : ""
-        }`;
+        this.className = `${this.model.class} ${this.model.disabled ? "is-disabled" : ""}`;
         this.style.cssText = this.model.css;
         Object.keys(this.model.attributes).map((key) => {
             this.setAttribute(key, `${this.model.attributes[key]}`);

@@ -50,13 +50,7 @@ export default class Spinner extends SuperComponent<ISpinner> {
         this.style.width = ``;
         this.style.height = `${this.model.size}px`;
         const view = html`
-            <svg
-                aria-hidden="true"
-                focusable="false"
-                role="img"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 512 512"
-            >
+            <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                 <g class="fa-group">
                     <path
                         class="fa-secondary"

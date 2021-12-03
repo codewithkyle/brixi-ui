@@ -46,40 +46,26 @@ export default class PhoneInput extends Input {
         });
     }
 
-    override validate(
-        input: HTMLInputElement = null,
-        clearOnly = false
-    ): boolean {
+    override validate(input: HTMLInputElement = null, clearOnly = false): boolean {
         if (!input) {
             input = this.querySelector("input");
         }
         let isValid = true;
-        const PhoneNumberCheck = new RegExp(
-            /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/gim
-        );
+        const PhoneNumberCheck = new RegExp(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/gim);
         if (this.model.required && !input.value.length) {
             isValid = false;
             this.setError("This field is required.", clearOnly);
         }
-        if (
-            (!this.model.required && input.value.length) ||
-            this.model.required
-        ) {
+        if ((!this.model.required && input.value.length) || this.model.required) {
             if (!PhoneNumberCheck.test(`${this.model.value}`)) {
                 isValid = false;
                 this.setError(`Invalid phone number.`, clearOnly);
             } else if (this.model.minlength > input.value.length) {
                 isValid = false;
-                this.setError(
-                    `This input requires a least ${this.model.minlength} characters.`,
-                    clearOnly
-                );
+                this.setError(`This input requires a least ${this.model.minlength} characters.`, clearOnly);
             } else if (this.model.maxlength < input.value.length) {
                 isValid = false;
-                this.setError(
-                    `This input requires a least ${this.model.minlength} characters.`,
-                    clearOnly
-                );
+                this.setError(`This input requires a least ${this.model.minlength} characters.`, clearOnly);
             }
         }
         if (isValid) {
@@ -98,15 +84,7 @@ export default class PhoneInput extends Input {
         var match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/);
         if (match) {
             var intlCode = match[1] ? "+1 " : "";
-            return [
-                intlCode,
-                "(",
-                match[2],
-                ") ",
-                match[3],
-                "-",
-                match[4],
-            ].join("");
+            return [intlCode, "(", match[2], ") ", match[3], "-", match[4]].join("");
         }
         return phoneNumber;
     }
@@ -127,9 +105,7 @@ export default class PhoneInput extends Input {
     };
 
     override render() {
-        const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${
-            this.model.name
-        }`;
+        const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${this.model.name}`;
         const view = html`
             ${this.renderLabel(id)} ${this.renderCopy()}
             <input-container>

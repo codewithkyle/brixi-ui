@@ -52,10 +52,7 @@ export default class PasswordInput extends Input {
         });
     }
 
-    override validate(
-        input: HTMLInputElement = null,
-        clearOnly = false
-    ): boolean {
+    override validate(input: HTMLInputElement = null, clearOnly = false): boolean {
         if (!input) {
             input = this.querySelector("input");
         }
@@ -64,23 +61,14 @@ export default class PasswordInput extends Input {
             isValid = false;
             this.setError("This field is required.", clearOnly);
         }
-        if (
-            this.model.required ||
-            (!this.model.required && input.value.length)
-        ) {
+        if (this.model.required || (!this.model.required && input.value.length)) {
             if (this.model.minlength > input.value.length) {
                 console.log(input.value);
                 isValid = false;
-                this.setError(
-                    `This input requires a least ${this.model.minlength} characters.`,
-                    clearOnly
-                );
+                this.setError(`This input requires a least ${this.model.minlength} characters.`, clearOnly);
             } else if (this.model.maxlength < input.value.length) {
                 isValid = false;
-                this.setError(
-                    `This input requires a least ${this.model.minlength} characters.`,
-                    clearOnly
-                );
+                this.setError(`This input requires a least ${this.model.minlength} characters.`, clearOnly);
             }
         }
         if (isValid) {
@@ -109,19 +97,8 @@ export default class PasswordInput extends Input {
     private renderEyeIcon() {
         switch (this.model.type) {
             case "password":
-                return html`<svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                    />
+                return html`<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                     <path
                         stroke-linecap="round"
                         stroke-linejoin="round"
@@ -130,13 +107,7 @@ export default class PasswordInput extends Input {
                     />
                 </svg>`;
             case "text":
-                return html`<svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                >
+                return html`<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path
                         stroke-linecap="round"
                         stroke-linejoin="round"
@@ -148,9 +119,7 @@ export default class PasswordInput extends Input {
     }
 
     override render() {
-        const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${
-            this.model.name
-        }`;
+        const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${this.model.name}`;
         const view = html`
             ${this.renderLabel(id)} ${this.renderCopy()}
             <input-container>
@@ -168,13 +137,7 @@ export default class PasswordInput extends Input {
                     ?required=${this.model.required}
                     ?disalbed=${this.model.disabled}
                 />
-                <button
-                    type="button"
-                    @click=${this.toggleVisibility}
-                    class="eye"
-                >
-                    ${this.renderEyeIcon()}
-                </button>
+                <button type="button" @click=${this.toggleVisibility} class="eye">${this.renderEyeIcon()}</button>
             </input-container>
         `;
         this.setAttribute("state", this.state);

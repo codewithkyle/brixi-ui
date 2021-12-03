@@ -37,9 +37,7 @@ export default class CodeViewer extends SuperComponent<CodeViewerData> {
         const update = { ...this.model };
         for (let i = 0; i < files.length; i++) {
             new Promise(async (resolve) => {
-                const fileRequest = await fetch(
-                    `/raw/components/${this.component}/${files[i]}`
-                );
+                const fileRequest = await fetch(`/raw/components/${this.component}/${files[i]}`);
                 const raw = await fileRequest.text();
                 update.sourceCode.push({
                     ext: files[i].match(/\.[0-9a-z]+$/)?.[0] ?? "plaintext",
@@ -93,18 +91,9 @@ export default class CodeViewer extends SuperComponent<CodeViewerData> {
         if (this.state === "LOADING") {
             view = html`
                 <div class="my-1 block">
-                    <txt-skel
-                        class="mr-0.5"
-                        style="height:36px;width:128px;"
-                    ></txt-skel>
-                    <txt-skel
-                        class="mr-0.5"
-                        style="height:36px;width:128px;"
-                    ></txt-skel>
-                    <txt-skel
-                        class="mr-0.5"
-                        style="height:36px;width:128px;"
-                    ></txt-skel>
+                    <txt-skel class="mr-0.5" style="height:36px;width:128px;"></txt-skel>
+                    <txt-skel class="mr-0.5" style="height:36px;width:128px;"></txt-skel>
+                    <txt-skel class="mr-0.5" style="height:36px;width:128px;"></txt-skel>
                 </div>
                 <txt-skel class="w-full mb-0.5"></txt-skel>
                 <txt-skel class="w-full mb-0.5"></txt-skel>
@@ -114,11 +103,7 @@ export default class CodeViewer extends SuperComponent<CodeViewerData> {
             view = html`
                 <code-tabs>
                     ${this.model.sourceCode.map((src) => {
-                        return html`<button sfx="button" class="${
-                            src.ext === this.model.activeExt ? "is-active" : ""
-                        }" @click=${this.switchSource} data-ext="${
-                            src.ext
-                        }">${src.ext
+                        return html`<button sfx="button" class="${src.ext === this.model.activeExt ? "is-active" : ""}" @click=${this.switchSource} data-ext="${src.ext}">${src.ext
                             .replace(/^\./, "")
                             .trim()}</button></button>`;
                     })}
@@ -127,29 +112,15 @@ export default class CodeViewer extends SuperComponent<CodeViewerData> {
                     ${this.model.sourceCode.map((src) => {
                         return src.ext === this.model.activeExt
                             ? html`
-                                  <pre
-                                      class="language-${src.ext
-                                          .replace(/^\./, "")
-                                          .trim()}"
-                                  >
+                                  <pre class="language-${src.ext.replace(/^\./, "").trim()}">
                                 <code>${src.raw}</code>
                             </pre
                                   >
                               `
                             : "";
                     })}
-                    <button
-                        @click=${this.copyToClipboard}
-                        aria-label="copy source code to clipboard"
-                        class="copy-to-clipboard"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="copy"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
+                    <button @click=${this.copyToClipboard} aria-label="copy source code to clipboard" class="copy-to-clipboard">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="copy" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path
                                 stroke-linecap="round"
                                 stroke-linejoin="round"
@@ -157,19 +128,8 @@ export default class CodeViewer extends SuperComponent<CodeViewerData> {
                                 d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
                             />
                         </svg>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="success"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M5 13l4 4L19 7"
-                            />
+                        <svg xmlns="http://www.w3.org/2000/svg" class="success" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                         </svg>
                     </button>
                 </code-container>

@@ -5,13 +5,7 @@ import env from "~controllers/env";
 import soundscape from "~controllers/soundscape";
 import { noop, parseDataset } from "~utils/general";
 
-export type LightswitchColor =
-    | "primary"
-    | "success"
-    | "warning"
-    | "danger"
-    | "black"
-    | "grey";
+export type LightswitchColor = "primary" | "success" | "warning" | "danger" | "black" | "grey";
 export interface ILightswitch {
     label: string;
     labelIcon: string;
@@ -100,28 +94,13 @@ export default class Lightswitch extends SuperComponent<ILightswitch> {
 
     override render() {
         this.setAttribute("color", this.model.color);
-        const id = `${this.model.altLabel.replace(/\s+/g, "-").trim()}-${
-            this.model.name
-        }-${this.model.label.replace(/\s+/g, "-").trim()}`;
+        const id = `${this.model.altLabel.replace(/\s+/g, "-").trim()}-${this.model.name}-${this.model.label.replace(/\s+/g, "-").trim()}`;
         const view = html`
-            <input
-                @change=${this.handleChange}
-                type="checkbox"
-                name="${this.model.name}"
-                id="${id}"
-                ?disabled=${this.model.disabled}
-                .checked=${this.model.enabled}
-            />
+            <input @change=${this.handleChange} type="checkbox" name="${this.model.name}" id="${id}" ?disabled=${this.model.disabled} .checked=${this.model.enabled} />
             <label for="${id}">
-                <span>
-                    ${unsafeHTML(this.model.altLabelIcon)}
-                    ${this.renderText(this.model.altLabel)}
-                </span>
+                <span> ${unsafeHTML(this.model.altLabelIcon)} ${this.renderText(this.model.altLabel)} </span>
                 <i></i>
-                <span>
-                    ${unsafeHTML(this.model.labelIcon)}
-                    ${this.renderText(this.model.label)}
-                </span>
+                <span> ${unsafeHTML(this.model.labelIcon)} ${this.renderText(this.model.label)} </span>
             </label>
         `;
         this.className = this.model.class;
@@ -135,8 +114,7 @@ export default class Lightswitch extends SuperComponent<ILightswitch> {
     override updated() {
         setTimeout(() => {
             const label: HTMLElement = this.querySelector("label");
-            const span1: HTMLElement =
-                label.querySelector("span:first-of-type");
+            const span1: HTMLElement = label.querySelector("span:first-of-type");
             const span2: HTMLElement = label.querySelector("span:last-of-type");
             const i = this.querySelector("i");
             if (this.model.enabled) {
@@ -146,12 +124,8 @@ export default class Lightswitch extends SuperComponent<ILightswitch> {
                 i.style.transform = `translateX(0)`;
             } else {
                 label.style.width = `${span2.scrollWidth + 23 + 18}px`;
-                span1.style.transform = `translateX(-${
-                    span1.scrollWidth + 8
-                }px)`;
-                span2.style.transform = `translateX(-${
-                    span1.scrollWidth + 8
-                }px)`;
+                span1.style.transform = `translateX(-${span1.scrollWidth + 8}px)`;
+                span2.style.transform = `translateX(-${span1.scrollWidth + 8}px)`;
                 i.style.transform = `translateX(-${span1.scrollWidth + 8}px)`;
             }
         }, 60);

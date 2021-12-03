@@ -86,12 +86,7 @@ range-slider {
             appearance: none;
             block-size: 6px;
             border-radius: 3px;
-            background: linear-gradient(
-                    to right,
-                    transparent var(--track-fill),
-                    var(--grey-100) 0%
-                ),
-                var(--primary-400) fixed;
+            background: linear-gradient(to right, transparent var(--track-fill), var(--grey-100) 0%), var(--primary-400) fixed;
         }
 
         &::-webkit-slider-thumb {

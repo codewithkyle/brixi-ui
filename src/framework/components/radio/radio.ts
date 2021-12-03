@@ -69,27 +69,12 @@ export default class Radio extends SuperComponent<IRadio> {
     };
 
     render() {
-        const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${
-            this.model.name
-        }`;
+        const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${this.model.name}`;
         const view = html`
             <div class="inline-block mr-auto">
-                <input
-                    @change=${this.handleChange}
-                    type="radio"
-                    name="${this.model.name}"
-                    id="${id}"
-                    ?checked=${this.model.checked}
-                    ?disabled=${this.model.disabled}
-                />
+                <input @change=${this.handleChange} type="radio" name="${this.model.name}" id="${id}" ?checked=${this.model.checked} ?disabled=${this.model.disabled} />
                 <label sfx="button" for="${id}">
-                    <i
-                        tabindex="0"
-                        role="button"
-                        aria-label=${`click to ${
-                            this.model.checked ? "uncheck" : "check"
-                        } the option ${this.model.label}`}
-                    ></i>
+                    <i tabindex="0" role="button" aria-label=${`click to ${this.model.checked ? "uncheck" : "check"} the option ${this.model.label}`}></i>
                     <span>${this.model.label}</span>
                 </label>
             </div>

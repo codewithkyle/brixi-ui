@@ -61,10 +61,7 @@ export default class NumberInput extends Input {
         });
     }
 
-    override validate(
-        input: HTMLInputElement = null,
-        clearOnly = false
-    ): boolean {
+    override validate(input: HTMLInputElement = null, clearOnly = false): boolean {
         if (!input) {
             input = this.querySelector("input");
         }
@@ -73,22 +70,13 @@ export default class NumberInput extends Input {
             isValid = false;
             this.setError("This field is required.", clearOnly);
         }
-        if (
-            this.model.required ||
-            (!this.model.required && input.value.length)
-        ) {
+        if (this.model.required || (!this.model.required && input.value.length)) {
             if (parseFloat(input.value) < this.model.min) {
                 isValid = false;
-                this.setError(
-                    `Minimum allowed number is ${this.model.min}.`,
-                    clearOnly
-                );
+                this.setError(`Minimum allowed number is ${this.model.min}.`, clearOnly);
             } else if (parseFloat(input.value) > this.model.max) {
                 isValid = false;
-                this.setError(
-                    `Maximum allowed number is ${this.model.max}.`,
-                    clearOnly
-                );
+                this.setError(`Maximum allowed number is ${this.model.max}.`, clearOnly);
             }
         }
         if (isValid) {
@@ -98,9 +86,7 @@ export default class NumberInput extends Input {
     }
 
     override render() {
-        const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${
-            this.model.name
-        }`;
+        const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${this.model.name}`;
         const view = html`
             ${this.renderLabel(id)} ${this.renderCopy()}
             <input-container>

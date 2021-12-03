@@ -85,63 +85,26 @@ export default class Checkbox extends SuperComponent<ICheckbox> {
     private renderIcon() {
         switch (this.model.type) {
             case "line":
-                return html`<svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M18 12H6"
-                    />
+                return html`<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6" />
                 </svg>`;
             default:
-                return html`<svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M5 13l4 4L19 7"
-                    />
+                return html`<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                 </svg>`;
         }
     }
 
     render() {
-        const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${
-            this.model.name
-        }`;
+        const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${this.model.name}`;
         const view = html`
             <div class="inline-block mr-auto">
-                <input
-                    @change=${this.handleChange}
-                    type="checkbox"
-                    name="${this.model.name}"
-                    id="${id}"
-                    .checked=${this.model.checked}
-                    ?disabled=${this.model.disabled}
-                />
+                <input @change=${this.handleChange} type="checkbox" name="${this.model.name}" id="${id}" .checked=${this.model.checked} ?disabled=${this.model.disabled} />
                 <label for="${id}">
-                    <check-box
-                        role="button"
-                        tabindex="0"
-                        aria-label=${`click to ${
-                            this.model.checked ? "uncheck" : "check"
-                        } the box ${this.model.label}`}
-                    >
+                    <check-box role="button" tabindex="0" aria-label=${`click to ${this.model.checked ? "uncheck" : "check"} the box ${this.model.label}`}>
                         <i> ${this.renderIcon()} </i>
                     </check-box>
-                    ${this.model.label?.length
-                        ? html`<span>${this.model.label}</span>`
-                        : ""}
+                    ${this.model.label?.length ? html`<span>${this.model.label}</span>` : ""}
                 </label>
             </div>
         `;

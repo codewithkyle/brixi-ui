@@ -4,13 +4,7 @@ import env from "~controllers/env";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import { parseDataset } from "~utils/general";
 
-export type DividerColor =
-    | "primary"
-    | "success"
-    | "warning"
-    | "danger"
-    | "black"
-    | "grey";
+export type DividerColor = "primary" | "success" | "warning" | "danger" | "black" | "grey";
 export interface IDivider {
     label: string;
     color: DividerColor;

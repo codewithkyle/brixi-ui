@@ -108,10 +108,7 @@ export default class Input extends SuperComponent<IInput> {
         soundscape.error();
     }
 
-    public validate(
-        input: HTMLInputElement = null,
-        clearOnly: boolean = false
-    ): boolean {
+    public validate(input: HTMLInputElement = null, clearOnly: boolean = false): boolean {
         if (!input) {
             input = this.querySelector("input");
         }
@@ -120,22 +117,13 @@ export default class Input extends SuperComponent<IInput> {
             isValid = false;
             this.setError("This field is required.", clearOnly);
         }
-        if (
-            this.model.required ||
-            (!this.model.required && input.value.length)
-        ) {
+        if (this.model.required || (!this.model.required && input.value.length)) {
             if (this.model.minlength > input.value.length) {
                 isValid = false;
-                this.setError(
-                    `This input requires a least ${this.model.minlength} characters.`,
-                    clearOnly
-                );
+                this.setError(`This input requires a least ${this.model.minlength} characters.`, clearOnly);
             } else if (this.model.maxlength < input.value.length) {
                 isValid = false;
-                this.setError(
-                    `This input requires a least ${this.model.minlength} characters.`,
-                    clearOnly
-                );
+                this.setError(`This input requires a least ${this.model.minlength} characters.`, clearOnly);
             }
         }
         if (isValid) {
@@ -199,9 +187,7 @@ export default class Input extends SuperComponent<IInput> {
     }
 
     render() {
-        const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${
-            this.model.name
-        }`;
+        const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${this.model.name}`;
         const view = html`
             ${this.renderLabel(id)} ${this.renderCopy()}
             <input-container>

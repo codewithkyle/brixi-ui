@@ -54,39 +54,27 @@ export default class OverflowMenu extends SuperComponent<IOverflowMenu> {
         document.addEventListener(
             "click",
             () => {
-                document.body
-                    .querySelectorAll(
-                        `overflow-container[container-id="${this.model.uid}"].is-visible`
-                    )
-                    .forEach((container: HTMLElement) => {
-                        container.remove();
-                    });
+                document.body.querySelectorAll(`overflow-container[container-id="${this.model.uid}"].is-visible`).forEach((container: HTMLElement) => {
+                    container.remove();
+                });
             },
             { passive: true, capture: true }
         );
         window.addEventListener(
             "resize",
             () => {
-                document.body
-                    .querySelectorAll(
-                        `overflow-container[container-id="${this.model.uid}"].is-visible`
-                    )
-                    .forEach((container: HTMLElement) => {
-                        container.remove();
-                    });
+                document.body.querySelectorAll(`overflow-container[container-id="${this.model.uid}"].is-visible`).forEach((container: HTMLElement) => {
+                    container.remove();
+                });
             },
             { passive: true, capture: true }
         );
         window.addEventListener(
             "scroll",
             () => {
-                document.body
-                    .querySelectorAll(
-                        `overflow-container[container-id="${this.model.uid}"].is-visible`
-                    )
-                    .forEach((container: HTMLElement) => {
-                        container.remove();
-                    });
+                document.body.querySelectorAll(`overflow-container[container-id="${this.model.uid}"].is-visible`).forEach((container: HTMLElement) => {
+                    container.remove();
+                });
             },
             { passive: true, capture: true }
         );
@@ -95,9 +83,7 @@ export default class OverflowMenu extends SuperComponent<IOverflowMenu> {
     private handleClick: EventListener = (e: Event) => {
         const target = e.currentTarget as HTMLElement;
         const bounds = target.getBoundingClientRect();
-        const container = this.querySelector(
-            "overflow-container"
-        ) as HTMLElement;
+        const container = this.querySelector("overflow-container") as HTMLElement;
         if (container) {
             const clone = container.cloneNode(true) as HTMLElement;
             const containerBounds = container.getBoundingClientRect();
@@ -121,12 +107,7 @@ export default class OverflowMenu extends SuperComponent<IOverflowMenu> {
             return html`<hr />`;
         }
         return html`
-            <button
-                sfx="button"
-                type="button"
-                @click=${item.callback}
-                class="${item?.danger ? "danger" : ""}"
-            >
+            <button sfx="button" type="button" @click=${item.callback} class="${item?.danger ? "danger" : ""}">
                 ${item?.icon ? html` <i> ${unsafeHTML(item.icon)} </i> ` : ""}
                 <span>${item.label}</span>
             </button>
@@ -140,15 +121,7 @@ export default class OverflowMenu extends SuperComponent<IOverflowMenu> {
             this.setAttribute(key, `${this.model.attributes[key]}`);
         });
         const view = html`
-            <button
-                @click=${this.handleClick}
-                sfx="button"
-                type="button"
-                aria-label="${this.model.tooltip || "open menu"}"
-                tooltip
-            >
-                ${unsafeHTML(this.model.icon)}
-            </button>
+            <button @click=${this.handleClick} sfx="button" type="button" aria-label="${this.model.tooltip || "open menu"}" tooltip>${unsafeHTML(this.model.icon)}</button>
             <overflow-container container-id="${this.model.uid}">
                 ${this.model.items.map((item) => {
                     return this.renderItem(item);

@@ -46,41 +46,27 @@ export default class EmailInput extends Input {
         });
     }
 
-    override validate(
-        input: HTMLInputElement = null,
-        clearOnly = false
-    ): boolean {
+    override validate(input: HTMLInputElement = null, clearOnly = false): boolean {
         if (!input) {
             input = this.querySelector("input");
         }
         let isValid = true;
-        const EmailTest = new RegExp(
-            /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/gm
-        );
+        const EmailTest = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/gm);
         if (this.model.required && !input.value.length) {
             isValid = false;
             this.setError("This field is required.", clearOnly);
         }
-        if (
-            this.model.required ||
-            (!this.model.required && input.value.length)
-        ) {
+        if (this.model.required || (!this.model.required && input.value.length)) {
             if (input.value.length && !EmailTest.test(input.value)) {
                 isValid = false;
                 this.setError(`Invalid email format.`, clearOnly);
             } else if (this.model.minlength > input.value.length) {
                 console.log(input.value);
                 isValid = false;
-                this.setError(
-                    `This input requires a least ${this.model.minlength} characters.`,
-                    clearOnly
-                );
+                this.setError(`This input requires a least ${this.model.minlength} characters.`, clearOnly);
             } else if (this.model.maxlength < input.value.length) {
                 isValid = false;
-                this.setError(
-                    `This input requires a least ${this.model.minlength} characters.`,
-                    clearOnly
-                );
+                this.setError(`This input requires a least ${this.model.minlength} characters.`, clearOnly);
             }
         }
         if (isValid) {
@@ -90,9 +76,7 @@ export default class EmailInput extends Input {
     }
 
     override render() {
-        const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${
-            this.model.name
-        }`;
+        const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${this.model.name}`;
         const view = html`
             ${this.renderLabel(id)} ${this.renderCopy()}
             <input-container>

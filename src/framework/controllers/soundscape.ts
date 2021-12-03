@@ -69,16 +69,8 @@ class Soundscape {
     }
     private addButtonListeners() {
         // Button events
-        document.documentElement.addEventListener(
-            "mouseenter",
-            this.mouseover,
-            { capture: true, passive: true }
-        );
-        document.documentElement.addEventListener(
-            "mouseleave",
-            this.mouseleave,
-            { capture: true, passive: true }
-        );
+        document.documentElement.addEventListener("mouseenter", this.mouseover, { capture: true, passive: true });
+        document.documentElement.addEventListener("mouseleave", this.mouseleave, { capture: true, passive: true });
         document.documentElement.addEventListener("focus", this.focus, {
             capture: true,
             passive: true,
@@ -110,10 +102,7 @@ class Soundscape {
 
     private mouseover: EventListener = (e: Event) => {
         const target = e.target as HTMLElement;
-        if (
-            target.getAttribute("sfx") === "button" &&
-            target.dataset.isMouseOver !== "1"
-        ) {
+        if (target.getAttribute("sfx") === "button" && target.dataset.isMouseOver !== "1") {
             if (e instanceof MouseEvent) {
                 target.dataset.isMouseOver = "1";
                 this.hover();
@@ -124,10 +113,7 @@ class Soundscape {
     private focus: EventListener = (e: Event) => {
         const target = e.target as HTMLElement;
         if (target.getAttribute("sfx") === "button") {
-            if (
-                target.dataset.isMouseOver === "0" ||
-                !target.dataset.isMouseOver
-            ) {
+            if (target.dataset.isMouseOver === "0" || !target.dataset.isMouseOver) {
                 this.hover();
             }
         }
@@ -142,10 +128,7 @@ class Soundscape {
                 validKey = true;
             }
         }
-        if (
-            target.getAttribute("sfx") === "button" ||
-            target.closest(`[sfx="button"]`) !== null
-        ) {
+        if (target.getAttribute("sfx") === "button" || target.closest(`[sfx="button"]`) !== null) {
             if (validKey || !(e instanceof KeyboardEvent)) {
                 this.tap();
             }
@@ -188,8 +171,7 @@ class Soundscape {
     }
 
     public snackbar() {
-        const temp =
-            this.notifications.snackbar.cloneNode() as HTMLAudioElement;
+        const temp = this.notifications.snackbar.cloneNode() as HTMLAudioElement;
         temp.volume = 1;
         // @ts-ignore
         temp.play();

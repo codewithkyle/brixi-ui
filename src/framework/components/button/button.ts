@@ -9,14 +9,7 @@ export interface IButton {
     icon: string;
     iconPosition: "left" | "right" | "center";
     kind: "solid" | "outline" | "text";
-    color:
-        | "primary"
-        | "black"
-        | "white"
-        | "grey"
-        | "success"
-        | "warning"
-        | "danger";
+    color: "primary" | "black" | "white" | "grey" | "success" | "warning" | "danger";
     shape: "pill" | "round" | "sharp" | "default";
     size: "default" | "slim";
     callback: Function;
@@ -31,14 +24,7 @@ export interface ButtonSettings {
     label: string;
     callback: Function;
     kind?: "solid" | "outline" | "text";
-    color?:
-        | "primary"
-        | "black"
-        | "white"
-        | "grey"
-        | "success"
-        | "warning"
-        | "danger";
+    color?: "primary" | "black" | "white" | "grey" | "success" | "warning" | "danger";
     shape?: "pill" | "round" | "sharp" | "default";
     size?: "default" | "slim";
     icon?: string;

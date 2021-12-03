@@ -168,17 +168,11 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
         let options = [...this.model.options];
         if (this.model.query?.length) {
             if (this.model.search === "strict") {
-                const queryValues =
-                    this.model.separator === null
-                        ? [this.model.query]
-                        : this.model.query.trim().split(this.model.separator);
+                const queryValues = this.model.separator === null ? [this.model.query] : this.model.query.trim().split(this.model.separator);
                 for (let i = options.length - 1; i >= 0; i--) {
                     let foundOne = false;
                     for (let q = 0; q < queryValues.length; q++) {
-                        if (
-                            options[i].value.toString().toLowerCase().trim() ===
-                            queryValues[q].toString().toLowerCase().trim()
-                        ) {
+                        if (options[i].value.toString().toLowerCase().trim() === queryValues[q].toString().toLowerCase().trim()) {
                             foundOne = true;
                             break;
                         }
@@ -208,10 +202,7 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
             query: value,
         });
     }
-    private debounceFilterInput = this.debounce(
-        this.updateQuery.bind(this),
-        300
-    );
+    private debounceFilterInput = this.debounce(this.updateQuery.bind(this), 300);
     private handleFilterInput: EventListener = (e: Event) => {
         const target = e.currentTarget as HTMLInputElement;
         const value = target.value;
@@ -220,16 +211,12 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
 
     private checkAllCallback(value, name) {
         const updatedModel = { ...this.model };
-        const id = `${this.model.name}-${this.model.label
-            .replace(/\s+/g, "-")
-            .trim()}`;
+        const id = `${this.model.name}-${this.model.label.replace(/\s+/g, "-").trim()}`;
         for (let j = 0; j < updatedModel.options.length; j++) {
             updatedModel.options[j].checked = false;
         }
         const out = [];
-        const checkboxes: Array<Checkbox> = Array.from(
-            this.querySelectorAll(".options checkbox-component")
-        );
+        const checkboxes: Array<Checkbox> = Array.from(this.querySelectorAll(".options checkbox-component"));
         for (let i = 0; i < checkboxes.length; i++) {
             checkboxes[i].update({
                 checked: value,
@@ -271,9 +258,7 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
                 out.push(updatedModel.options[j].value);
             }
         }
-        const masterCheckbox: Checkbox = this.querySelector(
-            ".js-master-checkbox"
-        );
+        const masterCheckbox: Checkbox = this.querySelector(".js-master-checkbox");
         if (out.length) {
             masterCheckbox.update({
                 checked: true,
@@ -310,9 +295,7 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
     public renderIcon() {
         let output;
         if (this.model.icon) {
-            output = html`
-                <i class="icon"> ${unsafeHTML(this.model.icon)} </i>
-            `;
+            output = html` <i class="icon"> ${unsafeHTML(this.model.icon)} </i> `;
         } else {
             output = "";
         }
@@ -330,9 +313,7 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
     }
 
     render() {
-        const id = `${this.model.name}-${this.model.label
-            .replace(/\s+/g, "-")
-            .trim()}`;
+        const id = `${this.model.name}-${this.model.label.replace(/\s+/g, "-").trim()}`;
         this.id = id;
         const selected = this.calcSelected();
         const options = this.filterOptions();
@@ -341,25 +322,10 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
             ${this.renderLabel(id)} ${this.renderCopy()}
             <multiselect-container>
                 ${this.renderIcon()}
-                <span class="select"
-                    >${!selected
-                        ? this.model.placeholder || "Select options"
-                        : html`${this.calcSelected()} selected`}</span
-                >
+                <span class="select">${!selected ? this.model.placeholder || "Select options" : html`${this.calcSelected()} selected`}</span>
                 <i class="selector">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-6 w-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M8 9l4-4 4 4m0 6l-4 4-4-4"
-                        />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
                     </svg>
                 </i>
             </multiselect-container>
@@ -374,12 +340,7 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
                         css: "width:24px;height:24px;",
                     })}
                     <i>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="h-5 w-5"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                        >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path
                                 fill-rule="evenodd"
                                 d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
@@ -387,12 +348,7 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
                             />
                         </svg>
                     </i>
-                    <input
-                        @input=${this.handleFilterInput}
-                        type="text"
-                        placeholder="Search..."
-                        .value=${this.model.query}
-                    />
+                    <input @input=${this.handleFilterInput} type="text" placeholder="Search..." .value=${this.model.query} />
                 </div>
                 <div class="options">
                     ${options.map((option) => {

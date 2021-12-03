@@ -16,25 +16,14 @@ class Environment {
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
                 let href: string;
-                if (
-                    file.indexOf("https://") === 0 ||
-                    file.indexOf("http://") === 0
-                ) {
+                if (file.indexOf("https://") === 0 || file.indexOf("http://") === 0) {
                     href = file;
-                } else if (
-                    file.indexOf("./") === 0 ||
-                    file.indexOf("../") === 0 ||
-                    file.indexOf("/") === 0
-                ) {
+                } else if (file.indexOf("./") === 0 || file.indexOf("../") === 0 || file.indexOf("/") === 0) {
                     href = file;
                 } else {
-                    href = `${location.origin}/css/${file
-                        .replace(/\.css$/g, "")
-                        .trim()}.css`;
+                    href = `${location.origin}/css/${file.replace(/\.css$/g, "").trim()}.css`;
                 }
-                let stylesheet: HTMLLinkElement = document.head.querySelector(
-                    `link[href="${href}"]`
-                );
+                let stylesheet: HTMLLinkElement = document.head.querySelector(`link[href="${href}"]`);
                 if (!stylesheet) {
                     new Promise<void>((resolve) => {
                         stylesheet = document.createElement("link");

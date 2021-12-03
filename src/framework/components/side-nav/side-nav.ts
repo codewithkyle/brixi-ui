@@ -51,8 +51,7 @@ export interface SideNavSettings {
 export default class SideNav extends SuperComponent<ISideNav> {
     constructor(settings: SideNavSettings) {
         super();
-        let isOpen =
-            localStorage.getItem("side-nav-state") === "false" ? false : true;
+        let isOpen = localStorage.getItem("side-nav-state") === "false" ? false : true;
         if (window.innerWidth <= 350) {
             isOpen = false;
         }
@@ -86,10 +85,7 @@ export default class SideNav extends SuperComponent<ISideNav> {
         window.addEventListener(
             "resize",
             this.debounce(() => {
-                let isOpen =
-                    localStorage.getItem("side-nav-state") === "false"
-                        ? false
-                        : true;
+                let isOpen = localStorage.getItem("side-nav-state") === "false" ? false : true;
                 if (window.innerWidth <= 350) {
                     isOpen = false;
                 }
@@ -133,36 +129,14 @@ export default class SideNav extends SuperComponent<ISideNav> {
         let out;
         if (this.model.isOpen) {
             out = html`
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M4 6h16M4 12h16m-7 6h7"
-                    />
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
                 </svg>
             `;
         } else {
             out = html`
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M4 6h16M4 12h16M4 18h16"
-                    />
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
             `;
         }
@@ -175,10 +149,7 @@ export default class SideNav extends SuperComponent<ISideNav> {
         let childContainsCurrentLink = false;
         if (link?.subnav?.length) {
             for (let i = 0; i < link.subnav.length; i++) {
-                if (
-                    this.model.currentPage ===
-                    link.subnav[i].url.replace(/^\//, "".trim().toLowerCase())
-                ) {
+                if (this.model.currentPage === link.subnav[i].url.replace(/^\//, "".trim().toLowerCase())) {
                     childContainsCurrentLink = true;
                     break;
                 }
@@ -202,25 +173,15 @@ export default class SideNav extends SuperComponent<ISideNav> {
                             ${this.renderIcon(link)}
                             <span>${link.label}</span>
                         </label>
-                        <input
-                            ?checked=${childContainsCurrentLink}
-                            type="checkbox"
-                            name="${name}"
-                            id="${name}"
-                        />
-                        <div class="sub">
-                            ${link.subnav.map((link) => this.renderLink(link))}
-                        </div>
+                        <input ?checked=${childContainsCurrentLink} type="checkbox" name="${name}" id="${name}" />
+                        <div class="sub">${link.subnav.map((link) => this.renderLink(link))}</div>
                     </div>
                 `;
             } else {
                 out = html`
                     <a
                         sfx="button"
-                        class="${this.model.currentPage ===
-                        link.url.replace(/^\//, "".trim())
-                            ? "is-active"
-                            : ""}"
+                        class="${this.model.currentPage === link.url.replace(/^\//, "".trim()) ? "is-active" : ""}"
                         href="${link.url}"
                         target="_${link?.target?.length ? link.target : "self"}"
                     >
@@ -233,33 +194,19 @@ export default class SideNav extends SuperComponent<ISideNav> {
             if (!link?.url?.length && link?.subnav?.length) {
                 out = html`
                     <div class="link">
-                        <label
-                            sfx="button"
-                            for="${name}"
-                            tooltip="${link.label}"
-                        >
+                        <label sfx="button" for="${name}" tooltip="${link.label}">
                             ${this.renderIcon(link)}
                             <span>${link.label}</span>
                         </label>
-                        <input
-                            ?checked=${childContainsCurrentLink}
-                            type="checkbox"
-                            name="${name}"
-                            id="${name}"
-                        />
-                        <div class="sub">
-                            ${link.subnav.map((link) => this.renderLink(link))}
-                        </div>
+                        <input ?checked=${childContainsCurrentLink} type="checkbox" name="${name}" id="${name}" />
+                        <div class="sub">${link.subnav.map((link) => this.renderLink(link))}</div>
                     </div>
                 `;
             } else {
                 out = html`
                     <a
                         sfx="button"
-                        class="${this.model.currentPage ===
-                        link.url.replace(/^\//, "".trim())
-                            ? "is-active"
-                            : ""}"
+                        class="${this.model.currentPage === link.url.replace(/^\//, "".trim()) ? "is-active" : ""}"
                         tooltip="${link.label}"
                         href="${link.url}"
                         target="_${link?.target?.length ? link.target : "self"}"
@@ -288,19 +235,10 @@ export default class SideNav extends SuperComponent<ISideNav> {
             <div class="container">
                 <header>
                     <div flex="row nowrap items-center">
-                        ${this.model.logo?.length
-                            ? html`<img src="${this.model.logo}" />`
-                            : ""}
+                        ${this.model.logo?.length ? html`<img src="${this.model.logo}" />` : ""}
                         <h1>${this.model.title}</h1>
                     </div>
-                    <button
-                        sfx="button"
-                        @click=${this.handleMenuClick}
-                        tooltip="${this.model.isOpen
-                            ? "Collapse menu"
-                            : "Open menu"}"
-                        class="menu"
-                    >
+                    <button sfx="button" @click=${this.handleMenuClick} tooltip="${this.model.isOpen ? "Collapse menu" : "Open menu"}" class="menu">
                         ${this.renderMenuIcon()}
                     </button>
                 </header>
@@ -313,34 +251,17 @@ export default class SideNav extends SuperComponent<ISideNav> {
                     <div flex="row nowrap items-center">
                         <div class="avatar">
                             ${this.model.avatar?.length
-                                ? html`<img
-                                      src="${this.model.avatar}"
-                                      alt="profile photo of ${this.model.name}"
-                                      title="Profile photo of ${this.model
-                                          .name}"
-                                  />`
+                                ? html`<img src="${this.model.avatar}" alt="profile photo of ${this.model.name}" title="Profile photo of ${this.model.name}" />`
                                 : ""}
                             <span>${initals}</span>
                         </div>
                         <div class="details">
-                            <h3 title="${this.model.name}">
-                                ${this.model.name}
-                            </h3>
-                            ${this.model.role?.length
-                                ? html`<h4 title="${this.model.role}">
-                                      ${this.model.role}
-                                  </h4>`
-                                : ""}
+                            <h3 title="${this.model.name}">${this.model.name}</h3>
+                            ${this.model.role?.length ? html`<h4 title="${this.model.role}">${this.model.role}</h4>` : ""}
                         </div>
                     </div>
                     <button sfx="button" class="logout" tooltip="Logout">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="h-6 w-6"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path
                                 stroke-linecap="round"
                                 stroke-linejoin="round"
