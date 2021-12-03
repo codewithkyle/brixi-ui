@@ -164,7 +164,7 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
         return selected;
     }
 
-    private filterOptions(): array {
+    private filterOptions(): Array<MultiSelectOption> {
         let options = [...this.model.options];
         if (this.model.query?.length) {
             if (this.model.search === "strict") {
