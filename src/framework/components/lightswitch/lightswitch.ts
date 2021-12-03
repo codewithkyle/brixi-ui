@@ -154,7 +154,7 @@ export default class Lightswitch extends SuperComponent<ILightswitch> {
                 }px)`;
                 i.style.transform = `translateX(-${span1.scrollWidth + 8}px)`;
             }
-        }, 15);
+        }, 60);
     }
 }
 env.mount("lightswitch-component", Lightswitch);
