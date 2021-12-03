@@ -191,8 +191,10 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
                 const fuse = new Fuse(options, {
                     ignoreLocation: true,
                     threshold: 0.0,
+                    key: "label",
                 });
                 const results = fuse.search(this.model.query);
+                console.log(options);
                 console.log(this.model.query);
                 console.log(results);
                 options = [];
