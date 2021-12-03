@@ -56,7 +56,6 @@
         check-box {
             width: 24px;
             height: 24px;
-            margin-right: 0.5rem;
             display: inline-flex;
             justify-content: center;
             align-items: center;
@@ -106,6 +105,7 @@
             font-weight: var(--font-medium);
             color: var(--grey-800);
             user-select: none;
+            margin-left: 0.5rem;
         }
     }
 }
