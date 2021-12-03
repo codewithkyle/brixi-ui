@@ -230,4 +230,4 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
         render(view, this);
     }
 }
-env.mount("multi-select-component", Select);
+env.mount("multi-select-component", MultiSelect);
