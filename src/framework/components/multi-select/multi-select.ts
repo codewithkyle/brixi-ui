@@ -93,30 +93,6 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
         });
     }
 
-    public renderCopy() {
-        let output;
-        if (this.state === "IDLING" && this.model.instructions) {
-            output = html`<p>${this.model.instructions}</p>`;
-        } else if (this.state === "ERROR" && this.model.error) {
-            output = html`<p class="font-danger-700">${this.model.error}</p>`;
-        } else {
-            output = "";
-        }
-        return output;
-    }
-
-    public renderIcon() {
-        let output;
-        if (this.model.icon) {
-            output = html`
-                <i class="icon"> ${unsafeHTML(this.model.icon)} </i>
-            `;
-        } else {
-            output = "";
-        }
-        return output;
-    }
-
     public clearError() {
         if (this.state === "ERROR") {
             this.trigger("RESET");
@@ -180,21 +156,121 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
         return selected;
     }
 
-    private handleChange: EventListener = (e: Event) => {
-        const target = e.currentTarget as HTMLSelectElement;
-        const index = parseInt(target.dataset.index);
+    private filterOptions: EventListener = (e: Event) => {
+        const target = e.currentTarget as HTMLInputElement;
+        const value = target.value;
         this.update({
-            selected: index,
-            value: target.value,
+            query: value,
         });
-        this.validate(target, true);
-        this.model.callback(target.value);
     };
 
-    public handleBlur: EventListener = (e: Event) => {
-        const input = e.currentTarget as HTMLSelectElement;
-        this.validate(input);
-    };
+    private checkAllCallback(value, name) {
+        const updatedModel = { ...this.model };
+        const id = `${this.model.name}-${this.model.label
+            .replace(/\s+/g, "-")
+            .trim()}`;
+        for (let j = 0; j < updatedModel.options.length; j++) {
+            updatedModel.options[j].checked = false;
+        }
+        const out = [];
+        const checkboxes: Array<Checkbox> = Array.from(
+            this.querySelectorAll(".options checkbox-component")
+        );
+        for (let i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].update({
+                checked: value,
+            });
+            const name = checkboxes[i].getName().replace(`${id}-`, "");
+            for (let j = 0; j < updatedModel.options.length; j++) {
+                if (updatedModel.options[j].value == name) {
+                    updatedModel.options[j].checked = value;
+                    if (value) {
+                        out.push(updatedModel.options[j].value);
+                    }
+                    break;
+                }
+            }
+        }
+        const label = this.querySelector(".select");
+        if (out.length === updatedModel.options.length) {
+            label.innerHTML = "All options selected";
+        } else if (out.length === 0) {
+            label.innerHTML = this.model.placeholder || "Select options";
+        } else {
+            label.innerHTML = `${out.length} selected`;
+        }
+        this.update(updatedModel, true);
+        this.model.callback(out);
+    }
+
+    private checkboxCallback(value, name) {
+        const id = `${this.model.name}-${this.model.label
+            .replace(/\s+/g, "-")
+            .trim()}`;
+        const optionValue = name.replace(`${id}-`, "");
+        const updatedModel = { ...this.model };
+        for (let i = 0; i < updatedModel.options.length; i++) {
+            if (updatedModel.options[i].value == optionValue) {
+                updatedModel.options[i].checked = updatedModel.options[i]
+                    .checked
+                    ? false
+                    : true;
+                break;
+            }
+        }
+        const out = [];
+        for (let j = 0; j < updatedModel.options.length; j++) {
+            if (updatedModel.options[j].checked) {
+                out.push(updatedModel.options[j].value);
+            }
+        }
+        const masterCheckbox: Checkbox = this.querySelector(
+            ".js-master-checkbox"
+        );
+        if (out.length) {
+            masterCheckbox.update({
+                checked: true,
+            });
+        } else {
+            masterCheckbox.update({
+                checked: false,
+            });
+        }
+        const label = this.querySelector(".select");
+        if (out.length === updatedModel.options.length) {
+            label.innerHTML = "All options selected";
+        } else if (out.length === 0) {
+            label.innerHTML = this.model.placeholder || "Select options";
+        } else {
+            label.innerHTML = `${out.length} selected`;
+        }
+        this.update(updatedModel, true);
+        this.model.callback(out);
+    }
+
+    public renderCopy() {
+        let output;
+        if (this.state === "IDLING" && this.model.instructions) {
+            output = html`<p>${this.model.instructions}</p>`;
+        } else if (this.state === "ERROR" && this.model.error) {
+            output = html`<p class="font-danger-700">${this.model.error}</p>`;
+        } else {
+            output = "";
+        }
+        return output;
+    }
+
+    public renderIcon() {
+        let output;
+        if (this.model.icon) {
+            output = html`
+                <i class="icon"> ${unsafeHTML(this.model.icon)} </i>
+            `;
+        } else {
+            output = "";
+        }
+        return output;
+    }
 
     public renderLabel(id: string) {
         let output;
@@ -207,9 +283,31 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
     }
 
     render() {
-        const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${
-            this.model.name
-        }`;
+        const id = `${this.model.name}-${this.model.label
+            .replace(/\s+/g, "-")
+            .trim()}`;
+        this.id = id;
+        const selected = this.calcSelected();
+        const options = [...this.model.options];
+        if (this.model.query?.length) {
+            const queryValues = this.model.query.trim().split(",");
+            for (let i = options.length - 1; i >= 0; i--) {
+                let foundOne = false;
+                for (let q = 0; q < queryValues.length; q++) {
+                    if (
+                        options[i].value.toString().trim() ===
+                        queryValues[q].toString().trim()
+                    ) {
+                        foundOne = true;
+                        break;
+                    }
+                }
+                if (!foundOne) {
+                    options.splice(i, 1);
+                }
+            }
+        }
+        this.tabIndex = 0;
         const view = html`
             ${this.renderLabel(id)} ${this.renderCopy()}
             <multiselect-container>
