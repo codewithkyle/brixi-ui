@@ -205,14 +205,10 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
     }
 
     private checkboxCallback(value, name) {
-        console.log(value, name);
         const updatedModel = this.get();
         for (let i = 0; i < updatedModel.options.length; i++) {
-            if (updatedModel.options[i].value == value) {
-                updatedModel.options[i].checked = updatedModel.options[i]
-                    .checked
-                    ? false
-                    : true;
+            if (updatedModel.options[i].uid === name) {
+                updatedModel.options[i].checked = value;
                 break;
             }
         }
