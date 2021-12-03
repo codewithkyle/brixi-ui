@@ -85,7 +85,7 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
                 settings.options[i].checked = false;
             }
         }
-        env.css("select").then(() => {
+        env.css("multi-select").then(() => {
             this.update(settings);
         });
     }
