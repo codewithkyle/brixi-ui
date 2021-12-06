@@ -32,7 +32,7 @@ export interface IMultiSelect {
     };
     query: string;
     placeholder: string;
-    search: "fuzzy" | "strict";
+    search: "fuzzy" | "strict" | null;
     separator: string;
 }
 export interface MultiSelectOptions {
@@ -50,7 +50,7 @@ export interface MultiSelectOptions {
         [name: string]: string | number;
     };
     placeholder?: string;
-    search?: "fuzzy" | "strict";
+    search?: "fuzzy" | "strict" | null;
     separator?: string;
 }
 export default class MultiSelect extends SuperComponent<IMultiSelect> {
@@ -85,7 +85,7 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
             attributes: {},
             query: "",
             placeholder: "",
-            search: "fuzzy",
+            search: null,
             separator: null,
         };
         this.model = parseDataset<IMultiSelect>(this.dataset, this.model);
@@ -312,24 +312,10 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
         return output;
     }
 
-    render() {
-        const id = `${this.model.name}-${this.model.label.replace(/\s+/g, "-").trim()}`;
-        this.id = id;
-        const selected = this.calcSelected();
-        const options = this.filterOptions();
-        this.tabIndex = 0;
-        const view = html`
-            ${this.renderLabel(id)} ${this.renderCopy()}
-            <multiselect-container>
-                ${this.renderIcon()}
-                <span class="select">${!selected ? this.model.placeholder || "Select options" : html`${this.calcSelected()} selected`}</span>
-                <i class="selector">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
-                    </svg>
-                </i>
-            </multiselect-container>
-            <multiselect-options>
+    private renderSearch() {
+        let out;
+        if (this.model.search !== null) {
+            out = html`
                 <div class="search">
                     ${new Checkbox({
                         name: `multiselect-checkall`,
@@ -350,6 +336,32 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
                     </i>
                     <input @input=${this.handleFilterInput} type="text" placeholder="Search..." .value=${this.model.query} />
                 </div>
+            `;
+        } else {
+            out = "";
+        }
+        return out;
+    }
+
+    render() {
+        const id = `${this.model.name}-${this.model.label.replace(/\s+/g, "-").trim()}`;
+        this.id = id;
+        const selected = this.calcSelected();
+        const options = this.filterOptions();
+        this.tabIndex = 0;
+        const view = html`
+            ${this.renderLabel(id)} ${this.renderCopy()}
+            <multiselect-container>
+                ${this.renderIcon()}
+                <span class="select">${!selected ? this.model.placeholder || "Select options" : html`${this.calcSelected()} selected`}</span>
+                <i class="selector">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
+                    </svg>
+                </i>
+            </multiselect-container>
+            <multiselect-options>
+                ${this.renderSearch()}
                 <div class="options">
                     ${options.map((option) => {
                         return html`${new Checkbox({
