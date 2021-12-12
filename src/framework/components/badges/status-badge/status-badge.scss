@@ -5,12 +5,12 @@ status-badge {
     justify-content: center;
     height: 24px;
     line-height: 24px;
-    padding: 0 12px;
+    padding: 0 0.75rem;
     font-size: var(--font-sm);
     font-weight: var(--font-medium);
     background-color: var(--grey-100);
     color: var(--grey-700);
-    border-radius: 12px;
+    border-radius: 0.75rem;
 
     &[color="grey"] {
         background-color: var(--grey-100);

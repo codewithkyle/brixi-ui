@@ -10,8 +10,7 @@ export interface IProgressIndicator {
     attributes: {
         [name: string]: string | number;
     };
-    width: number;
-    height: number;
+    size: number;
     tick: number;
     total: number;
     tickCallback: Function;
@@ -24,8 +23,7 @@ export interface ProgressIndicatorSettings {
     attributes?: {
         [name: string]: string | number;
     };
-    width?: number;
-    height?: number;
+    size?: number;
     total: number;
     tickCallback?: Function;
     finishedCallback?: Function;
@@ -38,8 +36,7 @@ export default class ProgressIndicator extends SuperComponent<IProgressIndicator
             css: "",
             class: "",
             attributes: {},
-            width: 24,
-            height: 24,
+            size: 24,
             tick: 0,
             total: 1,
             tickCallback: noop,
@@ -92,8 +89,8 @@ export default class ProgressIndicator extends SuperComponent<IProgressIndicator
         Object.keys(this.model.attributes).map((key) => {
             this.setAttribute(key, `${this.model.attributes[key]}`);
         });
-        this.style.width = `${this.model.width}px`;
-        this.style.height = `${this.model.height}px`;
+        this.style.width = `${this.model.size}px`;
+        this.style.height = `${this.model.size}px`;
         this.setAttribute("tooltip", `${calcPercent(this.model.tick, this.model.total)}%`);
         const view = html`
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" stroke="currentColor">
