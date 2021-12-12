@@ -12,5 +12,5 @@ export function randomFloat(min: number, max: number, decimals = 2) {
  */
 export function calcPercent(value: number, max: number): number {
     const percent = (value / max) * 100;
-    return percent;
+    return Math.round(percent);
 }

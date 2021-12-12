@@ -1,0 +1,21 @@
+progress-indicator {
+    display: block;
+    position: relative;
+
+    svg {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+
+        .inner {
+            color: var(--grey-200);
+        }
+
+        .outter {
+            stroke-dashoffset: 70;
+            stroke-dasharray: 70;
+            color: var(--grey-500);
+            transition: all 150ms var(--ease-in-out);
+        }
+    }
+}

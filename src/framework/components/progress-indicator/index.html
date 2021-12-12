@@ -1,0 +1,15 @@
+<script type="module">
+    import Component from "/progress-indicator.js";
+    const example = new Component({
+        total: 100,
+        finishedCallback: () => {
+            alert("Finished");
+            example.reset();
+        },
+    });
+    document.body.appendChild(example);
+
+    setInterval(() => {
+        example.tick();
+    }, 150);
+</script>
