@@ -259,14 +259,16 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
             }
         }
         const masterCheckbox: Checkbox = this.querySelector(".js-master-checkbox");
-        if (out.length) {
-            masterCheckbox.update({
-                checked: true,
-            });
-        } else {
-            masterCheckbox.update({
-                checked: false,
-            });
+        if (masterCheckbox) {
+            if (out.length) {
+                masterCheckbox.update({
+                    checked: true,
+                });
+            } else {
+                masterCheckbox.update({
+                    checked: false,
+                });
+            }
         }
         const label = this.querySelector(".select");
         if (out.length === updatedModel.options.length) {
