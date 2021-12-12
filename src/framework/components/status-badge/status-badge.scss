@@ -1,0 +1,94 @@
+status-badge {
+    display: inline-flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+    line-height: 24px;
+    padding: 0 12px;
+    font-size: var(--font-sm);
+    font-weight: var(--font-medium);
+    background-color: var(--grey-100);
+    color: var(--grey-700);
+    border-radius: 12px;
+
+    &[color="grey"] {
+        background-color: var(--grey-100);
+        color: var(--grey-800);
+
+        &[dot] {
+            &::before {
+                background-color: var(--grey-500);
+            }
+        }
+    }
+
+    &[color="primary"] {
+        background-color: var(--primary-50);
+        color: var(--primary-800);
+
+        &[dot] {
+            &::before {
+                background-color: var(--primary-500);
+            }
+        }
+    }
+
+    &[color="danger"] {
+        background-color: var(--danger-50);
+        color: var(--danger-800);
+
+        &[dot] {
+            &::before {
+                background-color: var(--danger-500);
+            }
+        }
+    }
+
+    &[color="warning"] {
+        background-color: var(--warning-50);
+        color: var(--warning-800);
+
+        &[dot] {
+            &::before {
+                background-color: var(--warning-500);
+            }
+        }
+    }
+
+    &[color="success"] {
+        background-color: var(--success-50);
+        color: var(--success-800);
+
+        &[dot] {
+            &::before {
+                background-color: var(--success-500);
+            }
+        }
+    }
+
+    &[dot] {
+        &::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            display: inline-block;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        &[dot="right"] {
+            &::before {
+                order: 2;
+                margin-left: 0.5rem;
+            }
+        }
+
+        &[dot="left"] {
+            &::before {
+                order: -1;
+                margin-right: 0.5rem;
+            }
+        }
+    }
+}

@@ -1,7 +1,7 @@
 import { html, render } from "lit-html";
 import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~controllers/env";
-import Button from "~components/button/button";
+import Button from "~components/buttons/button/button";
 import { noop, parseDataset } from "~utils/general";
 
 export interface Action {

@@ -1,7 +1,7 @@
 import { html, render } from "lit-html";
 import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~controllers/env";
-import Button, { ButtonSettings } from "~components/button/button";
+import Button, { ButtonSettings } from "~components/buttons/button/button";
 import { parseDataset } from "~utils/general";
 
 export interface IToggleButton {

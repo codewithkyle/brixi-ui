@@ -1,0 +1,42 @@
+<script type="module">
+    document.body.style.display = "flex";
+    document.body.style.alignItems = "center";
+    document.body.style.flexFlow = "row wrap";
+
+    import Component from "/status-badge.js";
+    const example = new Component({
+        label: "Pending",
+        class: "m-0.5",
+    });
+    document.body.appendChild(example);
+
+    const example2 = new Component({
+        label: "Shipped",
+        color: "primary",
+        class: "m-0.5",
+        dot: "left",
+    });
+    document.body.appendChild(example2);
+
+    const example3 = new Component({
+        label: "Delivered",
+        color: "success",
+        class: "m-0.5",
+    });
+    document.body.appendChild(example3);
+
+    const example4 = new Component({
+        label: "Arriving late",
+        color: "warning",
+        class: "m-0.5",
+        dot: "right",
+    });
+    document.body.appendChild(example4);
+
+    const example5 = new Component({
+        label: "Canceled",
+        color: "danger",
+        class: "m-0.5",
+    });
+    document.body.appendChild(example5);
+</script>

@@ -14,23 +14,4 @@ tool-tip {
     display: inline-block;
     user-select: none;
     border: 1px solid var(--grey-200);
-
-    &.visible {
-        animation: limitedTooltip 1725ms 150ms linear forwards;
-    }
-}
-@keyframes limitedTooltip {
-    0% {
-        opacity: 1;
-    }
-    4% {
-        opacity: 1;
-    }
-    96% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-        animation-timing-function: ease-in-out;
-    }
 }
