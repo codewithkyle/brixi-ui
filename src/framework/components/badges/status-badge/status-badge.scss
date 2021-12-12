@@ -91,4 +91,13 @@ status-badge {
             }
         }
     }
+
+    img,
+    svg {
+        width: 18px;
+        height: 18px;
+        object-fit: cover;
+        margin-right: 0.25rem;
+        margin-left: -0.25rem;
+    }
 }
