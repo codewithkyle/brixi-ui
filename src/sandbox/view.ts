@@ -271,7 +271,7 @@ export default class View extends SuperComponent<ViewData> {
         if (this.model.component) {
             view = html`
                 <div class="head mb-0.5 text-capitalize scroll-x-auto" flex="row nowrap justify-between items-center">
-                    <h1 class="font-md font-bold mb-0.5 mr-2">${this.model.component.replace(/.*\//, "").trim().replace(/\-/g, " ")}</h1>
+                    <h1 class="font-md font-bold mr-1">${this.model.component.replace(/.*\//, "").trim().replace(/\-/g, " ")}</h1>
                     <view-switcher>
                         <button sfx="button" @click=${this.switchView} data-view="demo" class="${this.model.view === "demo" ? "is-selected" : ""}">
                             <i>

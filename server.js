@@ -1,6 +1,6 @@
-const express = require('express');
+const express = require("express");
 const fs = require("fs");
-const { glob } = require('glob');
+const { glob } = require("glob");
 const path = require("path");
 
 const app = express();
@@ -13,133 +13,163 @@ const staticDir = path.join(cwd, "static");
 const frameworkDir = path.join(cwd, "src", "framework");
 const audioDir = path.join(cwd, "audio");
 
-app.use(express.static('test'));
-app.use(express.static('test/js'));
-app.use(express.static('test/css'));
-app.use(express.static('static'));
+app.use(express.static("test"));
+app.use(express.static("test/js"));
+app.use(express.static("test/css"));
+app.use(express.static("static"));
 
-function setHeaders(res){
-    res.append('Access-Control-Allow-Origin', '*');
-    res.append('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.append('Access-Control-Allow-Headers', 'Content-Type');
+function setHeaders(res) {
+    res.append("Access-Control-Allow-Origin", "*");
+    res.append("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    res.append("Access-Control-Allow-Headers", "Content-Type");
 }
 
-app.get('/static/*', async (req, res) => {
+app.get("/static/*", async (req, res) => {
     try {
         setHeaders(res);
-        const file = path.join(staticDir, req.path.replace(/[\/]static\/|\/$/g, "").trim().toLowerCase());
-        if (fs.existsSync(file)){
+        const file = path.join(
+            staticDir,
+            req.path
+                .replace(/[\/]static\/|\/$/g, "")
+                .trim()
+                .toLowerCase()
+        );
+        if (fs.existsSync(file)) {
             return res.status(200).sendFile(file);
         } else {
             throw 404;
         }
     } catch (e) {
         let status = 500;
-        if (typeof e === "number"){
+        if (typeof e === "number") {
             status = e;
         }
         return res.status(status).send();
     }
 });
-app.get('/js/*', async (req, res) => {
+app.get("/js/*", async (req, res) => {
     try {
         setHeaders(res);
-        const file = path.join(jsDir, req.path.replace(/[\/]js\/|\/$/g, "").trim().toLowerCase());
-        if (fs.existsSync(file)){
+        const file = path.join(
+            jsDir,
+            req.path
+                .replace(/[\/]js\/|\/$/g, "")
+                .trim()
+                .toLowerCase()
+        );
+        if (fs.existsSync(file)) {
             return res.status(200).sendFile(file);
         } else {
             throw 404;
         }
     } catch (e) {
         let status = 500;
-        if (typeof e === "number"){
+        if (typeof e === "number") {
             status = e;
         }
         return res.status(status).send();
     }
 });
-app.get('/css/*', async (req, res) => {
+app.get("/css/*", async (req, res) => {
     try {
         setHeaders(res);
-        const file = path.join(cssDir, req.path.replace(/[\/]css\/|\/$/g, "").trim().toLowerCase());
-        if (fs.existsSync(file)){
+        const file = path.join(
+            cssDir,
+            req.path
+                .replace(/[\/]css\/|\/$/g, "")
+                .trim()
+                .toLowerCase()
+        );
+        if (fs.existsSync(file)) {
             return res.status(200).sendFile(file);
         } else {
             throw 404;
         }
     } catch (e) {
         let status = 500;
-        if (typeof e === "number"){
+        if (typeof e === "number") {
             status = e;
         }
         return res.status(status).send();
     }
 });
 
-app.get('/service-worker.js', async (req, res) => {
+app.get("/service-worker.js", async (req, res) => {
     try {
         const file = path.join(cwd, "service-worker.js");
-        if (fs.existsSync(file)){
+        if (fs.existsSync(file)) {
             return res.status(200).sendFile(file);
         } else {
             throw 404;
         }
     } catch (e) {
         let status = 500;
-        if (typeof e === "number"){
+        if (typeof e === "number") {
             status = e;
         }
         return res.status(status).send();
     }
 });
-app.get('/service-worker-assets.js', async (req, res) => {
+app.get("/service-worker-assets.js", async (req, res) => {
     try {
         const file = path.join(cwd, "service-worker-assets.js");
-        if (fs.existsSync(file)){
+        if (fs.existsSync(file)) {
             return res.status(200).sendFile(file);
         } else {
             throw 404;
         }
     } catch (e) {
         let status = 500;
-        if (typeof e === "number"){
+        if (typeof e === "number") {
             status = e;
         }
         return res.status(status).send();
     }
 });
 
-app.get('/audio/*', async (req, res) => {
+app.get("/audio/*", async (req, res) => {
     try {
         setHeaders(res);
-        const file = path.join(audioDir, req.path.replace(/[\/]audio\/|\/$/g, "").trim().toLowerCase());
-        if (fs.existsSync(file)){
+        const file = path.join(
+            audioDir,
+            req.path
+                .replace(/[\/]audio\/|\/$/g, "")
+                .trim()
+                .toLowerCase()
+        );
+        if (fs.existsSync(file)) {
             return res.status(200).sendFile(file);
         } else {
             throw 404;
         }
     } catch (e) {
         let status = 500;
-        if (typeof e === "number"){
+        if (typeof e === "number") {
             status = e;
         }
         return res.status(status).send();
     }
 });
 
-
-app.get('/docs/*', async (req, res) => {
+app.get("/docs/*", async (req, res) => {
     try {
         setHeaders(res);
-        const file = path.join(frameworkDir, req.path.replace(/[\/]docs\/|\/$/g, "").trim().toLowerCase(), "readme.md");
-        if (fs.existsSync(file)){
+        const file = path.join(
+            frameworkDir,
+            req.path
+                .replace(/[\/]docs\/|\/$/g, "")
+                .trim()
+                .toLowerCase(),
+            "readme.md"
+        );
+        if (fs.existsSync(file)) {
             return res.status(200).sendFile(file);
         } else {
             throw 404;
         }
     } catch (e) {
         let status = 500;
-        if (typeof e === "number"){
+        if (typeof e === "number") {
             status = e;
         }
         return res.status(status).send();
@@ -149,17 +179,26 @@ app.get('/docs/*', async (req, res) => {
 app.get("/lookup/*", async (req, res) => {
     try {
         setHeaders(res);
-        const dir = path.join(frameworkDir, req.path.replace(/[\/]lookup\/|\/$/g, "").trim().toLowerCase());
-        if (fs.existsSync(dir)){
+        const dir = path.join(
+            frameworkDir,
+            req.path
+                .replace(/[\/]lookup\/|\/$/g, "")
+                .trim()
+                .toLowerCase()
+        );
+        if (fs.existsSync(dir)) {
             const files = glob.sync(`${dir}/*`);
             const data = [];
-            for (let i = 0; i < files.length; i++){
-                const file = files[i].replace(/.*[\/\\]/, "").trim().toLowerCase();
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i]
+                    .replace(/.*[\/\\]/, "")
+                    .trim()
+                    .toLowerCase();
                 data.push(file);
-                if (new RegExp(/\.scss$/).test(file)){
+                if (new RegExp(/\.scss$/).test(file)) {
                     data.push(file.replace(/\..*/, ".css"));
                 }
-                if (new RegExp(/\.ts$/).test(file)){
+                if (new RegExp(/\.ts$/).test(file)) {
                     data.push(file.replace(/\..*/, ".js"));
                 }
             }
@@ -169,19 +208,19 @@ app.get("/lookup/*", async (req, res) => {
         }
     } catch (e) {
         let status = 500;
-        if (typeof e === "number"){
+        if (typeof e === "number") {
             status = e;
         }
         return res.status(status).send();
     }
 });
 
-app.get('/raw/*', async (req, res) => {
+app.get("/raw/*", async (req, res) => {
     try {
         setHeaders(res);
         const ext = req.path.match(/\.[0-9a-z]+$/)?.[0] ?? ".html";
         let file;
-        switch (ext){
+        switch (ext) {
             case ".css":
                 file = path.join(cssDir, req.path.replace(/.*\//, "").trim().toLowerCase());
                 break;
@@ -189,17 +228,35 @@ app.get('/raw/*', async (req, res) => {
                 file = path.join(jsDir, req.path.replace(/.*\//, "").trim().toLowerCase());
                 break;
             case ".scss":
-                file = path.join(frameworkDir, req.path.replace(/[\/]raw\//, "").trim().toLowerCase());
+                file = path.join(
+                    frameworkDir,
+                    req.path
+                        .replace(/[\/]raw\//, "")
+                        .trim()
+                        .toLowerCase()
+                );
                 break;
             case ".ts":
-                file = path.join(frameworkDir, req.path.replace(/[\/]raw\//, "").trim().toLowerCase());
+                file = path.join(
+                    frameworkDir,
+                    req.path
+                        .replace(/[\/]raw\//, "")
+                        .trim()
+                        .toLowerCase()
+                );
                 break;
             default:
-                file = path.join(frameworkDir, req.path.replace(/[\/]raw\//, "").trim().toLowerCase());
+                file = path.join(
+                    frameworkDir,
+                    req.path
+                        .replace(/[\/]raw\//, "")
+                        .trim()
+                        .toLowerCase()
+                );
                 break;
         }
-        if (fs.existsSync(file)){
-            let content = await fs.promises.readFile(file, { encoding: "utf-8"});
+        if (fs.existsSync(file)) {
+            let content = await fs.promises.readFile(file, { encoding: "utf-8" });
             content = content.replace(/\t/g, "    ");
             return res.status(200).send(content).setHeader("content-type", "text/plain");
         } else {
@@ -207,21 +264,30 @@ app.get('/raw/*', async (req, res) => {
         }
     } catch (e) {
         let status = 500;
-        if (typeof e === "number"){
+        if (typeof e === "number") {
             status = e;
         }
         return res.status(status).send();
     }
 });
 
-app.get('/components/*', async (req, res) => {
+app.get("/components/*", async (req, res) => {
     try {
         setHeaders(res);
-        const dir = path.join(frameworkDir, req.path.replace(/^\/|\/$/g, "").trim().toLowerCase());
+        const dir = path.join(
+            frameworkDir,
+            req.path
+                .replace(/^\/|\/$/g, "")
+                .trim()
+                .toLowerCase()
+        );
         const page = path.join(dir, "index.html");
-        const component = req.path.replace(/.*?\/|\/$/g, "").trim().toLowerCase();
-        if (fs.existsSync(page)){
-            const content = await fs.promises.readFile(page, { encoding: "utf-8"});
+        const component = req.path
+            .replace(/.*?\/|\/$/g, "")
+            .trim()
+            .toLowerCase();
+        if (fs.existsSync(page)) {
+            const content = await fs.promises.readFile(page, { encoding: "utf-8" });
             let css = "";
             let js = "";
             return res.status(200).send(renderComponent(content, js, css));
@@ -230,7 +296,7 @@ app.get('/components/*', async (req, res) => {
         }
     } catch (e) {
         let status = 500;
-        if (typeof e === "number"){
+        if (typeof e === "number") {
             status = e;
         }
         return res.status(status).send();
@@ -241,7 +307,7 @@ app.get("/navigation.json", async (req, res) => {
     setHeaders(res);
     const dirs = await getDirectories(path.join(frameworkDir, "components"));
     let data = [];
-    for (let i = 0; i < dirs.length; i++){
+    for (let i = 0; i < dirs.length; i++) {
         const name = dirs[i].replace(/.*\//, "").trim().toLowerCase();
         const component = {
             name: name,
@@ -249,8 +315,8 @@ app.get("/navigation.json", async (req, res) => {
             children: [],
         };
         const subdirs = await getDirectories(dirs[i]);
-        if (subdirs.length){
-            for (let s = 0; s < subdirs.length; s++){
+        if (subdirs.length) {
+            for (let s = 0; s < subdirs.length; s++) {
                 const childName = subdirs[s].replace(/.*\//, "").trim().toLowerCase();
                 const childComponent = {
                     name: childName,
@@ -274,8 +340,8 @@ app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
 });
 
-function renderComponent(content, js = "", css = ""){
-return `<!DOCTYPE html>
+function renderComponent(content, js = "", css = "") {
+    return `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -291,8 +357,8 @@ return `<!DOCTYPE html>
     <link rel="stylesheet" href="/css/component-layout.css">
     <link rel="stylesheet" href="/css/tooltip.css">
     <link rel="stylesheet" href="/css/snackbar.css">
-    ${ css.length ? `<style>${css}</style>` : "" }
-    ${ js.length ? `<script type="module">${js}</script>` : "" }
+    ${css.length ? `<style>${css}</style>` : ""}
+    ${js.length ? `<script type="module">${js}</script>` : ""}
     <script type="module" src="/js/soundscape.js"></script>
     <script type="module" src="/js/tooltipper.js"></script>
 </head>
@@ -303,8 +369,8 @@ return `<!DOCTYPE html>
 `;
 }
 
-function renderBasePage(){
-return `<!DOCTYPE html>
+function renderBasePage() {
+    return `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -328,7 +394,7 @@ return `<!DOCTYPE html>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js"></script>
     <script type="module" src="/js/bootstrap.js"></script>
     <script type="module" src="/js/tooltipper.js"></script>
-    \<script type="module" src="/js/soundscape.js"></script>
+    <script type="module" src="/js/soundscape.js"></script>
 
     <meta property="og:url" content="https://ui.brixi.dev/" />
     <meta property="og:type" content="website" />
@@ -353,8 +419,8 @@ return `<!DOCTYPE html>
 `;
 }
 
-async function getDirectories(basePath){
-    let dirs = []
+async function getDirectories(basePath) {
+    let dirs = [];
     const files = await fs.promises.readdir(basePath);
     for (const file of files) {
         const filePath = path.join(basePath, file);

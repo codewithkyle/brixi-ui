@@ -1,8 +1,26 @@
 class Tooltipper {
   constructor() {
+    this.clickTooltip = (e) => {
+      const el = e.target?.closest("[tooltip]");
+      if (!(el instanceof HTMLElement) || el?.getAttribute("tooltip") === null) {
+        return;
+      }
+      if (e instanceof KeyboardEvent) {
+        if (e.key !== " ") {
+          return;
+        }
+      }
+      if (!el.dataset.tooltipUid) {
+        el.dataset.tooltipUid = uuid();
+      }
+      const tooltip = document.body.querySelector(`tool-tip[uid="${el.dataset.tooltipUid}"]`);
+      if (tooltip) {
+        tooltip?.remove();
+      }
+    };
     this.showTooltip = (e) => {
       const el = e.target;
-      if (el.getAttribute("tooltip") === null) {
+      if (!(el instanceof HTMLElement) || el?.getAttribute("tooltip") === null || e instanceof TouchEvent || e instanceof FocusEvent && this.deviceType !== 1) {
         return;
       }
       let text = el.getAttribute("tooltip");
@@ -23,35 +41,19 @@ class Tooltipper {
       tooltip.setAttribute("uid", el.dataset.tooltipUid);
       tooltip.innerHTML = text;
       tooltip.setAttribute("role", "tooltip");
-      const elBounds = el.getBoundingClientRect();
-      tooltip.style.position = "absolute";
-      tooltip.style.zIndex = "999999";
-      tooltip.style.opacity = "0";
-      if (!tooltip.isConnected) {
-        document.body.appendChild(tooltip);
-      }
-      const tipBounds = tooltip.getBoundingClientRect();
-      let tooltipLeft = elBounds.left + elBounds.width / 2 - tipBounds.width / 2;
-      if (tooltipLeft + tipBounds.width > window.innerWidth - 4) {
-        const diff = tooltipLeft + tipBounds.width - window.innerWidth + 4;
-        tooltipLeft -= diff;
-      } else if (tooltipLeft < 4) {
-        tooltipLeft = 4;
-      }
-      let tooltipTop = elBounds.top + elBounds.height - window.scrollY;
-      if (tooltipTop + tipBounds.height > window.innerHeight - 4) {
-        tooltipTop = elBounds.top - tipBounds.height;
-      } else if (tooltipTop + tipBounds.height > window.scrollY) {
-        tooltipTop = elBounds.top + elBounds.height + window.scrollY;
-      }
-      tooltip.style.top = `${tooltipTop}px`;
-      tooltip.style.left = `${tooltipLeft}px`;
+      this.placeTooltip(el, tooltip);
       tooltip.classList.add("visible");
       tooltip.style.opacity = "1";
+      if (!(el.dataset.tooltipUid in this.trackedElements)) {
+        this.observer.observe(el, {
+          attributes: true
+        });
+        this.trackedElements[el.dataset.tooltipUid] = null;
+      }
     };
     this.hideTooltip = (e) => {
       const el = e.target;
-      if (el.getAttribute("tooltip") === null || !el.dataset.tooltipUid) {
+      if (!(el instanceof HTMLElement) || el?.getAttribute("tooltip") === null || !el?.dataset?.tooltipUid) {
         return;
       }
       const tooltip = document.body.querySelector(`tool-tip[uid="${el.dataset.tooltipUid}"]`);
@@ -59,10 +61,66 @@ class Tooltipper {
         tooltip?.remove();
       }
     };
-    document.documentElement.addEventListener("mouseenter", this.showTooltip, { capture: true, passive: true });
-    document.documentElement.addEventListener("focus", this.showTooltip, { capture: true, passive: true });
-    document.documentElement.addEventListener("mouseleave", this.hideTooltip, { capture: true, passive: true });
-    document.documentElement.addEventListener("blur", this.hideTooltip, { capture: true, passive: true });
+    this.trackedElements = {};
+    this.deviceType = 1;
+    document.addEventListener("mouseenter", this.showTooltip, { capture: true, passive: true });
+    document.addEventListener("focus", this.showTooltip, { capture: true, passive: true });
+    document.addEventListener("mouseleave", this.hideTooltip, { capture: true, passive: true });
+    document.addEventListener("blur", this.hideTooltip, { capture: true, passive: true });
+    document.addEventListener("click", this.clickTooltip, { capture: true, passive: true });
+    document.addEventListener("keypress", this.clickTooltip, { capture: true, passive: true });
+    document.addEventListener("touchstart", () => {
+      this.deviceType = 2;
+    }, { capture: true, passive: true });
+    document.addEventListener("mousemove", () => {
+      this.deviceType = 1;
+    }, { capture: true, passive: true });
+    this.observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === "attributes") {
+          if (mutation.attributeName === "tooltip" || mutation.attributeName === "aria-label") {
+            const el = mutation.target;
+            let text = el.getAttribute("tooltip");
+            if (!text.length) {
+              text = el.getAttribute("aria-label");
+            }
+            if (!text.length) {
+              text = el.getAttribute("title");
+            }
+            const tooltip = document.body.querySelector(`tool-tip[uid="${el.dataset.tooltipUid}"]`);
+            if (tooltip) {
+              tooltip.innerHTML = text;
+              this.placeTooltip(el, tooltip);
+            }
+          }
+        }
+      });
+    });
+  }
+  placeTooltip(el, tooltip) {
+    const elBounds = el.getBoundingClientRect();
+    tooltip.style.position = "absolute";
+    tooltip.style.zIndex = "999999";
+    tooltip.style.opacity = "0";
+    if (!tooltip.isConnected) {
+      document.body.appendChild(tooltip);
+    }
+    const tipBounds = tooltip.getBoundingClientRect();
+    let tooltipLeft = elBounds.left + elBounds.width / 2 - tipBounds.width / 2;
+    if (tooltipLeft + tipBounds.width > window.innerWidth - 4) {
+      const diff = tooltipLeft + tipBounds.width - window.innerWidth + 4;
+      tooltipLeft -= diff;
+    } else if (tooltipLeft < 4) {
+      tooltipLeft = 4;
+    }
+    let tooltipTop = elBounds.top + elBounds.height - window.scrollY;
+    if (tooltipTop + tipBounds.height > window.innerHeight - 4) {
+      tooltipTop = elBounds.top - tipBounds.height;
+    } else if (tooltipTop + tipBounds.height > window.scrollY) {
+      tooltipTop = elBounds.top + elBounds.height + window.scrollY;
+    }
+    tooltip.style.top = `${tooltipTop}px`;
+    tooltip.style.left = `${tooltipLeft}px`;
   }
 }
 function uuid() {

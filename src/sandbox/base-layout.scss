@@ -1,14 +1,14 @@
 body {
-    width: calc(100vw + 275px + 1rem);
+    width: calc(100vw + 250px + 1rem);
     height: 100vh;
     display: grid;
     gap: 1rem;
-    grid-template-columns: 275px minmax(0px, 1fr);
+    grid-template-columns: 250px minmax(0px, 1fr);
     color: var(--neutral-900);
     overflow: hidden;
     padding: 1rem 0 0 1rem;
     background-color: var(--neutral-100);
-    transform: translateX(calc(-275px - 1rem));
+    transform: translateX(calc(-250px - 1rem));
     transition: all 150ms var(--ease-in-out);
 
     &.is-open {
@@ -89,9 +89,9 @@ nav-component {
     }
 
     button {
-        width: 100%;
+        margin-right: auto;
         height: 32px;
-        padding: 0 0.5rem;
+        padding: 0 0.75rem;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -149,7 +149,7 @@ nav-component {
             &::before {
                 background-color: var(--white);
                 opacity: 1;
-                box-shadow: var(--shadow-sm);
+                box-shadow: var(--shadow-grey-sm);
                 border-color: var(--neutral-300);
             }
         }
@@ -278,7 +278,7 @@ component-viewer {
 
             &.is-selected {
                 background-color: var(--white);
-                box-shadow: var(--shadow-sm);
+                box-shadow: var(--shadow-grey-sm);
                 border-color: var(--neutral-300);
                 color: var(--neutral-900);
 
@@ -425,7 +425,7 @@ component-viewer {
             display: block;
             width: 100%;
             background-color: var(--white);
-            box-shadow: var(--shadow-lg);
+            box-shadow: var(--shadow-grey-lg);
             border: 1px solid var(--neutral-200);
             border-radius: 0.5rem;
             margin-bottom: 1.5rem;
@@ -435,7 +435,7 @@ component-viewer {
                 border-bottom: 1px solid var(--neutral-300);
                 display: block;
                 width: 100%;
-                box-shadow: var(--shadow-sm);
+                box-shadow: var(--shadow-grey-sm);
 
                 tr {
                     display: flex;

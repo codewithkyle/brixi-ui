@@ -32,7 +32,7 @@ raw-modal {
         z-index: 2;
         position: relative;
         overflow: hidden;
-        box-shadow: var(--shadow-lg);
+        box-shadow: var(--shadow-grey-lg);
         border: 1px solid var(--grey-200);
 
         &[size="small"] {
@@ -139,14 +139,18 @@ raw-modal {
                 font-size: var(--font-sm);
                 font-weight: var(--font-medium);
                 user-select: none;
-                overflow: hidden;
                 text-overflow: ellipsis;
                 cursor: pointer;
                 border-radius: 0.25rem;
-                margin-left: 1rem;
 
                 &:focus-visible {
                     box-shadow: var(--focus-ring) !important;
+                }
+
+                &:active,
+                &.is-active {
+                    box-shadow: none !important;
+                    transform: translateY(1px);
                 }
 
                 &.confirm {
@@ -160,7 +164,8 @@ raw-modal {
                         background-color: var(--success-600);
                     }
 
-                    &:active {
+                    &:active,
+                    &.is-active {
                         background-color: var(--success-700);
                     }
 
@@ -175,7 +180,8 @@ raw-modal {
                             background-color: var(--danger-600);
                         }
 
-                        &:active {
+                        &:active,
+                        &.is-active {
                             background-color: var(--danger-800);
                         }
                     }
@@ -186,13 +192,15 @@ raw-modal {
                     background-color: var(--white);
                     color: var(--black);
                     box-shadow: var(--light-bevel);
+                    margin-right: 1rem;
 
                     &:hover,
                     &:focus-visible {
                         background-color: var(--grey-50);
                     }
 
-                    &:active {
+                    &:active,
+                    &.is-active {
                         background-color: var(--grey-100);
                     }
                 }
