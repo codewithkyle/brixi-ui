@@ -1,8 +1,12 @@
 <script type="module">
-    import Component from "/progress-badge.js";
+    import Component from "/progress-label.js";
     const example = new Component({
         total: 100,
-        label: "Saving",
+        title: "Example label",
+        subtitle: "0 of 100",
+        tickCallback: (num) => {
+            example.setProgress(`${num} of 100`);
+        },
         finishedCallback: () => {
             alert("Finished");
             example.reset();

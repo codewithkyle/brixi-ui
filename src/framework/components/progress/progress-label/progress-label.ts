@@ -2,47 +2,47 @@ import { html, render } from "lit-html";
 import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~controllers/env";
 import { noop, parseDataset } from "~utils/general";
-import ProgressIndicator from "~components/progress/progress-indicator/progress-indicator";
+import ProgressIndicator from "../progress-indicator/progress-indicator";
 
-export interface IProgressBadge {
+export interface IProgressLabel {
     css: string;
     class: string;
     attributes: {
         [name: string]: string | number;
     };
-    label: string;
-    total: number;
+    title: string;
+    subtitle: string;
     tickCallback: Function;
     finishedCallback: Function;
-    color: "grey" | "primary" | "success" | "warning" | "danger";
+    total: number;
 }
-export interface ProgressBadgeSettings {
+export interface ProgressLabelSettings {
     css?: string;
     class?: string;
     attributes?: {
         [name: string]: string | number;
     };
-    label: string;
+    title: string;
+    subtitle?: string;
     total: number;
     tickCallback?: Function;
     finishedCallback?: Function;
-    color?: "grey" | "primary" | "success" | "warning" | "danger";
 }
-export default class ProgressBadge extends SuperComponent<IProgressBadge> {
-    constructor(settings: ProgressBadgeSettings) {
+export default class ProgressLabel extends SuperComponent<IProgressLabel> {
+    constructor(settings: ProgressLabelSettings) {
         super();
         this.model = {
             css: "",
             class: "",
             attributes: {},
-            label: "",
             total: 1,
+            title: "",
+            subtitle: "",
             tickCallback: noop,
             finishedCallback: noop,
-            color: "grey",
         };
-        this.model = parseDataset<IProgressBadge>(this.dataset, this.model);
-        env.css(["progress-badge"]).then(() => {
+        this.model = parseDataset<IProgressLabel>(this.dataset, this.model);
+        env.css(["progress-label"]).then(() => {
             this.set(settings);
         });
     }
@@ -57,26 +57,33 @@ export default class ProgressBadge extends SuperComponent<IProgressBadge> {
         progressIndicator.reset();
     }
 
+    public setProgress(subtitle: string): void {
+        const el: HTMLElement = this.querySelector("h3");
+        el.classList.remove("none");
+        el.classList.add("block");
+        el.innerText = subtitle;
+    }
+
     override render() {
         this.className = this.model.class;
         this.style.cssText = this.model.css;
         Object.keys(this.model.attributes).map((key) => {
             this.setAttribute(key, `${this.model.attributes[key]}`);
         });
-        this.setAttribute("color", this.model.color);
         const view = html`
             ${new ProgressIndicator({
-                size: 18,
                 total: this.model.total,
                 tickCallback: this.model.tickCallback.bind(this),
                 finishedCallback: this.model.finishedCallback.bind(this),
-                color: this.model.color,
             })}
-            <span>${this.model.label}</span>
+            <div class="ml-0.5" flex="column wrap">
+                <h2 class="block font-bold font-sm line-snug">${this.model.title}</h2>
+                <h3 class="${this.model.subtitle?.length ? "block" : "none"} font-xs font-grey-700 line-snug">${this.model.subtitle}</h3>
+            </div>
         `;
         setTimeout(() => {
             render(view, this);
         }, 90);
     }
 }
-env.mount("progress-badge", ProgressBadge);
+env.mount("progress-label", ProgressLabel);
