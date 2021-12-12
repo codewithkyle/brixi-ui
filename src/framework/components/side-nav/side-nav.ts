@@ -3,7 +3,7 @@ import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~controllers/env";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import { subscribe } from "~lib/pubsub";
-import Badge from "~components/badge/badge";
+import Badge from "~components/badges/badge/badge";
 import { parseDataset } from "~utils/general";
 
 export interface SubNavLink {
