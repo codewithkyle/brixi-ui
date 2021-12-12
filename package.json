@@ -72,7 +72,6 @@
         "brixi": "^0.6.1",
         "cssmonster": "^0.4.0",
         "dayjs": "^1.10.6",
-        "dom-to-image": "^2.6.0",
         "esinstall": "^1.1.7",
         "express": "^4.17.1",
         "flatpickr": "^4.6.9",
