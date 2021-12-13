@@ -78,7 +78,7 @@ export default class ProgressIndicator extends SuperComponent<IProgressIndicator
         const percent = this.model.tick / this.model.total;
         let offset = Math.round(70 - 70 * percent + 2);
         if (offset > 70) {
-            offset = 70;
+            offset = 69;
         }
         return offset;
     }
