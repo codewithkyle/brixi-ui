@@ -48,7 +48,8 @@ export default class RangeSlider extends Input {
         };
         this.model = parseDataset<IRangeSlider>(this.dataset, this.model);
         env.css(["range-slider"]).then(() => {
-            this.update(settings);
+            this.set(settings, true);
+            this.render();
         });
         this.style.setProperty("--track-fill", `${calcPercent(settings?.value ?? 0, settings.max)}%`);
     }

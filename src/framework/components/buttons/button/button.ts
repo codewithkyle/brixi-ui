@@ -59,7 +59,8 @@ export default class Button extends SuperComponent<IButton> {
             classes.push("tooltip");
         }
         env.css(classes).then(() => {
-            this.update(settings);
+            this.set(settings, true);
+            this.render();
         });
     }
 

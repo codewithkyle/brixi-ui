@@ -57,7 +57,8 @@ export default class NumberInput extends Input {
         };
         this.model = parseDataset<INumberInput>(this.dataset, this.model);
         env.css("input").then(() => {
-            this.update(settings);
+            this.set(settings, true);
+            this.render();
         });
     }
 

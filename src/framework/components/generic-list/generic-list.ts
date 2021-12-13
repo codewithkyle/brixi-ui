@@ -39,7 +39,8 @@ export default class GenericList extends SuperComponent<IGenericList> {
         };
         this.model = parseDataset<IGenericList>(this.dataset, this.model);
         env.css(["generic-list"]).then(() => {
-            this.update(settings);
+            this.set(settings, true);
+            this.render();
         });
     }
 

@@ -78,7 +78,8 @@ export default class DateInput extends Input {
         };
         this.model = parseDataset<IDateInput>(this.dataset, this.model);
         env.css(["input", "flatpickr"]).then(() => {
-            this.update(settings);
+            this.set(settings, true);
+            this.render();
         });
     }
 

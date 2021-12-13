@@ -84,7 +84,8 @@ export default class Select extends SuperComponent<ISelect> {
             }
         }
         env.css("select").then(() => {
-            this.update(settings);
+            this.set(settings, true);
+            this.render();
         });
     }
 

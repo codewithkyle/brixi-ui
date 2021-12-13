@@ -43,7 +43,8 @@ export default class ProgressBadge extends SuperComponent<IProgressBadge> {
         };
         this.model = parseDataset<IProgressBadge>(this.dataset, this.model);
         env.css(["progress-badge"]).then(() => {
-            this.set(settings);
+            this.set(settings, true);
+            this.render();
         });
     }
 

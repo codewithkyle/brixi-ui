@@ -33,7 +33,8 @@ export default class Spinner extends SuperComponent<ISpinner> {
         };
         this.model = parseDataset<ISpinner>(this.dataset, this.model);
         env.css(["spinner"]).then(() => {
-            this.update(settings);
+            this.set(settings, true);
+            this.render();
         });
     }
 

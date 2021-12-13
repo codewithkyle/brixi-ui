@@ -50,7 +50,8 @@ export default class Chips extends SuperComponent<IChips> {
             this.model.chipStates[chip.name] = false;
         }
         env.css(["chips"]).then(() => {
-            this.update(settings);
+            this.set(settings, true);
+            this.render();
         });
     }
 

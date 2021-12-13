@@ -47,7 +47,8 @@ export default class RadioGroup extends SuperComponent<IRadioGroup> {
         };
         this.model = parseDataset<IRadioGroup>(this.dataset, this.model);
         env.css("radio-group").then(() => {
-            this.update(settings);
+            this.set(settings, true);
+            this.render();
         });
     }
 

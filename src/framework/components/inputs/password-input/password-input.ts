@@ -48,7 +48,8 @@ export default class PasswordInput extends Input {
         };
         this.model = parseDataset<IPasswordInput>(this.dataset, this.model);
         env.css("input").then(() => {
-            this.update(settings);
+            this.set(settings, true);
+            this.render();
         });
     }
 

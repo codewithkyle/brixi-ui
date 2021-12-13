@@ -41,7 +41,8 @@ export default class Divider extends SuperComponent<IDivider> {
         };
         this.model = parseDataset<IDivider>(this.dataset, this.model);
         env.css(["divider"]).then(() => {
-            this.update(settings);
+            this.set(settings, true);
+            this.render();
         });
     }
 

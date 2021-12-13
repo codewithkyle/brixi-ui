@@ -41,7 +41,8 @@ export default class Tabs extends SuperComponent<ITabs> {
         };
         this.model = parseDataset<ITabs>(this.dataset, this.model);
         env.css(["tabs"]).then(() => {
-            this.update(settings);
+            this.set(settings, true);
+            this.render();
         });
     }
 

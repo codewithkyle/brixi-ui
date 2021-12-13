@@ -47,7 +47,8 @@ export default class CheckboxGroup extends SuperComponent<ICheckboxGroup> {
         };
         this.model = parseDataset<ICheckboxGroup>(this.dataset, this.model);
         env.css("checkbox-group").then(() => {
-            this.update(settings);
+            this.set(settings, true);
+            this.render();
         });
     }
 

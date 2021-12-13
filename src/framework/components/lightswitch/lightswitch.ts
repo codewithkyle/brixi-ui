@@ -57,7 +57,8 @@ export default class Lightswitch extends SuperComponent<ILightswitch> {
         };
         this.model = parseDataset<ILightswitch>(this.dataset, this.model);
         env.css("lightswitch").then(() => {
-            this.update(settings);
+            this.set(settings, true);
+            this.render();
         });
     }
 

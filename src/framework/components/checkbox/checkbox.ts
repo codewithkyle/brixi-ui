@@ -49,7 +49,8 @@ export default class Checkbox extends SuperComponent<ICheckbox> {
         };
         this.model = parseDataset<ICheckbox>(this.dataset, this.model);
         env.css("checkbox").then(() => {
-            this.update(settings);
+            this.set(settings, true);
+            this.render();
         });
     }
 

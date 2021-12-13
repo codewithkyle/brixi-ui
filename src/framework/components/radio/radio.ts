@@ -46,7 +46,8 @@ export default class Radio extends SuperComponent<IRadio> {
         };
         this.model = parseDataset<IRadio>(this.dataset, this.model);
         env.css("radio").then(() => {
-            this.update(settings);
+            this.set(settings, true);
+            this.render();
         });
     }
 

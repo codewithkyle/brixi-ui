@@ -46,7 +46,8 @@ export default class OverflowMenu extends SuperComponent<IOverflowMenu> {
         };
         this.model = parseDataset<IOverflowMenu>(this.dataset, this.model);
         env.css("overflow-menu").then(() => {
-            this.update(settings);
+            this.set(settings, true);
+            this.render();
         });
     }
 

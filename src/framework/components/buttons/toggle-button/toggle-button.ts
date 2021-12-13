@@ -44,7 +44,8 @@ export default class ToggleButton extends SuperComponent<IToggleButton> {
         };
         this.model = parseDataset<IToggleButton>(this.dataset, this.model);
         env.css(["toggle-button", "button"]).then(() => {
-            this.update(settings);
+            this.set(settings, true);
+            this.render();
         });
     }
 

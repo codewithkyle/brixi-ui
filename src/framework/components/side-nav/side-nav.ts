@@ -70,7 +70,8 @@ export default class SideNav extends SuperComponent<ISideNav> {
         };
         this.model = parseDataset<ISideNav>(this.dataset, this.model);
         env.css(["side-nav"]).then(() => {
-            this.update(settings);
+            this.set(settings, true);
+            this.render();
         });
         subscribe("navigation", this.inbox.bind(this));
     }

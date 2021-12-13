@@ -84,7 +84,8 @@ export default class Textarea extends SuperComponent<ITextarea> {
         };
         this.model = parseDataset<ITextarea>(this.dataset, this.model);
         env.css("textarea").then(() => {
-            this.update(settings);
+            this.set(settings, true);
+            this.render();
         });
     }
 

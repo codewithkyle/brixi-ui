@@ -42,7 +42,8 @@ export default class PhoneInput extends Input {
         };
         this.model = parseDataset<IInput>(this.dataset, this.model);
         env.css("input").then(() => {
-            this.update(settings);
+            this.set(settings, true);
+            this.render();
         });
     }
 
