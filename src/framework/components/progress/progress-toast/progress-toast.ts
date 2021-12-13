@@ -41,7 +41,7 @@ export default class ProgressToast extends SuperComponent<IProgressToast> {
             tickCallback: noop,
             finishedCallback: noop,
         };
-        this.model = parseDataset<IProgressLabel>(this.dataset, this.model);
+        this.model = parseDataset<IProgressToast>(this.dataset, this.model);
         env.css(["progress-toast"]).then(() => {
             this.set(settings);
         });
@@ -86,4 +86,4 @@ export default class ProgressToast extends SuperComponent<IProgressToast> {
         }, 90);
     }
 }
-env.mount("progress-toast", ProgressLabel);
+env.mount("progress-toast", ProgressToast);
