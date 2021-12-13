@@ -87,9 +87,7 @@ export default class ProgressToast extends SuperComponent<IProgressToast> {
                 <h3 class="${this.model.subtitle?.length ? "block" : "none"} font-xs font-grey-300">${this.model.subtitle}</h3>
             </div>
         `;
-        setTimeout(() => {
-            render(view, this);
-        }, 90);
+        render(view, this);
     }
 }
 env.mount("progress-toast", ProgressToast);

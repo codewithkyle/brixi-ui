@@ -74,9 +74,7 @@ export default class ProgressBadge extends SuperComponent<IProgressBadge> {
             })}
             <span>${this.model.label}</span>
         `;
-        setTimeout(() => {
-            render(view, this);
-        }, 90);
+        render(view, this);
     }
 }
 env.mount("progress-badge", ProgressBadge);

@@ -81,9 +81,7 @@ export default class ProgressLabel extends SuperComponent<IProgressLabel> {
                 <h3 class="${this.model.subtitle?.length ? "block" : "none"} font-xs font-grey-700 line-snug">${this.model.subtitle}</h3>
             </div>
         `;
-        setTimeout(() => {
-            render(view, this);
-        }, 90);
+        render(view, this);
     }
 }
 env.mount("progress-label", ProgressLabel);
