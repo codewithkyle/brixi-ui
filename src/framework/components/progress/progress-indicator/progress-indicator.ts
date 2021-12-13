@@ -77,8 +77,10 @@ export default class ProgressIndicator extends SuperComponent<IProgressIndicator
     private calcDashOffset(): number {
         const percent = this.model.tick / this.model.total;
         let offset = Math.round(70 - 70 * percent + 2);
-        if (offset > 70) {
+        if (offset >= 70 && this.model.tick > 0) {
             offset = 69;
+        } else if (offset > 70) {
+            offset = 70;
         }
         return offset;
     }
