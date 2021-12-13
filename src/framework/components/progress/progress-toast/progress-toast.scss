@@ -1,0 +1,11 @@
+progress-toast {
+    display: flex;
+    align-items: center;
+    position: relative;
+    background-color: var(--white);
+    border-radius: 0.5rem;
+    border: 1px solid var(--grey-200);
+    padding: 1rem;
+    box-shadow: var(--shadow-grey-md);
+}
+
