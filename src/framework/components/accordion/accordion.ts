@@ -34,7 +34,8 @@ export default class Accordion extends SuperComponent<IAccordion> {
         };
         this.model = parseDataset<IAccordion>(this.dataset, this.model);
         env.css(["accordion"]).then(() => {
-            this.update(settings);
+            this.set(settings, true);
+            this.render();
         });
     }
 

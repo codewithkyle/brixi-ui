@@ -57,7 +57,8 @@ export default class ${name.toPascalCase()} extends SuperComponent<I${name.toPas
         };
         this.model = parseDataset<I${name.toPascalCase()}>(this.dataset, this.model);
         env.css(["${name.toKebabCase()}"]).then(()=>{
-            this.set(settings);
+            this.set(settings, true);
+            this.render();
         });
     }
 
@@ -101,7 +102,8 @@ export default class ${name.toPascalCase()} extends ${extend}{
         };
         this.model = parseDataset<I${name.toPascalCase()}>(this.dataset, this.model);
         env.css(["${name.toKebabCase()}"]).then(()=>{
-            this.update(settings);
+            this.set(settings, true);
+            this.render();
         });
     }
 

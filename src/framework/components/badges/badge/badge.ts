@@ -36,7 +36,8 @@ export default class Badge extends SuperComponent<IBadge> {
         };
         this.model = parseDataset<IBadge>(this.dataset, this.model);
         env.css(["badge"]).then(() => {
-            this.update(settings);
+            this.set(settings, true);
+            this.render();
         });
     }
 

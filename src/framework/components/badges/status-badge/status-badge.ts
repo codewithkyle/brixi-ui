@@ -40,7 +40,8 @@ export default class StatusBadge extends SuperComponent<IStatusBadge> {
         };
         this.model = parseDataset<IStatusBadge>(this.dataset, this.model);
         env.css(["status-badge"]).then(() => {
-            this.set(settings);
+            this.set(settings, true);
+            this.render();
         });
     }
 
