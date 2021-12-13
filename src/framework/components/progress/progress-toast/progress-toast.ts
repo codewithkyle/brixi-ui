@@ -75,6 +75,7 @@ export default class ProgressToast extends SuperComponent<IProgressToast> {
                 total: this.model.total,
                 tickCallback: this.model.tickCallback.bind(this),
                 finishedCallback: this.model.finishedCallback.bind(this),
+                color: "white",
             })}
             <div class="ml-0.75" flex="column wrap" style="flex:1;">
                 <h2 class="block font-bold font-md">${this.model.title}</h2>

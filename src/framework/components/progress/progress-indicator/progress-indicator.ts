@@ -15,7 +15,7 @@ export interface IProgressIndicator {
     total: number;
     tickCallback: Function;
     finishedCallback: Function;
-    color: "grey" | "primary" | "success" | "warning" | "danger";
+    color: "grey" | "primary" | "success" | "warning" | "danger" | "white";
 }
 export interface ProgressIndicatorSettings {
     css?: string;
@@ -27,7 +27,7 @@ export interface ProgressIndicatorSettings {
     total: number;
     tickCallback?: Function;
     finishedCallback?: Function;
-    color?: "grey" | "primary" | "success" | "warning" | "danger";
+    color?: "grey" | "primary" | "success" | "warning" | "danger" | "white";
 }
 export default class ProgressIndicator extends SuperComponent<IProgressIndicator> {
     constructor(settings: ProgressIndicatorSettings) {
@@ -93,11 +93,11 @@ export default class ProgressIndicator extends SuperComponent<IProgressIndicator
         this.style.height = `${this.model.size}px`;
         this.setAttribute("tooltip", `${calcPercent(this.model.tick, this.model.total)}%`);
         const view = html`
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" stroke="currentColor" color="${this.model.color}">
                 <circle class="inner" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" cx="16" cy="16" r="11.05" />
                 <circle
                     style="stroke-dashoffset: ${this.calcDashOffset()};"
-                    class="outter font-${this.model.color}-500"
+                    class="outter"
                     stroke-linecap="round"
                     stroke-linejoin="round"
                     stroke-width="4"

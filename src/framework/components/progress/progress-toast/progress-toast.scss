@@ -1,10 +1,30 @@
 progress-toast {
-    display: flex;
-    position: relative;
-    background-color: var(--white);
-    border-radius: 0.5rem;
-    border: 1px solid var(--grey-200);
+    background-color: var(--grey-800);
     padding: 1rem;
+    border-radius: 0.25rem;
     box-shadow: var(--shadow-grey-md);
+    display: flex;
+    flex-flow: row nowrap;
+    border: 1px solid var(--grey-900);
+    border-left: 4px solid var(--primary-500);
+    width: 300px;
+    margin: 0 0 1rem;
+    transform-origin: top left;
+    transition: all 300ms var(--ease-in-out);
+    pointer-events: all;
+    position: relative;
+    transform: translateX(100%);
+    opacity: 0;
+    animation: grow 300ms forwards var(--ease-in);
+}
+@keyframes grow {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
