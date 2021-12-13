@@ -17,7 +17,7 @@ snackbar-component {
     transform-origin: left top;
     position: fixed;
     bottom: 1rem;
-    border: 1px solid var(--grey-900);
+    border: 1px solid var(--black);
 
     @media (min-width: 411px) {
         flex-flow: row nowrap;
