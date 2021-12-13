@@ -64,6 +64,11 @@ export default class ProgressToast extends SuperComponent<IProgressToast> {
         el.innerText = subtitle;
     }
 
+    private finishedCallback() {
+        this.model.finishedCallback();
+        this.remove();
+    }
+
     override render() {
         this.className = this.model.class;
         this.style.cssText = this.model.css;
@@ -74,7 +79,7 @@ export default class ProgressToast extends SuperComponent<IProgressToast> {
             ${new ProgressIndicator({
                 total: this.model.total,
                 tickCallback: this.model.tickCallback.bind(this),
-                finishedCallback: this.model.finishedCallback.bind(this),
+                finishedCallback: this.finishedCallback.bind(this),
                 color: "white",
             })}
             <div class="ml-0.75" flex="column wrap" style="flex:1;">
