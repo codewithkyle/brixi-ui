@@ -29,10 +29,12 @@
                     example.setProgress(`${num} of 1000`);
                 },
             });
-            notifications.append(example);
-            setInterval(() => {
-                example.tick();
-            }, 150);
+            setTimeout(() => {
+                notifications.append(example);
+                setInterval(() => {
+                    example.tick();
+                }, 150);
+            }, 90);
         });
     </script>
 </div>
