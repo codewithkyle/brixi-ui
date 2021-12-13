@@ -1,11 +1,13 @@
-
 <div class="w-full text-center">
     <button sfx="button" kind="solid" color="primary" class="m-0.5 bttn js-bttn-general">General</button>
     <button sfx="button" kind="solid" color="warning" class="m-0.5 bttn js-bttn-warn">Warning</button>
     <button sfx="button" kind="solid" color="danger" class="m-0.5 bttn js-bttn-danger">Danger</button>
     <button sfx="button" kind="solid" color="success" class="m-0.5 bttn js-bttn-success">Success</button>
+    <button sfx="button" kind="solid" color="white" class="m-0.5 bttn js-bttn-progress">Progress</button>
     <script type="module">
         import notifications from "/notifications.js";
+        import Component from "/progress-toast.js";
+
         document.body.querySelector(".js-bttn-general").addEventListener("click", () => {
             notifications.alert("Something happened", "You did something that triggered this response.");
         });
@@ -18,7 +20,21 @@
         document.body.querySelector(".js-bttn-success").addEventListener("click", () => {
             notifications.success("Success!", "Your request has been process.");
         });
+        document.body.querySelector(".js-bttn-progress").addEventListener("click", () => {
+            const example = new Component({
+                total: 1000,
+                title: "Downloading messages",
+                subtitle: "0 of 1000",
+                tickCallback: (num) => {
+                    example.setProgress(`${num} of 1000`);
+                },
+            });
+            notifications.append(example);
+            setInterval(() => {
+                example.tick();
+            }, 150);
+        });
     </script>
 </div>
-<link href="/button.css" rel="stylesheet">
-<link href="/toast.css" rel="stylesheet">
+<link href="/button.css" rel="stylesheet" />
+<link href="/toast.css" rel="stylesheet" />

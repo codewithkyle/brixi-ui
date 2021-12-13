@@ -1,4 +1,4 @@
-import { snackbar, toast } from "@codewithkyle/notifyjs";
+import { snackbar, toast, append } from "@codewithkyle/notifyjs";
 import sound from "./soundscape";
 
 class Notifications {
@@ -100,6 +100,13 @@ class Notifications {
             buttons: actions,
         });
         sound.errorAlert();
+    }
+
+    /**
+     * Add a custom toast element to the toaster.
+     */
+    public append(toast: HTMLElement) {
+        append(toast);
     }
 }
 const notifications = new Notifications();
