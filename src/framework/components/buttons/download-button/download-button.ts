@@ -72,7 +72,17 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
         const response = await fetch(this.model.url, this.model.options);
         if (response.ok) {
             const total = response.headers.get("content-length");
-            console.log(total);
+            const stream = response.body;
+            const reader = stream.getReader();
+            let recieved = 0;
+            while (true) {
+                const { done, value } = await reader.read();
+                recieved += value.length;
+                console.log(value.byteLength, recieved);
+                if (done) {
+                    break;
+                }
+            }
         } else {
             this.model.callback(null);
         }
