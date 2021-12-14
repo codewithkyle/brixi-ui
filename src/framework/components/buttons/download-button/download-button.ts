@@ -3,6 +3,7 @@ import { html, render } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import env from "~controllers/env";
 import { noop, parseDataset } from "~utils/general";
+import ProgressIndicator from "~components/progress/progress-indicator/progress-indicator";
 
 export interface IDownloadButton {
     label: string;
@@ -37,8 +38,22 @@ export interface DownloadButtonSettings {
     };
 }
 export default class DownloadButton extends SuperComponent<IDownloadButton> {
+    private total: number;
+    private recieved: number;
+
     constructor(settings: DownloadButtonSettings) {
         super();
+        this.state = "ILDING";
+        this.stateMachine = {
+            ILDING: {
+                DOWNLOAD: "DOWNLOADING",
+            },
+            DOWNLOADING: {
+                DOWNLOAD: "DOWNLOADING",
+                FAIL: "ERROR",
+                PASS: "IDLING",
+            },
+        };
         this.model = {
             label: "",
             kind: "solid",
@@ -69,15 +84,18 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
     }
 
     private async fetchData() {
+        this.trigger("DOWNLOAD");
+        const indicator: ProgressIndicator = this.querySelector("progress-indicator");
         const response = await fetch(this.model.url, this.model.options);
         if (response.ok) {
-            const total = response.headers.get("content-length");
+            this.total = response.headers.get("content-length");
             const stream = response.body;
             const reader = stream.getReader();
-            let recieved = 0;
-            while (true) {
+            this.recieved = 0;
+            while (this.recieved < this.total) {
                 const { done, value } = await reader.read();
-                recieved += value.length;
+                this.recieved += value.byteLength;
+                indicator.tick(value.byteLength);
                 if (done) {
                     break;
                 }
@@ -114,8 +132,12 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
 
     private renderIcon() {
         let icon;
-        if (this.model.icon.length) {
+        if (this.model.icon.length && this.state === "IDLING") {
             icon = html` <i> ${unsafeHTML(this.model.icon)} </i> `;
+        } else if (this.state === "DOWNLOADING") {
+            icon = html`${new ProgressIndicator({
+                total: this.total,
+            })}`;
         } else {
             icon = "";
         }

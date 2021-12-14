@@ -55,12 +55,12 @@ export default class ProgressIndicator extends SuperComponent<IProgressIndicator
         });
     }
 
-    public tick(): void {
+    public tick(amount = 1): void {
         const updatedModel = this.get();
         if (updatedModel.tick < updatedModel.total) {
-            updatedModel.tick++;
+            updatedModel.tick += amount;
             this.set(updatedModel);
-            if (updatedModel.tick === updatedModel.total) {
+            if (updatedModel.tick >= updatedModel.total) {
                 this.model.finishedCallback();
             } else {
                 this.model.tickCallback(updatedModel.tick);
