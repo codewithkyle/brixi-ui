@@ -78,11 +78,12 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
             while (true) {
                 const { done, value } = await reader.read();
                 recieved += value.length;
-                console.log(value.byteLength, recieved);
                 if (done) {
                     break;
                 }
             }
+            const blob = await response.blob();
+            this.model.callback(blob);
         } else {
             this.model.callback(null);
         }
