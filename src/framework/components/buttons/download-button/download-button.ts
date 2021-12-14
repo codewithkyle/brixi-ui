@@ -40,20 +40,10 @@ export interface DownloadButtonSettings {
 export default class DownloadButton extends SuperComponent<IDownloadButton> {
     private total: number;
     private recieved: number;
+    private indicator: ProgressIndicator;
 
     constructor(settings: DownloadButtonSettings) {
         super();
-        this.state = "ILDING";
-        this.stateMachine = {
-            ILDING: {
-                DOWNLOAD: "DOWNLOADING",
-            },
-            DOWNLOADING: {
-                DOWNLOAD: "DOWNLOADING",
-                FAIL: "ERROR",
-                PASS: "IDLING",
-            },
-        };
         this.model = {
             label: "",
             kind: "solid",
@@ -84,24 +74,32 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
     }
 
     private async fetchData() {
-        this.trigger("DOWNLOAD");
-        const indicator: ProgressIndicator = this.querySelector("progress-indicator");
+        this.indicator = new ProgressIndicator({
+            total: 1,
+        });
+        const icon = this.querySelector("i");
+        if (icon) {
+            icon.remove();
+        }
+        this.insertBefore(this.indicator, this.childNodes[0]);
         const response = await fetch(this.model.url, this.model.options);
         if (response.ok) {
             this.total = parseInt(response.headers.get("content-length"));
+            this.indicator.setTotal(this.total);
             const stream = response.body;
             const reader = stream.getReader();
             this.recieved = 0;
             while (this.recieved < this.total) {
                 const { done, value } = await reader.read();
                 this.recieved += value.byteLength;
-                indicator.tick(value.byteLength);
+                this.indicator.tick(value.byteLength);
                 if (done) {
                     break;
                 }
             }
             const blob = await response.blob();
             this.model.callback(blob);
+            this.render();
         } else {
             this.model.callback(null);
         }
@@ -132,12 +130,8 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
 
     private renderIcon() {
         let icon;
-        if (this.model.icon.length && this.state === "IDLING") {
+        if (this.model.icon.length) {
             icon = html` <i> ${unsafeHTML(this.model.icon)} </i> `;
-        } else if (this.state === "DOWNLOADING") {
-            icon = html`${new ProgressIndicator({
-                total: this.total,
-            })}`;
         } else {
             icon = "";
         }
@@ -150,7 +144,7 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
         Object.keys(this.model.attributes).map((key) => {
             this.setAttribute(key, `${this.model.attributes[key]}`);
         });
-        const view = html` ${this.renderIcon()} ${this.model.label} `;
+        const view = html` ${this.renderIcon()} <span>${this.model.label}</span> `;
         this.className = "bttn";
         this.setAttribute("role", "button");
         this.tabIndex = 0;
