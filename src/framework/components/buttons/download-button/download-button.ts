@@ -53,7 +53,6 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
             url: location.origin,
             options: {
                 method: "GET",
-                credentials: "include",
             },
         };
         this.model = parseDataset<IDownloadButton>(this.dataset, this.model);

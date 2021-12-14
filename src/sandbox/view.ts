@@ -99,7 +99,7 @@ export default class View extends SuperComponent<ViewData> {
                     <h1 class="block font-grey-700 font-3xl font-bold mb-0.5 line-normal">Howdy stranger!</h1>
                     <p class=" mb-0.5 font-grey-700 font-sm line-normal">
                         Brixi UI is a sleek & slender design system built on the
-                        <a href="https://brixi.dev/" target="_blank" rel="noopener">Brixi</a>
+                        <a class="link" href="https://brixi.dev/" target="_blank" rel="noopener">Brixi</a>
                         CSS framework. The goal of Brixi UI is to provide me with a lightweight accessibility-conscious design system built on web standards such as ES Modules and
                         Web Components while providing fast JIT resource fetching using the dynamic import syntax.
                     </p>
