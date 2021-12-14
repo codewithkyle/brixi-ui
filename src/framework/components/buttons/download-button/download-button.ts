@@ -100,6 +100,7 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
                 }
             }
             this.model.callback(new Blob([data]));
+            this.indicator.remove();
             this.render();
         } else {
             this.model.callback(null);
