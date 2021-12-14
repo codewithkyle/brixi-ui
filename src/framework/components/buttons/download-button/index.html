@@ -1,0 +1,18 @@
+<script type="module">
+    import Component from "/download-button.js";
+    const example = new Component({
+        color: "white",
+        label: "Download image",
+        url: "https://images.unsplash.com/photo-1639395241103-9c855f93a90c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=648&q=80",
+        callback: (blob) => {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.download = "dank-meme.png";
+            a.href = url;
+            a.target = "_blank";
+            a.click();
+            URL.revokeObjectURL(url);
+        },
+    });
+    document.body.appendChild(example);
+</script>
