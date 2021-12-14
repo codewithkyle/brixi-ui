@@ -94,7 +94,7 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
                 const { done, value } = await reader.read();
                 this.recieved += value.byteLength;
                 this.indicator.tick(value.byteLength);
-                blob.buffer = [...blob.buffer, ...value.buffer];
+                blob.set(value);
                 if (done) {
                     break;
                 }
