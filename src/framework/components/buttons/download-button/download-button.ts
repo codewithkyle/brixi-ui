@@ -89,12 +89,12 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
             const stream = response.body;
             const reader = stream.getReader();
             this.recieved = 0;
-            let blob:Uint8Array = [];
+            let blob: Uint8Array = new Uint8Array(this.total);
             while (this.recieved < this.total) {
                 const { done, value } = await reader.read();
                 this.recieved += value.byteLength;
                 this.indicator.tick(value.byteLength);
-                blob = [...blob, ...value.buffer];
+                blob.buffer = [...blob.buffer, ...value.buffer];
                 if (done) {
                     break;
                 }
