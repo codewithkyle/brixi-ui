@@ -69,7 +69,7 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
         this.addEventListener("keyup", this.handleKeyup);
     }
 
-    private fetchData() {
+    private async fetchData() {
         const response = await fetch(this.model.url, this.model.options);
         if (response.ok) {
             console.log({ ...response });
