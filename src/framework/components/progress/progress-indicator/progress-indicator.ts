@@ -45,7 +45,8 @@ export default class ProgressIndicator extends SuperComponent<IProgressIndicator
         };
         this.model = parseDataset<IProgressIndicator>(this.dataset, this.model);
         env.css(["progress-indicator"]).then(() => {
-            this.set(settings);
+            this.set(settings, true);
+            this.render();
         });
     }
 
@@ -71,7 +72,6 @@ export default class ProgressIndicator extends SuperComponent<IProgressIndicator
     }
 
     public setTotal(total: number): void {
-        console.log("set total", total);
         this.set(
             {
                 total: total,
@@ -81,7 +81,7 @@ export default class ProgressIndicator extends SuperComponent<IProgressIndicator
     }
 
     private calcDashOffset(): number {
-        const percent = Math.round(this.model.tick / this.model.total);
+        const percent = this.model.tick / this.model.total;
         let offset = Math.round(70 - 70 * percent + 2);
         if (offset >= 70 && this.model.tick > 0) {
             offset = 69;

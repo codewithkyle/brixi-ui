@@ -94,7 +94,6 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
         const response = await fetch(this.model.url, this.model.options);
         if (response.ok) {
             this.total = parseInt(response.headers.get("content-length"));
-            console.log("got total", this.total);
             this.indicator = new ProgressIndicator({
                 total: this.total,
                 class: "mr-0.5",
