@@ -83,6 +83,7 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
         this.indicator = new ProgressIndicator({
             total: 1,
             class: "mr-0.5",
+            css: "margin-left:-0.25rem;",
         });
         const icon = this.querySelector("svg, img");
         if (icon) {
@@ -100,7 +101,7 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
             const stream = response.body;
             const reader = stream.getReader();
             this.recieved = 0;
-            let data: Uint8Array = new Uint8Array(this.total);
+            const data: Uint8Array = new Uint8Array(this.total);
             while (this.recieved < this.total) {
                 const { done, value } = await reader.read();
                 data.set(value, this.recieved);
@@ -110,12 +111,12 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
                     break;
                 }
             }
-            this.model.callback(new Blob([data]));
             this.indicator.remove();
             this.indicator = null;
             this.total = 0;
             this.recieved = 0;
             this.render();
+            this.model.callback(new Blob([data]));
         } else {
             this.model.callback(null);
         }
