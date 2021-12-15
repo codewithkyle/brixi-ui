@@ -21,6 +21,7 @@ export interface IDownloadButton {
     url: RequestInfo;
     options: RequestInit;
     downloadingLabel: string;
+    workerURL: string;
 }
 export interface DownloadButtonSettings {
     label: string;
@@ -38,10 +39,9 @@ export interface DownloadButtonSettings {
         [name: string]: string | number;
     };
     downloadingLabel?: string;
+    workerURL?: string;
 }
 export default class DownloadButton extends SuperComponent<IDownloadButton> {
-    private total: number;
-    private recieved: number;
     private indicator: ProgressIndicator;
     private downloading: boolean;
 
@@ -64,6 +64,7 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
             options: {
                 method: "GET",
             },
+            workerURL: "/file-download-worker.js",
         };
         this.model = parseDataset<IDownloadButton>(this.dataset, this.model);
         env.css(["button", "download-button"]).then(() => {
@@ -91,41 +92,51 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
         if (label) {
             label.innerText = this.model.downloadingLabel;
         }
-        const response = await fetch(this.model.url, this.model.options);
-        if (response.ok) {
-            this.total = parseInt(response.headers.get("content-length"));
-            this.indicator = new ProgressIndicator({
-                total: this.total,
-                class: "mr-0.5",
-                css: "margin-left:-0.25rem;",
-            });
-            this.insertBefore(this.indicator, this.childNodes[0]);
-            const stream = response.body;
-            const reader = stream.getReader();
-            this.recieved = 0;
-            const data: Uint8Array = new Uint8Array(this.total);
-            while (this.recieved < this.total) {
-                const { done, value } = await reader.read();
-                data.set(value, this.recieved);
-                this.indicator.tick(value.byteLength);
-                this.recieved += value.byteLength;
-                if (done) {
+        const worker = new Worker(this.model.workerURL);
+        worker.onmessage = (e: MessageEvent) => {
+            const { type, data } = e.data;
+            switch (type) {
+                case "tick":
+                    this.indicator.tick(data);
                     break;
-                }
+                case "start":
+                    this.indicator = new ProgressIndicator({
+                        total: data,
+                        class: "mr-0.5",
+                        css: "margin-left:-0.25rem;",
+                    });
+                    this.insertBefore(this.indicator, this.childNodes[0]);
+                    break;
+                case "done":
+                    this.model.callback(new Blob([data]));
+                    this.indicator.remove();
+                    label.innerText = this.model.label;
+                    if (icon) {
+                        icon.style.display = "inline-block";
+                    }
+                    worker.terminate();
+                    this.downloading = false;
+                    break;
+                case "error":
+                    console.error(data);
+                    this.model.callback(null);
+                    worker.terminate();
+                    this.indicator.remove();
+                    label.innerText = this.model.label;
+                    if (icon) {
+                        icon.style.display = "inline-block";
+                    }
+                    this.downloading = false;
+                    break;
+                default:
+                    console.warn(`Unhandled file download worker message type: ${type}`);
+                    break;
             }
-            this.indicator.remove();
-            this.indicator = null;
-            this.total = 0;
-            this.recieved = 0;
-            this.model.callback(new Blob([data]));
-            label.innerText = this.model.label;
-            if (icon) {
-                icon.style.display = "inline-block";
-            }
-        } else {
-            this.model.callback(null);
-        }
-        this.downloading = false;
+        };
+        worker.postMessage({
+            url: this.model.url,
+            options: this.model.options,
+        });
     }
 
     private handleClick: EventListener = (e: Event) => {
