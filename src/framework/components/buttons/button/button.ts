@@ -67,7 +67,7 @@ export default class Button extends SuperComponent<IButton> {
     private renderIcon() {
         let icon;
         if (this.model.icon.length) {
-            icon = html` <i> ${unsafeHTML(this.model.icon)} </i> `;
+            icon = html`${unsafeHTML(this.model.icon)}`;
         } else {
             icon = "";
         }

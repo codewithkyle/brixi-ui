@@ -133,7 +133,7 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
     private renderIcon() {
         let icon;
         if (this.model.icon.length) {
-            icon = html` <i> ${unsafeHTML(this.model.icon)} </i> `;
+            icon = html`${unsafeHTML(this.model.icon)}`;
         } else {
             icon = "";
         }

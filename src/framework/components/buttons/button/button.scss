@@ -98,13 +98,13 @@
         height: 36px;
         padding: 0;
 
-        svg {
+        & > svg {
             width: 18px;
             height: 18px;
         }
 
         &[size="large"] {
-            svg {
+            & > svg {
                 width: 24px;
                 height: 24px;
             }
@@ -114,7 +114,7 @@
     &[icon="right"] {
         padding: 0 0.75rem 0 1rem;
 
-        svg {
+        & > svg {
             margin-left: 0.5rem;
         }
 
@@ -126,7 +126,7 @@
     &[icon="left"] {
         padding: 0 1rem 0 0.75rem;
 
-        svg {
+        & > svg {
             margin-right: 0.5rem;
         }
 
@@ -135,7 +135,7 @@
         }
     }
 
-    svg {
+    & > svg {
         width: 16px;
         height: 16px;
     }
