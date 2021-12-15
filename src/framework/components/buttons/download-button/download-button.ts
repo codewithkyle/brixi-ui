@@ -92,9 +92,9 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
             let data: Uint8Array = new Uint8Array(this.total);
             while (this.recieved < this.total) {
                 const { done, value } = await reader.read();
-                this.recieved += value.byteLength;
+                data.set(value, this.recieved);
                 this.indicator.tick(value.byteLength);
-                data.set(value);
+                this.recieved += value.byteLength;
                 if (done) {
                     break;
                 }
