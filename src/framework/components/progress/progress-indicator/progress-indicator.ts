@@ -71,9 +71,13 @@ export default class ProgressIndicator extends SuperComponent<IProgressIndicator
     }
 
     public setTotal(total: number): void {
-        this.set({
-            total: total,
-        });
+        console.log("set total", total);
+        this.set(
+            {
+                total: total,
+            },
+            true
+        );
     }
 
     private calcDashOffset(): number {
