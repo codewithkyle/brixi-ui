@@ -105,6 +105,7 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
                         total: data,
                         class: "mr-0.5",
                         css: "margin-left:-0.25rem;",
+                        color: this.model.color === "white" ? "grey" : "white",
                     });
                     this.insertBefore(this.indicator, this.childNodes[0]);
                     break;
