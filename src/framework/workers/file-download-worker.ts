@@ -56,6 +56,7 @@ async function fetchData(url: RequestInfo, options: RequestInit) {
                     break;
                 }
             }
+            done();
         } else {
             fail(response.statusText);
         }
