@@ -85,11 +85,11 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
             class: "mr-0.5",
             css: "margin-left:-0.25rem;",
         });
-        const icon = this.querySelector("svg, img");
+        const icon: HTMLElement = this.querySelector("svg, img");
         if (icon) {
             icon.style.display = "none";
         }
-        const label = this.querySelector("span");
+        const label: HTMLElement = this.querySelector("span");
         if (label) {
             label.innerText = this.model.downloadingLabel;
         }
