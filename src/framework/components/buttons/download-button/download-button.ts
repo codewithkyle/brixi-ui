@@ -87,7 +87,7 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
         });
         const icon = this.querySelector("svg, img");
         if (icon) {
-            icon.remove();
+            icon.style.display = "none";
         }
         const label = this.querySelector("span");
         if (label) {
@@ -115,8 +115,11 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
             this.indicator = null;
             this.total = 0;
             this.recieved = 0;
-            this.render();
             this.model.callback(new Blob([data]));
+            label.innerText = this.model.label;
+            if (icon) {
+                icon.style.display = "inline-block";
+            }
         } else {
             this.model.callback(null);
         }
