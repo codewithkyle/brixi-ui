@@ -52,9 +52,6 @@ async function fetchData(url: RequestInfo, options: RequestInit) {
                 const { done, value } = await reader.read();
                 buffer.set(value, recieved);
                 tick(value.byteLength);
-                await new Promise((resolve) => {
-                    setTimeout(resolve, 4000);
-                });
                 if (done) {
                     break;
                 }

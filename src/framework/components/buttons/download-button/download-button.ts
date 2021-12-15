@@ -100,6 +100,7 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
                     this.indicator.tick(data);
                     break;
                 case "start":
+                    console.log(data);
                     this.indicator = new ProgressIndicator({
                         total: data,
                         class: "mr-0.5",
