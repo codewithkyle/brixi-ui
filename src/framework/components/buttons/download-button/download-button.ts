@@ -20,6 +20,7 @@ export interface IDownloadButton {
     };
     url: RequestInfo;
     options: RequestInit;
+    downloadingLabel: string;
 }
 export interface DownloadButtonSettings {
     label: string;
@@ -36,6 +37,7 @@ export interface DownloadButtonSettings {
     attributes?: {
         [name: string]: string | number;
     };
+    downloadingLabel?: string;
 }
 export default class DownloadButton extends SuperComponent<IDownloadButton> {
     private total: number;
@@ -46,6 +48,7 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
         super();
         this.model = {
             label: "",
+            downloadingLabel: "downloading",
             kind: "solid",
             color: "primary",
             shape: "default",
@@ -74,12 +77,20 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
     }
 
     private async fetchData() {
+        if (this.indicator != null) {
+            return;
+        }
         this.indicator = new ProgressIndicator({
             total: 1,
+            class: "mr-0.5",
         });
-        const icon = this.querySelector("i");
+        const icon = this.querySelector("svg, img");
         if (icon) {
             icon.remove();
+        }
+        const label = this.querySelector("span");
+        if (label) {
+            label.innerText = this.model.downloadingLabel;
         }
         this.insertBefore(this.indicator, this.childNodes[0]);
         const response = await fetch(this.model.url, this.model.options);
@@ -101,6 +112,9 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
             }
             this.model.callback(new Blob([data]));
             this.indicator.remove();
+            this.indicator = null;
+            this.total = 0;
+            this.recieved = 0;
             this.render();
         } else {
             this.model.callback(null);

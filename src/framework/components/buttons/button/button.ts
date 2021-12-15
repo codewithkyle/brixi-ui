@@ -21,7 +21,7 @@ export interface IButton {
     };
 }
 export interface ButtonSettings {
-    label: string;
+    label?: string;
     callback: Function;
     kind?: "solid" | "outline" | "text";
     color?: "primary" | "black" | "white" | "grey" | "success" | "warning" | "danger";
@@ -74,6 +74,16 @@ export default class Button extends SuperComponent<IButton> {
         return icon;
     }
 
+    private renderLabel() {
+        let label;
+        if (this.model.label.length) {
+            label = html`<span>${this.model.label}</span>`;
+        } else {
+            label = "";
+        }
+        return label;
+    }
+
     private handleClick: EventListener = (e: Event) => {
         this.model.callback();
     };
@@ -109,7 +119,7 @@ export default class Button extends SuperComponent<IButton> {
         Object.keys(this.model.attributes).map((key) => {
             this.setAttribute(key, `${this.model.attributes[key]}`);
         });
-        const view = html` ${this.renderIcon()} ${this.model.label} `;
+        const view = html` ${this.renderIcon()} ${this.renderLabel()} `;
         this.className = "bttn";
         this.setAttribute("role", "button");
         this.tabIndex = 0;
