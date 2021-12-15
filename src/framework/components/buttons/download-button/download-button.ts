@@ -43,9 +43,11 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
     private total: number;
     private recieved: number;
     private indicator: ProgressIndicator;
+    private downloading: boolean;
 
     constructor(settings: DownloadButtonSettings) {
         super();
+        this.downloading = false;
         this.model = {
             label: "",
             downloadingLabel: "downloading",
@@ -77,14 +79,10 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
     }
 
     private async fetchData() {
-        if (this.indicator != null) {
+        if (this.downloading) {
             return;
         }
-        this.indicator = new ProgressIndicator({
-            total: 1,
-            class: "mr-0.5",
-            css: "margin-left:-0.25rem;",
-        });
+        this.downloading = true;
         const icon: HTMLElement = this.querySelector("svg, img");
         if (icon) {
             icon.style.display = "none";
@@ -93,11 +91,16 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
         if (label) {
             label.innerText = this.model.downloadingLabel;
         }
-        this.insertBefore(this.indicator, this.childNodes[0]);
         const response = await fetch(this.model.url, this.model.options);
         if (response.ok) {
             this.total = parseInt(response.headers.get("content-length"));
-            this.indicator.setTotal(this.total);
+            console.log("got total", this.total);
+            this.indicator = new ProgressIndicator({
+                total: this.total,
+                class: "mr-0.5",
+                css: "margin-left:-0.25rem;",
+            });
+            this.insertBefore(this.indicator, this.childNodes[0]);
             const stream = response.body;
             const reader = stream.getReader();
             this.recieved = 0;
@@ -123,6 +126,7 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
         } else {
             this.model.callback(null);
         }
+        this.downloading = false;
     }
 
     private handleClick: EventListener = (e: Event) => {
