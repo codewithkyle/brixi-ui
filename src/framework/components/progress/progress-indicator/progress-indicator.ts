@@ -56,6 +56,7 @@ export default class ProgressIndicator extends SuperComponent<IProgressIndicator
     }
 
     public tick(amount = 1): void {
+        console.log(this.model.tick, this.model.total);
         const updatedModel = this.get();
         if (updatedModel.tick < updatedModel.total) {
             updatedModel.tick += amount;
