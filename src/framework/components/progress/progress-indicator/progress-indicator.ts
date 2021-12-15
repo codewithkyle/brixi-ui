@@ -50,6 +50,9 @@ export default class ProgressIndicator extends SuperComponent<IProgressIndicator
         });
     }
 
+    /**
+     * Resets the `tick` value to `0`.
+     */
     public reset(): void {
         this.set({
             tick: 0,
@@ -57,7 +60,6 @@ export default class ProgressIndicator extends SuperComponent<IProgressIndicator
     }
 
     public tick(amount = 1): void {
-        console.log(this.model.tick, this.model.total);
         const updatedModel = this.get();
         if (updatedModel.tick < updatedModel.total) {
             updatedModel.tick += amount;
@@ -71,10 +73,14 @@ export default class ProgressIndicator extends SuperComponent<IProgressIndicator
         }
     }
 
+    /**
+     * Sets the total and resets the `tick` value to `0`.
+     */
     public setTotal(total: number): void {
         this.set(
             {
                 total: total,
+                tick: 0,
             },
             true
         );
