@@ -60,7 +60,8 @@ export default class ProgressIndicator extends SuperComponent<IProgressIndicator
         const updatedModel = this.get();
         if (updatedModel.tick < updatedModel.total) {
             updatedModel.tick += amount;
-            this.set(updatedModel);
+            this.set(updatedModel, true);
+            this.render();
             if (updatedModel.tick >= updatedModel.total) {
                 this.model.finishedCallback();
             } else {
