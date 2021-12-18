@@ -38,13 +38,7 @@
         "make:src": "mkdir ./dist/framework && cp -r ./src/framework/* ./dist/framework",
         "make:audio": "cp -r ./audio ./dist/audio",
         "wrangle": "asset-manager",
-        "prepare": "husky install",
-        "deploy": "run-s deploy:*",
-        "deploy:pre": "npm run prerelease",
-        "deploy:wrange": "npm run wrangle",
-        "deploy:claim": "ssh ubuntu@192.168.1.104 sudo chown -R ubuntu:ubuntu /var/www/brixi-ui",
-        "deploy:deploy": "rsync -azh --delete-after -e \"ssh -o StrictHostKeyChecking=no\" ./ ubuntu@192.168.1.104:/var/www/brixi-ui/",
-        "deploy:reboot": "ssh ubuntu@192.168.1.104 /home/ubuntu/.nvm/versions/node/v16.13.1/bin/pm2 restart 0"
+        "prepare": "husky install"
     },
     "dependencies": {
         "fs-extra": "^10.0.0",
