@@ -8,18 +8,18 @@ progress-indicator {
         width: 100%;
         height: 100%;
 
-        &[color="white"]{
-            .inner{
+        &[color="white"] {
+            .inner {
                 color: var(--white);
                 opacity: 0.15;
             }
-            .outter{
+            .outter {
                 color: var(--white);
             }
         }
 
-        &[color="primary"]{
-            .inner{
+        &[color="primary"] {
+            .inner {
                 color: var(--primary-200);
             }
             .outter {
@@ -27,29 +27,29 @@ progress-indicator {
             }
         }
 
-        &[color="success"]{
-            .inner{
+        &[color="success"] {
+            .inner {
                 color: var(--success-200);
             }
-            .outter{
+            .outter {
                 color: var(--success-500);
             }
         }
 
-        &[color="warning"]{
-            .inner{
+        &[color="warning"] {
+            .inner {
                 color: var(--warning-200);
             }
-            .outter{
+            .outter {
                 color: var(--warning-500);
             }
         }
 
-        &[color="danger"]{
-            .inner{
+        &[color="danger"] {
+            .inner {
                 color: var(--danger-200);
             }
-            .outter{
+            .outter {
                 color: var(--danger-500);
             }
         }
