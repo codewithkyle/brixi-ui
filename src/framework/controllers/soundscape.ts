@@ -1,4 +1,4 @@
-import { randomFloat } from "~gpc/utils/numpy";
+import { randomFloat } from "~brixi/utils/numpy";
 
 /**
  * @see https://material.io/design/sound/sound-resources.html

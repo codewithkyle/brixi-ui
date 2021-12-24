@@ -1,8 +1,8 @@
 import { html, render } from "lit-html";
 import SuperComponent from "@codewithkyle/supercomponent";
-import env from "~controllers/env";
-import Radio, { RadioSettings } from "~components/radio/radio";
-import { parseDataset } from "~utils/general";
+import env from "~brixi/controllers/env";
+import Radio, { RadioSettings } from "~brixi/components/radio/radio";
+import { parseDataset } from "~brixi/utils/general";
 
 export interface IRadioGroup {
     options: Array<RadioSettings>;

@@ -1,8 +1,8 @@
 import { html, render } from "lit-html";
 import SuperComponent from "@codewithkyle/supercomponent";
-import env from "~controllers/env";
-import { noop, parseDataset } from "~utils/general";
-import { calcPercent } from "~utils/numpy";
+import env from "~brixi/controllers/env";
+import { noop, parseDataset } from "~brixi/utils/general";
+import { calcPercent } from "~brixi/utils/numpy";
 
 export interface IProgressIndicator {
     css: string;

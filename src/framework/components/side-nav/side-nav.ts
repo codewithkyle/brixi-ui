@@ -1,10 +1,10 @@
 import { html, render } from "lit-html";
 import SuperComponent from "@codewithkyle/supercomponent";
-import env from "~controllers/env";
+import env from "~brixi/controllers/env";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
-import { subscribe } from "~lib/pubsub";
-import Badge from "~components/badges/badge/badge";
-import { parseDataset } from "~utils/general";
+import { subscribe } from "@codewithkyle/pubsub";
+import Badge from "~brixi/components/badges/badge/badge";
+import { parseDataset } from "~brixi/utils/general";
 
 export interface SubNavLink {
     icon: string;

@@ -1,8 +1,8 @@
 import { html, render } from "lit-html";
 import SuperComponent from "@codewithkyle/supercomponent";
-import env from "~controllers/env";
-import Checkbox, { CheckboxSettings } from "~components/checkbox/checkbox";
-import { parseDataset } from "~utils/general";
+import env from "~brixi/controllers/env";
+import Checkbox, { CheckboxSettings } from "~brixi/components/checkbox/checkbox";
+import { parseDataset } from "~brixi/utils/general";
 
 export interface ICheckboxGroup {
     options: Array<CheckboxSettings>;

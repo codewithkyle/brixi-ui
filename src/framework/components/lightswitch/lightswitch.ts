@@ -1,9 +1,9 @@
 import SuperComponent from "@codewithkyle/supercomponent";
 import { html, render } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
-import env from "~controllers/env";
-import soundscape from "~controllers/soundscape";
-import { noop, parseDataset } from "~utils/general";
+import env from "~brixi/controllers/env";
+import soundscape from "~brixi/controllers/soundscape";
+import { noop, parseDataset } from "~brixi/utils/general";
 
 export type LightswitchColor = "primary" | "success" | "warning" | "danger" | "black" | "grey";
 export interface ILightswitch {

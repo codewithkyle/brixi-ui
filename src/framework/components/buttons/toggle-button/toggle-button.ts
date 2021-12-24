@@ -1,8 +1,8 @@
 import { html, render } from "lit-html";
 import SuperComponent from "@codewithkyle/supercomponent";
-import env from "~controllers/env";
-import Button, { ButtonSettings } from "~components/buttons/button/button";
-import { parseDataset } from "~utils/general";
+import env from "~brixi/controllers/env";
+import Button, { ButtonSettings } from "~brixi/components/buttons/button/button";
+import { parseDataset } from "~brixi/utils/general";
 
 export interface IToggleButton {
     state: string;

@@ -1,8 +1,8 @@
 import { html, render } from "lit-html";
-import env from "~controllers/env";
+import env from "~brixi/controllers/env";
 import { IInput, InputSettings, default as Input } from "../input/input";
-import { noop, parseDataset } from "~utils/general";
-import { calcPercent } from "~utils/numpy";
+import { noop, parseDataset } from "~brixi/utils/general";
+import { calcPercent } from "~brixi/utils/numpy";
 
 export interface IRangeSlider extends IInput {
     min: number;

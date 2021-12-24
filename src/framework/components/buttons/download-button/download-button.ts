@@ -1,9 +1,9 @@
 import SuperComponent from "@codewithkyle/supercomponent";
 import { html, render } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
-import env from "~controllers/env";
-import { noop, parseDataset } from "~utils/general";
-import ProgressIndicator from "~components/progress/progress-indicator/progress-indicator";
+import env from "~brixi/controllers/env";
+import { noop, parseDataset } from "~brixi/utils/general";
+import ProgressIndicator from "~brixi/components/progress/progress-indicator/progress-indicator";
 
 export interface IDownloadButton {
     label: string;

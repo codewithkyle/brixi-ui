@@ -1,8 +1,8 @@
 import { html, render } from "lit-html";
 import SuperComponent from "@codewithkyle/supercomponent";
-import env from "~controllers/env";
+import env from "~brixi/controllers/env";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
-import { parseDataset } from "~utils/general";
+import { parseDataset } from "~brixi/utils/general";
 
 export type DividerColor = "primary" | "success" | "warning" | "danger" | "black" | "grey";
 export interface IDivider {

@@ -8,11 +8,7 @@
         "moduleResolution": "Node",
         "baseUrl": "src/framework",
         "paths": {
-            "~controllers/*": ["controllers/*"],
-            "~lib/*": ["lib/*"],
-            "~components/*": ["components/*"],
-            "~utils/*": ["utils/*"],
-            "~types/*": ["types/*"]
+            "~brixi/*": ["*"],
         },
         "declaration": true,
         "emitDeclarationOnly": true,

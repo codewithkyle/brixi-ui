@@ -1,7 +1,7 @@
 import { html, render } from "lit-html";
 import SuperComponent from "@codewithkyle/supercomponent";
-import env from "~controllers/env";
-import { noop, parseDataset } from "~utils/general";
+import env from "~brixi/controllers/env";
+import { noop, parseDataset } from "~brixi/utils/general";
 import ProgressIndicator from "../progress-indicator/progress-indicator";
 
 export interface IProgressLabel {

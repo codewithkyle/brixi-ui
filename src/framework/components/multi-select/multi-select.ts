@@ -1,12 +1,12 @@
 import { html, render } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import SuperComponent from "@codewithkyle/supercomponent";
-import env from "~controllers/env";
-import { noop, parseDataset } from "~utils/general";
-import soundscape from "~controllers/soundscape";
-import Checkbox from "~components/checkbox/checkbox";
+import env from "~brixi/controllers/env";
+import { noop, parseDataset } from "~brixi/utils/general";
+import soundscape from "~brixi/controllers/soundscape";
+import Checkbox from "~brixi/components/checkbox/checkbox";
 import { UUID } from "@codewithkyle/uuid";
-import Fuse from "~lib/fuse.basic.esm.js";
+import Fuse from "fuse.js";
 
 export type MultiSelectOption = {
     label: string;

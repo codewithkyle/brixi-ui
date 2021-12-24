@@ -1,8 +1,8 @@
 import { html, render } from "lit-html";
 import SuperComponent from "@codewithkyle/supercomponent";
-import env from "~controllers/env";
-import { noop, parseDataset } from "~utils/general";
-import soundscape from "~controllers/soundscape";
+import env from "~brixi/controllers/env";
+import { noop, parseDataset } from "~brixi/utils/general";
+import soundscape from "~brixi/controllers/soundscape";
 
 export interface IRadio {
     label: string;

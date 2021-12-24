@@ -1,7 +1,7 @@
 import { html, render } from "lit-html";
-import env from "~controllers/env";
-import flatpickr from "~lib/flatpickr";
-import { noop, parseDataset } from "~utils/general";
+import env from "~brixi/controllers/env";
+import flatpickr from "flatpickr";
+import { noop, parseDataset } from "~brixi/utils/general";
 import { IInput, InputSettings, default as Input } from "../input/input";
 
 export interface IDateInput extends IInput {
