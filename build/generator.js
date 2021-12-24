@@ -31,7 +31,7 @@ function renderTypescript(name, tagName) {
     return `import { html, render } from "lit-html";
 import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~controllers/env";
-import { parseDataset } from "~utils/general";
+import { parseDataset } from "~brixi/utils/general";
 
 export interface I${name.toPascalCase()} {
     css: string,
@@ -81,7 +81,7 @@ env.mount("${tagName}", ${name.toPascalCase()});
 function renderTypescriptExtended(name, tagName, extend, path) {
     return `import { html, render } from "lit-html";
 import env from "~controllers/env";
-import { parseDataset } from "~utils/general";
+import { parseDataset } from "~brixi/utils/general";
 import { default as ${extend}, I${extend}, ${extend}Settings } from "~components${path ? `/${path}/` : "/"}${extend.toKebabCase()}";
 
 export interface I${name.toPascalCase()} extends I${extend} {

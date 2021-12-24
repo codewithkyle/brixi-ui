@@ -1,4 +1,4 @@
-import { debounce } from "~utils/general";
+import { debounce } from "~brixi/utils/general";
 
 export default class Resizer extends HTMLElement {
     private width: number;
