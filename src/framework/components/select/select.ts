@@ -8,7 +8,6 @@ import soundscape from "~brixi/controllers/soundscape";
 export type SelectOption = {
     label: string;
     value: string | number;
-    selected?: boolean;
 };
 
 export interface ISelect {
@@ -20,7 +19,7 @@ export interface ISelect {
     selected: number;
     name: string;
     error: string;
-    value: string;
+    value: any;
     disabled: boolean;
     callback: Function;
     css: string;
@@ -43,6 +42,7 @@ export interface SelectOptions {
     attributes?: {
         [name: string]: string | number;
     };
+    value?: any;
 }
 export default class Select extends SuperComponent<ISelect> {
     constructor(settings: SelectOptions) {
@@ -79,7 +79,11 @@ export default class Select extends SuperComponent<ISelect> {
         };
         this.model = parseDataset<ISelect>(this.dataset, this.model);
         for (let i = 0; i < this.model.options.length; i++) {
-            if (this.model.options[i]?.selected) {
+            if (settings?.value) {
+                if (this.model.options[i].value === settings.value) {
+                    this.model.selected = i;
+                }
+            } else if (this.model.options[i].value === this.model.value) {
                 this.model.selected = i;
             }
         }
@@ -130,7 +134,7 @@ export default class Select extends SuperComponent<ISelect> {
 
     public validate(input: HTMLSelectElement, clearOnly: boolean = false): boolean {
         let isValid = true;
-        if (this.model.required && !input.value.length) {
+        if (this.model.required && (this.model.value === "" || this.model.value == null)) {
             isValid = false;
             this.setError("This field is required.", clearOnly);
         } else {
@@ -141,13 +145,14 @@ export default class Select extends SuperComponent<ISelect> {
 
     private handleChange: EventListener = (e: Event) => {
         const target = e.currentTarget as HTMLSelectElement;
-        const index = parseInt(target.dataset.index);
+        const index = parseInt(target.value);
+        const value = this.model.options[index];
         this.update({
             selected: index,
-            value: target.value,
+            value: value,
         });
         this.validate(target, true);
-        this.model.callback(target.value);
+        this.model.callback(value);
     };
 
     public getName() {
@@ -188,7 +193,7 @@ export default class Select extends SuperComponent<ISelect> {
                     ?disabled=${this.model.disabled}
                 >
                     ${this.model.options.map((option, index) => {
-                        return html`<option value="${option.value}" ?selected=${this.model.selected === index} data-index="${index}">${option.label}</option>`;
+                        return html`<option value="${index}" ?selected=${this.model.selected === index}>${option.label}</option>`;
                     })}
                 </select>
                 <i class="selector">
