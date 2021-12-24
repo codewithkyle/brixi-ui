@@ -96,7 +96,7 @@
     &[icon="center"] {
         width: 36px;
         height: 36px;
-        padding: 0;
+        padding: 0 !important;
 
         & > svg {
             width: 18px;
@@ -278,7 +278,7 @@
             }
 
             &[icon="center"] {
-                color: var(--grey-600);
+                color: var(--grey-400);
 
                 &:hover,
                 &:focus-visible,
