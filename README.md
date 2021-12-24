@@ -177,3 +177,33 @@ Compile Brixi CSS.
 ```
 npm run install:brixi
 ```
+
+Create the TypeScript config.
+
+```json
+{
+    "compilerOptions": {
+        "target": "ES2020",
+        "lib": [
+            "DOM",
+            "ES2020"
+        ],
+        "allowJs": true,
+        "checkJs": false,
+        "module": "ES2020",
+        "moduleResolution": "Node",
+        "baseUrl": "src",
+        "paths": {
+            "~brixi/*": [
+                "framework/*"
+            ]
+        },
+        "declaration": true,
+        "emitDeclarationOnly": true,
+        "outDir": "_types",
+    },
+    "include": [
+        "src"
+    ]
+}
+```
