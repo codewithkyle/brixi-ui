@@ -5,7 +5,7 @@ import env from "~brixi/controllers/env";
 import soundscape from "~brixi/controllers/soundscape";
 import { noop, parseDataset } from "~brixi/utils/general";
 
-export type LightswitchColor = "primary" | "success" | "warning" | "danger" | "black" | "grey";
+export type LightswitchColor = "primary" | "success" | "warning" | "danger" | "black" | "grey" | "info";
 export interface ILightswitch {
     label: string;
     labelIcon: string;

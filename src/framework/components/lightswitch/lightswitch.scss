@@ -11,6 +11,14 @@ lightswitch-component {
         }
     }
 
+    &[color="info"] {
+        label {
+            &::before {
+                background-color: var(--info-700);
+            }
+        }
+    }
+
     &[color="grey"] {
         label {
             &::before {

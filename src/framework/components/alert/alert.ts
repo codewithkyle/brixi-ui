@@ -136,9 +136,6 @@ export default class Alert extends SuperComponent<IAlert> {
         let out;
         if (this.model.actions.length) {
             let buttonType: string = this.model.type;
-            if (buttonType === "info") {
-                buttonType = "primary";
-            }
             out = html`
                 <div class="actions">
                     ${this.model.actions.map((bttn, index) => {

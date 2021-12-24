@@ -32,6 +32,15 @@ divider-component {
         }
     }
 
+    &[color="info"] {
+        div {
+            border-color: var(--info-400);
+        }
+        span {
+            color: var(--info-700);
+        }
+    }
+
     &[color="grey"] {
         div {
             border-color: var(--grey-300);

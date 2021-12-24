@@ -34,6 +34,17 @@ status-badge {
         }
     }
 
+    &[color="info"] {
+        background-color: var(--info-50);
+        color: var(--info-800);
+
+        &[dot] {
+            &::before {
+                background-color: var(--info-500);
+            }
+        }
+    }
+
     &[color="danger"] {
         background-color: var(--danger-50);
         color: var(--danger-800);

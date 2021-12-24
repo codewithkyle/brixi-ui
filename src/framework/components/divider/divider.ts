@@ -4,7 +4,7 @@ import env from "~brixi/controllers/env";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import { parseDataset } from "~brixi/utils/general";
 
-export type DividerColor = "primary" | "success" | "warning" | "danger" | "black" | "grey";
+export type DividerColor = "primary" | "success" | "warning" | "danger" | "black" | "grey" | "info";
 export interface IDivider {
     label: string;
     color: DividerColor;

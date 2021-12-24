@@ -9,7 +9,7 @@ export interface IButton {
     icon: string;
     iconPosition: "left" | "right" | "center";
     kind: "solid" | "outline" | "text";
-    color: "primary" | "black" | "white" | "grey" | "success" | "warning" | "danger";
+    color: "primary" | "black" | "white" | "grey" | "success" | "warning" | "danger" | "info";
     shape: "pill" | "round" | "sharp" | "default";
     size: "default" | "slim";
     callback: Function;
@@ -24,7 +24,7 @@ export interface ButtonSettings {
     label?: string;
     callback: Function;
     kind?: "solid" | "outline" | "text";
-    color?: "primary" | "black" | "white" | "grey" | "success" | "warning" | "danger";
+    color?: "primary" | "black" | "white" | "grey" | "success" | "warning" | "danger" | "info";
     shape?: "pill" | "round" | "sharp" | "default";
     size?: "default" | "slim";
     icon?: string;
@@ -115,12 +115,11 @@ export default class Button extends SuperComponent<IButton> {
 
     override render() {
         this.style.cssText = this.model.css;
-        this.className = this.model.class;
+        this.className = `${this.model.class} bttn`;
         Object.keys(this.model.attributes).map((key) => {
             this.setAttribute(key, `${this.model.attributes[key]}`);
         });
         const view = html` ${this.renderIcon()} ${this.renderLabel()} `;
-        this.className = "bttn";
         this.setAttribute("role", "button");
         this.tabIndex = 0;
         this.setAttribute("color", this.model.color);

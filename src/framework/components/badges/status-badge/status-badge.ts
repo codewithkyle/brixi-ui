@@ -10,7 +10,7 @@ export interface IStatusBadge {
     attributes: {
         [name: string]: string | number;
     };
-    color: "grey" | "primary" | "success" | "warning" | "danger";
+    color: "grey" | "primary" | "success" | "warning" | "danger" | "info";
     label: string;
     dot: "right" | "left" | null;
     icon: string;
@@ -21,7 +21,7 @@ export interface StatusBadgeSettings {
     attributes?: {
         [name: string]: string | number;
     };
-    color?: "grey" | "primary" | "success" | "warning" | "danger";
+    color?: "grey" | "primary" | "success" | "warning" | "danger" | "info";
     label: string;
     dot?: "right" | "left" | null;
     icon?: string;
