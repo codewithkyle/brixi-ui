@@ -1,4 +1,4 @@
-import { randomFloat } from "~utils/numpy";
+import { randomFloat } from "~gpc/utils/numpy";
 
 /**
  * @see https://material.io/design/sound/sound-resources.html
@@ -29,7 +29,23 @@ class Soundscape {
 
     private camera: HTMLAudioElement;
 
+    private hasTouched: boolean;
+    private hasPointer: boolean;
+    private doButtonSounds: boolean;
+    private doNotificationSounds: boolean;
+    private doToggleSounds: boolean;
+    private doErrorSounds: boolean;
+    private doCameraSounds: boolean;
+
     constructor() {
+        this.hasTouched = false;
+        this.hasPointer = false;
+        this.doButtonSounds = localStorage.getItem("disable-button-sfx") ? false : true;
+        this.doNotificationSounds = localStorage.getItem("disable-notification-sfx") ? false : true;
+        this.doToggleSounds = localStorage.getItem("disable-toggle-sfx") ? false : true;
+        this.doErrorSounds = localStorage.getItem("disable-error-sfx") ? false : true;
+        this.doCameraSounds = localStorage.getItem("disable-camera-sfx") ? false : true;
+
         this.button = {
             hover: new Audio("/audio/mouseover.wav"),
             click: new Audio("/audio/mouseclick.wav"),
@@ -68,58 +84,68 @@ class Soundscape {
         this.addButtonListeners();
     }
     private addButtonListeners() {
+        window.addEventListener("mousemove", this.mousemove, { capture: true, passive: true });
         // Button events
-        document.documentElement.addEventListener("mouseenter", this.mouseover, { capture: true, passive: true });
-        document.documentElement.addEventListener("mouseleave", this.mouseleave, { capture: true, passive: true });
-        document.documentElement.addEventListener("focus", this.focus, {
+        window.addEventListener("mouseenter", this.mouseover, { capture: true, passive: true });
+        window.addEventListener("mouseleave", this.mouseleave, { capture: true, passive: true });
+        window.addEventListener("focus", this.focus, {
             capture: true,
             passive: true,
         });
-        document.documentElement.addEventListener("blur", this.mouseleave, {
+        window.addEventListener("blur", this.mouseleave, {
             capture: true,
             passive: true,
         });
-        document.documentElement.addEventListener("mousedown", this.click, {
+        window.addEventListener("mousedown", this.click, {
             capture: true,
             passive: true,
         });
-        document.documentElement.addEventListener("touchstart", this.click, {
+        window.addEventListener("touchstart", this.click, {
             capture: true,
             passive: true,
         });
-        document.documentElement.addEventListener("keydown", this.click, {
+        window.addEventListener("keydown", this.click, {
             capture: true,
             passive: true,
         });
     }
 
+    private mousemove: EventListener = (e: Event) => {
+        this.hasPointer = true;
+        window.removeEventListener("mousemove", this.mousemove);
+    };
+
     private mouseleave: EventListener = (e: Event) => {
         const target = e.target as HTMLElement;
-        if (target.getAttribute("sfx") === "button") {
+        if (target instanceof HTMLElement && target.getAttribute("sfx") === "button") {
             target.dataset.isMouseOver = "0";
         }
     };
 
     private mouseover: EventListener = (e: Event) => {
         const target = e.target as HTMLElement;
-        if (target.getAttribute("sfx") === "button" && target.dataset.isMouseOver !== "1") {
-            if (e instanceof MouseEvent) {
-                target.dataset.isMouseOver = "1";
-                this.hover();
-            }
+        if (target instanceof HTMLElement && e instanceof MouseEvent && target.getAttribute("sfx") === "button" && target.dataset.isMouseOver !== "1") {
+            target.dataset.isMouseOver = "1";
+            this.hover();
         }
     };
 
     private focus: EventListener = (e: Event) => {
+        if (this.hasPointer || this.hasTouched) {
+            return;
+        }
         const target = e.target as HTMLElement;
-        if (target.getAttribute("sfx") === "button") {
+        if (target instanceof HTMLElement && target.getAttribute("sfx") === "button") {
             if (target.dataset.isMouseOver === "0" || !target.dataset.isMouseOver) {
                 this.hover();
             }
         }
     };
 
-    private click: EventListener = (e: Event) => {
+    private click: EventListener = (e: Event | TouchEvent) => {
+        if (e instanceof TouchEvent) {
+            this.hasTouched = true;
+        }
         const target = e.target as HTMLElement;
         let validKey = false;
         if (e instanceof KeyboardEvent) {
@@ -128,87 +154,117 @@ class Soundscape {
                 validKey = true;
             }
         }
-        if (target.getAttribute("sfx") === "button" || target.closest(`[sfx="button"]`) !== null) {
+        if (target instanceof HTMLElement && (target.getAttribute("sfx") === "button" || target.closest(`[sfx="button"]`) !== null)) {
             if (validKey || !(e instanceof KeyboardEvent)) {
                 this.tap();
             }
         }
     };
 
-    public errorAlert() {
-        const temp = this.notifications.error.cloneNode() as HTMLAudioElement;
-        temp.volume = 1;
-        // @ts-ignore
-        temp.play();
+    public errorAlert(): void {
+        if (this.doNotificationSounds) {
+            const temp = this.notifications.error.cloneNode() as HTMLAudioElement;
+            temp.volume = 1;
+            // @ts-ignore
+            temp.play();
+        }
     }
 
-    public warning() {
-        const temp = this.notifications.warning.cloneNode() as HTMLAudioElement;
-        temp.volume = 1;
-        // @ts-ignore
-        temp.play();
+    public warning(): void {
+        if (this.doNotificationSounds) {
+            const temp = this.notifications.warning.cloneNode() as HTMLAudioElement;
+            temp.volume = 1;
+            // @ts-ignore
+            temp.play();
+        }
     }
 
-    public alert() {
-        const temp = this.notifications.alert.cloneNode() as HTMLAudioElement;
-        temp.volume = 1;
-        // @ts-ignore
-        temp.play();
+    public alert(): void {
+        if (this.doNotificationSounds) {
+            const temp = this.notifications.alert.cloneNode() as HTMLAudioElement;
+            temp.volume = 1;
+            // @ts-ignore
+            temp.play();
+        }
     }
 
-    public success() {
-        const temp = this.notifications.success.cloneNode() as HTMLAudioElement;
-        temp.volume = 1;
-        // @ts-ignore
-        temp.play();
+    public success(): void {
+        if (this.doNotificationSounds) {
+            const temp = this.notifications.success.cloneNode() as HTMLAudioElement;
+            temp.volume = 1;
+            // @ts-ignore
+            temp.play();
+        }
     }
 
-    public error() {
-        const temp = this.general.error.cloneNode() as HTMLAudioElement;
-        temp.volume = 0.5;
-        // @ts-ignore
-        temp.play();
+    public error(): void {
+        if (this.doErrorSounds) {
+            const temp = this.general.error.cloneNode() as HTMLAudioElement;
+            temp.volume = 0.5;
+            // @ts-ignore
+            temp.play();
+        }
     }
 
-    public snackbar() {
-        const temp = this.notifications.snackbar.cloneNode() as HTMLAudioElement;
-        temp.volume = 1;
-        // @ts-ignore
-        temp.play();
+    public snackbar(): void {
+        if (this.doNotificationSounds) {
+            const temp = this.notifications.snackbar.cloneNode() as HTMLAudioElement;
+            temp.volume = 1;
+            // @ts-ignore
+            temp.play();
+        }
     }
 
-    public tap() {
-        const temp = this.button.click.cloneNode() as HTMLAudioElement;
-        temp.volume = 0.5;
-        // @ts-ignore
-        temp.play();
+    public tap(): void {
+        if (this.doButtonSounds) {
+            const temp = this.button.click.cloneNode() as HTMLAudioElement;
+            temp.volume = 0.5;
+            // @ts-ignore
+            temp.play();
+        }
     }
 
-    public hover() {
-        const temp = this.button.hover.cloneNode() as HTMLAudioElement;
-        temp.volume = 0.5;
-        // @ts-ignore
-        temp.play();
+    public hover(): void {
+        if (this.doButtonSounds) {
+            const temp = this.button.hover.cloneNode() as HTMLAudioElement;
+            temp.volume = 0.5;
+            // @ts-ignore
+            temp.play();
+        }
     }
 
-    public activate() {
-        const temp = this.toggle.activate.cloneNode() as HTMLAudioElement;
-        temp.playbackRate = randomFloat(0.75, 1);
-        // @ts-ignore
-        temp.play();
+    public activate(): void {
+        if (this.doToggleSounds) {
+            const temp = this.toggle.activate.cloneNode() as HTMLAudioElement;
+            temp.playbackRate = randomFloat(0.75, 1);
+            // @ts-ignore
+            temp.play();
+        }
     }
 
-    public deactivate() {
-        const temp = this.toggle.deactivate.cloneNode() as HTMLAudioElement;
-        temp.playbackRate = randomFloat(0.75, 1);
-        // @ts-ignore
-        temp.play();
+    public deactivate(): void {
+        if (this.doToggleSounds) {
+            const temp = this.toggle.deactivate.cloneNode() as HTMLAudioElement;
+            temp.playbackRate = randomFloat(0.75, 1);
+            // @ts-ignore
+            temp.play();
+        }
     }
 
-    public cameraShutter() {
-        const temp = this.camera.cloneNode() as HTMLAudioElement;
-        // @ts-ignore
-        temp.play();
+    public cameraShutter(): void {
+        if (this.doCameraSounds) {
+            const temp = this.camera.cloneNode() as HTMLAudioElement;
+            // @ts-ignore
+            temp.play();
+        }
+    }
+
+    public toggleSFX(sfx: "button" | "notification" | "error" | "camera" | "toggle", isEnable: boolean): void {
+        if (isEnable) {
+            localStorage.removeItem(`disable-${sfx}-sfx`);
+        } else {
+            localStorage.setItem(`disable-${sfx}-sfx`, "1");
+        }
     }
 }
 const sound = new Soundscape();
