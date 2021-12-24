@@ -5,7 +5,13 @@
     "description": "A sleek & slender design system built on web components.",
     "author": "Kyle Andrews <codingwithkyle@gmail.com>",
     "license": "MIT",
-    "files": ["dist", "install.js", "LICENSE", "package.json", "package-lock.json"],
+    "files": [
+        "dist",
+        "install.js",
+        "LICENSE",
+        "package.json",
+        "package-lock.json"
+    ],
     "bin": {
         "install-ui": "./install.js"
     },
@@ -36,7 +42,7 @@
     },
     "dependencies": {
         "fs-extra": "^10.0.0",
-        "yargs": "^17.3.0"
+        "yargs": "^17.3.1"
     },
     "bundle": [
         "@codewithkyle/notifyjs",
@@ -54,8 +60,8 @@
         "fuse.js/dist/fuse.basic.esm.js"
     ],
     "devDependencies": {
-        "@codewithkyle/twist": "^1.5.0",
-        "cssmonster": "^0.4.0",
+        "@codewithkyle/twist": "^1.5.1",
+        "cssmonster": "^0.5.0",
         "esinstall": "^1.1.7",
         "express": "^4.17.2",
         "glob": "^7.1.7",
@@ -64,7 +70,22 @@
         "npm-run-all": "^4.1.5",
         "npm-watch": "^0.9.0",
         "prettier": "^2.5.1",
-        "typescript": "^4.5.4"
+        "sass": "^1.45.1",
+        "typescript": "^4.5.4",
+        "flatpickr": "4.x",
+        "fuse.js": "6.x",
+        "tooltipper": "1.x",
+        "@codewithkyle/asset-manager": "1.x",
+        "@codewithkyle/messaging": "1.x",
+        "@codewithkyle/modal-maker": "1.x",
+        "@codewithkyle/notifyjs": "3.x",
+        "@codewithkyle/pubsub": "1.x",
+        "@codewithkyle/router": "1.x",
+        "@codewithkyle/supercomponent": "1.x",
+        "@codewithkyle/uuid": "1.x",
+        "brixi": "0.6.x",
+        "dayjs": "1.x",
+        "lit-html": "1.x"
     },
     "peerDependencies": {
         "flatpickr": "4.x",
@@ -84,7 +105,9 @@
     },
     "watch": {
         "build": {
-            "patterns": ["src"],
+            "patterns": [
+                "src"
+            ],
             "extensions": "ts,js,scss,css,tsx,jsx,mjs,cjs",
             "quiet": false
         }

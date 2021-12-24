@@ -1,5 +1,5 @@
 /**
- * Fuse.js v6.4.6 - Lightweight fuzzy-search (http://fusejs.io)
+ * Fuse.js v6.5.3 - Lightweight fuzzy-search (http://fusejs.io)
  *
  * Copyright (c) 2021 Kiro Risk (http://kiro.me)
  * All Rights Reserved. Apache Software License 2.0
@@ -266,7 +266,9 @@ const AdvancedOptions = {
   // When `true`, the calculation for the relevance score (used for sorting) will
   // ignore the field-length norm.
   // More info: https://fusejs.io/concepts/scoring-theory.html#field-length-norm
-  ignoreFieldNorm: false
+  ignoreFieldNorm: false,
+  // The weight to determine how much field length norm effects scoring.
+  fieldNormWeight: 1
 };
 
 var Config = {
@@ -280,7 +282,7 @@ const SPACE = /[^ ]+/g;
 
 // Field-length norm: the shorter the field, the higher the weight.
 // Set to 3 decimals to reduce index size.
-function norm(mantissa = 3) {
+function norm(weight = 1, mantissa = 3) {
   const cache = new Map();
   const m = Math.pow(10, mantissa);
 
@@ -292,7 +294,8 @@ function norm(mantissa = 3) {
         return cache.get(numTokens)
       }
 
-      const norm = 1 / Math.sqrt(numTokens);
+      // Default function is 1/sqrt(x), weight makes that variable
+      const norm = 1 / Math.pow(numTokens, 0.5 * weight);
 
       // In place of `toFixed(mantissa)`, for faster computation
       const n = parseFloat(Math.round(norm * m) / m);
@@ -308,8 +311,11 @@ function norm(mantissa = 3) {
 }
 
 class FuseIndex {
-  constructor({ getFn = Config.getFn } = {}) {
-    this.norm = norm(3);
+  constructor({
+    getFn = Config.getFn,
+    fieldNormWeight = Config.fieldNormWeight
+  } = {}) {
+    this.norm = norm(fieldNormWeight, 3);
     this.getFn = getFn;
     this.isCreated = false;
 
@@ -425,7 +431,7 @@ class FuseIndex {
                 value: item
               });
             });
-          }
+          } else ;
         }
         record.$[keyIndex] = subRecords;
       } else if (!isBlank(value)) {
@@ -448,23 +454,30 @@ class FuseIndex {
   }
 }
 
-function createIndex(keys, docs, { getFn = Config.getFn } = {}) {
-  const myIndex = new FuseIndex({ getFn });
+function createIndex(
+  keys,
+  docs,
+  { getFn = Config.getFn, fieldNormWeight = Config.fieldNormWeight } = {}
+) {
+  const myIndex = new FuseIndex({ getFn, fieldNormWeight });
   myIndex.setKeys(keys.map(createKey));
   myIndex.setSources(docs);
   myIndex.create();
   return myIndex
 }
 
-function parseIndex(data, { getFn = Config.getFn } = {}) {
+function parseIndex(
+  data,
+  { getFn = Config.getFn, fieldNormWeight = Config.fieldNormWeight } = {}
+) {
   const { keys, records } = data;
-  const myIndex = new FuseIndex({ getFn });
+  const myIndex = new FuseIndex({ getFn, fieldNormWeight });
   myIndex.setKeys(keys);
   myIndex.setIndexRecords(records);
   return myIndex
 }
 
-function computeScore(
+function computeScore$1(
   pattern,
   {
     errors = 0,
@@ -561,7 +574,7 @@ function search(
 
   // Get all exact matches, here for speed up
   while ((index = text.indexOf(pattern, bestLocation)) > -1) {
-    let score = computeScore(pattern, {
+    let score = computeScore$1(pattern, {
       currentLocation: index,
       expectedLocation,
       distance,
@@ -597,7 +610,7 @@ function search(
     let binMid = binMax;
 
     while (binMin < binMid) {
-      const score = computeScore(pattern, {
+      const score = computeScore$1(pattern, {
         errors: i,
         currentLocation: expectedLocation + binMid,
         expectedLocation,
@@ -646,7 +659,7 @@ function search(
       }
 
       if (bitArr[j] & mask) {
-        finalScore = computeScore(pattern, {
+        finalScore = computeScore$1(pattern, {
           errors: i,
           currentLocation,
           expectedLocation,
@@ -673,7 +686,7 @@ function search(
     }
 
     // No hope for a (better) match at greater error levels.
-    const score = computeScore(pattern, {
+    const score = computeScore$1(pattern, {
       errors: i + 1,
       currentLocation: expectedLocation,
       expectedLocation,
@@ -945,7 +958,7 @@ function parse(query, options, { auto = true } = {}) {
 }
 
 // Practical scoring function
-function computeScore$1(
+function computeScore(
   results,
   { ignoreFieldNorm = Config.ignoreFieldNorm }
 ) {
@@ -1058,7 +1071,8 @@ class Fuse {
     this._myIndex =
       index ||
       createIndex(this.options.keys, this._docs, {
-        getFn: this.options.getFn
+        getFn: this.options.getFn,
+        fieldNormWeight: this.options.fieldNormWeight
       });
   }
 
@@ -1112,7 +1126,7 @@ class Fuse {
         : this._searchObjectList(query)
       : this._searchLogical(query);
 
-    computeScore$1(results, { ignoreFieldNorm });
+    computeScore(results, { ignoreFieldNorm });
 
     if (shouldSort) {
       results.sort(sortFn);
@@ -1234,7 +1248,7 @@ class Fuse {
   }
 }
 
-Fuse.version = '6.4.6';
+Fuse.version = '6.5.3';
 Fuse.createIndex = createIndex;
 Fuse.parseIndex = parseIndex;
 Fuse.config = Config;
