@@ -21,8 +21,11 @@ jobs:
             - name: Install NPM Packages
               run: npm ci
 
+            - name: Verify
+              run: npm run lint:tsc
+
             - name: Compile
-              run: npm run prerelease
+              run: npm run build
 
             - name: Cachebust
               run: npm run wrangle
