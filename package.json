@@ -92,7 +92,6 @@
         "flatpickr": "4.x",
         "fuse.js": "6.x",
         "tooltipper": "1.x",
-        "@codewithkyle/asset-manager": "1.x",
         "@codewithkyle/messaging": "1.x",
         "@codewithkyle/modal-maker": "1.x",
         "@codewithkyle/notifyjs": "3.x",
