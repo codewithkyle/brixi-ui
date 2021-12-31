@@ -54,6 +54,12 @@ export default class Checkbox extends SuperComponent<ICheckbox> {
         });
     }
 
+    override connected(): void {
+        this.addEventListener("click", (e: Event) => {
+            e.stopImmediatePropagation();
+        });
+    }
+
     private handleChange: EventListener = (e: Event) => {
         const target = e.currentTarget as HTMLInputElement;
         this.update({
