@@ -31,11 +31,11 @@ class Soundscape {
 
     private hasTouched: boolean;
     private hasPointer: boolean;
-    private doButtonSounds: boolean;
-    private doNotificationSounds: boolean;
-    private doToggleSounds: boolean;
-    private doErrorSounds: boolean;
-    private doCameraSounds: boolean;
+    public doButtonSounds: boolean;
+    public doNotificationSounds: boolean;
+    public doToggleSounds: boolean;
+    public doErrorSounds: boolean;
+    public doCameraSounds: boolean;
 
     constructor() {
         this.hasTouched = false;
