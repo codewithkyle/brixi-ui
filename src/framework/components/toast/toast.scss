@@ -8,6 +8,7 @@ toaster-component {
     overflow-x: visible;
     padding: 1rem;
     width: calc(300px + 2rem + 300px);
+    pointer-events: none;
 
     toast-component {
         background-color: var(--grey-800);
