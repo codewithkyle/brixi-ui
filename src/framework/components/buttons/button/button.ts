@@ -19,6 +19,7 @@ export interface IButton {
     attributes: {
         [name: string]: string | number;
     };
+    disabled: boolean;
 }
 export interface ButtonSettings {
     label?: string;
@@ -35,6 +36,7 @@ export interface ButtonSettings {
     attributes?: {
         [name: string]: string | number;
     };
+    disabled?: boolean;
 }
 export default class Button extends SuperComponent<IButton> {
     constructor(settings: ButtonSettings) {
@@ -52,6 +54,7 @@ export default class Button extends SuperComponent<IButton> {
             css: "",
             class: "",
             attributes: {},
+            disabled: false,
         };
         this.model = parseDataset<IButton>(this.dataset, this.model);
         const classes = ["button"];
@@ -86,6 +89,9 @@ export default class Button extends SuperComponent<IButton> {
 
     private handleClick: EventListener = (e: Event) => {
         e.stopImmediatePropagation();
+        if (this.model.disabled) {
+            return;
+        }
         this.model.callback();
     };
 
@@ -94,6 +100,9 @@ export default class Button extends SuperComponent<IButton> {
             const key = e.key.toLowerCase();
             if (key === " ") {
                 e.stopImmediatePropagation();
+                if (this.model.disabled) {
+                    return;
+                }
                 this.classList.add("is-active");
             }
         }
@@ -104,6 +113,9 @@ export default class Button extends SuperComponent<IButton> {
             const key = e.key.toLowerCase();
             if (key === " ") {
                 e.stopImmediatePropagation();
+                if (this.model.disabled) {
+                    return;
+                }
                 this.classList.remove("is-active");
                 this.model.callback();
             }
@@ -136,6 +148,11 @@ export default class Button extends SuperComponent<IButton> {
             this.setAttribute("tooltip", this.model.tooltip);
         }
         this.setAttribute("sfx", "button");
+        if (this.model.disabled) {
+            this.setAttribute("disabled", "true");
+        } else {
+            this.removeAttribute("disabled");
+        }
         render(view, this);
     }
 }
