@@ -85,6 +85,7 @@ export default class Button extends SuperComponent<IButton> {
     }
 
     private handleClick: EventListener = (e: Event) => {
+        e.stopImmediatePropagation();
         this.model.callback();
     };
 
@@ -92,6 +93,7 @@ export default class Button extends SuperComponent<IButton> {
         if (e instanceof KeyboardEvent) {
             const key = e.key.toLowerCase();
             if (key === " ") {
+                e.stopImmediatePropagation();
                 this.classList.add("is-active");
             }
         }
@@ -101,6 +103,7 @@ export default class Button extends SuperComponent<IButton> {
         if (e instanceof KeyboardEvent) {
             const key = e.key.toLowerCase();
             if (key === " ") {
+                e.stopImmediatePropagation();
                 this.classList.remove("is-active");
                 this.model.callback();
             }
