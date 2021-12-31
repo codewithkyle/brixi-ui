@@ -265,6 +265,23 @@ class Soundscape {
         } else {
             localStorage.setItem(`disable-${sfx}-sfx`, "1");
         }
+        switch (sfx) {
+            case "button":
+                this.doButtonSounds = isEnable;
+                break;
+            case "camera":
+                this.doCameraSounds = isEnable;
+                break;
+            case "error":
+                this.doErrorSounds = isEnable;
+                break;
+            case "notification":
+                this.doNotificationSounds = isEnable;
+                break;
+            case "toggle":
+                this.doToggleSounds = isEnable;
+                break;
+        }
     }
 }
 const sound = new Soundscape();
