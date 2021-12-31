@@ -55,7 +55,7 @@ export default class OverflowMenu extends SuperComponent<IOverflowMenu> {
         document.addEventListener(
             "click",
             () => {
-                document.body.querySelectorAll(`overflow-container[container-id="${this.model.uid}"].is-visible`).forEach((container: HTMLElement) => {
+                document.body.querySelectorAll(`overflow-menu-container[overflow-menu-container-id="${this.model.uid}"].is-visible`).forEach((container: HTMLElement) => {
                     container.remove();
                 });
             },
@@ -64,7 +64,7 @@ export default class OverflowMenu extends SuperComponent<IOverflowMenu> {
         window.addEventListener(
             "resize",
             () => {
-                document.body.querySelectorAll(`overflow-container[container-id="${this.model.uid}"].is-visible`).forEach((container: HTMLElement) => {
+                document.body.querySelectorAll(`overflow-container[overflow-menu-container-id="${this.model.uid}"].is-visible`).forEach((container: HTMLElement) => {
                     container.remove();
                 });
             },
@@ -73,47 +73,35 @@ export default class OverflowMenu extends SuperComponent<IOverflowMenu> {
         window.addEventListener(
             "scroll",
             () => {
-                document.body.querySelectorAll(`overflow-container[container-id="${this.model.uid}"].is-visible`).forEach((container: HTMLElement) => {
+                document.body.querySelectorAll(`overflow-container[overflow-menu-container-id="${this.model.uid}"].is-visible`).forEach((container: HTMLElement) => {
                     container.remove();
                 });
             },
             { passive: true, capture: true }
         );
+        this.addEventListener("click", (e: Event) => {
+            e.stopImmediatePropagation();
+        });
     }
 
     private handleClick: EventListener = (e: Event) => {
         const target = e.currentTarget as HTMLElement;
         const bounds = target.getBoundingClientRect();
-        const container = this.querySelector("overflow-container") as HTMLElement;
-        if (container) {
-            const clone = container.cloneNode(true) as HTMLElement;
-            const containerBounds = container.getBoundingClientRect();
-            let top = bounds.top + bounds.height;
-            if (top + containerBounds.height >= window.innerHeight) {
-                top = bounds.top - containerBounds.height;
-            }
-            let left = bounds.left;
-            if (left + containerBounds.width >= window.innerWidth) {
-                left = bounds.left + bounds.width - containerBounds.width;
-            }
-            clone.style.top = `${top}px`;
-            clone.style.left = `${left}px`;
-            clone.classList.toggle("is-visible");
-            document.body.appendChild(clone);
+        const container = new OverflowMenuContainer(this.model.uid, this.model.items);
+        document.body.appendChild(container);
+        const containerBounds = container.getBoundingClientRect();
+        let top = bounds.top + bounds.height;
+        if (top + containerBounds.height >= window.innerHeight) {
+            top = bounds.top - containerBounds.height;
         }
+        let left = bounds.left;
+        if (left + containerBounds.width >= window.innerWidth) {
+            left = bounds.left + bounds.width - containerBounds.width;
+        }
+        container.style.top = `${top}px`;
+        container.style.left = `${left}px`;
+        container.classList.toggle("is-visible");
     };
-
-    private renderItem(item: OverflowItem) {
-        if (item === null) {
-            return html`<hr />`;
-        }
-        return html`
-            <button sfx="button" type="button" @click=${item.callback} class="${item?.danger ? "danger" : ""}">
-                ${item?.icon ? html` <i> ${unsafeHTML(item.icon)} </i> ` : ""}
-                <span>${item.label}</span>
-            </button>
-        `;
-    }
 
     override render() {
         this.style.cssText = this.model.css;
@@ -123,13 +111,49 @@ export default class OverflowMenu extends SuperComponent<IOverflowMenu> {
         });
         const view = html`
             <button @click=${this.handleClick} sfx="button" type="button" aria-label="${this.model.tooltip || "open menu"}" tooltip>${unsafeHTML(this.model.icon)}</button>
-            <overflow-container container-id="${this.model.uid}">
-                ${this.model.items.map((item) => {
-                    return this.renderItem(item);
-                })}
-            </overflow-container>
         `;
         render(view, this);
     }
 }
 env.mount("overflow-menu", OverflowMenu);
+
+class OverflowMenuContainer extends HTMLElement {
+    private uid: string;
+    private items: Array<OverflowItem>;
+
+    constructor(uid: string, items: Array<OverflowItem>) {
+        super();
+        this.uid = uid;
+        this.items = items;
+        this.render();
+    }
+
+    private click: EventListener = (e: Event) => {
+        const target = e.currentTarget as HTMLElement;
+        const index = parseInt(target.dataset.index);
+        this.items?.[index]?.callback();
+    };
+
+    private renderItem(item: OverflowItem, index: number) {
+        if (item === null) {
+            return html`<hr />`;
+        }
+        return html`
+            <button sfx="button" type="button" @click=${this.click} data-index="${index}" class="${item?.danger ? "danger" : ""}">
+                ${item?.icon ? html` <i> ${unsafeHTML(item.icon)} </i> ` : ""}
+                <span>${item.label}</span>
+            </button>
+        `;
+    }
+
+    private render() {
+        this.setAttribute("overflow-menu-container-id", this.uid);
+        const view = html`
+            ${this.items.map((item, index) => {
+                return this.renderItem(item, index);
+            })}
+        `;
+        render(view, this);
+    }
+}
+env.mount("overflow-menu-container", OverflowMenuContainer);
