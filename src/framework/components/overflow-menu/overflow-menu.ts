@@ -128,7 +128,7 @@ class OverflowMenuContainer extends HTMLElement {
         this.render();
     }
 
-    private click: EventListener = (e: Event) => {
+    private handleItemClick: EventListener = (e: Event) => {
         const target = e.currentTarget as HTMLElement;
         const index = parseInt(target.dataset.index);
         this.items?.[index]?.callback();
@@ -139,7 +139,7 @@ class OverflowMenuContainer extends HTMLElement {
             return html`<hr />`;
         }
         return html`
-            <button sfx="button" type="button" @click=${this.click} data-index="${index}" class="${item?.danger ? "danger" : ""}">
+            <button sfx="button" type="button" @click=${this.handleItemClick} data-index="${index}" class="${item?.danger ? "danger" : ""}">
                 ${item?.icon ? html` <i> ${unsafeHTML(item.icon)} </i> ` : ""}
                 <span>${item.label}</span>
             </button>
