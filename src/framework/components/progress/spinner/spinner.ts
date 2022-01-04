@@ -43,6 +43,7 @@ export default class Spinner extends SuperComponent<ISpinner> {
             this.setAttribute(key, `${this.model.attributes[key]}`);
         });
         this.style.cssText = `${this.model.css}`;
+        this.className = this.model.class;
         if (this.model.color !== "white") {
             this.style.color = `var(--${this.model.color}-700)`;
         } else {
