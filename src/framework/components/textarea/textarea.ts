@@ -132,8 +132,8 @@ export default class Textarea extends SuperComponent<ITextarea> {
         return this.model.name;
     }
 
-    public getValue() {
-        this.model.value;
+    public getValue(): string {
+        return this.model.value.toString();
     }
 
     public handleBlur: EventListener = (e: Event) => {
