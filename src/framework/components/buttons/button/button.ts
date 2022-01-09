@@ -4,14 +4,19 @@ import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import env from "~brixi/controllers/env";
 import { noop, parseDataset } from "~brixi/utils/general";
 
+type ButtonKind = "solid" | "outline" | "text";
+type ButtonColor = "primary" | "black" | "white" | "grey" | "success" | "warning" | "danger" | "info";
+type ButtonShape = "pill" | "round" | "sharp" | "default";
+type ButtonSize = "default" | "slim" | "large";
+
 export interface IButton {
     label: string;
     icon: string;
     iconPosition: "left" | "right" | "center";
-    kind: "solid" | "outline" | "text";
-    color: "primary" | "black" | "white" | "grey" | "success" | "warning" | "danger" | "info";
-    shape: "pill" | "round" | "sharp" | "default";
-    size: "default" | "slim" | "large";
+    kind: ButtonKind;
+    color: ButtonColor;
+    shape: ButtonShape;
+    size: ButtonSize;
     callback: Function;
     tooltip: string;
     css: string;
@@ -24,10 +29,10 @@ export interface IButton {
 export interface ButtonSettings {
     label?: string;
     callback: Function;
-    kind?: "solid" | "outline" | "text";
-    color?: "primary" | "black" | "white" | "grey" | "success" | "warning" | "danger" | "info";
-    shape?: "pill" | "round" | "sharp" | "default";
-    size?: "default" | "slim";
+    kind?: ButtonKind;
+    color?: ButtonColor;
+    shape?: ButtonShape;
+    size?: ButtonSize;
     icon?: string;
     iconPosition?: "left" | "right" | "center";
     tooltip?: string;

@@ -17,6 +17,7 @@
     text-overflow: ellipsis;
     cursor: pointer;
     border-radius: 0.25rem;
+    line-height: 1;
 
     &::before {
         content: "";
@@ -52,6 +53,11 @@
         padding: 0 1.5rem;
         min-height: 42px;
         min-width: 42px;
+
+        & > svg {
+            width: 20px;
+            height: 20px;
+        }
     }
 
     &[shape="sharp"] {
