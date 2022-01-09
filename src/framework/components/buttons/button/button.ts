@@ -11,7 +11,7 @@ export interface IButton {
     kind: "solid" | "outline" | "text";
     color: "primary" | "black" | "white" | "grey" | "success" | "warning" | "danger" | "info";
     shape: "pill" | "round" | "sharp" | "default";
-    size: "default" | "slim";
+    size: "default" | "slim" | "large";
     callback: Function;
     tooltip: string;
     css: string;
