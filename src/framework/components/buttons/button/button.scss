@@ -123,6 +123,11 @@
 
         & > svg {
             margin-left: 0.5rem;
+            order: 2;
+        }
+
+        & > span {
+            order: 1;
         }
 
         &[size="slim"] {
