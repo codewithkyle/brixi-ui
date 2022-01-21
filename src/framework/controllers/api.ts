@@ -36,7 +36,7 @@ class API {
         this.defaultHeaders = {};
         this.defaultBody = {};
         this.defaultParams = {};
-        this.url = location.origin;
+        this.setURL(location.origin);
     }
 
     public setURL(url: string): void {
@@ -55,6 +55,10 @@ class API {
         this.defaultParams = params;
     }
 
+    /**
+     * Perform a fetch request.
+     * @example const response = await api.fetch<ExampleResponse>({ method: "POST", route: "/v1/user", body: { name: "Jon Smith" } });
+     */
     public async fetch<T>(request: Request) {
         let out: Response = {
             title: null,
@@ -92,14 +96,18 @@ class API {
                     break;
             }
             if (fetchRequest.ok) {
-                out = response;
                 out.success = true;
+                if (typeof response === "object") {
+                    out = response;
+                } else {
+                    out.data = response;
+                }
             } else {
                 if (response?.title && response?.message) {
                     out = response;
                 } else {
                     out.title = "Server Error";
-                    out.message = `A ${request.status} error occurred.`;
+                    out.message = `A ${fetchRequest.status} error occurred.`;
                 }
                 out.success = false;
             }
@@ -163,7 +171,7 @@ class API {
         }
         url += "?";
         for (const param in request.params) {
-            const value = params[param];
+            const value = request.params[param];
             if (Array.isArray(value)) {
                 for (let i = 0; i < value.length; i++) {
                     url += `${param}=${value[i]}&`;
