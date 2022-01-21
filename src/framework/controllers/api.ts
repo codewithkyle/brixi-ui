@@ -177,7 +177,7 @@ class API {
                     url += `${param}=${value[i]}&`;
                 }
             } else {
-                url += `${param}=${params[param]}&`;
+                url += `${param}=${request.params[param]}&`;
             }
         }
         return url.replace(/\&$/, "").trim();
