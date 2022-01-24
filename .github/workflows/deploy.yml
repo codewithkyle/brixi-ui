@@ -16,7 +16,7 @@ jobs:
             - name: Setup Node and NPM
               uses: actions/setup-node@v1
               with:
-                  node-version: 14.17.5
+                  node-version: 16.13.2
 
             - name: Install NPM Packages
               run: npm ci
@@ -24,28 +24,8 @@ jobs:
             - name: Verify
               run: npm run lint:tsc
 
-            - name: Compile
-              run: npm run build
-
-            - name: Cachebust
-              run: npm run wrangle
-
-            - name: Load SSH Key
-              uses: webfactory/ssh-agent@v0.4.1
-              with:
-                  ssh-private-key: ${{ secrets.SSHKEY }}
-
             - name: Deploy
-              run: rsync -azh --delete-after -e "ssh -o StrictHostKeyChecking=no" ./ ${{ secrets.USERNAME }}@${{ secrets.HOST }}:/var/www/brixi-ui/
-
-            - name: Post Deployment
-              uses: appleboy/ssh-action@master
-              with:
-                  host: ${{ secrets.HOST }}
-                  USERNAME: ${{ secrets.USERNAME }}
-                  PORT: 22
-                  KEY: ${{ secrets.SSHKEY }}
-                  script: /home/${{ secrets.USERNAME }}/.nvm/versions/node/v16.13.1/bin/pm2 restart 0
+              run: npm run deploy
 
             - name: Purge cache
               uses: nathanvaughn/actions-cloudflare-purge@master
