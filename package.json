@@ -39,14 +39,15 @@
         "make:src": "cp -r ./src/framework/* ./dist/framework",
         "make:audio": "cp -r ./audio ./dist/audio",
         "prepare": "husky install",
-        "deploy": "run-s deploy:* && node ./build/deploy.js",
+        "deploy": "run-s deploy:*",
         "deploy:build": "npm run build",
         "deploy:audio": "cp -r ./audio ./public/audio",
         "deploy:cachebust": "asset-manager",
         "deploy:iframes": "node ./build/iframe-generator.js",
         "deploy:docs": "node ./build/documentation-generator.js",
         "deploy:raw": "node ./build/raw-generator.js",
-        "deploy:nav": "node ./build/navigation-generator.js"
+        "deploy:nav": "node ./build/navigation-generator.js",
+        "deploy:site": "node ./build/deploy.js"
     },
     "dependencies": {
         "fs-extra": "^10.0.0",
