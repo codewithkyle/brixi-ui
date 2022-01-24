@@ -184,26 +184,19 @@ Create the TypeScript config.
 {
     "compilerOptions": {
         "target": "ES2020",
-        "lib": [
-            "DOM",
-            "ES2020"
-        ],
+        "lib": ["DOM", "ES2020"],
         "allowJs": true,
         "checkJs": false,
         "module": "ES2020",
         "moduleResolution": "Node",
         "baseUrl": "src",
         "paths": {
-            "~brixi/*": [
-                "framework/*"
-            ]
+            "~brixi/*": ["framework/*"]
         },
         "declaration": true,
         "emitDeclarationOnly": true,
-        "outDir": "_types",
+        "outDir": "_types"
     },
-    "include": [
-        "src"
-    ]
+    "include": ["src"]
 }
 ```
