@@ -31,18 +31,19 @@ export default class CodeViewer extends SuperComponent<CodeViewerData> {
     }
 
     private async fetchFiles() {
-        const request = await fetch(`/lookup/components/${this.component}`);
-        const files = await request.json();
+        const files = ["readme.md", `${this.component}.html`, `${this.component}.ts`, `${this.component}.scss`, `${this.component}.css`, `${this.component}.js`];
         let requestsCompleted = 0;
         const update = { ...this.model };
         for (let i = 0; i < files.length; i++) {
             new Promise(async (resolve) => {
                 const fileRequest = await fetch(`/raw/components/${this.component}/${files[i]}`);
-                const raw = await fileRequest.text();
-                update.sourceCode.push({
-                    ext: files[i].match(/\.[0-9a-z]+$/)?.[0] ?? "plaintext",
-                    raw: raw,
-                });
+                if (fileRequest.ok) {
+                    const raw = await fileRequest.text();
+                    update.sourceCode.push({
+                        ext: files[i].match(/\.[0-9a-z]+$/)?.[0] ?? "plaintext",
+                        raw: raw,
+                    });
+                }
                 // @ts-ignore
                 resolve();
             }).then(() => {

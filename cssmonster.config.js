@@ -1,4 +1,4 @@
 module.exports = {
     sources: ["./src", "./brixi"],
-    outDir: "./test/css",
+    outDir: "./public/css",
 };

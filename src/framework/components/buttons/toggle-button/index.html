@@ -1,5 +1,5 @@
 <script type="module">
-    import Component from "/toggle-button.js";
+    import Component from "/js/toggle-button.js";
     const example = new Component({
         instructions: "Delete your account.",
         state: "IDLING",
@@ -9,15 +9,19 @@
                 label: "Delete",
                 color: "white",
                 kind: "solid",
-                callback: () => { console.log("User activated our trap card"); }
+                callback: () => {
+                    console.log("User activated our trap card");
+                },
             },
             CONFIRM: {
                 label: "Are you sure?",
                 color: "danger",
                 kind: "solid",
-                callback: () => { location.reload() }
-            }
-        }
+                callback: () => {
+                    location.reload();
+                },
+            },
+        },
     });
     document.body.appendChild(example);
 </script>

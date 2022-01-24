@@ -1,5 +1,5 @@
 <script type="module">
-    import Component from "/generic-list.js";
+    import Component from "/js/generic-list.js";
     const example = new Component({
         list: {
             type: "unordered",
@@ -9,8 +9,8 @@
                 type: "ordered",
                 style: "decimal",
                 items: ["Item 1", "Item 2", "Item 3"],
-            }
-        }
+            },
+        },
     });
     document.body.appendChild(example);
 
@@ -20,7 +20,7 @@
             style: "custom",
             icon: "1F525",
             items: ["Item 1", "Item 2", "Item 3"],
-        }
+        },
     });
     document.body.appendChild(example2);
 </script>

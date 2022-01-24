@@ -1,52 +1,56 @@
 <script type="module">
-import Component from "/steps.js";
-const example = new Component({
-    step: "profile",
-    steps: [
-        {
-            label: "Create account",
-            description: "Vitae sed mi luctus laoreet.",
-            name: "create",
+    import Component from "/js/steps.js";
+    const example = new Component({
+        step: "profile",
+        steps: [
+            {
+                label: "Create account",
+                description: "Vitae sed mi luctus laoreet.",
+                name: "create",
+            },
+            {
+                label: "Profile information",
+                description: "Cursus semper viverra facilisis et et some more.",
+                name: "profile",
+            },
+            {
+                label: "Business information",
+                description: "Penatibus eu quis ante.",
+                name: "business",
+            },
+            {
+                label: "Review",
+                name: "review",
+            },
+        ],
+        callback: (step) => {
+            console.log(step);
         },
-        {
-            label: "Profile information",
-            description: "Cursus semper viverra facilisis et et some more.",
-            name: "profile",
+    });
+    document.body.appendChild(example);
+    const example2 = new Component({
+        step: "profile",
+        layout: "horizontal",
+        steps: [
+            {
+                label: "Create account",
+                description: "Vitae sed mi luctus laoreet.",
+                name: "create",
+            },
+            {
+                label: "Profile information",
+                description: "Cursus semper viverra facilisis et et some more.",
+                name: "profile",
+            },
+            {
+                label: "Review",
+                name: "review",
+            },
+        ],
+        callback: (step) => {
+            console.log(step);
         },
-        {
-            label: "Business information",
-            description: "Penatibus eu quis ante.",
-            name: "business",
-        },
-        {
-            label: "Review",
-            name: "review",
-        },
-    ],
-    callback: (step) => { console.log(step); }
-});
-document.body.appendChild(example);
-const example2 = new Component({
-    step: "profile",
-    layout: "horizontal",
-    steps: [
-        {
-            label: "Create account",
-            description: "Vitae sed mi luctus laoreet.",
-            name: "create",
-        },
-        {
-            label: "Profile information",
-            description: "Cursus semper viverra facilisis et et some more.",
-            name: "profile",
-        },
-        {
-            label: "Review",
-            name: "review",
-        },
-    ],
-    callback: (step) => { console.log(step); }
-});
-example2.classList.add("mt-2");
-document.body.appendChild(example2);
+    });
+    example2.classList.add("mt-2");
+    document.body.appendChild(example2);
 </script>

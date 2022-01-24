@@ -1,21 +1,29 @@
 module.exports = {
     src: [
         {
-            files: "./test/js/*.js",
-            publicDir: "/js"
+            files: "./public/js/*.js",
+            publicDir: "/js",
         },
         {
-            files: "./test/css/*.css",
-            publicDir: "/css"
+            files: "./public/css/*.css",
+            publicDir: "/css",
         },
         {
-            files: "./audio/*.wav",
-            publicDir: "/audio"
+            files: "./public/audio/*.wav",
+            publicDir: "/audio",
         },
         {
-            files: "./static/*",
+            files: "./public/static/*",
             publicDir: "/static",
         },
+        {
+            files: "./public/docs/components/*.md",
+            publicDir: "/docs/components",
+        },
+        {
+            files: "./public/raw/components/**/*",
+            publicDir: "/raw/components",
+        },
     ],
-    output: "./service-worker-assets.js",
+    output: "./public/service-worker-assets.js",
 };

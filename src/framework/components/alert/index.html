@@ -1,21 +1,22 @@
-
 <!-- Server side rendered component -->
-<alert-component data-class="mb-1" data-type="info" data-description="This component was server side rendered. Any component can be created using the custom element tag and the settings can be configured using data attributes. View this components HTML source to learn more."></alert-component>
+<alert-component
+    data-class="mb-1"
+    data-type="info"
+    data-description="This component was server side rendered. Any component can be created using the custom element tag and the settings can be configured using data attributes. View this components HTML source to learn more."
+></alert-component>
 
 <!-- Client side rendered components -->
 <script type="module">
-    import Component from "/alert.js";
+    import Component from "/js/alert.js";
     const example = new Component({
         type: "warning",
         heading: "Attention needed",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        list: [
-            "Lorem ipsum dolor sit amet.",
-            "Consectetur adipiscing elit.",
-            "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        ],
+        list: ["Lorem ipsum dolor sit amet.", "Consectetur adipiscing elit.", "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."],
         closeable: true,
-        closeCallback: () => { console.log("closed") },
+        closeCallback: () => {
+            console.log("closed");
+        },
         class: "mb-1",
     });
     document.body.appendChild(example);
@@ -34,11 +35,15 @@
         actions: [
             {
                 label: "View status",
-                callback: () => { console.log("View status"); }
+                callback: () => {
+                    console.log("View status");
+                },
             },
             {
                 label: "Details",
-                callback: () => { console.log("View details"); }
+                callback: () => {
+                    console.log("View details");
+                },
             },
         ],
     });
@@ -55,4 +60,3 @@
     example3.classList.add("mb-1");
     example4.classList.add("mb-1");
 </script>
-

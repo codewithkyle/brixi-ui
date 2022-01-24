@@ -1,7 +1,13 @@
 node_modules
 .DS_Store
 dist
-test
 brixi/
 _types
-service-worker-assets.js
+public/service-worker-assets.js
+public/js
+public/css
+public/audio
+public/components
+public/docs
+public/raw
+public/navigation.json

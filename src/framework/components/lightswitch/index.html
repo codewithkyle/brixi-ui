@@ -1,9 +1,9 @@
 <script type="module">
-    import Example from "/lightswitch.js";
+    import Example from "/js/lightswitch.js";
     const test = new Example({
         label: "Example on",
         altLabel: "Example off is off",
-        name: "test1"
+        name: "test1",
     });
     document.body.appendChild(test);
     const test3 = new Example({
@@ -13,7 +13,7 @@
     });
     document.body.appendChild(test3);
     const colors = ["primary", "success", "warning", "danger", "black", "grey"];
-    colors.map(color => {
+    colors.map((color) => {
         const example = new Example({
             color: color,
             name: color,
