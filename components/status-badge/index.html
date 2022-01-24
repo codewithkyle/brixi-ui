@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brixi UI</title>
+    <meta name="description" content="A sleek & slender design system built on web components.">
+    <link rel="alternate icon" href="/static/favicon.png">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/framework-core.css">
+    <link rel="stylesheet" href="/css/core.css">
+    <link rel="stylesheet" href="/css/brixi.css">
+    <link rel="stylesheet" href="/css/component-layout.css">
+    <link rel="stylesheet" href="/css/tooltip.css">
+    <link rel="stylesheet" href="/css/snackbar.css">
+    <script type="module" src="/js/soundscape.js"></script>
+    <script type="module" src="/js/tooltipper.js"></script>
+    <link rel="stylesheet" href="/css/status-badge.css">
+    <script type="module" src="/js/status-badge.js"></script>
+</head>
+<body>
+    <script type="module">
+    document.body.style.display = "flex";
+    document.body.style.alignItems = "center";
+    document.body.style.flexFlow = "row wrap";
+
+    import Component from "/js/status-badge.js";
+    const example = new Component({
+        label: "Pending",
+        class: "m-0.5",
+    });
+    document.body.appendChild(example);
+
+    const example2 = new Component({
+        label: "Shipped",
+        color: "primary",
+        class: "m-0.5",
+        dot: "left",
+    });
+    document.body.appendChild(example2);
+
+    const example3 = new Component({
+        label: "Delivered",
+        color: "success",
+        class: "m-0.5",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>`,
+    });
+    document.body.appendChild(example3);
+
+    const example4 = new Component({
+        label: "Arriving late",
+        color: "warning",
+        class: "m-0.5",
+        dot: "right",
+    });
+    document.body.appendChild(example4);
+
+    const example5 = new Component({
+        label: "Canceled",
+        color: "danger",
+        class: "m-0.5",
+    });
+    document.body.appendChild(example5);
+</script>
+
+</body>
+</html>

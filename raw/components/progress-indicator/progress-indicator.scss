@@ -1,0 +1,68 @@
+progress-indicator {
+    display: block;
+    position: relative;
+    cursor: progress;
+
+    svg {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+
+        &[color="white"] {
+            .inner {
+                color: var(--white);
+                opacity: 0.15;
+            }
+            .outter {
+                color: var(--white);
+            }
+        }
+
+        &[color="primary"] {
+            .inner {
+                color: var(--primary-200);
+            }
+            .outter {
+                color: var(--primary-500);
+            }
+        }
+
+        &[color="success"] {
+            .inner {
+                color: var(--success-200);
+            }
+            .outter {
+                color: var(--success-500);
+            }
+        }
+
+        &[color="warning"] {
+            .inner {
+                color: var(--warning-200);
+            }
+            .outter {
+                color: var(--warning-500);
+            }
+        }
+
+        &[color="danger"] {
+            .inner {
+                color: var(--danger-200);
+            }
+            .outter {
+                color: var(--danger-500);
+            }
+        }
+
+        .inner {
+            color: var(--grey-200);
+        }
+
+        .outter {
+            stroke-dashoffset: 70;
+            stroke-dasharray: 70;
+            color: var(--grey-500);
+            transition: all 150ms var(--ease-in-out);
+        }
+    }
+}

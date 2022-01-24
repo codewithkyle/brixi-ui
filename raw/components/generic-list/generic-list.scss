@@ -1,0 +1,21 @@
+generic-list {
+    display: block;
+    position: relative;
+}
+.list {
+    display: block;
+
+    li {
+        list-style-position: outside;
+        margin-left: 1rem;
+        line-height: 1.618;
+        font-size: var(--font-sm);
+        display: list-item;
+        padding-left: 0.25rem;
+        list-style-type: disc;
+    }
+
+    .list {
+        padding-left: 1rem;
+    }
+}

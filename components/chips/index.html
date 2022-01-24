@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brixi UI</title>
+    <meta name="description" content="A sleek & slender design system built on web components.">
+    <link rel="alternate icon" href="/static/favicon.png">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/framework-core.css">
+    <link rel="stylesheet" href="/css/core.css">
+    <link rel="stylesheet" href="/css/brixi.css">
+    <link rel="stylesheet" href="/css/component-layout.css">
+    <link rel="stylesheet" href="/css/tooltip.css">
+    <link rel="stylesheet" href="/css/snackbar.css">
+    <script type="module" src="/js/soundscape.js"></script>
+    <script type="module" src="/js/tooltipper.js"></script>
+    <link rel="stylesheet" href="/css/chips.css">
+    <script type="module" src="/js/chips.js"></script>
+</head>
+<body>
+    <script type="module">
+    import Component from "/js/chips.js";
+    const example = new Component({
+        type: "static",
+        chips: [
+            {
+                label: "Example",
+                name: "example-1",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>`,
+            },
+            {
+                label: "Example",
+                name: "example-2",
+            },
+            {
+                label: "Example",
+                name: "example-3",
+            },
+            {
+                label: "Example",
+                name: "example-4",
+            },
+            {
+                label: "Example",
+                name: "example-5",
+            },
+        ],
+        callback: (name, state) => {
+            console.log(name, state);
+        },
+    });
+    document.body.appendChild(example);
+    const example2 = new Component({
+        type: "dynamic",
+        chips: [
+            {
+                label: "Example",
+                name: "example-1",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>`,
+            },
+            {
+                label: "Example",
+                name: "example-2",
+            },
+        ],
+        callback: (name) => {
+            console.log(`Removed chip: ${name}`);
+        },
+    });
+    example2.classList.add("mt-0.5");
+    document.body.appendChild(example2);
+</script>
+
+</body>
+</html>

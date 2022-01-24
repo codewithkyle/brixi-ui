@@ -1,0 +1,26 @@
+<script type="module">
+    import Component from "/js/generic-list.js";
+    const example = new Component({
+        list: {
+            type: "unordered",
+            style: "square",
+            items: ["Item 1", "Item 2", "Item 3"],
+            sub: {
+                type: "ordered",
+                style: "decimal",
+                items: ["Item 1", "Item 2", "Item 3"],
+            },
+        },
+    });
+    document.body.appendChild(example);
+
+    const example2 = new Component({
+        list: {
+            type: "unordered",
+            style: "custom",
+            icon: "1F525",
+            items: ["Item 1", "Item 2", "Item 3"],
+        },
+    });
+    document.body.appendChild(example2);
+</script>

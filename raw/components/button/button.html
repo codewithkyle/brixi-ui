@@ -1,0 +1,42 @@
+<div class="text-center mb-0.5">
+    <button sfx="button" class="bttn m-0.5" kind="solid" color="primary">Example</button>
+    <button sfx="button" class="bttn m-0.5" kind="solid" color="warning">Example</button>
+    <button sfx="button" class="bttn m-0.5" kind="solid" color="danger">Example</button>
+    <button sfx="button" class="bttn m-0.5" kind="solid" color="success">Example</button>
+    <button sfx="button" class="bttn m-0.5" kind="solid" color="white">Example</button>
+    <button sfx="button" class="bttn m-0.5" kind="solid" color="grey">Example</button>
+    <button sfx="button" class="bttn m-0.5" kind="solid" color="black">Example</button>
+</div>
+<div class="text-center mb-1">
+    <button sfx="button" class="bttn m-0.5" kind="outline" color="primary">Example</button>
+    <button sfx="button" class="bttn m-0.5" kind="outline" color="warning">Example</button>
+    <button sfx="button" class="bttn m-0.5" kind="outline" color="danger">Example</button>
+    <button sfx="button" class="bttn m-0.5" kind="outline" color="success">Example</button>
+    <button sfx="button" class="bttn m-0.5" kind="outline" color="white">Example</button>
+    <button sfx="button" class="bttn m-0.5" kind="outline" color="grey">Example</button>
+    <button sfx="button" class="bttn m-0.5" kind="outline" color="black">Example</button>
+</div>
+<div class="text-center mb-1">
+    <button sfx="button" class="bttn m-0.5" kind="text" color="primary">Example</button>
+    <button sfx="button" class="bttn m-0.5" kind="text" color="warning">Example</button>
+    <button sfx="button" class="bttn m-0.5" kind="text" color="danger">Example</button>
+    <button sfx="button" class="bttn m-0.5" kind="text" color="success">Example</button>
+    <button sfx="button" class="bttn m-0.5" kind="text" color="white">Example</button>
+    <button sfx="button" class="bttn m-0.5" kind="text" color="grey">Example</button>
+    <button sfx="button" class="bttn m-0.5" kind="text" color="black">Example</button>
+</div>
+<script type="module">
+    import Example from "/js/button.js";
+    const test = new Example({
+        iconPosition: "center",
+        color: "grey",
+        shape: "round",
+        kind: "text",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>`,
+        callback: () => {
+            console.log("Hello world");
+        },
+        tooltip: "runtime button",
+    });
+    document.body.appendChild(test);
+</script>

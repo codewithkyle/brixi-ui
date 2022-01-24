@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brixi UI</title>
+    <meta name="description" content="A sleek & slender design system built on web components.">
+    <link rel="alternate icon" href="/static/favicon.png">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/framework-core.css">
+    <link rel="stylesheet" href="/css/core.css">
+    <link rel="stylesheet" href="/css/brixi.css">
+    <link rel="stylesheet" href="/css/component-layout.css">
+    <link rel="stylesheet" href="/css/tooltip.css">
+    <link rel="stylesheet" href="/css/snackbar.css">
+    <script type="module" src="/js/soundscape.js"></script>
+    <script type="module" src="/js/tooltipper.js"></script>
+    <link rel="stylesheet" href="/css/download-button.css">
+    <script type="module" src="/js/download-button.js"></script>
+</head>
+<body>
+    <script type="module">
+    import Component from "/js/download-button.js";
+    const example = new Component({
+        color: "primary",
+        label: "Download image",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>`,
+        url: "https://file-examples-com.github.io/uploads/2017/10/file-example_PDF_1MB.pdf",
+        callback: (blob) => {
+            if (blob !== null) {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.download = "example-download.pdf";
+                a.href = url;
+                a.target = "_blank";
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+        },
+    });
+    document.body.appendChild(example);
+</script>
+
+</body>
+</html>

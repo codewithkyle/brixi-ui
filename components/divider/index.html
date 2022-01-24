@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brixi UI</title>
+    <meta name="description" content="A sleek & slender design system built on web components.">
+    <link rel="alternate icon" href="/static/favicon.png">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/framework-core.css">
+    <link rel="stylesheet" href="/css/core.css">
+    <link rel="stylesheet" href="/css/brixi.css">
+    <link rel="stylesheet" href="/css/component-layout.css">
+    <link rel="stylesheet" href="/css/tooltip.css">
+    <link rel="stylesheet" href="/css/snackbar.css">
+    <script type="module" src="/js/soundscape.js"></script>
+    <script type="module" src="/js/tooltipper.js"></script>
+    <link rel="stylesheet" href="/css/divider.css">
+    <script type="module" src="/js/divider.js"></script>
+</head>
+<body>
+    <script type="module">
+    import Component from "/js/divider.js";
+    const colors = ["primary", "success", "warning", "danger", "black", "grey"];
+    colors.map((color) => {
+        const example = new Component({
+            color: color,
+            class: "mb-1",
+        });
+        document.body.appendChild(example);
+    });
+    colors.map((color) => {
+        const example = new Component({
+            label: "Solid Divider",
+            color: color,
+            class: "mb-1",
+        });
+        document.body.appendChild(example);
+    });
+    colors.map((color) => {
+        const example = new Component({
+            label: "Dashed Divider",
+            color: color,
+            type: "dashed",
+            class: "mb-1",
+        });
+        document.body.appendChild(example);
+    });
+    colors.map((color) => {
+        const example = new Component({
+            label: "Dotted Divider",
+            color: color,
+            type: "dotted",
+            class: "mb-1",
+        });
+        document.body.appendChild(example);
+    });
+</script>
+
+</body>
+</html>

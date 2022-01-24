@@ -1,0 +1,260 @@
+.multi-select {
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    cursor: pointer;
+
+    &[state="DISABLED"] {
+        cursor: not-allowed !important;
+
+        label,
+        p {
+            color: var(--grey-400) !important;
+        }
+        select-container {
+            background-color: var(--grey-50) !important;
+            border-color: var(--grey-200) !important;
+            box-shadow: none !important;
+
+            &::after {
+                box-shadow: none !important;
+            }
+
+            select {
+                cursor: not-allowed !important;
+                background-color: var(--grey-50) !important;
+            }
+        }
+    }
+
+    &[state="ERROR"] {
+        label {
+            color: var(--danger-700) !important;
+        }
+
+        select-container {
+            border-color: var(--danger-500) !important;
+
+            &:focus-within {
+                box-shadow: 0 0 0 5px var(--danger-50) !important;
+            }
+
+            .icon {
+                background-color: var(--danger-50) !important;
+                border-color: var(--danger-500) !important;
+                color: var(--danger-500) !important;
+            }
+
+            .selector {
+                color: var(--danger-500) !important;
+            }
+        }
+    }
+
+    &:focus-within,
+    &:focus {
+        multiselect-options {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: all;
+        }
+
+        multiselect-container {
+            border-color: var(--primary-500);
+
+            .icon {
+                background-color: var(--primary-50);
+                border-color: var(--primary-500);
+                color: var(--primary-600);
+            }
+
+            .selector {
+                color: var(--primary-600);
+            }
+        }
+    }
+
+    & > label {
+        display: block;
+        width: 100%;
+        font-size: var(--font-sm);
+        font-weight: 500;
+        color: var(--grey-800);
+        margin-bottom: 0.5rem;
+        text-align: left;
+        transition: all 80ms var(--ease-in-out);
+    }
+
+    .select {
+        height: 36px;
+        display: block;
+        width: 100%;
+        flex: 1;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        line-height: 36px;
+        padding: 0 calc(1rem + 24px) 0 0.5rem;
+        color: var(--grey-800);
+        transition: all 80ms var(--ease-in-out);
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border: none;
+        outline: none;
+        box-shadow: none;
+
+        &:first-child {
+            padding-left: 1rem;
+        }
+
+        &::placeholder {
+            color: var(--grey-400);
+        }
+    }
+
+    p {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: var(--font-xs);
+        color: var(--grey-700);
+        line-height: 1.375;
+        transition: all 80ms var(--ease-in-out);
+    }
+
+    multiselect-container {
+        display: flex;
+        flex-flow: row nowrap;
+        width: 100%;
+        border-radius: 5px;
+        overflow: hidden;
+        border: 1px solid var(--grey-200);
+        background-color: var(--white);
+        box-shadow: var(--light-bevel);
+        transition: all 80ms var(--ease-in-out);
+    }
+
+    .selector {
+        width: 24px;
+        height: 24px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--grey-400);
+        pointer-events: none;
+        position: absolute;
+        bottom: calc((36px - 24px) / 2);
+        right: 0.5rem;
+        transition: all 80ms var(--ease-in-out);
+
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    .icon {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 36px;
+        height: 36px;
+        pointer-events: none;
+        color: var(--grey-400);
+        background-color: var(--grey-50);
+        border-right: 1px solid var(--grey-200);
+        z-index: 2;
+        transition: all 80ms var(--ease-in-out);
+
+        svg {
+            width: 18px;
+            height: 18px;
+        }
+    }
+
+    multiselect-options {
+        position: absolute;
+        top: calc(100% + 0.25rem);
+        left: 0;
+        width: 100%;
+        background-color: var(--white);
+        border: 1px solid var(--grey-200);
+        box-shadow: var(--light-bevel);
+        border-radius: 0.5rem;
+        padding: 0.5rem 0;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        z-index: 1000;
+
+        .search {
+            background-color: var(--white);
+            width: 100%;
+            padding: 0 0.5rem 0.5rem;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid var(--grey-200);
+            display: flex;
+            align-items: center;
+            flex-flow: row nowrap;
+
+            &:focus-within {
+                i {
+                    color: var(--grey-500);
+                }
+            }
+
+            input {
+                display: block;
+                width: 100%;
+                border: 1px solid var(--grey-200);
+                border-radius: 0.25rem;
+                padding: 0 0.5rem 0 calc(14px + 0.5rem);
+                height: 24px;
+                font-size: var(--font-xs);
+                line-height: 1;
+                transition: all 80ms var(--ease-in-out);
+                outline: none;
+                box-shadow: none;
+
+                &:focus {
+                    border-color: var(--primary-500);
+                }
+            }
+
+            & > checkbox-component {
+                position: relative;
+                width: 24px;
+                height: 24px;
+
+                label {
+                    min-height: auto;
+                    width: 24px;
+                    height: 24px;
+                }
+            }
+
+            & > i {
+                position: absolute;
+                top: 5px;
+                left: calc(1.25rem + 24px);
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                color: var(--grey-400);
+                transition: all 80ms var(--ease-in-out);
+                z-index: 2;
+
+                svg {
+                    width: 14px;
+                    height: 14px;
+                }
+            }
+        }
+
+        .options {
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 0 0.5rem;
+            overscroll-behavior: contain;
+        }
+    }
+}

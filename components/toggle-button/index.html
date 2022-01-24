@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brixi UI</title>
+    <meta name="description" content="A sleek & slender design system built on web components.">
+    <link rel="alternate icon" href="/static/favicon.png">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/framework-core.css">
+    <link rel="stylesheet" href="/css/core.css">
+    <link rel="stylesheet" href="/css/brixi.css">
+    <link rel="stylesheet" href="/css/component-layout.css">
+    <link rel="stylesheet" href="/css/tooltip.css">
+    <link rel="stylesheet" href="/css/snackbar.css">
+    <script type="module" src="/js/soundscape.js"></script>
+    <script type="module" src="/js/tooltipper.js"></script>
+    <link rel="stylesheet" href="/css/toggle-button.css">
+    <script type="module" src="/js/toggle-button.js"></script>
+</head>
+<body>
+    <script type="module">
+    import Component from "/js/toggle-button.js";
+    const example = new Component({
+        instructions: "Delete your account.",
+        state: "IDLING",
+        states: ["IDLING", "CONFIRM"],
+        buttons: {
+            IDLING: {
+                label: "Delete",
+                color: "white",
+                kind: "solid",
+                callback: () => {
+                    console.log("User activated our trap card");
+                },
+            },
+            CONFIRM: {
+                label: "Are you sure?",
+                color: "danger",
+                kind: "solid",
+                callback: () => {
+                    location.reload();
+                },
+            },
+        },
+    });
+    document.body.appendChild(example);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brixi UI</title>
+    <meta name="description" content="A sleek & slender design system built on web components.">
+    <link rel="alternate icon" href="/static/favicon.png">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/framework-core.css">
+    <link rel="stylesheet" href="/css/core.css">
+    <link rel="stylesheet" href="/css/brixi.css">
+    <link rel="stylesheet" href="/css/component-layout.css">
+    <link rel="stylesheet" href="/css/tooltip.css">
+    <link rel="stylesheet" href="/css/snackbar.css">
+    <script type="module" src="/js/soundscape.js"></script>
+    <script type="module" src="/js/tooltipper.js"></script>
+    <link rel="stylesheet" href="/css/progress-indicator.css">
+    <script type="module" src="/js/progress-indicator.js"></script>
+</head>
+<body>
+    <script type="module">
+    import Component from "/js/progress-indicator.js";
+    const example = new Component({
+        total: 100,
+        finishedCallback: () => {
+            example.reset();
+        },
+    });
+    document.body.appendChild(example);
+    const example2 = new Component({
+        total: 100,
+        color: "primary",
+        finishedCallback: () => {
+            example.reset();
+        },
+    });
+    document.body.appendChild(example2);
+    const example3 = new Component({
+        total: 100,
+        color: "success",
+        finishedCallback: () => {
+            example.reset();
+        },
+    });
+    document.body.appendChild(example3);
+    const example4 = new Component({
+        total: 100,
+        color: "warning",
+        finishedCallback: () => {
+            example.reset();
+        },
+    });
+    document.body.appendChild(example4);
+    const example5 = new Component({
+        total: 100,
+        color: "danger",
+        finishedCallback: () => {
+            example.reset();
+        },
+    });
+    document.body.appendChild(example5);
+
+    setInterval(() => {
+        example.tick();
+        example2.tick();
+        example3.tick();
+        example4.tick();
+        example5.tick();
+    }, 150);
+</script>
+
+</body>
+</html>

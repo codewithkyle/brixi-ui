@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brixi UI</title>
+    <meta name="description" content="A sleek & slender design system built on web components.">
+    <link rel="alternate icon" href="/static/favicon.png">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/framework-core.css">
+    <link rel="stylesheet" href="/css/core.css">
+    <link rel="stylesheet" href="/css/brixi.css">
+    <link rel="stylesheet" href="/css/component-layout.css">
+    <link rel="stylesheet" href="/css/tooltip.css">
+    <link rel="stylesheet" href="/css/snackbar.css">
+    <script type="module" src="/js/soundscape.js"></script>
+    <script type="module" src="/js/tooltipper.js"></script>
+    <link rel="stylesheet" href="/css/generic-list.css">
+    <script type="module" src="/js/generic-list.js"></script>
+</head>
+<body>
+    <script type="module">
+    import Component from "/js/generic-list.js";
+    const example = new Component({
+        list: {
+            type: "unordered",
+            style: "square",
+            items: ["Item 1", "Item 2", "Item 3"],
+            sub: {
+                type: "ordered",
+                style: "decimal",
+                items: ["Item 1", "Item 2", "Item 3"],
+            },
+        },
+    });
+    document.body.appendChild(example);
+
+    const example2 = new Component({
+        list: {
+            type: "unordered",
+            style: "custom",
+            icon: "1F525",
+            items: ["Item 1", "Item 2", "Item 3"],
+        },
+    });
+    document.body.appendChild(example2);
+</script>
+
+</body>
+</html>

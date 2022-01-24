@@ -1,0 +1,33 @@
+radio-group {
+    display: block;
+    width: 100%;
+    position: relative;
+
+    &.is-disabled {
+        p {
+            color: var(--grey-400) !important;
+
+            strong {
+                color: var(--grey-400) !important;
+            }
+        }
+    }
+
+    p {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: var(--font-xs);
+        color: var(--grey-700);
+        line-height: 1.375;
+        transition: all 80ms var(--ease-in-out);
+
+        strong {
+            display: block;
+            width: 100%;
+            font-size: var(--font-sm);
+            font-weight: var(--font-medium);
+            color: var(--grey-800);
+            margin-bottom: 0.5rem;
+        }
+    }
+}

@@ -1,0 +1,111 @@
+.checkbox {
+    display: block;
+    width: 100%;
+    position: relative;
+
+    input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        visibility: hidden;
+
+        &:checked + label {
+            check-box i {
+                background-color: var(--primary-700);
+                border-color: var(--primary-800);
+
+                svg {
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+        }
+
+        &:disabled + label {
+            cursor: not-allowed !important;
+
+            check-box i {
+                background-color: var(--grey-50) !important;
+                border-color: var(--grey-200) !important;
+                box-shadow: none !important;
+                transform: none !important;
+                cursor: not-allowed !important;
+            }
+
+            span {
+                color: var(--grey-400) !important;
+            }
+        }
+    }
+
+    label {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        min-height: 36px;
+        cursor: pointer;
+
+        &:active {
+            check-box i {
+                box-shadow: none;
+                transform: translateY(1px);
+            }
+        }
+
+        check-box {
+            width: 24px;
+            height: 24px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+
+            &:active {
+                i {
+                    box-shadow: none;
+                    transform: translateY(1px);
+                }
+            }
+
+            &:focus-visible {
+                i {
+                    box-shadow: var(--focus-ring) !important;
+                }
+            }
+
+            i {
+                transition: all 80ms var(--ease-in-out);
+                width: 14px;
+                height: 14px;
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                color: var(--white);
+                border-radius: 0.125rem;
+                border: 1px solid var(--grey-200);
+                background-color: var(--white);
+                box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05), inset 0 -1px 0 rgba(0, 0, 0, 0.025);
+
+                svg {
+                    width: 100%;
+                    height: 100%;
+                    visibility: hidden;
+                    opacity: 0;
+                    color: var(--white) !important;
+                    padding: 0 !important;
+                    margin: 0 !important;
+                }
+            }
+        }
+
+        span {
+            font-size: var(--font-sm);
+            font-weight: var(--font-medium);
+            color: var(--grey-800);
+            user-select: none;
+            margin-left: 0.5rem;
+            margin-top: 2px;
+        }
+    }
+}

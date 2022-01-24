@@ -1,0 +1,60 @@
+progress-badge {
+    position: relative;
+    display: inline-flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+    line-height: 24px;
+    padding: 0 0.75rem 0 0.25rem;
+    font-size: var(--font-sm);
+    font-weight: var(--font-medium);
+    background-color: var(--grey-50);
+    border-radius: 0.75rem;
+
+    &[color="grey"] {
+        background-color: var(--grey-100);
+
+        span {
+            color: var(--grey-800);
+        }
+    }
+
+    &[color="primary"] {
+        background-color: var(--primary-50);
+
+        span {
+            color: var(--primary-800);
+        }
+    }
+
+    &[color="danger"] {
+        background-color: var(--danger-50);
+
+        span {
+            color: var(--danger-800);
+        }
+    }
+
+    &[color="warning"] {
+        background-color: var(--warning-50);
+
+        span {
+            color: var(--warning-800);
+        }
+    }
+
+    &[color="success"] {
+        background-color: var(--success-50);
+
+        span {
+            color: var(--success-800);
+        }
+    }
+
+    span {
+        display: inline-block;
+        margin-left: 0.25rem;
+        color: var(--grey-700);
+    }
+}

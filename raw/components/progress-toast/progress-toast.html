@@ -1,0 +1,18 @@
+<script type="module">
+    import Component from "/js/progress-toast.js";
+    const example = new Component({
+        total: 1000,
+        title: "Downloading messages",
+        subtitle: "0 of 1000",
+        tickCallback: (num) => {
+            example.setProgress(`${num} of 1000`);
+        },
+        finishedCallback: () => {
+            alert("Finished downloading messages");
+        },
+    });
+    document.body.appendChild(example);
+    setInterval(() => {
+        example.tick();
+    }, 150);
+</script>

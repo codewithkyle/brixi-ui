@@ -1,0 +1,27 @@
+<script type="module">
+    import Example from "/js/select.js";
+    const test = new Example({
+        label: "Example",
+        required: true,
+        instructions: "This is an example input.",
+        options: [
+            {
+                label: "",
+                value: "",
+            },
+            {
+                label: "Apples",
+                value: "apples",
+            },
+            {
+                label: "Pears",
+                value: "pears",
+            },
+            {
+                label: "Bananas",
+                value: "bananas",
+            },
+        ],
+    });
+    document.body.appendChild(test);
+</script>

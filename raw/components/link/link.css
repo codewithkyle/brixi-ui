@@ -1,0 +1,1 @@
+.link{text-decoration:none;color:var(--primary-700)}.link:focus-visible{box-shadow:var(--focus-ring)}.link:hover{color:var(--primary-600);text-decoration:underline}.link:active{color:var(--primary-800);text-decoration:underline}
