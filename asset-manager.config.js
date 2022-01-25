@@ -17,7 +17,7 @@ for (const file of components) {
         .replace(componentsPath, "")
         .replace(/^[\\\/]/, "")
         .replace(/[\\\/].*/, "");
-    static.push(`/components/${name}`);
+    static.push(`/components/${name}/index.html`);
 }
 
 module.exports = {
