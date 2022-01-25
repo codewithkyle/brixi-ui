@@ -36,18 +36,20 @@ async function onFetch(event) {
 
 self.addEventListener("message", async (event) => {
     cacheName = `${cacheNamePrefix}-${event.data.version}`;
-    const assetsRequests = event.data.assets.map((asset) => {
-        return new Request(asset, {
-            cache: "reload",
-        });
-    });
-    for (const request of assetsRequests) {
-        await caches
-            .open(cacheName)
-            .then((cache) => cache.add(request))
-            .catch((error) => {
-                console.error("Failed to cache:", request, error);
+    if (event.data?.assets) {
+        const assetsRequests = event.data.assets.map((asset) => {
+            return new Request(asset, {
+                cache: "reload",
             });
+        });
+        for (const request of assetsRequests) {
+            await caches
+                .open(cacheName)
+                .then((cache) => cache.add(request))
+                .catch((error) => {
+                    console.error("Failed to cache:", request, error);
+                });
+        }
     }
     const cacheKeys = await caches.keys();
     await Promise.all(cacheKeys.filter((key) => key.startsWith(cacheNamePrefix) && key !== cacheName).map((key) => caches.delete(key)));

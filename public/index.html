@@ -15,9 +15,13 @@
                     try {
                         await import("/service-worker-assets.js?t=" + Date.now());
                         if (self.manifest.version !== localStorage.getItem("version")) {
-                            registration.active.postMessage(self.manifest);
                             localStorage.setItem("version", self.manifest.version);
+                        } else {
+                            delete self.manifest.assets;
                         }
+                        registration.active.postMessage({
+                            data: self.manifest,
+                        });
                     } catch (e) {
                         console.error(e);
                     }
