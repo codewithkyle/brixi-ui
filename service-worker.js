@@ -7,8 +7,8 @@ let cacheNamePrefix = "resource-cache";
 let cacheName = `${cacheNamePrefix}-${self.manifest.version}`;
 
 self.manifest.assets.push("/navigation.json");
-self.manifest.asset.push("/");
-self.manifest.asset.push("/404");
+self.manifest.assets.push("/");
+self.manifest.assets.push("/404");
 
 // Cache files when the service worker is installed or updated
 async function onInstall(event) {
