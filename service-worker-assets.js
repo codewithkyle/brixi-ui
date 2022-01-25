@@ -1,6 +1,6 @@
 
 self.manifest = {
-    "version": "68236a0c4760423d92eb591cba80c041",
+    "version": "186cc09a377af7fb99d3ce8fb4270bbd",
     "assets": [
 		"/js/accordion.js",
 		"/js/alert.js",
@@ -130,6 +130,7 @@ self.manifest = {
 		"/",
 		"/404",
 		"/navigation.json",
+		"/service-worker-assets.js",
 		"/raw/components/accordion/accordion.css",
 		"/raw/components/accordion/accordion.html",
 		"/raw/components/accordion/accordion.js",

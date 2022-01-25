@@ -2,7 +2,7 @@ self.addEventListener("install", (event) => event.waitUntil(onInstall(event)));
 self.addEventListener("activate", (event) => event.waitUntil(onActivate(event)));
 self.addEventListener("fetch", (event) => event.respondWith(onFetch(event)));
 
-self.importScripts("./service-worker-assets.js?t=" + Date.now());
+self.importScripts("/service-worker-assets.js");
 let cacheNamePrefix = "resource-cache";
 let cacheName = `${cacheNamePrefix}-${self.manifest.version}`;
 
@@ -37,7 +37,7 @@ async function onFetch(event) {
 
 self.addEventListener("message", async (event) => {
     cacheName = `${cacheNamePrefix}-${event.data.version}`;
-    const assetsRequests = self.manifest.assets.map((asset) => {
+    const assetsRequests = event.data.assets.map((asset) => {
         return new Request(asset, {
             cache: "reload",
         });
