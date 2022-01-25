@@ -1,3 +1,21 @@
+const glob = require("glob");
+const path = require("path");
+
+const rawPath = path.join(process.cwd(), "public", "raw", "components");
+const raw = glob.sync(`${rawPath}/**/*`);
+const static = ["/", "/404", "/navigation.json"];
+for (const file of raw) {
+    const name = file.replace(rawPath, "");
+    if (name.search(/\.css|\.js|\.ts|\.html|\.scss|\.md/)) {
+        static.push(`/raw/components/${name.replace(/^[\\\/]/, "").replace(/\\+/g, "/")}`);
+    }
+}
+const componentsPath = path.join(process.cwd(), "public", "components");
+const components = glob.sync(`${componentsPath}/**/*.html`);
+for (const file of components) {
+    static.push(file.replace(componentsPath, ""));
+}
+
 module.exports = {
     src: [
         {
@@ -20,10 +38,7 @@ module.exports = {
             files: "./public/docs/components/*.md",
             publicDir: "/docs/components",
         },
-        {
-            files: "./public/raw/components/**/*",
-            publicDir: "/raw/components",
-        },
     ],
     output: "./public/service-worker-assets.js",
+    static: static,
 };
