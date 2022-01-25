@@ -6,10 +6,6 @@ self.importScripts("./service-worker-assets.js?t=" + Date.now());
 let cacheNamePrefix = "resource-cache";
 let cacheName = `${cacheNamePrefix}-${self.manifest.version}`;
 
-self.manifest.assets.push("/navigation.json");
-self.manifest.assets.push("/");
-self.manifest.assets.push("/404");
-
 // Cache files when the service worker is installed or updated
 async function onInstall(event) {
     self.skipWaiting();
