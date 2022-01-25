@@ -18,13 +18,7 @@ async function onActivate(event) {
 
 // Try to respond with cached files
 async function onFetch(event) {
-    if (event.request.mode === "navigate") {
-        const cache = await caches.open(cacheName);
-        const cachedResponse = await cache.match("/");
-        if (cachedResponse) {
-            return cachedResponse;
-        }
-    } else if (event.request.method === "GET" && event.request.url.indexOf(self.origin) === 0) {
+    if (event.request.method === "GET" && event.request.url.indexOf(self.origin) === 0) {
         const cache = await caches.open(cacheName);
         const cachedResponse = await cache.match(event.request);
         if (cachedResponse) {
