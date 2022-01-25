@@ -47,4 +47,14 @@ self.addEventListener("message", async (event) => {
                 });
         }
     }
+    self.clients
+        .matchAll({
+            includeUncontrolled: true,
+            type: "window",
+        })
+        .then((clients) => {
+            if (clients && clients.length) {
+                clients[0].postMessage(event.data.version);
+            }
+        });
 });

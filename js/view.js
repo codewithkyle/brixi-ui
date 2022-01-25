@@ -6,7 +6,7 @@ import a from"./supercomponent.js";import{register as r}from"./messaging.js";imp
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" />
                                 </svg>
                             </resize-bar>
-                            <iframe style="opacity:0;" onload="this.style.opacity = '1';" src="/components/${this.model.component}"></iframe>
+                            <iframe style="opacity:0;" onload="this.style.opacity = '1';" src="/components/${this.model.component}/index.html"></iframe>
                         </resize-container>
                     </iframe-resizer>
                 `;case"docs":return new n(this.model.component)}}connected(){const e=location.pathname.replace(/^\//,"").trim();this.load(e)}render(){let e=t`
