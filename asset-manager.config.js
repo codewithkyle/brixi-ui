@@ -13,7 +13,7 @@ for (const file of raw) {
 const componentsPath = path.join(process.cwd(), "public", "components");
 const components = glob.sync(`${componentsPath}/**/*.html`);
 for (const file of components) {
-    static.push(file.replace(componentsPath, ""));
+    static.push(file.replace(/.*public/, ""));
 }
 
 module.exports = {
