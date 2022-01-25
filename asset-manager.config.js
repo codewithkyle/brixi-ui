@@ -3,7 +3,7 @@ const path = require("path");
 
 const rawPath = path.join(process.cwd(), "public", "raw", "components");
 const raw = glob.sync(`${rawPath}/**/*`);
-const static = ["/", "/404", "/navigation.json"];
+const static = ["/", "/404", "/navigation.json", "/service-worker-assets.js"];
 for (const file of raw) {
     const name = file.replace(rawPath, "");
     if (name.search(/\.css|\.js|\.ts|\.html|\.scss|\.md/) !== -1) {
