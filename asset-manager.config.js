@@ -6,7 +6,7 @@ const raw = glob.sync(`${rawPath}/**/*`);
 const static = ["/", "/404", "/navigation.json"];
 for (const file of raw) {
     const name = file.replace(rawPath, "");
-    if (name.search(/\.css|\.js|\.ts|\.html|\.scss|\.md/)) {
+    if (name.search(/\.css|\.js|\.ts|\.html|\.scss|\.md/) !== -1) {
         static.push(`/raw/components/${name.replace(/^[\\\/]/, "").replace(/\\+/g, "/")}`);
     }
 }
