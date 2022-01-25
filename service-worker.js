@@ -30,6 +30,8 @@ async function onFetch(event) {
 
 self.addEventListener("message", async (event) => {
     cacheName = `${cacheNamePrefix}-${event.data.version}`;
+    const cacheKeys = await caches.keys();
+    await Promise.all(cacheKeys.filter((key) => key.startsWith(cacheNamePrefix) && key !== cacheName).map((key) => caches.delete(key)));
     if (event.data?.assets) {
         const assetsRequests = event.data.assets.map((asset) => {
             return new Request(asset, {
@@ -45,6 +47,4 @@ self.addEventListener("message", async (event) => {
                 });
         }
     }
-    const cacheKeys = await caches.keys();
-    await Promise.all(cacheKeys.filter((key) => key.startsWith(cacheNamePrefix) && key !== cacheName).map((key) => caches.delete(key)));
 });
