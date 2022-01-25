@@ -2,9 +2,8 @@ self.addEventListener("install", (event) => event.waitUntil(onInstall(event)));
 self.addEventListener("activate", (event) => event.waitUntil(onActivate(event)));
 self.addEventListener("fetch", (event) => event.respondWith(onFetch(event)));
 
-self.importScripts("/service-worker-assets.js");
 let cacheNamePrefix = "resource-cache";
-let cacheName = `${cacheNamePrefix}-${self.manifest.version}`;
+let cacheName = "";
 
 // Cache files when the service worker is installed or updated
 async function onInstall(event) {
@@ -37,18 +36,20 @@ async function onFetch(event) {
 
 self.addEventListener("message", async (event) => {
     cacheName = `${cacheNamePrefix}-${event.data.version}`;
-    const assetsRequests = event.data.assets.map((asset) => {
-        return new Request(asset, {
-            cache: "reload",
-        });
-    });
-    for (const request of assetsRequests) {
-        await caches
-            .open(cacheName)
-            .then((cache) => cache.add(request))
-            .catch((error) => {
-                console.error("Failed to cache:", request, error);
+    if (event.data?.assets) {
+        const assetsRequests = event.data.assets.map((asset) => {
+            return new Request(asset, {
+                cache: "reload",
             });
+        });
+        for (const request of assetsRequests) {
+            await caches
+                .open(cacheName)
+                .then((cache) => cache.add(request))
+                .catch((error) => {
+                    console.error("Failed to cache:", request, error);
+                });
+        }
     }
     const cacheKeys = await caches.keys();
     await Promise.all(cacheKeys.filter((key) => key.startsWith(cacheNamePrefix) && key !== cacheName).map((key) => caches.delete(key)));
