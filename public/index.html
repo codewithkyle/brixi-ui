@@ -19,11 +19,11 @@
                         } else {
                             delete self.manifest.assets;
                         }
-                        registration.active.postMessage({
-                            data: self.manifest,
-                        });
+                        registration.active.postMessage(self.manifest);
                     } catch (e) {
-                        console.error(e);
+                        registration.active.postMessage({
+                            version: localStorage.getItem("version") || "init",
+                        });
                     }
                 });
             }
