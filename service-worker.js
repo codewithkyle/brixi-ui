@@ -6,6 +6,10 @@ self.importScripts("./service-worker-assets.js?t=" + Date.now());
 let cacheNamePrefix = "resource-cache";
 let cacheName = `${cacheNamePrefix}-${self.manifest.version}`;
 
+self.manifest.assets.push("/navigation.json");
+self.manifest.asset.push("/");
+self.manifest.asset.push("/404");
+
 // Cache files when the service worker is installed or updated
 async function onInstall(event) {
     self.skipWaiting();
@@ -19,7 +23,11 @@ async function onActivate(event) {
 
 // Try to respond with cached files
 async function onFetch(event) {
-    if (event.request.method === "GET" && event.request.url.indexOf(self.origin) === 0) {
+    if (event.request.mode === "navigate") {
+        const cache = await caches.open(cacheName);
+        const cachedResponse = await cache.match("index.html");
+        return cachedResponse;
+    } else if (event.request.method === "GET" && event.request.url.indexOf(self.origin) === 0) {
         const cache = await caches.open(cacheName);
         const cachedResponse = await cache.match(event.request);
         if (cachedResponse) {
