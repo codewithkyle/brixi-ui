@@ -2,9 +2,8 @@ self.addEventListener("install", (event) => event.waitUntil(onInstall(event)));
 self.addEventListener("activate", (event) => event.waitUntil(onActivate(event)));
 self.addEventListener("fetch", (event) => event.respondWith(onFetch(event)));
 
-self.importScripts("/service-worker-assets.js");
 let cacheNamePrefix = "resource-cache";
-let cacheName = `${cacheNamePrefix}-${self.manifest.version}`;
+let cacheName = "";
 
 // Cache files when the service worker is installed or updated
 async function onInstall(event) {

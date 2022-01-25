@@ -12,10 +12,14 @@
             if (location.origin.indexOf("localhost") === -1 && "serviceWorker" in navigator) {
                 navigator.serviceWorker.register("/service-worker.js", { scope: "/" });
                 navigator.serviceWorker.ready.then(async (registration) => {
-                    await import("/service-worker-assets.js?t=" + Date.now());
-                    if (self.manifest.version !== localStorage.getItem("version")) {
-                        registration.active.postMessage(self.manifest);
-                        localStorage.setItem("version", self.manifest.version);
+                    try {
+                        await import("/service-worker-assets.js?t=" + Date.now());
+                        if (self.manifest.version !== localStorage.getItem("version")) {
+                            registration.active.postMessage(self.manifest);
+                            localStorage.setItem("version", self.manifest.version);
+                        }
+                    } catch (e) {
+                        console.error(e);
                     }
                 });
             }
