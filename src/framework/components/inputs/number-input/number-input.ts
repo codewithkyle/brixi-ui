@@ -16,7 +16,7 @@ export interface NumberInputSettings extends InputSettings {
 export default class NumberInput extends Input {
     override model: INumberInput;
 
-    constructor(settings: InputSettings) {
+    constructor(settings: NumberInputSettings) {
         super(settings);
         this.state = settings?.disabled ? "DISABLED" : "IDLING";
         this.stateMachine = {
