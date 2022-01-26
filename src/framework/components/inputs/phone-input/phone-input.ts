@@ -39,6 +39,7 @@ export default class PhoneInput extends Input {
             class: "",
             callback: noop,
             attributes: {},
+            datalist: [],
         };
         this.model = parseDataset<IInput>(this.dataset, this.model);
         env.css("input").then(() => {

@@ -54,6 +54,7 @@ export default class NumberInput extends Input {
             class: "",
             callback: noop,
             attributes: {},
+            datalist: [],
         };
         this.model = parseDataset<INumberInput>(this.dataset, this.model);
         env.css("input").then(() => {

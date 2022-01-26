@@ -75,6 +75,7 @@ export default class DateInput extends Input {
             callback: noop,
             attributes: {},
             prevValue: null,
+            datalist: [],
         };
         this.model = parseDataset<IDateInput>(this.dataset, this.model);
         env.css(["input", "flatpickr"]).then(() => {

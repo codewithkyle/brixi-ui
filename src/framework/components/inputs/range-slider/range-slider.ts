@@ -45,6 +45,7 @@ export default class RangeSlider extends Input {
             class: "",
             callback: noop,
             attributes: {},
+            datalist: [],
         };
         this.model = parseDataset<IRangeSlider>(this.dataset, this.model);
         env.css(["range-slider"]).then(() => {
