@@ -8,6 +8,7 @@ type ButtonKind = "solid" | "outline" | "text";
 type ButtonColor = "primary" | "black" | "white" | "grey" | "success" | "warning" | "danger" | "info";
 type ButtonShape = "pill" | "round" | "sharp" | "default";
 type ButtonSize = "default" | "slim" | "large";
+type ButtonType = "submit" | "button" | "reset";
 
 export interface IButton {
     label: string;
@@ -25,6 +26,7 @@ export interface IButton {
         [name: string]: string | number;
     };
     disabled: boolean;
+    type: ButtonType;
 }
 export interface ButtonSettings {
     label?: string;
@@ -42,6 +44,7 @@ export interface ButtonSettings {
         [name: string]: string | number;
     };
     disabled?: boolean;
+    type?: ButtonType;
 }
 export default class Button extends SuperComponent<IButton> {
     constructor(settings: ButtonSettings) {
@@ -60,6 +63,7 @@ export default class Button extends SuperComponent<IButton> {
             class: "",
             attributes: {},
             disabled: false,
+            type: "button",
         };
         this.model = parseDataset<IButton>(this.dataset, this.model);
         const classes = ["button"];
@@ -146,6 +150,7 @@ export default class Button extends SuperComponent<IButton> {
         this.setAttribute("size", this.model.size);
         this.setAttribute("kind", this.model.kind);
         this.setAttribute("shape", this.model.shape);
+        this.setAttribute("type", this.model.type);
         if (this.model.icon.length) {
             this.setAttribute("icon", this.model.iconPosition);
         }
