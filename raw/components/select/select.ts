@@ -146,7 +146,7 @@ export default class Select extends SuperComponent<ISelect> {
     private handleChange: EventListener = (e: Event) => {
         const target = e.currentTarget as HTMLSelectElement;
         const index = parseInt(target.value);
-        const value = this.model.options[index];
+        const value = this.model.options[index].value;
         this.update({
             selected: index,
             value: value,
@@ -155,12 +155,12 @@ export default class Select extends SuperComponent<ISelect> {
         this.model.callback(value);
     };
 
-    public getName() {
+    public getName(): string {
         return this.model.name;
     }
 
-    public getValue() {
-        this.model.value;
+    public getValue(): any {
+        return this.model.value;
     }
 
     public handleBlur: EventListener = (e: Event) => {

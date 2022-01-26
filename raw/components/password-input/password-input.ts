@@ -45,6 +45,7 @@ export default class PasswordInput extends Input {
             class: "",
             callback: noop,
             attributes: {},
+            datalist: [],
         };
         this.model = parseDataset<IPasswordInput>(this.dataset, this.model);
         env.css("input").then(() => {

@@ -1,4 +1,4 @@
-import { html, render } from "lit-html";
+import { html, render, TemplateResult } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~brixi/controllers/env";
@@ -26,6 +26,7 @@ export interface IInput {
     attributes: {
         [name: string]: string | number;
     };
+    datalist: string[];
 }
 export interface InputSettings {
     label?: string;
@@ -47,6 +48,7 @@ export interface InputSettings {
     attributes?: {
         [name: string]: string | number;
     };
+    datalist?: string[];
 }
 export default class Input extends SuperComponent<IInput> {
     constructor(settings: InputSettings) {
@@ -84,6 +86,7 @@ export default class Input extends SuperComponent<IInput> {
             css: "",
             class: "",
             attributes: {},
+            datalist: [],
         };
         this.model = parseDataset<IInput>(this.dataset, this.model);
         env.css("input").then(() => {
@@ -187,6 +190,22 @@ export default class Input extends SuperComponent<IInput> {
         return output;
     }
 
+    private renderDatalist(id: string): TemplateResult | string {
+        let out;
+        if (this.model.datalist.length) {
+            out = html`
+                <datalist id="${id}-datalist">
+                    ${this.model.datalist.map((item) => {
+                        return html` <option value="${item}"></option> `;
+                    })}
+                </datalist>
+            `;
+        } else {
+            out = "";
+        }
+        return out;
+    }
+
     render() {
         const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${this.model.name}`;
         const view = html`
@@ -207,8 +226,10 @@ export default class Input extends SuperComponent<IInput> {
                     autocomplete="${this.model.autocomplete}"
                     ?required=${this.model.required}
                     ?disabled=${this.model.disabled}
+                    list="${this.model.datalist.length ? `${id}-datalist` : ""}"
                 />
             </input-container>
+            ${this.renderDatalist(id)}
         `;
         this.setAttribute("state", this.state);
         this.className = `input js-input ${this.model.class}`;
