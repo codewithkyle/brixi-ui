@@ -2,14 +2,14 @@
     import Component from "/js/download-button.js";
     const example = new Component({
         color: "primary",
-        label: "Download image",
+        label: "Download file",
         icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>`,
-        url: "https://file-examples-com.github.io/uploads/2017/10/file-example_PDF_1MB.pdf",
+        url: "/static/example.zip",
         callback: (blob) => {
             if (blob !== null) {
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement("a");
-                a.download = "example-download.pdf";
+                a.download = "example.zip";
                 a.href = url;
                 a.target = "_blank";
                 a.click();

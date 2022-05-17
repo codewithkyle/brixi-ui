@@ -1,6 +1,6 @@
 
 self.manifest = {
-    "version": "c53522e2ccb7b34021b01119982ffd34",
+    "version": "3ce7257d1239d14db38c9a0d0286b1e8",
     "assets": [
 		"/js/accordion.js",
 		"/js/alert.js",
@@ -119,6 +119,7 @@ self.manifest = {
 		"/audio/warning.wav",
 		"/static/avatar.png",
 		"/static/brixi-ui-card.png",
+		"/static/example.zip",
 		"/static/favicon.png",
 		"/static/favicon.svg",
 		"/static/logo.png",

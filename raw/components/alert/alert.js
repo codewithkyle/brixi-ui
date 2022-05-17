@@ -1,4 +1,4 @@
-import{html as t,render as n}from"./lit-html.js";import o from"./supercomponent.js";import l from"./env.js";import a from"./button.js";import{noop as c,parseDataset as d}from"./general.js";class r extends o{constructor(e){super();this.handleClose=e=>{this.model.closeCallback(),this.remove()};this.model={type:"info",heading:null,description:null,list:[],closeable:!1,actions:[],closeCallback:c,css:"",class:"",attributes:{}},this.model=d(this.dataset,this.model),l.css(["alert"]).then(()=>{this.set(e,!0),this.render()})}renderIcon(){switch(this.model.type){case"danger":return t` <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+import{html as t,render as n}from"./lit-html.js";import o from"./supercomponent.js";import i from"./env.js";import a from"./button.js";import{noop as c,parseDataset as d}from"./general.js";class r extends o{constructor(e){super();this.handleClose=e=>{this.model.closeCallback(),this.remove()};this.model={type:"info",heading:null,description:null,list:[],closeable:!1,actions:[],closeCallback:c,css:"",class:"",attributes:{}},this.model=d(this.dataset,this.model),i.css(["alert"]).then(()=>{this.set(e,!0),this.render()})}renderIcon(){switch(this.model.type){case"danger":return t` <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path
                         fill-rule="evenodd"
                         d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
@@ -34,8 +34,8 @@ import{html as t,render as n}from"./lit-html.js";import o from"./supercomponent.
                 </ul>
             `:e="",e}renderActions(){let e;if(this.model.actions.length){let s=this.model.type;e=t`
                 <div class="actions">
-                    ${this.model.actions.map((i,u)=>t`
-                            ${new a({label:i.label,kind:"text",color:s,callback:i.callback})}
+                    ${this.model.actions.map((l,m)=>t`
+                            ${new a({label:l.label,kind:"text",color:s,callback:l.callback})}
                         `)}
                 </div>
             `}else e="";return e}render(){this.style.cssText=this.model.css,this.className=this.model.class,Object.keys(this.model.attributes).map(s=>{this.setAttribute(s,`${this.model.attributes[s]}`)});const e=t`
@@ -45,4 +45,4 @@ import{html as t,render as n}from"./lit-html.js";import o from"./supercomponent.
                 ${this.model.heading?t`<h3>${this.model.heading}</h3>`:""} ${this.model.description?t`<p>${this.model.description}</p>`:""} ${this.renderList()}
                 ${this.renderActions()}
             </div>
-        `;this.setAttribute("kind",this.model.type),!this.model.heading&&!this.model.list.length&&this.setAttribute("flex","items-center"),n(e,this)}}l.mount("alert-component",r);export{r as default};
+        `;this.setAttribute("kind",this.model.type),!this.model.heading&&!this.model.list.length&&this.setAttribute("flex","items-center"),n(e,this)}}i.mount("alert-component",r);export{r as default};

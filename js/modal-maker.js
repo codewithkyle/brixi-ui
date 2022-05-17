@@ -1,4 +1,4 @@
-var h=()=>{},o=class extends HTMLElement{constructor(s=h){super();this.close=()=>{this.reject(),this.remove()},this.reject=s}connected(){}connectedCallback(){this.closeButton=this.querySelector(".close"),this.closeButton.addEventListener("click",this.close),document.activeElement.blur(),this.closeButton.focus(),this.backdrop=this.querySelector(".backdrop"),this.backdrop.addEventListener("click",this.close),this.connected()}},a=class extends o{constructor(s,e,i){super(i);this.confirm=()=>{this.resolve(),this.remove()},this.cancel=()=>{this.reject(),this.remove()},this.settings=s,this.resolve=e,this.render()}render(){this.className=this.settings.className,this.innerHTML=`
+var h=()=>{},o=class extends HTMLElement{constructor(s=h){super(),this.close=()=>{this.reject(),this.remove()},this.reject=s}connected(){}connectedCallback(){this.closeButton=this.querySelector(".close"),this.closeButton.addEventListener("click",this.close),document.activeElement.blur(),this.closeButton.focus(),this.backdrop=this.querySelector(".backdrop"),this.backdrop.addEventListener("click",this.close),this.connected()}},a=class extends o{constructor(s,e,i){super(i),this.confirm=()=>{this.resolve(),this.remove()},this.cancel=()=>{this.reject(),this.remove()},this.settings=s,this.resolve=e,this.render()}render(){this.className=this.settings.className,this.innerHTML=`
 			<div class="backdrop"></div>
 			<div class="modal" size="${this.settings.size}">
 				<h1>${this.settings.heading}</h1>
@@ -17,7 +17,7 @@ var h=()=>{},o=class extends HTMLElement{constructor(s=h){super();this.close=()=
 					</svg>
 				</button>
 			</div>
-		`}connected(){this.confirmButton=this.querySelector(".confirm"),this.confirmButton.addEventListener("click",this.confirm),this.cancelButton=this.querySelector(".cancel"),this.cancelButton.addEventListener("click",this.cancel)}},l=class extends o{constructor(s,e,i){super(i);this.submit=n=>{n.preventDefault(),this.settings.form.checkValidity()?(this.resolve(new FormData(this.settings.form)),this.remove()):this.settings.form.reportValidity()},this.settings=s,this.resolve=e,this.render()}render(){this.className=this.settings.className,this.innerHTML=`
+		`}connected(){this.confirmButton=this.querySelector(".confirm"),this.confirmButton.addEventListener("click",this.confirm),this.cancelButton=this.querySelector(".cancel"),this.cancelButton.addEventListener("click",this.cancel)}},l=class extends o{constructor(s,e,i){super(i),this.submit=n=>{n.preventDefault(),this.settings.form.checkValidity()?(this.resolve(new FormData(this.settings.form)),this.remove()):this.settings.form.reportValidity()},this.settings=s,this.resolve=e,this.render()}render(){this.className=this.settings.className,this.innerHTML=`
 			<div class="backdrop"></div>
 			<div class="modal" size="${this.settings.size}">
 				${this.settings.heading?.length?`<h1>${this.settings.heading}</h1>`:""}
@@ -29,7 +29,7 @@ var h=()=>{},o=class extends HTMLElement{constructor(s=h){super();this.close=()=
 					</svg>
 				</button>
 			</div>
-		`}connected(){this.settings.form instanceof HTMLFormElement&&(this.form=this.querySelector(".form"),this.form.appendChild(this.settings.form),this.settings.form.addEventListener("submit",this.submit))}},r=class extends o{constructor(s){super();this.settings=s,this.render()}render(){this.className=this.settings.className,this.innerHTML=`
+		`}connected(){this.settings.form instanceof HTMLFormElement&&(this.form=this.querySelector(".form"),this.form.appendChild(this.settings.form),this.settings.form.addEventListener("submit",this.submit))}},r=class extends o{constructor(s){super(),this.settings=s,this.render()}render(){this.className=this.settings.className,this.innerHTML=`
 			<div class="backdrop"></div>
 			<div class="modal" size="${this.settings.size}">
 				<h1>${this.settings.heading}</h1>
@@ -40,7 +40,7 @@ var h=()=>{},o=class extends HTMLElement{constructor(s=h){super();this.close=()=
 					</svg>
 				</button>
 			</div>
-		`}},c=class extends o{constructor(s){super();this.settings=s,this.render()}render(){this.className=this.settings.className,this.innerHTML=`
+		`}},c=class extends o{constructor(s){super(),this.settings=s,this.render()}render(){this.className=this.settings.className,this.innerHTML=`
 			<div class="backdrop"></div>
 			<div class="modal" size="${this.settings.size}">
 				${this.settings.heading?.length?`<h1>${this.settings.heading}</h1>`:""}

@@ -64,7 +64,7 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
             options: {
                 method: "GET",
             },
-            workerURL: "/file-download-worker.js",
+            workerURL: "/js/file-download-worker.js",
         };
         this.model = parseDataset<IDownloadButton>(this.dataset, this.model);
         env.css(["button", "download-button"]).then(() => {
