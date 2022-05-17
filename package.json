@@ -30,7 +30,7 @@
         "lint:tsc": "tsc",
         "lint:types": "node ./build/types.js",
         "build": "run-s build:*",
-        "build:js": "twist --src=./src --outdir=./public/js",
+        "build:js": "twist --src=./src --outdir=./public/js --type=esbuild",
         "build:css": "cssmonster",
         "watch": "run-p watch:*",
         "watch:src": "npm-watch",
@@ -76,11 +76,12 @@
         "@codewithkyle/pubsub": "1.x",
         "@codewithkyle/router": "1.x",
         "@codewithkyle/supercomponent": "1.x",
-        "@codewithkyle/twist": "^1.5.1",
+        "@codewithkyle/twist": "^2.0.2",
         "@codewithkyle/uuid": "1.x",
         "brixi": "0.6.x",
         "cssmonster": "^0.5.0",
         "dayjs": "1.x",
+        "esbuild": "^0.14.39",
         "esinstall": "^1.1.7",
         "express": "^4.17.2",
         "flatpickr": "4.x",
@@ -119,6 +120,13 @@
                 "src"
             ],
             "extensions": "ts,js,scss,css,tsx,jsx,mjs,cjs",
+            "quiet": false
+        },
+        "deploy:iframes": {
+            "patterns": [
+                "src"
+            ],
+            "extensions": "html",
             "quiet": false
         }
     }
