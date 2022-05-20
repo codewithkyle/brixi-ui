@@ -24,6 +24,9 @@ jobs:
             - name: Verify
               run: npm run lint:tsc
 
+            - name: Compile
+              run: npm run prerelease
+
             - name: Deploy
               run: npm run deploy
               env:
