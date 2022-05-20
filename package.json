@@ -47,7 +47,8 @@
         "deploy:raw": "node ./build/raw-generator.js",
         "deploy:nav": "node ./build/navigation-generator.js",
         "deploy:cachebust": "asset-manager",
-        "deploy:site": "node ./build/deploy.js"
+        "deploy:site": "node ./build/deploy.js",
+        "deploy:zip": "node ./build/zip.js"
     },
     "dependencies": {
         "fs-extra": "^10.0.0",
@@ -78,6 +79,7 @@
         "@codewithkyle/supercomponent": "1.x",
         "@codewithkyle/twist": "^2.0.2",
         "@codewithkyle/uuid": "1.x",
+        "archiver": "^5.3.1",
         "brixi": "0.6.x",
         "cssmonster": "^0.5.0",
         "dayjs": "1.x",
