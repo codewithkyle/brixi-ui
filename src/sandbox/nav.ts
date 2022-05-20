@@ -205,6 +205,7 @@ export default class Nav extends SuperComponent<NavData> {
                             kind="text"
                             color="grey"
                             icon="center"
+                            download="brixi-ui.zip"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
