@@ -120,6 +120,7 @@ import a from"./supercomponent.js";import{message as i}from"./messaging.js";impo
                             kind="text"
                             color="grey"
                             icon="center"
+                            download="brixi-ui.zip"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
