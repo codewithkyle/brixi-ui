@@ -48,7 +48,7 @@
         "deploy:nav": "node ./build/navigation-generator.js",
         "deploy:cachebust": "asset-manager",
         "deploy:site": "node ./build/deploy.js",
-        "deploy:zip": "node ./build/zip.js"
+        "deploy:zip": "node ./build/zip.js && mv ./brixi-ui.zip ./public/static"
     },
     "dependencies": {
         "fs-extra": "^10.0.0",
