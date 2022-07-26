@@ -106,7 +106,6 @@
         "@codewithkyle/modal-maker": "1.x",
         "@codewithkyle/notifyjs": "3.x",
         "@codewithkyle/pubsub": "1.x",
-        "@codewithkyle/router": "1.x",
         "@codewithkyle/supercomponent": "1.x",
         "@codewithkyle/uuid": "1.x",
         "brixi": "0.6.x",
