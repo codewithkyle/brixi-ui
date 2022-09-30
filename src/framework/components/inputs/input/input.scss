@@ -87,11 +87,10 @@
         flex-flow: row nowrap;
         width: 100%;
         border-radius: 0.375rem;
-        overflow: hidden;
         border: 1px solid var(--grey-200);
         background-color: var(--white);
-        box-shadow: var(--light-bevel);
         transition: all 80ms var(--ease-in-out);
+        box-shadow: var(--input-bevel);
 
         &:focus-within {
             border-color: var(--primary-500);
@@ -144,6 +143,7 @@
         border-right: 1px solid var(--grey-200);
         z-index: 2;
         transition: all 80ms var(--ease-in-out);
+        border-radius: 0.375rem 0 0 0.375rem;
 
         svg {
             width: 18px;
