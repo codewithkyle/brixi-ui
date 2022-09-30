@@ -9,6 +9,7 @@ export interface IRangeSlider extends IInput {
     max: number;
     step: number;
     manual: boolean;
+    value: number;
 }
 export interface RangeSliderSettings extends InputSettings {
     min: number;
@@ -19,6 +20,7 @@ export interface RangeSliderSettings extends InputSettings {
 }
 export default class RangeSlider extends Input {
     override model: IRangeSlider;
+    private fillPercentage: number;
 
     constructor(settings: RangeSliderSettings) {
         super(settings);
@@ -48,11 +50,11 @@ export default class RangeSlider extends Input {
             datalist: [],
         };
         this.model = parseDataset<IRangeSlider>(this.dataset, this.model);
+        this.fillPercentage = calcPercent(this.model.value, this.model.max);
         env.css(["range-slider"]).then(() => {
             this.set(settings, true);
             this.render();
         });
-        this.style.setProperty("--track-fill", `${calcPercent(settings?.value ?? 0, settings.max)}%`);
     }
 
     override handleInput: EventListener = (e: Event) => {
@@ -66,8 +68,7 @@ export default class RangeSlider extends Input {
         } else if (newValue > this.model.max) {
             newValue = this.model.max;
         }
-        const percent = calcPercent(newValue, this.model.max);
-        this.style.setProperty("--track-fill", `${percent}%`);
+        this.fillPercentage = calcPercent(newValue, this.model.max);
         this.update({
             value: newValue,
         });
@@ -85,8 +86,7 @@ export default class RangeSlider extends Input {
         } else if (newValue > this.model.max) {
             newValue = this.model.max;
         }
-        const percent = calcPercent(newValue, this.model.max);
-        this.style.setProperty("--track-fill", `${percent}%`);
+        this.fillPercentage = calcPercent(newValue, this.model.max);
         this.update({
             value: newValue,
         });
@@ -144,6 +144,7 @@ export default class RangeSlider extends Input {
         this.setAttribute("state", this.state);
         this.className = `js-input ${this.model.class}`;
         this.style.cssText = this.model.css;
+        this.style.setProperty("--track-fill", `${this.fillPercentage}%`);
         Object.keys(this.model.attributes).map((key) => {
             this.setAttribute(key, `${this.model.attributes[key]}`);
         });
