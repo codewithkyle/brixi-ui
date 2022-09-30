@@ -306,7 +306,7 @@
             }
 
             &[icon="center"] {
-                color: var(--grey-400);
+                color: var(--grey-600);
 
                 &:hover,
                 &:focus-visible,
@@ -493,7 +493,12 @@
         }
     }
 
-    &[kind="outline"] {
+    &[kind="dashed"] {
+        border-style: dashed;
+    }
+
+    &[kind="outline"],
+    &[kind="dashed"] {
         background: transparent;
 
         &::before {
@@ -502,7 +507,7 @@
 
         &[color="grey"] {
             color: var(--grey-800);
-            border-color: var(--grey-700);
+            border-color: var(--grey-300);
 
             &::before {
                 background-color: var(--grey-500);
