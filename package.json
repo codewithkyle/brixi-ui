@@ -1,6 +1,6 @@
 {
     "name": "brixi-ui",
-    "version": "0.4.7",
+    "version": "0.5.0",
     "homepage": "https://ui.brixi.dev/",
     "description": "A sleek & slender design system built on web components.",
     "author": "Kyle Andrews <codingwithkyle@gmail.com>",
@@ -30,6 +30,7 @@
         "lint:tsc": "tsc",
         "lint:types": "node ./build/types.js",
         "build": "run-s build:*",
+        "build:nav": "node ./build/navigation-generator.js",
         "build:js": "twist --src=./src --outdir=./public/js --type=esbuild",
         "build:css": "cssmonster",
         "watch": "run-p watch:*",
@@ -65,7 +66,7 @@
         "tooltipper",
         "flatpickr",
         "lit-html",
-        "lit-html/directives/unsafe-html",
+        "lit-html/directives/unsafe-html.js",
         "dayjs",
         "fuse.js/dist/fuse.basic.esm.js"
     ],
@@ -92,7 +93,7 @@
         "glob": "^7.1.7",
         "husky": "^6.0.0",
         "inquirer": "^8.1.1",
-        "lit-html": "1.x",
+        "lit-html": "^2.3.1",
         "npm-run-all": "^4.1.5",
         "npm-watch": "^0.9.0",
         "prettier": "^2.5.1",
@@ -112,7 +113,7 @@
         "dayjs": "1.x",
         "flatpickr": "4.x",
         "fuse.js": "6.x",
-        "lit-html": "1.x",
+        "lit-html": "2.x",
         "tooltipper": "1.x"
     },
     "watch": {

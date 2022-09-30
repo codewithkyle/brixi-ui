@@ -20,7 +20,7 @@ class Tooltipper {
     };
     this.showTooltip = (e) => {
       const el = e.target;
-      if (!(el instanceof HTMLElement) || el?.getAttribute("tooltip") === null || e instanceof TouchEvent || e instanceof FocusEvent && this.deviceType !== 1) {
+      if (!(el instanceof HTMLElement) || el?.getAttribute("tooltip") === null || typeof TouchEvent !== "undefined" && e instanceof TouchEvent || e instanceof FocusEvent && this.deviceType !== 1) {
         return;
       }
       let text = el.getAttribute("tooltip");
@@ -51,9 +51,6 @@ class Tooltipper {
       tooltip.classList.add("visible");
       tooltip.style.opacity = "1";
       if (!(el.dataset.tooltipUid in this.trackedElements)) {
-        this.observer.observe(el, {
-          attributes: true
-        });
         this.trackedElements[el.dataset.tooltipUid] = null;
       }
     };
@@ -81,27 +78,30 @@ class Tooltipper {
     document.addEventListener("mousemove", () => {
       this.deviceType = 1;
     }, { capture: true, passive: true });
-    this.observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.type === "attributes") {
-          if (mutation.attributeName === "tooltip" || mutation.attributeName === "aria-label") {
-            const el = mutation.target;
-            let text = el.getAttribute("tooltip");
-            if (!text.length) {
-              text = el.getAttribute("aria-label");
-            }
-            if (!text.length) {
-              text = el.getAttribute("title");
-            }
-            const tooltip = document.body.querySelector(`tool-tip[uid="${el.dataset.tooltipUid}"]`);
-            if (tooltip) {
-              tooltip.innerHTML = text;
-              this.placeTooltip(el, tooltip);
-            }
-          }
+    this.tick();
+  }
+  tick() {
+    for (const uid in this.trackedElements) {
+      const el = document.body.querySelector(`[data-tooltip-uid="${uid}"]`);
+      const tooltip = document.body.querySelector(`tool-tip[uid="${uid}"]`);
+      if (el == null) {
+        delete this.trackedElements[uid];
+        if (tooltip) {
+          tooltip.remove();
         }
-      });
-    });
+      } else {
+        let text = el.getAttribute("tooltip");
+        if (!text.length) {
+          text = el.getAttribute("aria-label");
+        }
+        if (!text.length) {
+          text = el.getAttribute("title");
+        }
+        tooltip.innerHTML = text;
+        this.placeTooltip(el, tooltip);
+      }
+    }
+    window.requestAnimationFrame(this.tick.bind(this));
   }
   placeTooltip(el, tooltip) {
     const elBounds = el.getBoundingClientRect();

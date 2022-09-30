@@ -140,11 +140,6 @@ class ToastComponent extends HTMLElement {
 
 class Notifier {
     constructor() {
-        this.shell = document.body.querySelector("toaster-component");
-        if (this.shell === null) {
-            this.shell = document.createElement("toaster-component");
-            document.body.appendChild(this.shell);
-        }
         this.snackbarQueue = [];
         this.toaster = [];
         this.time = performance.now();
@@ -245,7 +240,7 @@ class Notifier {
         if (!Array.isArray(toast.classes)) {
             toast.classes = [toast.classes];
         }
-        if (toast.duration !== Infinity && toast.timer === "vertical" || toast.timer === "horizontal") {
+        if ((toast.duration !== Infinity && toast.timer === "vertical") || toast.timer === "horizontal") {
             toast.timerDuration = toast.duration;
         }
         toast.el = new ToastComponent(toast);
@@ -253,10 +248,19 @@ class Notifier {
             toast.timerEl = toast.el.querySelector("toast-timer");
         }
         this.toaster.push(toast);
-        this.shell.appendChild(toast.el);
+        const shell = this.getShell();
+        shell.appendChild(toast.el);
+    }
+    getShell() {
+        const shell = document.body.querySelector("toaster-component") || document.createElement("toaster-component");
+        if (!shell.isConnected) {
+            document.body.appendChild(shell);
+        }
+        return shell;
     }
     append(el) {
-        this.shell.appendChild(el);
+        const shell = this.getShell();
+        shell.appendChild(el);
     }
 }
 

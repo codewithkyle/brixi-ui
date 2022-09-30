@@ -1,45 +1,16 @@
-import { directive, NodePart, isPrimitive } from '../../lit-html.js';
+import { nothing as b, noChange as x } from '../../lit-html.js';
 
 /**
  * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
  */
-// For each part, remember the value that was last rendered to the part by the
-// unsafeHTML directive, and the DocumentFragment that was last set as a value.
-// The DocumentFragment is used as a unique key to check if the last value
-// rendered to the part was with unsafeHTML. If not, we'll always re-render the
-// value passed to unsafeHTML.
-const previousValues = new WeakMap();
-/**
- * Renders the result as HTML, rather than text.
- *
- * Note, this is unsafe to use with any user-provided input that hasn't been
- * sanitized or escaped, as it may lead to cross-site-scripting
- * vulnerabilities.
- */
-const unsafeHTML = directive((value) => (part) => {
-    if (!(part instanceof NodePart)) {
-        throw new Error('unsafeHTML can only be used in text bindings');
-    }
-    const previousValue = previousValues.get(part);
-    if (previousValue !== undefined && isPrimitive(value) &&
-        value === previousValue.value && part.value === previousValue.fragment) {
-        return;
-    }
-    const template = document.createElement('template');
-    template.innerHTML = value; // innerHTML casts to string internally
-    const fragment = document.importNode(template.content, true);
-    part.setValue(fragment);
-    previousValues.set(part, { value, fragment });
-});
+const t={ATTRIBUTE:1,CHILD:2,PROPERTY:3,BOOLEAN_ATTRIBUTE:4,EVENT:5,ELEMENT:6},e=t=>(...e)=>({_$litDirective$:t,values:e});class i{constructor(t){}get _$AU(){return this._$AM._$AU}_$AT(t,e,i){this._$Ct=t,this._$AM=e,this._$Ci=i;}_$AS(t,e){return this.update(t,e)}update(t,e){return this.render(...e)}}
 
-export { unsafeHTML };
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */class e$1 extends i{constructor(i){if(super(i),this.it=b,i.type!==t.CHILD)throw Error(this.constructor.directiveName+"() can only be used in child bindings")}render(r){if(r===b||null==r)return this._t=void 0,this.it=r;if(r===x)return r;if("string"!=typeof r)throw Error(this.constructor.directiveName+"() called with a non-string value");if(r===this.it)return this._t;this.it=r;const s=[r];return s.raw=s,this._t={_$litType$:this.constructor.resultType,strings:s,values:[]}}}e$1.directiveName="unsafeHTML",e$1.resultType=1;const o=e(e$1);
+
+export { e$1 as UnsafeHTMLDirective, o as unsafeHTML };

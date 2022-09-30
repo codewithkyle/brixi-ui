@@ -297,7 +297,9 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
 
     public renderIcon() {
         let output;
-        if (this.model.icon) {
+        if (this.model.icon instanceof HTMLElement) {
+            output = html` <i class="icon"> ${this.model.icon} </i> `;
+        } else if (typeof this.model.icon === "string") {
             output = html` <i class="icon"> ${unsafeHTML(this.model.icon)} </i> `;
         } else {
             output = "";
