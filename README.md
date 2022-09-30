@@ -13,7 +13,7 @@ npm i -D brixi-ui
 Install peer dependencies.
 
 ```
-npm i -D flatpickr@4 fuse.js@6 tooltipper@1 @codewithkyle/modal-make@1 @codewithkyle/notifyjs@3 @codewithkyle/pubsub@1 @codewithkyle/router@1 @codewithkyle/supercomponent@1 @codewithkyle/uuid@1 brixi@latest dayjs@1 lit-html@1
+npm i -D flatpickr@4 fuse.js@6 tooltipper@1 @codewithkyle/modal-make@1 @codewithkyle/notifyjs@3 @codewithkyle/pubsub@1 @codewithkyle/router@1 @codewithkyle/supercomponent@1 @codewithkyle/uuid@1 brixi@latest dayjs@1 lit-html@2
 ```
 
 Create the install scripts.
@@ -135,6 +135,7 @@ module.exports = {
         "focus-ring": "inset 0 0 0 2px var(--white), 0 0 0 1px var(--black)",
         bevel: "inset 0 -1px 1px hsl(0deg 0% 50% / 0.5), 0 0px 1px hsl(0deg 0% 50% / 0.25), 0 1px 1px hsl(0deg 0% 50% / 0.25)",
         "light-bevel": "0 1px 0 hsl(0deg 0% 50% / 0.1), inset 0 -1px 1px hsl(0deg 0% 50% / 0.15)",
+        "input-bevel": "0 1px 0 hsl(0deg 0% 50% / 0.1)",
         "primary-opaque-hover": "rgba(14,165,233,0.05)",
         "primary-opaque-active": "rgba(14,165,233,0.1)",
     },
