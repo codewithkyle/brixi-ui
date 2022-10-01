@@ -3,8 +3,9 @@ tabs-component {
     overflow-x: auto;
     overflow-y: hidden;
     height: 36px;
-    display: block;
-    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    flex-flow: row nowrap;
 
     tabs-container {
         white-space: nowrap;

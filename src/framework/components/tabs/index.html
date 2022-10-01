@@ -2,6 +2,10 @@
     import Component from "/js/tabs.js";
     const example = new Component({
         sortable: true,
+        expandable: true,
+        addCallback: (label, value) => {
+            console.log(label, value);
+        },
         tabs: [
             {
                 label: "List",

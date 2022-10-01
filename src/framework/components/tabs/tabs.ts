@@ -4,6 +4,8 @@ import env from "~brixi/controllers/env";
 import { noop, parseDataset } from "~brixi/utils/general";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import Sortable from "sortablejs";
+import Button from "~brixi/components/buttons/button/button";
+import { UUID } from "@codewithkyle/uuid";
 
 export interface ITab {
     label: string;
@@ -13,6 +15,9 @@ export interface ITab {
 export interface ITabs {
     tabs: Array<ITab>;
     callback: (tab: string | number) => void;
+    sortCallback: (values: Array<string | number>) => void;
+    addCallback: (label: string, value: string) => void;
+    removeCallback: (value: string | number) => void;
     active: number;
     css: string;
     class: string;
@@ -20,16 +25,23 @@ export interface ITabs {
         [name: string]: string | number;
     };
     sortable: boolean;
+    expandable: boolean;
+    shrinkable: boolean;
 }
 export interface TabsSettings {
     tabs: Array<ITab>;
     callback: (tab: string | number) => void;
+    sortCallback?: (values: Array<string | number>) => void;
+    addCallback?: (label: string, value: string) => void;
+    removeCallback?: (value: string | number) => void;
     css?: string;
     class?: string;
     attributes?: {
         [name: string]: string | number;
     };
     sortable?: boolean;
+    expandable?: boolean;
+    shrinkable?: boolean;
 }
 export default class Tabs extends SuperComponent<ITabs> {
     constructor(settings: TabsSettings) {
@@ -42,9 +54,14 @@ export default class Tabs extends SuperComponent<ITabs> {
             class: "",
             attributes: {},
             sortable: false,
+            sortCallback: noop,
+            addCallback: noop,
+            removeCallback: noop,
+            expandable: false,
+            shrinkable: false,
         };
         this.model = parseDataset<ITabs>(this.dataset, this.model);
-        env.css(["tabs"]).then(() => {
+        env.css(["tabs", "button"]).then(() => {
             this.set(settings, true);
             this.render();
         });
@@ -81,7 +98,49 @@ export default class Tabs extends SuperComponent<ITabs> {
 
     private sort() {
         const tabsContainer = this.querySelector("tabs-container");
-        Sortable.create(tabsContainer);
+        Sortable.create(tabsContainer, {
+            onUpdate: (e) => {
+                const updated = this.get();
+                const temp = updated.tabs.splice(e.oldIndex, 1)[0];
+                updated.tabs.splice(e.newIndex, 0, temp);
+                updated.active = e.newIndex;
+                this.set(updated, true);
+                const values = this.getOrder();
+                this.model.sortCallback(values);
+            },
+        });
+    }
+
+    private addTab() {
+        const label = window.prompt("New Tab Label");
+        if (label != null && label.trim() !== "") {
+            const value = UUID();
+            this.model.addCallback(label.trim(), value);
+            const tab: ITab = {
+                label: label,
+                value: value,
+            };
+            const updated = this.get();
+            updated.tabs.push(tab);
+            this.set(updated);
+        }
+    }
+
+    private renderAddButton() {
+        let out;
+        if (this.model.expandable) {
+            out = new Button({
+                kind: "text",
+                color: "grey",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>`,
+                iconPosition: "center",
+                shape: "round",
+                callback: this.addTab.bind(this),
+            });
+        } else {
+            out = "";
+        }
+        return out;
     }
 
     override render() {
@@ -98,6 +157,7 @@ export default class Tabs extends SuperComponent<ITabs> {
                     return new Tab(tab, this, isActive, index);
                 })}
             </tabs-container>
+            ${this.renderAddButton()}
         `;
         render(view, this);
         if (this.model.sortable) {
