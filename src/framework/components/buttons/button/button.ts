@@ -166,4 +166,4 @@ export default class Button extends SuperComponent<IButton> {
         render(view, this);
     }
 }
-env.mount("button-component", Button);
+env.bind("button-component", Button);
