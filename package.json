@@ -68,7 +68,11 @@
         "lit-html",
         "lit-html/directives/unsafe-html.js",
         "dayjs",
-        "fuse.js/dist/fuse.basic.esm.js"
+        {
+            "in": "fuse.js/dist/fuse.basic.esm.js",
+            "out": "fuse.js"
+        },
+        "sortablejs"
     ],
     "devDependencies": {
         "@codewithkyle/asset-manager": "1.x",
@@ -99,6 +103,7 @@
         "prettier": "^2.5.1",
         "sass": "^1.45.1",
         "serve": "^13.0.2",
+        "sortablejs": "^1.15.0",
         "tooltipper": "1.x",
         "typescript": "^4.5.4"
     },
@@ -114,7 +119,8 @@
         "flatpickr": "4.x",
         "fuse.js": "6.x",
         "lit-html": "2.x",
-        "tooltipper": "1.x"
+        "tooltipper": "1.x",
+        "sortablejs": "1.x"
     },
     "watch": {
         "build": {
