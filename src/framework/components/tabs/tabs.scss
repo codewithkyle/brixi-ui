@@ -10,7 +10,9 @@ tabs-component {
     tabs-container {
         white-space: nowrap;
         height: 36px;
-        display: inline-block;
+        display: inline-flex;
+        flex-flow: row nowrap;
+        align-items: end;
     }
 
     tab-component {
@@ -69,6 +71,37 @@ tabs-component {
             svg {
                 width: 14px;
                 height: 14px;
+            }
+        }
+
+        button {
+            margin-left: 0.25rem;
+            margin-right: -0.25rem;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            border-radius: 50%;
+            background-color: transparent;
+            color: var(--grey-500);
+            transition: all 80ms ease-in-out;
+            width: 24px;
+            height: 24px;
+            overflow: hidden;
+
+            &:hover,
+            &:focus-visible {
+                color: var(--danger-700);
+                background-color: var(--danger-50);
+            }
+
+            &:active {
+                background-color: var(--danger-100);
+            }
+
+            svg {
+                width: 12px;
+                height: 12px;
             }
         }
     }

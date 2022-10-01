@@ -100,11 +100,6 @@ export default class Tabs extends SuperComponent<ITabs> {
         const tabsContainer = this.querySelector("tabs-container");
         Sortable.create(tabsContainer, {
             onUpdate: (e) => {
-                const updated = this.get();
-                const temp = updated.tabs.splice(e.oldIndex, 1)[0];
-                updated.tabs.splice(e.newIndex, 0, temp);
-                updated.active = e.newIndex;
-                this.set(updated, true);
                 const values = this.getOrder();
                 this.model.sortCallback(values);
             },
@@ -122,7 +117,33 @@ export default class Tabs extends SuperComponent<ITabs> {
             };
             const updated = this.get();
             updated.tabs.push(tab);
-            this.set(updated);
+            this.set(updated, true);
+            const tabEl = new Tab(tab, this, true, updated.tabs.length - 1, this.model.shrinkable);
+            const tabsContainer = this.querySelector("tabs-container");
+            tabsContainer.appendChild(tabEl);
+            this.sort();
+            this.callback(value, updated.tabs.length - 1);
+            this.resetIndexes();
+        }
+    }
+
+    public resetIndexes() {
+        this.querySelectorAll("tab-component").forEach((tab: Tab, index) => {
+            tab.index = index;
+        });
+    }
+
+    public removeTab(value: string | number, index: number) {
+        const updated = this.get();
+        updated.tabs.splice(index, 1);
+        if (updated.active === index) {
+            updated.active = 0;
+        }
+        this.set(updated, true);
+        this.resetIndexes();
+        this.model.removeCallback(value);
+        if (updated.tabs.length) {
+            this.callback(updated.tabs[0].value, 0);
         }
     }
 
@@ -144,7 +165,6 @@ export default class Tabs extends SuperComponent<ITabs> {
     }
 
     override render() {
-        console.log(this.model);
         this.className = this.model.class;
         this.style.cssText = this.model.css;
         Object.keys(this.model.attributes).map((key) => {
@@ -154,7 +174,7 @@ export default class Tabs extends SuperComponent<ITabs> {
             <tabs-container>
                 ${this.model.tabs.map((tab, index) => {
                     const isActive = index === this.model.active;
-                    return new Tab(tab, this, isActive, index);
+                    return html`${new Tab(tab, this, isActive, index, this.model.shrinkable)}`;
                 })}
             </tabs-container>
             ${this.renderAddButton()}
@@ -169,13 +189,15 @@ class Tab extends SuperComponent<ITab> {
     private isActive: boolean;
     private parent: Tabs;
     public index: number;
+    private shrinkable: boolean;
 
-    constructor(tab: ITab, parent: Tabs, active: boolean, index: number) {
+    constructor(tab: ITab, parent: Tabs, active: boolean, index: number, shrinkable: boolean) {
         super();
         this.model = tab;
         this.isActive = active;
         this.parent = parent;
         this.index = index;
+        this.shrinkable = shrinkable;
         this.render();
     }
 
@@ -195,8 +217,36 @@ class Tab extends SuperComponent<ITab> {
         return out;
     }
 
+    private removeTab = (e: Event) => {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        const confirmed = window.confirm(`Are you sure you want to delete '${this.model.label}'?`);
+        if (confirmed) {
+            this.remove();
+            this.parent.removeTab(this.model.value, this.index);
+        }
+    };
+
+    private renderRemoveButton() {
+        let out;
+        if (this.shrinkable) {
+            out = html`
+                <button type="button" @click=${this.removeTab} aria-label="Delete ${this.model.label}">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            `;
+        } else {
+            out = "";
+        }
+        return out;
+    }
+
     override render() {
-        const view = html` ${this.renderIcon()} ${this.model.label} `;
+        const view = html` ${this.renderIcon()} ${this.model.label} ${this.renderRemoveButton()}`;
         this.tabIndex = 0;
         this.setAttribute("sfx", "button");
         this.className = this.isActive ? "is-active" : "";

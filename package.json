@@ -119,8 +119,8 @@
         "flatpickr": "4.x",
         "fuse.js": "6.x",
         "lit-html": "2.x",
-        "tooltipper": "1.x",
-        "sortablejs": "1.x"
+        "sortablejs": "1.x",
+        "tooltipper": "1.x"
     },
     "watch": {
         "build": {
