@@ -8,13 +8,16 @@
         "moduleResolution": "Node",
         "baseUrl": "src/framework",
         "paths": {
-            "~brixi/*": ["*"],
+            "~brixi/*": ["*"]
         },
         "declaration": true,
         "emitDeclarationOnly": true,
-        "outDir": "_types",
+        "outDir": "_types"
     },
     "include": [
-        "src",
+        "src"
+    ],
+    "exclude": [
+        "src/framework/lib"
     ]
 }

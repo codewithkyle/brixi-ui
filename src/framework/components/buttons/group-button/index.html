@@ -1,0 +1,28 @@
+<script type="module">
+    import Component from "/js/group-button.js";
+    const example = new Component({
+        kind: "solid",
+        color: "white",
+        buttons: [
+            {
+                label: "Example 1",
+                callback: ()=>{
+                    console.log("Example 1 clicked");
+                },
+            },
+            {
+                label: "Example 2",
+                callback: ()=>{
+                    console.log("Example 2 clicked");
+                },
+            },
+            {
+                label: "Example 3",
+                callback: ()=>{
+                    console.log("Example 3 clicked");
+                },
+            },
+        ],
+    });
+    document.body.appendChild(example);
+</script>

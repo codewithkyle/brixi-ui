@@ -1,0 +1,12 @@
+<script type="module">
+    import Component from "/js/color-input.js";
+    const example = new Component({
+        name: "demo",
+        label: "Background Color",
+        value: "32a87f",
+        callback: (name, value) => {
+            console.log(name, value);
+        },
+    });
+    document.body.appendChild(example);
+</script>

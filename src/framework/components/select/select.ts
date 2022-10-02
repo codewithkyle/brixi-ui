@@ -107,7 +107,9 @@ export default class Select extends SuperComponent<ISelect> {
 
     public renderIcon() {
         let output;
-        if (this.model.icon) {
+        if (this.model.icon instanceof HTMLElement) {
+            output = html` <i class="icon"> ${this.model.icon} </i> `;
+        } else if (typeof this.model.icon === "string" && this.model.icon.length) {
             output = html` <i class="icon"> ${unsafeHTML(this.model.icon)} </i> `;
         } else {
             output = "";

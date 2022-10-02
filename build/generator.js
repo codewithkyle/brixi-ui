@@ -18,7 +18,7 @@ async function getDirectories(basePath) {
 
 function renderIndex(name) {
     return `<script type="module">
-    import Component from "/${name.toKebabCase()}.js";
+    import Component from "/js/${name.toKebabCase()}.js";
     const example = new Component({
 
     });
@@ -30,7 +30,7 @@ function renderIndex(name) {
 function renderTypescript(name, tagName) {
     return `import { html, render } from "lit-html";
 import SuperComponent from "@codewithkyle/supercomponent";
-import env from "~controllers/env";
+import env from "~brixi/controllers/env";
 import { parseDataset } from "~brixi/utils/general";
 
 export interface I${name.toPascalCase()} {
@@ -74,7 +74,7 @@ export default class ${name.toPascalCase()} extends SuperComponent<I${name.toPas
         render(view, this);
     }
 }
-env.mount("${tagName}", ${name.toPascalCase()});
+env.bind("${tagName}", ${name.toPascalCase()});
 `;
 }
 
