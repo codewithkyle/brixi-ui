@@ -13,7 +13,7 @@ export interface ITextarea {
     required: boolean;
     autocomplete: string;
     placeholder: string;
-    value: string | number;
+    value: string;
     maxlength: number;
     minlength: number;
     disabled: boolean;
@@ -33,7 +33,7 @@ export interface TextareaSettings {
     instructions?: string;
     autocomplete?: string;
     placeholder?: string;
-    value?: string | number;
+    value?: string;
     maxlength?: number;
     minlength?: number;
     disabled?: boolean;
@@ -72,7 +72,7 @@ export default class Textarea extends SuperComponent<ITextarea> {
             autocomplete: "off",
             placeholder: "",
             value: "",
-            maxlength: 9999,
+            maxlength: Infinity,
             minlength: 0,
             disabled: false,
             readOnly: false,
@@ -172,6 +172,16 @@ export default class Textarea extends SuperComponent<ITextarea> {
         return output;
     }
 
+    public renderCounter() {
+        let out;
+        if (this.model.maxlength === Infinity) {
+            out = "";
+        } else {
+            out = html` <span class="counter"> ${this.model.value.length}/${this.model.maxlength} </span> `;
+        }
+        return out;
+    }
+
     render() {
         const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${this.model.name}`;
         const view = html`
@@ -182,7 +192,7 @@ export default class Textarea extends SuperComponent<ITextarea> {
                 placeholder="${this.model.placeholder}"
                 autocomplete="${this.model.autocomplete}"
                 rows="${this.model.rows}"
-                maxlength="${this.model.maxlength}"
+                maxlength="${this.model.maxlength !== Infinity ? this.model.maxlength : 9999}"
                 minlength="${this.model.minlength}"
                 name="${this.model.name}"
                 id="${id}"
@@ -190,6 +200,7 @@ export default class Textarea extends SuperComponent<ITextarea> {
                 ?required=${this.model.required}
                 ?disabled=${this.model.disabled}
             ></textarea>
+            ${this.renderCounter()}
         `;
         this.setAttribute("state", this.state);
         this.className = `textarea js-input ${this.model.class}`;

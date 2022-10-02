@@ -98,7 +98,7 @@
         overflow: hidden;
         border: 1px solid var(--grey-200);
         background-color: var(--white);
-        box-shadow: var(--light-bevel);
+        box-shadow: var(--input-bevel);
         transition: all 80ms var(--ease-in-out);
 
         &:focus-within {

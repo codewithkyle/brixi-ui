@@ -16,6 +16,7 @@ export interface IToggleButton {
     attributes: {
         [name: string]: string | number;
     };
+    index: number;
 }
 export interface ToggleButtonSettings {
     state: string;
@@ -29,6 +30,7 @@ export interface ToggleButtonSettings {
     attributes?: {
         [name: string]: string | number;
     };
+    index?: number;
 }
 export default class ToggleButton extends SuperComponent<IToggleButton> {
     constructor(settings: IToggleButton) {
@@ -41,6 +43,7 @@ export default class ToggleButton extends SuperComponent<IToggleButton> {
             css: "",
             class: "",
             attributes: {},
+            index: 0,
         };
         this.model = parseDataset<IToggleButton>(this.dataset, this.model);
         env.css(["toggle-button", "button"]).then(() => {
@@ -50,22 +53,20 @@ export default class ToggleButton extends SuperComponent<IToggleButton> {
     }
 
     private handleClick: EventListener = (e: Event) => {
-        for (let i = 0; i < this.model.states.length; i++) {
-            if (this.model.state === this.model.states[i]) {
-                let next = i + 1;
-                if (next >= this.model.states.length) {
-                    next = 0;
-                }
-                this.update({
-                    state: this.model.states[next],
-                });
-                break;
-            }
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        this.model.buttons[this.model.states[this.model.index]].callback();
+        const updated = this.get();
+        updated.index++;
+        if (updated.index >= updated.states.length) {
+            updated.index = 0;
         }
+        updated.state = updated.states[updated.index];
+        this.update(updated);
     };
 
     override connected() {
-        this.addEventListener("click", this.handleClick);
+        this.addEventListener("click", this.handleClick, { passive: false, capture: true });
     }
 
     private renderButton() {

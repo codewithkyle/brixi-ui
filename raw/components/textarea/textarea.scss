@@ -38,10 +38,18 @@
         transition: all 80ms var(--ease-in-out);
     }
 
+    .counter {
+        position: absolute;
+        bottom: 0.25rem;
+        right: 0.75rem;
+        font-size: 10px;
+        color: var(--grey-400);
+    }
+
     textarea {
         display: block;
         width: 100%;
-        padding: 0.25rem 0.5rem;
+        padding: 0.25rem 0.5rem 1rem;
         color: var(--grey-800);
         overflow-y: auto;
         border: 1px solid var(--grey-200);
@@ -50,7 +58,7 @@
         border-radius: 0.375rem;
         transition: border-color 80ms var(--ease-in-out), box-shadow 80ms var(--ease-in-out);
         background-color: var(--white);
-        box-shadow: var(--light-bevel);
+        box-shadow: var(--input-bevel);
         resize: vertical;
 
         &:only-child {

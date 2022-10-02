@@ -20,7 +20,9 @@
     <script type="module" src="/js/tabs.js"></script>
 </head>
 <body>
-    <script type="module">
+    <div class="w-full block mb-2 border-b-solid border-b-grey-200 border-b-1" id="example1"></div>
+<div class="w-full block mb-2 border-b-solid border-b-grey-200 border-b-1" id="example2"></div>
+<script type="module">
     import Component from "/js/tabs.js";
     const example = new Component({
         tabs: [
@@ -43,10 +45,47 @@
             },
         ],
         callback: (tab) => {
-            console.log(tab);
+            console.log("Switched", tab);
         },
     });
-    document.body.appendChild(example);
+    document.body.querySelector("#example1").appendChild(example);
+    const example2 = new Component({
+        sortable: true,
+        expandable: true,
+        shrinkable: true,
+        addCallback: (label, value) => {
+            console.log("Add", label, value);
+        },
+        sortCallback: (values) => {
+            console.log(values);
+        },
+        removeCallback: (value) => {
+            console.log("Removed", value);
+        },
+        tabs: [
+            {
+                label: "List",
+                value: "list",
+            },
+            {
+                label: "Board",
+                value: "board",
+            },
+            {
+                label: "Calendar",
+                value: "calendar",
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>`,
+            },
+            {
+                label: "Files",
+                value: "files",
+            },
+        ],
+        callback: (tab) => {
+            console.log("Switched", tab);
+        },
+    });
+    document.body.querySelector("#example2").appendChild(example2);
 </script>
 
 </body>
