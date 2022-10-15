@@ -1,0 +1,10 @@
+<script type="module">
+    import Component from "/js/pagination.js";
+    const example = new Component({
+        totalPages: 10,
+        callback: (p) => {
+            console.log("Showing page:", p);
+        }
+    });
+    document.body.appendChild(example);
+</script>
