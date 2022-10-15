@@ -21,6 +21,7 @@ export interface IChips {
     attributes: {
         [name: string]: string | number;
     };
+    kind: "outline";
 }
 export interface ChipsSettings {
     chips: Array<Chip>;
@@ -31,6 +32,7 @@ export interface ChipsSettings {
     attributes?: {
         [name: string]: string | number;
     };
+    kind?: "outline" | "text";
 }
 
 export default class Chips extends SuperComponent<IChips> {
@@ -44,12 +46,14 @@ export default class Chips extends SuperComponent<IChips> {
             class: "",
             css: "",
             attributes: {},
+            kind: "outline",
         };
         this.model = parseDataset<IChips>(this.dataset, this.model);
         for (const chip of settings?.chips) {
             this.model.chipStates[chip.name] = false;
         }
         env.css(["chips"]).then(() => {
+            // @ts-ignore
             this.set(settings, true);
             this.render();
         });
@@ -95,7 +99,7 @@ export default class Chips extends SuperComponent<IChips> {
             updated.chips.splice(index, 1);
             this.model.callback(chipName);
         }
-        this.update(updated);
+        this.set(updated);
     };
 
     /**
@@ -104,7 +108,7 @@ export default class Chips extends SuperComponent<IChips> {
     public addChip(chip: Chip): void {
         const updated = { ...this.model };
         updated.chips.push(chip);
-        this.update(updated);
+        this.set(updated);
     }
 
     /**
@@ -113,7 +117,7 @@ export default class Chips extends SuperComponent<IChips> {
     public removeChip(index: number): void {
         const updated = { ...this.model };
         updated.chips.splice(index, 1);
-        this.update(updated);
+        this.set(updated);
     }
 
     override render() {
@@ -124,7 +128,7 @@ export default class Chips extends SuperComponent<IChips> {
         });
         const view = html`
             ${this.model.chips.map((chip, index) => {
-                let kind = "outline";
+                let kind: string = this.model.kind;
                 if (this.model.chipStates[chip.name]) {
                     kind = "solid";
                 }
