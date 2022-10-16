@@ -1,6 +1,6 @@
 
 self.manifest = {
-    "version": "6dab9a2fddb5c42f40bc761600c45967",
+    "version": "d3f31e9aec11445978c5c0ca6b287ea6",
     "assets": [
 		"/js/accordion.js",
 		"/js/alert.js",
@@ -41,6 +41,7 @@ self.manifest = {
 		"/js/number-input.js",
 		"/js/numpy.js",
 		"/js/overflow-menu.js",
+		"/js/pagination.js",
 		"/js/password-input.js",
 		"/js/phone-input.js",
 		"/js/progress-badge.js",
@@ -95,6 +96,7 @@ self.manifest = {
 		"/css/multi-select.css",
 		"/css/normalize.css",
 		"/css/overflow-menu.css",
+		"/css/pagination.css",
 		"/css/progress-badge.css",
 		"/css/progress-indicator.css",
 		"/css/progress-label.css",
@@ -244,6 +246,11 @@ self.manifest = {
 		"/raw/components/overflow-menu/overflow-menu.js",
 		"/raw/components/overflow-menu/overflow-menu.scss",
 		"/raw/components/overflow-menu/overflow-menu.ts",
+		"/raw/components/pagination/pagination.css",
+		"/raw/components/pagination/pagination.html",
+		"/raw/components/pagination/pagination.js",
+		"/raw/components/pagination/pagination.scss",
+		"/raw/components/pagination/pagination.ts",
 		"/raw/components/password-input/password-input.html",
 		"/raw/components/password-input/password-input.js",
 		"/raw/components/password-input/password-input.ts",
@@ -366,6 +373,7 @@ self.manifest = {
 		"/components/multi-select/index.html",
 		"/components/number-input/index.html",
 		"/components/overflow-menu/index.html",
+		"/components/pagination/index.html",
 		"/components/password-input/index.html",
 		"/components/phone-input/index.html",
 		"/components/progress-badge/index.html",
