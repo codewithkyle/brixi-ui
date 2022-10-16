@@ -10,7 +10,6 @@ export interface IPagination {
     attributes: {
         [name: string]: string | number;
     };
-    itemsPerPage: number;
     totalPages: number;
     callback: (pageOffset: number) => void;
     activePage: number;
@@ -21,7 +20,6 @@ export interface PaginationSettings {
     attributes?: {
         [name: string]: string | number;
     };
-    itemsPerPage: number;
     totalPages: number;
     callback: (pageOffset: number) => void;
     activePage?: number;
@@ -33,13 +31,12 @@ export default class Pagination extends SuperComponent<IPagination> {
             css: "",
             class: "",
             attributes: {},
-            itemsPerPage: 0,
             totalPages: 0,
             callback: noop,
             activePage: 1,
         };
         this.model = parseDataset<IPagination>(this.dataset, this.model);
-        env.css(["pagination", "buttons"]).then(() => {
+        env.css(["pagination", "button"]).then(() => {
             this.set(settings, true);
             this.render();
         });
