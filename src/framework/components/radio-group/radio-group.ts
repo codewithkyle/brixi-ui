@@ -3,6 +3,7 @@ import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~brixi/controllers/env";
 import Radio, { RadioSettings } from "~brixi/components/radio/radio";
 import { parseDataset } from "~brixi/utils/general";
+import { unsafeHTML } from "lit-html/directives/unsafe-html";
 
 export interface IRadioGroup {
     options: Array<RadioSettings>;
@@ -65,7 +66,7 @@ export default class RadioGroup extends SuperComponent<IRadioGroup> {
         const view = html`
             <p>
                 <strong>${this.model.label}</strong>
-                ${this.model.instructions}
+                ${unsafeHTML(this.model.instructions)}
             </p>
             ${this.model.options.map((option) => {
                 return new Radio(option);

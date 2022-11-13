@@ -153,7 +153,7 @@ export default class Textarea extends SuperComponent<ITextarea> {
     public renderCopy() {
         let output;
         if (this.state === "IDLING" && this.model.instructions) {
-            output = html`<p>${this.model.instructions}</p>`;
+            output = html`<p>${unsafeHTML(this.model.instructions)}</p>`;
         } else if (this.state === "ERROR" && this.model.error) {
             output = html`<p class="font-danger-700">${this.model.error}</p>`;
         } else {
