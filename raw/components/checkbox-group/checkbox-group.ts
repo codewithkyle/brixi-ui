@@ -3,6 +3,7 @@ import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~brixi/controllers/env";
 import Checkbox, { CheckboxSettings } from "~brixi/components/checkbox/checkbox";
 import { parseDataset } from "~brixi/utils/general";
+import { unsafeHTML } from "lit-html/directives/unsafe-html";
 
 export interface ICheckboxGroup {
     options: Array<CheckboxSettings>;
@@ -68,7 +69,7 @@ export default class CheckboxGroup extends SuperComponent<ICheckboxGroup> {
         const view = html`
             <p>
                 <strong>${this.model.label}</strong>
-                ${this.model.instructions}
+                ${unsafeHTML(this.model.instructions)}
             </p>
             ${this.model.options.map((option) => {
                 return new Checkbox(option);

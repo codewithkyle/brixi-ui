@@ -1,6 +1,6 @@
 
 self.manifest = {
-    "version": "d3f31e9aec11445978c5c0ca6b287ea6",
+    "version": "ac11e86f423c67a54938996e7acb23ed",
     "assets": [
 		"/js/accordion.js",
 		"/js/alert.js",

@@ -25,13 +25,14 @@
     const test = new Input({
         label: "Example",
         required: true,
-        instructions: "This is an example input.",
+        instructions: 'This is an <a class="link" href="https://example.com" target="_blank">example</a> input.',
         placeholder: "Send a message to our support team...",
         rows: 3,
         maxlength: 250,
     });
     document.body.appendChild(test);
 </script>
+<link href="/css/link.css" rel="stylesheet" />
 
 </body>
 </html>
