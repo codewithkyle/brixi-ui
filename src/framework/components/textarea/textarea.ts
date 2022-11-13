@@ -199,7 +199,9 @@ export default class Textarea extends SuperComponent<ITextarea> {
                 ?readonly=${this.model.readOnly}
                 ?required=${this.model.required}
                 ?disabled=${this.model.disabled}
-            ></textarea>
+            >
+${this.model.value}</textarea
+            >
             ${this.renderCounter()}
         `;
         this.setAttribute("state", this.state);
