@@ -18,7 +18,7 @@ export default class Resizer extends HTMLElement {
         let clientX;
         if (e instanceof MouseEvent) {
             clientX = e.clientX;
-        } else if (e instanceof TouchEvent) {
+        } else if (window.TouchEvent && e instanceof TouchEvent) {
             clientX = e.touches[0].clientX;
         }
         this.x = clientX;
@@ -30,7 +30,7 @@ export default class Resizer extends HTMLElement {
         let clientX;
         if (e instanceof MouseEvent) {
             clientX = e.clientX;
-        } else if (e instanceof TouchEvent) {
+        } else if (window.TouchEvent && e instanceof TouchEvent) {
             clientX = e.touches[0].clientX;
         }
         if (this.dragging) {

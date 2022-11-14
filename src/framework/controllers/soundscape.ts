@@ -143,7 +143,7 @@ class Soundscape {
     };
 
     private click: EventListener = (e: Event | TouchEvent) => {
-        if (e instanceof TouchEvent) {
+        if (window.TouchEvent && e instanceof TouchEvent) {
             this.hasTouched = true;
         }
         const target = e.target as HTMLElement;
