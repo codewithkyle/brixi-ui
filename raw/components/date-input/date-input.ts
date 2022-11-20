@@ -76,6 +76,7 @@ export default class DateInput extends Input {
             attributes: {},
             prevValue: null,
             datalist: [],
+            autofocus: false,
         };
         this.model = parseDataset<IDateInput>(this.dataset, this.model);
         env.css(["input", "flatpickr"]).then(() => {
@@ -145,6 +146,7 @@ export default class DateInput extends Input {
                     autocomplete="${this.model.autocomplete}"
                     ?required=${this.model.required}
                     ?disalbed=${this.model.disabled}
+                    ?autofocus=${this.model.autofocus}
                 />
             </input-container>
         `;

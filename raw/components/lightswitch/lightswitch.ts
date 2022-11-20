@@ -86,7 +86,7 @@ export default class Lightswitch extends SuperComponent<ILightswitch> {
     private renderText(text: string) {
         let out;
         if (text.length) {
-            out = html` <div>${this.model.altLabel}</div> `;
+            out = html` <div>${text}</div> `;
         } else {
             out = "";
         }

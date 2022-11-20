@@ -25,6 +25,7 @@ export interface ITextarea {
     attributes: {
         [name: string]: string | number;
     };
+    autofocus: boolean;
 }
 export interface TextareaSettings {
     label?: string;
@@ -45,6 +46,7 @@ export interface TextareaSettings {
     attributes?: {
         [name: string]: string | number;
     };
+    autofocus?: boolean;
 }
 export default class Textarea extends SuperComponent<ITextarea> {
     constructor(settings: TextareaSettings) {
@@ -81,6 +83,7 @@ export default class Textarea extends SuperComponent<ITextarea> {
             css: "",
             class: "",
             attributes: {},
+            autofocus: false,
         };
         this.model = parseDataset<ITextarea>(this.dataset, this.model);
         env.css("textarea").then(() => {
@@ -199,6 +202,7 @@ export default class Textarea extends SuperComponent<ITextarea> {
                 ?readonly=${this.model.readOnly}
                 ?required=${this.model.required}
                 ?disabled=${this.model.disabled}
+                ?autofocus=${this.model.autofocus}
             >
 ${this.model.value}</textarea
             >

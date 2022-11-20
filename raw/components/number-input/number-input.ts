@@ -55,6 +55,7 @@ export default class NumberInput extends Input {
             callback: noop,
             attributes: {},
             datalist: [],
+            autofocus: false,
         };
         this.model = parseDataset<INumberInput>(this.dataset, this.model);
         env.css("input").then(() => {
@@ -109,6 +110,7 @@ export default class NumberInput extends Input {
                     autocomplete="${this.model.autocomplete}"
                     ?required=${this.model.required}
                     ?disalbed=${this.model.disabled}
+                    ?autofocus=${this.model.autofocus}
                 />
             </input-container>
         `;
