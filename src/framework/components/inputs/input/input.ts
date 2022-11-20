@@ -27,6 +27,7 @@ export interface IInput {
         [name: string]: string | number;
     };
     datalist: string[];
+    autofocus: boolean;
 }
 export interface InputSettings {
     label?: string;
@@ -49,6 +50,7 @@ export interface InputSettings {
         [name: string]: string | number;
     };
     datalist?: string[];
+    autofocus?: boolean;
 }
 export default class Input extends SuperComponent<IInput> {
     constructor(settings: InputSettings) {
@@ -87,6 +89,7 @@ export default class Input extends SuperComponent<IInput> {
             class: "",
             attributes: {},
             datalist: [],
+            autofocus: false,
         };
         this.model = parseDataset<IInput>(this.dataset, this.model);
         env.css("input").then(() => {
@@ -227,6 +230,7 @@ export default class Input extends SuperComponent<IInput> {
                     ?required=${this.model.required}
                     ?disabled=${this.model.disabled}
                     list="${this.model.datalist.length ? `${id}-datalist` : ""}"
+                    ?autofocus=${this.model.autofocus}
                 />
             </input-container>
             ${this.renderDatalist(id)}

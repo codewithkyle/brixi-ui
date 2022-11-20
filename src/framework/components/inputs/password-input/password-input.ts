@@ -46,6 +46,7 @@ export default class PasswordInput extends Input {
             callback: noop,
             attributes: {},
             datalist: [],
+            autofocus: false,
         };
         this.model = parseDataset<IPasswordInput>(this.dataset, this.model);
         env.css("input").then(() => {
@@ -138,6 +139,7 @@ export default class PasswordInput extends Input {
                     autocomplete="${this.model.autocomplete}"
                     ?required=${this.model.required}
                     ?disalbed=${this.model.disabled}
+                    ?autofocus=${this.model.autofocus}
                 />
                 <button type="button" @click=${this.toggleVisibility} class="eye">${this.renderEyeIcon()}</button>
             </input-container>

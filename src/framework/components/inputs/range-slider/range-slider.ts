@@ -48,6 +48,7 @@ export default class RangeSlider extends Input {
             callback: noop,
             attributes: {},
             datalist: [],
+            autofocus: false,
         };
         this.model = parseDataset<IRangeSlider>(this.dataset, this.model);
         this.fillPercentage = calcPercent(this.model.value, this.model.max);
@@ -137,6 +138,7 @@ export default class RangeSlider extends Input {
                     name=${this.model.name}
                     ?required=${this.model.required}
                     ?disalbed=${this.model.disabled}
+                    ?autofocus=${this.model.autofocus}
                 />
                 ${this.renderManualInput()}
             </input-container>

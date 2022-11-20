@@ -40,6 +40,7 @@ export default class EmailInput extends Input {
             callback: noop,
             attributes: {},
             datalist: [],
+            autofocus: false,
         };
         this.model = parseDataset<IInput>(this.dataset, this.model);
         env.css("input").then(() => {
@@ -96,6 +97,7 @@ export default class EmailInput extends Input {
                     autocomplete="${this.model.autocomplete}"
                     ?required=${this.model.required}
                     ?disalbed=${this.model.disabled}
+                    ?autofocus=${this.model.autofocus}
                 />
             </input-container>
         `;
