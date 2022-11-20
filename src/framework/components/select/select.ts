@@ -27,6 +27,7 @@ export interface ISelect {
     attributes: {
         [name: string]: string | number;
     };
+    autofocus: boolean;
 }
 export interface SelectOptions {
     label?: string;
@@ -43,6 +44,7 @@ export interface SelectOptions {
         [name: string]: string | number;
     };
     value?: any;
+    autofocus?: boolean;
 }
 export default class Select extends SuperComponent<ISelect> {
     constructor(settings: SelectOptions) {
@@ -76,6 +78,7 @@ export default class Select extends SuperComponent<ISelect> {
             css: "",
             class: "",
             attributes: {},
+            autofocus: false,
         };
         this.model = parseDataset<ISelect>(this.dataset, this.model);
         for (let i = 0; i < this.model.options.length; i++) {
@@ -193,6 +196,7 @@ export default class Select extends SuperComponent<ISelect> {
                     name="${this.model.name}"
                     ?required=${this.model.required}
                     ?disabled=${this.model.disabled}
+                    ?autofocus=${this.model.autofocus}
                 >
                     ${this.model.options.map((option, index) => {
                         return html`<option value="${index}" ?selected=${this.model.selected === index}>${option.label}</option>`;
@@ -214,4 +218,4 @@ export default class Select extends SuperComponent<ISelect> {
         render(view, this);
     }
 }
-env.mount("select-component", Select);
+env.bind("select-component", Select);
