@@ -1,12 +1,14 @@
 import { snackbar, toast, append } from "@codewithkyle/notifyjs";
+import type { NotificationButton } from "@codewithkyle/notifyjs/types";
 import sound from "./soundscape";
 
 class Notifications {
-    public snackbar(message: string) {
+    public snackbar(message: string, buttons: Array<NotificationButton> = []) {
         snackbar({
             duration: 10,
             closeable: true,
             message: message,
+            buttons: buttons,
         });
         sound.snackbar();
     }
