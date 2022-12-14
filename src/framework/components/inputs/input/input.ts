@@ -13,7 +13,7 @@ export interface IInput {
     required: boolean;
     autocomplete: string;
     autocapitalize: "off" | "on";
-    icon: string;
+    icon: string | HTMLElement;
     placeholder: string;
     value: string | number;
     maxlength: number;
@@ -36,7 +36,7 @@ export interface InputSettings {
     instructions?: string;
     autocomplete?: string;
     autocapitalize?: "off" | "on";
-    icon?: string;
+    icon?: string | HTMLElement;
     placeholder?: string;
     value?: string | number;
     maxlength?: number;
@@ -98,17 +98,17 @@ export default class Input extends SuperComponent<IInput> {
         });
     }
 
-    public clearError() {
+    public clearError(): void {
         if (this.state === "ERROR") {
             this.trigger("RESET");
         }
     }
 
-    public setError(error: string, clearOnly: boolean) {
+    public setError(error: string, clearOnly: boolean): void {
         if (clearOnly) {
             return;
         }
-        this.update({
+        this.set({
             error: error,
         });
         this.trigger("ERROR");
@@ -154,47 +154,43 @@ export default class Input extends SuperComponent<IInput> {
 
     public handleInput: EventListener = (e: Event) => {
         const input = e.currentTarget as HTMLInputElement;
-        this.update({
+        this.set({
             value: input.value,
         });
         this.validate(input, true);
         this.model.callback(input.value);
     };
 
-    public renderCopy() {
-        let output;
+    public renderCopy(): string | TemplateResult {
+        let output: string | TemplateResult = "";
         if (this.state === "IDLING" && this.model.instructions) {
             output = html`<p>${unsafeHTML(this.model.instructions)}</p>`;
         } else if (this.state === "ERROR" && this.model.error) {
             output = html`<p class="font-danger-700">${this.model.error}</p>`;
-        } else {
-            output = "";
         }
         return output;
     }
 
-    public renderIcon() {
-        let output;
-        if (this.model.icon) {
-            output = html` <i> ${unsafeHTML(this.model.icon)} </i> `;
-        } else {
-            output = "";
+    public renderIcon(): string | TemplateResult {
+        let output: string | TemplateResult = "";
+        if (typeof this.model.icon === "string") {
+            output = html`<i>${unsafeHTML(this.model.icon)}</i>`;
+        } else if (this.model.icon instanceof HTMLElement) {
+            output = html`<i>${this.model.icon}</i>`;
         }
         return output;
     }
 
-    public renderLabel(id: string) {
-        let output;
+    public renderLabel(id: string): string | TemplateResult {
+        let output: string | TemplateResult = "";
         if (this.model.label?.length) {
             output = html`<label for="${id}">${this.model.label}</label>`;
-        } else {
-            output = "";
         }
         return output;
     }
 
-    private renderDatalist(id: string): TemplateResult | string {
-        let out;
+    private renderDatalist(id: string): string | TemplateResult {
+        let out: string | TemplateResult = "";
         if (this.model.datalist.length) {
             out = html`
                 <datalist id="${id}-datalist">
@@ -203,8 +199,6 @@ export default class Input extends SuperComponent<IInput> {
                     })}
                 </datalist>
             `;
-        } else {
-            out = "";
         }
         return out;
     }
@@ -244,4 +238,4 @@ export default class Input extends SuperComponent<IInput> {
         render(view, this);
     }
 }
-env.mount("input-component", Input);
+env.bind("input-component", Input);
