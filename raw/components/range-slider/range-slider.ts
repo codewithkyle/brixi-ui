@@ -1,4 +1,4 @@
-import { html, render } from "lit-html";
+import { html, render, TemplateResult } from "lit-html";
 import env from "~brixi/controllers/env";
 import { IInput, InputSettings, default as Input } from "../input/input";
 import { noop, parseDataset } from "~brixi/utils/general";
@@ -70,7 +70,7 @@ export default class RangeSlider extends Input {
             newValue = this.model.max;
         }
         this.fillPercentage = calcPercent(newValue, this.model.max);
-        this.update({
+        this.set({
             value: newValue,
         });
         this.model.callback(newValue);
@@ -88,7 +88,7 @@ export default class RangeSlider extends Input {
             newValue = this.model.max;
         }
         this.fillPercentage = calcPercent(newValue, this.model.max);
-        this.update({
+        this.set({
             value: newValue,
         });
     };
@@ -97,8 +97,8 @@ export default class RangeSlider extends Input {
         return true;
     }
 
-    private renderManualInput() {
-        let out;
+    private renderManualInput(): string | TemplateResult {
+        let out: string | TemplateResult = "";
         if (this.model.manual) {
             out = html`
                 <input
@@ -113,8 +113,6 @@ export default class RangeSlider extends Input {
                     .value=${this.model.value}
                 />
             `;
-        } else {
-            out = "";
         }
         return out;
     }
@@ -153,4 +151,4 @@ export default class RangeSlider extends Input {
         render(view, this);
     }
 }
-env.mount("range-slider", RangeSlider);
+env.bind("range-slider", RangeSlider);

@@ -64,7 +64,6 @@ export default class EmailInput extends Input {
                 isValid = false;
                 this.setError(`Invalid email format.`, clearOnly);
             } else if (this.model.minlength > input.value.length) {
-                console.log(input.value);
                 isValid = false;
                 this.setError(`This input requires a least ${this.model.minlength} characters.`, clearOnly);
             } else if (this.model.maxlength < input.value.length) {
@@ -110,4 +109,4 @@ export default class EmailInput extends Input {
         render(view, this);
     }
 }
-env.mount("email-input-component", EmailInput);
+env.bind("email-input-component", EmailInput);

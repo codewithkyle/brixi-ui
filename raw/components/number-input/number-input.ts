@@ -123,4 +123,4 @@ export default class NumberInput extends Input {
         render(view, this);
     }
 }
-env.mount("number-input-component", NumberInput);
+env.bind("number-input-component", NumberInput);

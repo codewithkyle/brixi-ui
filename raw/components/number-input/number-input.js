@@ -21,4 +21,4 @@ import{html as r,render as a}from"./lit-html.js";import s from"./env.js";import{
                     ?autofocus=${this.model.autofocus}
                 />
             </input-container>
-        `;this.setAttribute("state",this.state),this.className=`input js-input ${this.model.class}`,this.style.cssText=this.model.css,Object.keys(this.model.attributes).map(t=>{this.setAttribute(t,`${this.model.attributes[t]}`)}),a(i,this)}}s.mount("number-input-component",l);export{l as default};
+        `;this.setAttribute("state",this.state),this.className=`input js-input ${this.model.class}`,this.style.cssText=this.model.css,Object.keys(this.model.attributes).map(t=>{this.setAttribute(t,`${this.model.attributes[t]}`)}),a(i,this)}}s.bind("number-input-component",l);export{l as default};
