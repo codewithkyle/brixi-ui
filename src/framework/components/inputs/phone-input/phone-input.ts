@@ -82,7 +82,7 @@ export default class PhoneInput extends Input {
      * @see https://stackoverflow.com/a/8358141
      * @license https://creativecommons.org/licenses/by-sa/4.0/
      */
-    private formatPhoneNumber(phoneNumber: string) {
+    private formatPhoneNumber(phoneNumber: string): string {
         var cleaned = ("" + phoneNumber).replace(/\D/g, "");
         var match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/);
         if (match) {
@@ -95,14 +95,14 @@ export default class PhoneInput extends Input {
     override handleBlur: EventListener = (e: Event) => {
         const input = e.currentTarget as HTMLInputElement;
         const formattedValue = this.formatPhoneNumber(input.value);
-        this.update({
+        this.set({
             value: formattedValue,
         });
         this.validate(input);
     };
 
     private handleFocus: EventListener = (e: Event) => {
-        this.update({
+        this.set({
             value: this.model.value.toString().replace(/[\-\+\s\(\)]/g, ""),
         });
     };
@@ -140,4 +140,4 @@ export default class PhoneInput extends Input {
         render(view, this);
     }
 }
-env.mount("phone-input-component", PhoneInput);
+env.bind("phone-input-component", PhoneInput);
