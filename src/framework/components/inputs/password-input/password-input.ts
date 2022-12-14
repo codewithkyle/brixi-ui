@@ -1,4 +1,4 @@
-import { html, render } from "lit-html";
+import { html, render, TemplateResult } from "lit-html";
 import env from "~brixi/controllers/env";
 import { noop, parseDataset } from "~brixi/utils/general";
 import { IInput, InputSettings, default as Input } from "../input/input";
@@ -66,7 +66,6 @@ export default class PasswordInput extends Input {
         }
         if (this.model.required || (!this.model.required && input.value.length)) {
             if (this.model.minlength > input.value.length) {
-                console.log(input.value);
                 isValid = false;
                 this.setError(`This input requires a least ${this.model.minlength} characters.`, clearOnly);
             } else if (this.model.maxlength < input.value.length) {
@@ -83,13 +82,13 @@ export default class PasswordInput extends Input {
     private toggleVisibility: EventListener = (e: Event) => {
         switch (this.model.type) {
             case "password":
-                this.update({
+                this.set({
                     // @ts-ignore
                     type: "text",
                 });
                 break;
             case "text":
-                this.update({
+                this.set({
                     // @ts-ignore
                     type: "password",
                 });
@@ -97,7 +96,7 @@ export default class PasswordInput extends Input {
         }
     };
 
-    private renderEyeIcon() {
+    private renderEyeIcon(): TemplateResult {
         switch (this.model.type) {
             case "password":
                 return html`<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -153,4 +152,4 @@ export default class PasswordInput extends Input {
         render(view, this);
     }
 }
-env.mount("password-input-component", PasswordInput);
+env.bind("password-input-component", PasswordInput);
