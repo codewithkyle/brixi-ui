@@ -101,7 +101,7 @@ export default class DateInput extends Input {
 
     override handleInput: EventListener = (e: Event) => {
         const input = e.currentTarget as HTMLInputElement;
-        this.update({
+        this.set({
             // @ts-ignore
             prevValue: this.model.value.toString(),
             value: input.value,
@@ -124,7 +124,6 @@ export default class DateInput extends Input {
     };
 
     override render() {
-        // @ts-ignore
         if (this.model.mode === "range" && !this.firstRender) {
             return;
         }
@@ -173,4 +172,4 @@ export default class DateInput extends Input {
         this.firstRender = false;
     }
 }
-env.mount("date-input-component", DateInput);
+env.bind("date-input-component", DateInput);
