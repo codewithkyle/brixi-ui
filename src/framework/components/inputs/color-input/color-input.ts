@@ -50,7 +50,7 @@ export default class ColorInput extends SuperComponent<IColorInput> {
         });
     }
 
-    public validate() {
+    public validate(): boolean {
         return true;
     }
 
@@ -62,8 +62,8 @@ export default class ColorInput extends SuperComponent<IColorInput> {
         return this.model.value;
     }
 
-    private handleInput = (e) => {
-        const target = e.currentTarget;
+    private handleInput = (e: Event) => {
+        const target = e.currentTarget as HTMLInputElement;
         const value = target.value;
         this.set({
             value: value.substring(1),
