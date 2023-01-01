@@ -77,7 +77,7 @@ export default class SideNav extends SuperComponent<ISideNav> {
     }
 
     private inbox(path: string) {
-        this.update({
+        this.set({
             currentPage: path.replace(/^\//, "").toLowerCase(),
         });
     }
@@ -90,7 +90,7 @@ export default class SideNav extends SuperComponent<ISideNav> {
                 if (window.innerWidth <= 350) {
                     isOpen = false;
                 }
-                this.update({
+                this.set({
                     isOpen: isOpen,
                 });
             }, 300),
@@ -101,7 +101,7 @@ export default class SideNav extends SuperComponent<ISideNav> {
     private handleMenuClick: EventListener = (e: Event) => {
         const open = this.model.isOpen ? false : true;
         localStorage.setItem("side-nav-state", `${open}`);
-        this.update({
+        this.set({
             isOpen: open,
         });
     };

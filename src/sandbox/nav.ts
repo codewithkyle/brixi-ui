@@ -36,7 +36,7 @@ export default class Nav extends SuperComponent<NavData> {
             }),
         });
         const response = await request.json();
-        this.update({
+        this.set({
             navigation: response,
         });
         this.trigger("SUCCESS");
@@ -45,7 +45,7 @@ export default class Nav extends SuperComponent<NavData> {
     private navigate: EventListener = (e: Event) => {
         const target = e.currentTarget as HTMLElement;
         const slug = target.dataset.slug;
-        this.update({
+        this.set({
             active: slug,
         });
         window.history.replaceState(null, null, `/${slug}`);
@@ -245,7 +245,7 @@ export default class Nav extends SuperComponent<NavData> {
     connected() {
         this.fetchNavigation();
         const slug = location.pathname.replace(/^\//, "").trim();
-        this.update({
+        this.set({
             active: slug,
         });
     }

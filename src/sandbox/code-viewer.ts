@@ -54,7 +54,7 @@ export default class CodeViewer extends SuperComponent<CodeViewerData> {
                     update.sourceCode.sort((a, b) => {
                         return a.ext > b.ext;
                     });
-                    this.update(update);
+                    this.set(update);
                     this.trigger("SUCCESS");
                 }
             });
@@ -65,7 +65,7 @@ export default class CodeViewer extends SuperComponent<CodeViewerData> {
         const target = e.currentTarget as HTMLElement;
         const ext = target.dataset.ext;
         console.log(ext);
-        this.update({
+        this.set({
             activeExt: ext,
         });
     };

@@ -112,7 +112,7 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
         if (clearOnly) {
             return;
         }
-        this.update({
+        this.set({
             error: error,
         });
         this.trigger("ERROR");
@@ -199,7 +199,7 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
     }
 
     private updateQuery(value) {
-        this.update({
+        this.set({
             query: value,
         });
     }
@@ -241,7 +241,7 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
         } else {
             label.innerHTML = `${out.length} selected`;
         }
-        this.update(updatedModel, true);
+        this.set(updatedModel, true);
         this.model.callback(out);
     }
 
@@ -262,11 +262,11 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
         const masterCheckbox: Checkbox = this.querySelector(".js-master-checkbox");
         if (masterCheckbox) {
             if (out.length) {
-                masterCheckbox.update({
+                masterCheckbox.set({
                     checked: true,
                 });
             } else {
-                masterCheckbox.update({
+                masterCheckbox.set({
                     checked: false,
                 });
             }
@@ -279,7 +279,7 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
         } else {
             label.innerHTML = `${out.length} selected`;
         }
-        this.update(updatedModel, true);
+        this.set(updatedModel, true);
         this.model.callback(out);
     }
 

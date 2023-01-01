@@ -28,11 +28,11 @@ export default class DocViewer extends SuperComponent<DocViewerData> {
         if (request.ok) {
             const markdown = await request.text();
             const html = await renderMarkdown(markdown);
-            this.update({
+            this.set({
                 html: html,
             });
         } else {
-            this.update({
+            this.set({
                 html: `<p class="font-danger-700 absolute center">This component is missing documentation.</p>`,
             });
         }

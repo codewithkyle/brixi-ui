@@ -62,7 +62,7 @@ export default class Checkbox extends SuperComponent<ICheckbox> {
 
     private handleChange: EventListener = (e: Event) => {
         const target = e.currentTarget as HTMLInputElement;
-        this.update({
+        this.set({
             checked: target.checked,
         });
         this.model.callback(target.checked, target.name);

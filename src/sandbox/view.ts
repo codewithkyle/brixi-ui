@@ -47,7 +47,7 @@ export default class View extends SuperComponent<ViewData> {
     }
 
     private async load(component: string) {
-        this.update({
+        this.set({
             component: component,
             view: "demo",
         });
@@ -59,7 +59,7 @@ export default class View extends SuperComponent<ViewData> {
     private switchView: EventListener = (e: Event) => {
         const target = e.currentTarget as HTMLButtonElement;
         const view = target.dataset.view;
-        this.update({
+        this.set({
             // @ts-ignore
             view: view,
         });

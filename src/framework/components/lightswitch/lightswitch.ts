@@ -72,7 +72,7 @@ export default class Lightswitch extends SuperComponent<ILightswitch> {
 
     private handleChange: EventListener = (e: Event) => {
         const target = e.currentTarget as HTMLInputElement;
-        this.update({
+        this.set({
             enabled: target.checked,
         });
         this.model.callback(target.checked);
@@ -93,6 +93,24 @@ export default class Lightswitch extends SuperComponent<ILightswitch> {
         return out;
     }
 
+    private resize() {
+        const label: HTMLElement = this.querySelector("label");
+        const span1: HTMLElement = label.querySelector("span:first-of-type");
+        const span2: HTMLElement = label.querySelector("span:last-of-type");
+        const i = this.querySelector("i");
+        if (this.model.enabled) {
+            label.style.width = `${span1.scrollWidth + 23 + 16}px`;
+            span1.style.transform = `translateX(0)`;
+            span2.style.transform = `translateX(0)`;
+            i.style.transform = `translateX(0)`;
+        } else {
+            label.style.width = `${span2.scrollWidth + 23 + 18}px`;
+            span1.style.transform = `translateX(-${span1.scrollWidth + 8}px)`;
+            span2.style.transform = `translateX(-${span1.scrollWidth + 8}px)`;
+            i.style.transform = `translateX(-${span1.scrollWidth + 8}px)`;
+        }
+    }
+
     override render() {
         this.setAttribute("color", this.model.color);
         const id = `${this.model.altLabel.replace(/\s+/g, "-").trim()}-${this.model.name}-${this.model.label.replace(/\s+/g, "-").trim()}`;
@@ -110,26 +128,7 @@ export default class Lightswitch extends SuperComponent<ILightswitch> {
             this.setAttribute(key, `${this.model.attributes[key]}`);
         });
         render(view, this);
-    }
-
-    override updated() {
-        setTimeout(() => {
-            const label: HTMLElement = this.querySelector("label");
-            const span1: HTMLElement = label.querySelector("span:first-of-type");
-            const span2: HTMLElement = label.querySelector("span:last-of-type");
-            const i = this.querySelector("i");
-            if (this.model.enabled) {
-                label.style.width = `${span1.scrollWidth + 23 + 16}px`;
-                span1.style.transform = `translateX(0)`;
-                span2.style.transform = `translateX(0)`;
-                i.style.transform = `translateX(0)`;
-            } else {
-                label.style.width = `${span2.scrollWidth + 23 + 18}px`;
-                span1.style.transform = `translateX(-${span1.scrollWidth + 8}px)`;
-                span2.style.transform = `translateX(-${span1.scrollWidth + 8}px)`;
-                i.style.transform = `translateX(-${span1.scrollWidth + 8}px)`;
-            }
-        }, 60);
+        setTimeout(this.resize.bind(this), 80);
     }
 }
 env.mount("lightswitch-component", Lightswitch);
