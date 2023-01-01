@@ -67,4 +67,4 @@ export default class Accordion extends SuperComponent<IAccordion> {
         render(view, this);
     }
 }
-env.mount("accordion-component", Accordion);
+env.bind("accordion-component", Accordion);

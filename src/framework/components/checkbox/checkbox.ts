@@ -124,4 +124,4 @@ export default class Checkbox extends SuperComponent<ICheckbox> {
         render(view, this);
     }
 }
-env.mount("checkbox-component", Checkbox);
+env.bind("checkbox-component", Checkbox);

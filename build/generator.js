@@ -119,7 +119,7 @@ export default class ${name.toPascalCase()} extends ${extend}{
         render(view, this);
     }
 }
-env.mount("${tagName}", ${name.toPascalCase()});
+env.bind("${tagName}", ${name.toPascalCase()});
 `;
 }
 

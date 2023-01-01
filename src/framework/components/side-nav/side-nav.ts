@@ -277,4 +277,4 @@ export default class SideNav extends SuperComponent<ISideNav> {
         render(view, this);
     }
 }
-env.mount("side-nav", SideNav);
+env.bind("side-nav", SideNav);

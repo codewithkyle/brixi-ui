@@ -135,4 +135,4 @@ export default class Steps extends SuperComponent<ISteps> {
         render(view, this);
     }
 }
-env.mount("steps-component", Steps);
+env.bind("steps-component", Steps);

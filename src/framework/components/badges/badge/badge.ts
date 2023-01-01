@@ -59,4 +59,4 @@ export default class Badge extends SuperComponent<IBadge> {
         render(view, this);
     }
 }
-env.mount("badge-component", Badge);
+env.bind("badge-component", Badge);

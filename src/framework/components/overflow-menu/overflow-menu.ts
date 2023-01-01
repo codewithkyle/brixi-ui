@@ -115,7 +115,7 @@ export default class OverflowMenu extends SuperComponent<IOverflowMenu> {
         render(view, this);
     }
 }
-env.mount("overflow-menu", OverflowMenu);
+env.bind("overflow-menu", OverflowMenu);
 
 class OverflowMenuContainer extends HTMLElement {
     private uid: string;
@@ -156,4 +156,4 @@ class OverflowMenuContainer extends HTMLElement {
         render(view, this);
     }
 }
-env.mount("overflow-menu-container", OverflowMenuContainer);
+env.bind("overflow-menu-container", OverflowMenuContainer);

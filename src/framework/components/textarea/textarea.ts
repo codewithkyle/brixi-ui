@@ -217,4 +217,4 @@ ${this.model.value}</textarea
         render(view, this);
     }
 }
-env.mount("textarea-component", Textarea);
+env.bind("textarea-component", Textarea);

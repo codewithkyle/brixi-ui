@@ -131,4 +131,4 @@ export default class Lightswitch extends SuperComponent<ILightswitch> {
         setTimeout(this.resize.bind(this), 80);
     }
 }
-env.mount("lightswitch-component", Lightswitch);
+env.bind("lightswitch-component", Lightswitch);

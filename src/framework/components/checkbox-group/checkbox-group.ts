@@ -83,4 +83,4 @@ export default class CheckboxGroup extends SuperComponent<ICheckboxGroup> {
         render(view, this);
     }
 }
-env.mount("checkbox-group", CheckboxGroup);
+env.bind("checkbox-group", CheckboxGroup);

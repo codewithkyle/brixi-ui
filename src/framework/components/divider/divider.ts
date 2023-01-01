@@ -68,4 +68,4 @@ export default class Divider extends SuperComponent<IDivider> {
         render(view, this);
     }
 }
-env.mount("divider-component", Divider);
+env.bind("divider-component", Divider);

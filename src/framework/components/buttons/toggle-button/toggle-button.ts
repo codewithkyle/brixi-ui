@@ -93,4 +93,4 @@ export default class ToggleButton extends SuperComponent<IToggleButton> {
         render(view, this);
     }
 }
-env.mount("toggle-button", ToggleButton);
+env.bind("toggle-button", ToggleButton);
