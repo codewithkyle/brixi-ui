@@ -62,7 +62,7 @@ export default class Steps extends SuperComponent<ISteps> {
         const target = e.currentTarget as HTMLElement;
         const index = parseInt(target.dataset.index);
         if (index < this.model.activeStep) {
-            this.update({
+            this.set({
                 activeStep: index,
             });
             this.model.callback(target.dataset.name);
@@ -135,4 +135,4 @@ export default class Steps extends SuperComponent<ISteps> {
         render(view, this);
     }
 }
-env.mount("steps-component", Steps);
+env.bind("steps-component", Steps);

@@ -6,4 +6,4 @@ import{html as n,render as l}from"./lit-html.js";import o from"./supercomponent.
                     <span>${this.model.label}</span>
                 </label>
             </div>
-        `;this.setAttribute("state",this.state),this.className=`radio js-input ${this.model.class}`,this.style.cssText=this.model.css,Object.keys(this.model.attributes).map(s=>{this.setAttribute(s,`${this.model.attributes[s]}`)}),l(t,this)}}i.mount("radio-component",a);export{a as default};
+        `;this.setAttribute("state",this.state),this.className=`radio js-input ${this.model.class}`,this.style.cssText=this.model.css,Object.keys(this.model.attributes).map(s=>{this.setAttribute(s,`${this.model.attributes[s]}`)}),l(t,this)}}i.bind("radio-component",a);export{a as default};

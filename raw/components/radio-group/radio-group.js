@@ -4,4 +4,4 @@ import{html as r,render as o}from"./lit-html.js";import n from"./supercomponent.
                 ${l(this.model.instructions)}
             </p>
             ${this.model.options.map(s=>new a(s))}
-        `;this.className=`${this.model.class} ${this.model.disabled?"is-disabled":""}`,this.style.cssText=this.model.css,Object.keys(this.model.attributes).map(s=>{this.setAttribute(s,`${this.model.attributes[s]}`)}),o(t,this)}}e.mount("radio-group",i);export{i as default};
+        `;this.className=`${this.model.class} ${this.model.disabled?"is-disabled":""}`,this.style.cssText=this.model.css,Object.keys(this.model.attributes).map(s=>{this.setAttribute(s,`${this.model.attributes[s]}`)}),o(t,this)}}e.bind("radio-group",i);export{i as default};

@@ -4,4 +4,4 @@ import{html as o,render as l}from"./lit-html.js";import a from"./supercomponent.
                 <h2 class="block font-medium font-base mb-0.5 font-white">${this.model.title}</h2>
                 <h3 class="${this.model.subtitle?.length?"block":"none"} font-xs font-grey-300">${this.model.subtitle}</h3>
             </div>
-        `;l(t,this)}}e.mount("progress-toast",r);export{r as default};
+        `;l(t,this)}}e.bind("progress-toast",r);export{r as default};

@@ -1,4 +1,4 @@
-import{html as s,render as n}from"./lit-html.js";import i from"./supercomponent.js";import o from"./env.js";import{parseDataset as c}from"./general.js";class r extends i{constructor(t){super(),this.model={sections:[],css:"",class:"",attributes:{}},this.model=c(this.dataset,this.model),o.css(["accordion"]).then(()=>{this.set(t,!0),this.render()})}renderSection(t){const e=t.label.toLowerCase().trim().replace(/\s+/g,"-");return s`
+import{html as s,render as i}from"./lit-html.js";import n from"./supercomponent.js";import r from"./env.js";import{parseDataset as c}from"./general.js";class o extends n{constructor(t){super(),this.model={sections:[],css:"",class:"",attributes:{}},this.model=c(this.dataset,this.model),r.css(["accordion"]).then(()=>{this.set(t,!0),this.render()})}renderSection(t){const e=t.label.toLowerCase().trim().replace(/\s+/g,"-");return s`
             <div class="section">
                 <input type="checkbox" name="${e}" id="${e}" />
                 <label sfx="button" role="button" tabindex="0" for="${e}">
@@ -11,4 +11,4 @@ import{html as s,render as n}from"./lit-html.js";import i from"./supercomponent.
                 </label>
                 <p class="content">${t.content}</p>
             </div>
-        `}render(){this.style.cssText=this.model.css,this.className=this.model.class,Object.keys(this.model.attributes).map(e=>{this.setAttribute(e,`${this.model.attributes[e]}`)});const t=s` ${this.model.sections.map(this.renderSection)} `;n(t,this)}}o.mount("accordion-component",r);export{r as default};
+        `}render(){this.style.cssText=this.model.css,this.className=this.model.class,Object.keys(this.model.attributes).map(e=>{this.setAttribute(e,`${this.model.attributes[e]}`)});const t=s` ${this.model.sections.map(this.renderSection)} `;i(t,this)}}r.bind("accordion-component",o);export{o as default};

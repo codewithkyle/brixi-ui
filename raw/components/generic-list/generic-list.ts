@@ -94,4 +94,4 @@ export default class GenericList extends SuperComponent<IGenericList> {
         render(view, this);
     }
 }
-env.mount("generic-list", GenericList);
+env.bind("generic-list", GenericList);

@@ -80,4 +80,4 @@ export default class RadioGroup extends SuperComponent<IRadioGroup> {
         render(view, this);
     }
 }
-env.mount("radio-group", RadioGroup);
+env.bind("radio-group", RadioGroup);

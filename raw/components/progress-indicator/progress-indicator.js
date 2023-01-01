@@ -12,4 +12,4 @@ import{html as o,render as c}from"./lit-html.js";import n from"./supercomponent.
                     r="11.05"
                 />
             </svg>
-        `;c(s,this)}}e.mount("progress-indicator",r);export{r as default};
+        `;c(s,this)}}e.bind("progress-indicator",r);export{r as default};

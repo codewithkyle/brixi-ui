@@ -84,4 +84,4 @@ export default class ProgressLabel extends SuperComponent<IProgressLabel> {
         render(view, this);
     }
 }
-env.mount("progress-label", ProgressLabel);
+env.bind("progress-label", ProgressLabel);

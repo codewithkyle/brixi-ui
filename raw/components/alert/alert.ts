@@ -178,4 +178,4 @@ export default class Alert extends SuperComponent<IAlert> {
         render(view, this);
     }
 }
-env.mount("alert-component", Alert);
+env.bind("alert-component", Alert);

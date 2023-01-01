@@ -1,4 +1,4 @@
 import{html as o,render as a}from"./lit-html.js";import n from"./supercomponent.js";import r from"./env.js";import{noop as e,parseDataset as l}from"./general.js";import c from"./progress-indicator.js";class i extends n{constructor(s){super(),this.model={css:"",class:"",attributes:{},label:"",total:1,tickCallback:e,finishedCallback:e,color:"grey"},this.model=l(this.dataset,this.model),r.css(["progress-badge"]).then(()=>{this.set(s,!0),this.render()})}tick(){this.querySelector("progress-indicator").tick()}reset(){this.querySelector("progress-indicator").reset()}render(){this.className=this.model.class,this.style.cssText=this.model.css,Object.keys(this.model.attributes).map(t=>{this.setAttribute(t,`${this.model.attributes[t]}`)}),this.setAttribute("color",this.model.color);const s=o`
             ${new c({size:18,total:this.model.total,tickCallback:this.model.tickCallback.bind(this),finishedCallback:this.model.finishedCallback.bind(this),color:this.model.color})}
             <span>${this.model.label}</span>
-        `;a(s,this)}}r.mount("progress-badge",i);export{i as default};
+        `;a(s,this)}}r.bind("progress-badge",i);export{i as default};

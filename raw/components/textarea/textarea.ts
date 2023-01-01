@@ -102,7 +102,7 @@ export default class Textarea extends SuperComponent<ITextarea> {
         if (clearOnly) {
             return;
         }
-        this.update({
+        this.set({
             error: error,
         });
         this.trigger("ERROR");
@@ -146,7 +146,7 @@ export default class Textarea extends SuperComponent<ITextarea> {
 
     public handleInput: EventListener = (e: Event) => {
         const input = e.currentTarget as HTMLInputElement;
-        this.update({
+        this.set({
             value: input.value,
         });
         this.validate(input, true);
@@ -217,4 +217,4 @@ ${this.model.value}</textarea
         render(view, this);
     }
 }
-env.mount("textarea-component", Textarea);
+env.bind("textarea-component", Textarea);

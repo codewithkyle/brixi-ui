@@ -4,4 +4,4 @@ import{html as o,render as l}from"./lit-html.js";import n from"./supercomponent.
                 <h2 class="block font-bold font-sm line-snug">${this.model.title}</h2>
                 <h3 class="${this.model.subtitle?.length?"block":"none"} font-xs font-grey-700 line-snug">${this.model.subtitle}</h3>
             </div>
-        `;l(t,this)}}e.mount("progress-label",r);export{r as default};
+        `;l(t,this)}}e.bind("progress-label",r);export{r as default};

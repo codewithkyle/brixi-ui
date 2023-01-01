@@ -71,4 +71,4 @@ export default class Spinner extends SuperComponent<ISpinner> {
         render(view, this);
     }
 }
-env.mount("spinner-component", Spinner);
+env.bind("spinner-component", Spinner);

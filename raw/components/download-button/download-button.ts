@@ -194,4 +194,4 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
         render(view, this);
     }
 }
-env.mount("download-button-component", DownloadButton);
+env.bind("download-button-component", DownloadButton);

@@ -2,4 +2,4 @@ import{html as i,render as o}from"./lit-html.js";import l from"./supercomponent.
                 <div></div>
                 <span>${d(this.model.label)}</span>
                 <div></div>
-            `:t=i` <div></div> `,o(t,this)}}s.mount("divider-component",r);export{r as default};
+            `:t=i` <div></div> `,o(t,this)}}s.bind("divider-component",r);export{r as default};

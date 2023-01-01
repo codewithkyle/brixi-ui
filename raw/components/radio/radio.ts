@@ -89,4 +89,4 @@ export default class Radio extends SuperComponent<IRadio> {
         render(view, this);
     }
 }
-env.mount("radio-component", Radio);
+env.bind("radio-component", Radio);

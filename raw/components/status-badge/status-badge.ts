@@ -59,4 +59,4 @@ export default class StatusBadge extends SuperComponent<IStatusBadge> {
         render(view, this);
     }
 }
-env.mount("status-badge", StatusBadge);
+env.bind("status-badge", StatusBadge);

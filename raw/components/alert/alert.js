@@ -34,7 +34,7 @@ import{html as t,render as n}from"./lit-html.js";import o from"./supercomponent.
                 </ul>
             `:e="",e}renderActions(){let e;if(this.model.actions.length){let s=this.model.type;e=t`
                 <div class="actions">
-                    ${this.model.actions.map((l,m)=>t`
+                    ${this.model.actions.map((l,g)=>t`
                             ${new a({label:l.label,kind:"text",color:s,callback:l.callback})}
                         `)}
                 </div>
@@ -45,4 +45,4 @@ import{html as t,render as n}from"./lit-html.js";import o from"./supercomponent.
                 ${this.model.heading?t`<h3>${this.model.heading}</h3>`:""} ${this.model.description?t`<p>${this.model.description}</p>`:""} ${this.renderList()}
                 ${this.renderActions()}
             </div>
-        `;this.setAttribute("kind",this.model.type),!this.model.heading&&!this.model.list.length&&this.setAttribute("flex","items-center"),n(e,this)}}i.mount("alert-component",r);export{r as default};
+        `;this.setAttribute("kind",this.model.type),!this.model.heading&&!this.model.list.length&&this.setAttribute("flex","items-center"),n(e,this)}}i.bind("alert-component",r);export{r as default};

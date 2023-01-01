@@ -62,7 +62,7 @@ export default class ToggleButton extends SuperComponent<IToggleButton> {
             updated.index = 0;
         }
         updated.state = updated.states[updated.index];
-        this.update(updated);
+        this.set(updated);
     };
 
     override connected() {
@@ -93,4 +93,4 @@ export default class ToggleButton extends SuperComponent<IToggleButton> {
         render(view, this);
     }
 }
-env.mount("toggle-button", ToggleButton);
+env.bind("toggle-button", ToggleButton);

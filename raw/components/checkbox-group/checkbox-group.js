@@ -4,4 +4,4 @@ import{html as i,render as o}from"./lit-html.js";import n from"./supercomponent.
                 ${c(this.model.instructions)}
             </p>
             ${this.model.options.map(e=>new a(e))}
-        `;this.className=`${this.model.class} ${this.model.disabled?"is-disabled":""}`,this.style.cssText=this.model.css,Object.keys(this.model.attributes).map(e=>{this.setAttribute(e,`${this.model.attributes[e]}`)}),o(t,this)}}s.mount("checkbox-group",r);export{r as default};
+        `;this.className=`${this.model.class} ${this.model.disabled?"is-disabled":""}`,this.style.cssText=this.model.css,Object.keys(this.model.attributes).map(e=>{this.setAttribute(e,`${this.model.attributes[e]}`)}),o(t,this)}}s.bind("checkbox-group",r);export{r as default};

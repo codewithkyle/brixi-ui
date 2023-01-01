@@ -1,7 +1,7 @@
-import{html as r,render as d}from"./lit-html.js";import h from"./supercomponent.js";import o from"./env.js";import{unsafeHTML as c}from"./unsafe-html.js";import{subscribe as u}from"./pubsub.js";import g from"./badge.js";import{parseDataset as m}from"./general.js";class l extends h{constructor(e){super();this.handleMenuClick=e=>{const t=!this.model.isOpen;localStorage.setItem("side-nav-state",`${t}`),this.update({isOpen:t})};let t=localStorage.getItem("side-nav-state")!=="false";window.innerWidth<=350&&(t=!1),this.model={nav:[],isOpen:t,name:"",role:"",avatar:"",currentPage:location.pathname.replace(/^\//,"").toLowerCase(),logo:"",title:"",css:"",class:"",attributes:{}},this.model=m(this.dataset,this.model),o.css(["side-nav"]).then(()=>{this.set(e,!0),this.render()}),u("navigation",this.inbox.bind(this))}inbox(e){this.update({currentPage:e.replace(/^\//,"").toLowerCase()})}connected(){window.addEventListener("resize",this.debounce(()=>{let e=localStorage.getItem("side-nav-state")!=="false";window.innerWidth<=350&&(e=!1),this.update({isOpen:e})},300),{passive:!0})}renderIcon(e){let t;return e?.icon?.length?t=r`
+import{html as r,render as d}from"./lit-html.js";import h from"./supercomponent.js";import o from"./env.js";import{unsafeHTML as c}from"./unsafe-html.js";import{subscribe as g}from"./pubsub.js";import u from"./badge.js";import{parseDataset as v}from"./general.js";class l extends h{constructor(e){super();this.handleMenuClick=e=>{const t=!this.model.isOpen;localStorage.setItem("side-nav-state",`${t}`),this.set({isOpen:t})};let t=localStorage.getItem("side-nav-state")!=="false";window.innerWidth<=350&&(t=!1),this.model={nav:[],isOpen:t,name:"",role:"",avatar:"",currentPage:location.pathname.replace(/^\//,"").toLowerCase(),logo:"",title:"",css:"",class:"",attributes:{}},this.model=v(this.dataset,this.model),o.css(["side-nav"]).then(()=>{this.set(e,!0),this.render()}),g("navigation",this.inbox.bind(this))}inbox(e){this.set({currentPage:e.replace(/^\//,"").toLowerCase()})}connected(){window.addEventListener("resize",this.debounce(()=>{let e=localStorage.getItem("side-nav-state")!=="false";window.innerWidth<=350&&(e=!1),this.set({isOpen:e})},300),{passive:!0})}renderIcon(e){let t;return e?.icon?.length?t=r`
                 <i>
                     ${c(e.icon)}
-                    ${e?.badge?r`${new g({offsetX:-3,offsetY:3})}`:""}
+                    ${e?.badge?r`${new u({offsetX:-3,offsetY:3})}`:""}
                 </i>
             `:t="",t}renderMenuIcon(){let e;return this.model.isOpen?e=r`
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -87,4 +87,4 @@ import{html as r,render as d}from"./lit-html.js";import h from"./supercomponent.
                     </button>
                 </footer>
             </div>
-        `;d(t,this)}}o.mount("side-nav",l);export{l as default};
+        `;d(t,this)}}o.bind("side-nav",l);export{l as default};

@@ -152,4 +152,4 @@ export default class Chips extends SuperComponent<IChips> {
         render(view, this);
     }
 }
-env.mount("chips-component", Chips);
+env.bind("chips-component", Chips);

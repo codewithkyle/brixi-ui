@@ -90,4 +90,4 @@ export default class ProgressToast extends SuperComponent<IProgressToast> {
         render(view, this);
     }
 }
-env.mount("progress-toast", ProgressToast);
+env.bind("progress-toast", ProgressToast);

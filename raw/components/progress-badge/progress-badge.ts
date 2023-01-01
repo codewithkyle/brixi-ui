@@ -78,4 +78,4 @@ export default class ProgressBadge extends SuperComponent<IProgressBadge> {
         render(view, this);
     }
 }
-env.mount("progress-badge", ProgressBadge);
+env.bind("progress-badge", ProgressBadge);

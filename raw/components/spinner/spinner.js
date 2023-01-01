@@ -14,4 +14,4 @@ import{html as i,render as o}from"./lit-html.js";import n from"./supercomponent.
                     ></path>
                 </g>
             </svg>
-        `;o(t,this)}}e.mount("spinner-component",r);export{r as default};
+        `;o(t,this)}}e.bind("spinner-component",r);export{r as default};

@@ -130,7 +130,7 @@ export default class Select extends SuperComponent<ISelect> {
         if (clearOnly) {
             return;
         }
-        this.update({
+        this.set({
             error: error,
         });
         this.trigger("ERROR");
@@ -152,7 +152,7 @@ export default class Select extends SuperComponent<ISelect> {
         const target = e.currentTarget as HTMLSelectElement;
         const index = parseInt(target.value);
         const value = this.model.options[index].value;
-        this.update({
+        this.set({
             selected: index,
             value: value,
         });
