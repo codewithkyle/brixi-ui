@@ -2,7 +2,7 @@ import SuperComponent from "@codewithkyle/supercomponent";
 import { html, render } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import env from "~brixi/controllers/env";
-import { noop, parseDataset } from "~brixi/utils/general";
+import { parseDataset } from "~brixi/utils/general";
 
 type ButtonKind = "solid" | "outline" | "text";
 type ButtonColor = "primary" | "black" | "white" | "grey" | "success" | "warning" | "danger" | "info";
@@ -18,7 +18,7 @@ export interface IButton {
     color: ButtonColor;
     shape: ButtonShape;
     size: ButtonSize;
-    callback: Function;
+    callback: Function | null;
     tooltip: string;
     css: string;
     class: string;
@@ -30,7 +30,7 @@ export interface IButton {
 }
 export interface ButtonSettings {
     label?: string;
-    callback: Function;
+    callback?: Function;
     kind?: ButtonKind;
     color?: ButtonColor;
     shape?: ButtonShape;
@@ -57,7 +57,7 @@ export default class Button extends SuperComponent<IButton> {
             size: "default",
             icon: "",
             iconPosition: "left",
-            callback: noop,
+            callback: null,
             tooltip: null,
             css: "",
             class: "",
@@ -132,9 +132,11 @@ export default class Button extends SuperComponent<IButton> {
     };
 
     override connected() {
-        this.addEventListener("click", this.handleClick);
-        this.addEventListener("keydown", this.handleKeydown);
-        this.addEventListener("keyup", this.handleKeyup);
+        if (this.model.callback !== null) {
+            this.addEventListener("click", this.handleClick);
+            this.addEventListener("keydown", this.handleKeydown);
+            this.addEventListener("keyup", this.handleKeyup);
+        }
     }
 
     override render() {
