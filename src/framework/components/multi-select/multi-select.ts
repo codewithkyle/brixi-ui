@@ -310,7 +310,7 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
     public renderLabel(id: string) {
         let output;
         if (this.model.label?.length) {
-            output = html`<label for="${id}">${this.model.label}</label>`;
+            output = html`<label for="${id}">${unsafeHTML(this.model.label)}</label>`;
         } else {
             output = "";
         }
