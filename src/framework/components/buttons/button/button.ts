@@ -102,9 +102,6 @@ export default class Button extends SuperComponent<IButton> {
             return;
         }
         this.model.callback();
-        if (this.model.type === "submit") {
-            this.closest("form").submit();
-        }
     };
 
     private handleKeydown: EventListener = (e: KeyboardEvent) => {
@@ -130,9 +127,6 @@ export default class Button extends SuperComponent<IButton> {
                 }
                 this.classList.remove("is-active");
                 this.model.callback();
-                if (this.model.type === "submit") {
-                    this.closest("form").submit();
-                }
             }
         }
     };
