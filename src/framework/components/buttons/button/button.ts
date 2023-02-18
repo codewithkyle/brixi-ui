@@ -2,7 +2,7 @@ import SuperComponent from "@codewithkyle/supercomponent";
 import { html, render } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import env from "~brixi/controllers/env";
-import { parseDataset } from "~brixi/utils/general";
+import { noop, parseDataset } from "~brixi/utils/general";
 
 type ButtonKind = "solid" | "outline" | "text";
 type ButtonColor = "primary" | "black" | "white" | "grey" | "success" | "warning" | "danger" | "info";
@@ -18,7 +18,7 @@ export interface IButton {
     color: ButtonColor;
     shape: ButtonShape;
     size: ButtonSize;
-    callback: Function | null;
+    callback: Function;
     tooltip: string;
     css: string;
     class: string;
@@ -57,7 +57,7 @@ export default class Button extends SuperComponent<IButton> {
             size: "default",
             icon: "",
             iconPosition: "left",
-            callback: null,
+            callback: noop,
             tooltip: null,
             css: "",
             class: "",
@@ -102,6 +102,9 @@ export default class Button extends SuperComponent<IButton> {
             return;
         }
         this.model.callback();
+        if (this.model.type === "submit") {
+            this.closest("form").submit();
+        }
     };
 
     private handleKeydown: EventListener = (e: KeyboardEvent) => {
@@ -127,16 +130,17 @@ export default class Button extends SuperComponent<IButton> {
                 }
                 this.classList.remove("is-active");
                 this.model.callback();
+                if (this.model.type === "submit") {
+                    this.closest("form").submit();
+                }
             }
         }
     };
 
     override connected() {
-        if (this.model.callback !== null) {
-            this.addEventListener("click", this.handleClick);
-            this.addEventListener("keydown", this.handleKeydown);
-            this.addEventListener("keyup", this.handleKeyup);
-        }
+        this.addEventListener("click", this.handleClick);
+        this.addEventListener("keydown", this.handleKeydown);
+        this.addEventListener("keyup", this.handleKeyup);
     }
 
     override render() {
