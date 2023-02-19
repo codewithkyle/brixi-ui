@@ -33,7 +33,7 @@ raw-modal {
         position: relative;
         overflow: hidden;
         box-shadow: var(--shadow-grey-lg);
-        border: 1px solid var(--grey-200);
+        border: 1px solid var(--grey-300);
 
         &[size="small"] {
             width: 350px;
@@ -121,7 +121,7 @@ raw-modal {
             width: 100%;
             padding: 1rem;
             background-color: var(--grey-50);
-            border-top: 1px solid var(--grey-200);
+            border-top: 1px solid var(--grey-300);
 
             button {
                 display: inline-flex;
@@ -188,7 +188,7 @@ raw-modal {
                 }
 
                 &.cancel {
-                    border-color: var(--grey-200);
+                    border-color: var(--grey-300);
                     background-color: var(--white);
                     color: var(--black);
                     box-shadow: var(--light-bevel);

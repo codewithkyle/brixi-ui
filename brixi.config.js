@@ -98,11 +98,11 @@ module.exports = {
     },
     variables: {
         "focus-ring": "inset 0 0 0 2px var(--white), 0 0 0 1px var(--black)",
-        bevel: "inset 0 -1px 1px hsl(0deg 0% 50% / 0.5), 0 0px 1px hsl(0deg 0% 50% / 0.25), 0 1px 1px hsl(0deg 0% 50% / 0.25)",
-        "light-bevel": "0 1px 0 hsl(0deg 0% 50% / 0.1), inset 0 -1px 1px hsl(0deg 0% 50% / 0.15)",
-        "input-bevel": "0 1px 0 hsl(0deg 0% 50% / 0.1)",
+        bevel: "inset 0 -1px 1px hsl(0deg 0% 0% / 0.25), 0 0px 1px hsl(0deg 0% 0% / 0.1), 0 1px 1px hsl(0deg 0% 0% / 0.1)",
+        "light-bevel": "0 1px 0 hsl(0deg 0% 0% / 0.1), inset 0 -2px 0 hsl(0deg 0% 0% / 0.05)",
         "primary-opaque-hover": "rgba(14,165,233,0.05)",
         "primary-opaque-active": "rgba(14,165,233,0.1)",
+        "input-border": "1px solid var(--grey-300)",
     },
     shadows: {
         colors: {
