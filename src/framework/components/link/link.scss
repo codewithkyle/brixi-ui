@@ -1,9 +1,12 @@
 .link {
     text-decoration: none;
     color: var(--primary-700);
+    outline-offset: 0;
 
     &:focus-visible {
-        box-shadow: var(--focus-ring);
+        outline: var(--focus-ring);
+        outline-offset: var(--focus-ring-offset);
+        transition: outline-offset 80ms var(--ease-in-out);
     }
 
     &:hover {
@@ -14,5 +17,6 @@
     &:active {
         color: var(--primary-800);
         text-decoration: underline;
+        outline-offset: 0;
     }
 }

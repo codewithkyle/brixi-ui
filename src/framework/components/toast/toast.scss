@@ -99,13 +99,17 @@ toaster-component {
             justify-content: center;
             align-items: center;
             color: var(--grey-300);
+            outline-offset: 0;
 
             &:focus-visible {
-                box-shadow: var(--focus-ring) !important;
+                outline: var(--focus-ring);
+                outline-offset: var(--focus-ring-offset);
+                transition: outline-offset 80ms var(--ease-in-out);
             }
 
             &:hover {
                 color: var(--white);
+                outline-offset: 0;
 
                 &::before {
                     opacity: 0.05;
@@ -114,6 +118,7 @@ toaster-component {
 
             &:active {
                 color: var(--white);
+                outline-offset: 0;
 
                 &::before {
                     opacity: 0.1;
@@ -182,9 +187,12 @@ toaster-component {
                 color: var(--info-700);
                 margin-left: 0.5rem;
                 position: relative;
+                outline-offset: 0;
 
                 &:focus-visible {
-                    box-shadow: var(--focus-ring) !important;
+                    outline: var(--focus-ring);
+                    outline-offset: var(--focus-ring-offset);
+                    transition: outline-offset 80ms var(--ease-in-out);
                 }
 
                 &:hover {
@@ -193,6 +201,8 @@ toaster-component {
                     }
                 }
                 &:active {
+                    outline-offset: 0;
+
                     &::before {
                         opacity: 0.1;
                     }

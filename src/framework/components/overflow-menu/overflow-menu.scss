@@ -12,9 +12,12 @@ overflow-menu {
         user-select: none;
         cursor: pointer;
         color: var(--grey-600);
+        outline-offset: 0;
 
         &:focus-visible {
-            box-shadow: var(--focus-ring);
+            outline: var(--focus-ring);
+            outline-offset: var(--focus-ring-offset);
+            transition: outline-offset 80ms var(--ease-in-out);
         }
 
         &:hover,
@@ -28,6 +31,7 @@ overflow-menu {
 
         &:active {
             color: var(--grey-700);
+            outline-offset: 0;
 
             &::before {
                 opacity: 0.1;
@@ -87,9 +91,12 @@ overflow-menu-container {
         font-weight: var(--font-medium);
         line-height: 1;
         white-space: nowrap;
+        outline-offset: 0;
 
         &:focus-visible {
-            box-shadow: var(--focus-ring);
+            outline: var(--focus-ring);
+            outline-offset: var(--focus-ring-offset);
+            transition: outline-offset 80ms var(--ease-in-out);
         }
 
         &:hover,
@@ -103,6 +110,7 @@ overflow-menu-container {
 
         &:active {
             color: var(--grey-800);
+            outline-offset: 0;
 
             &::before {
                 opacity: 0.1;

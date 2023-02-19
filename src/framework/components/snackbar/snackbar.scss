@@ -56,13 +56,16 @@ snackbar-component {
             text-transform: uppercase;
             text-align: center;
             cursor: pointer;
+            outline-offset: 0;
 
             &:not(:last-child) {
                 margin-right: 0.5rem;
             }
 
             &:focus-visible {
-                box-shadow: var(--focus-ring) !important;
+                outline: var(--focus-ring);
+                outline-offset: var(--focus-ring-offset);
+                transition: outline-offset 80ms var(--ease-in-out);
             }
 
             &:hover {
@@ -72,6 +75,8 @@ snackbar-component {
             }
 
             &:active {
+                outline-offset: 0;
+
                 &::before {
                     opacity: 0.1;
                 }
@@ -105,9 +110,13 @@ snackbar-component {
             cursor: pointer;
             user-select: none;
             transition: all 80ms var(--ease-in-out);
+            outline-offset: 0;
+            border-radius: 50%;
 
             &:focus-visible {
-                box-shadow: var(--focus-ring) !important;
+                outline: var(--focus-ring);
+                outline-offset: var(--focus-ring-offset);
+                transition: outline-offset 80ms var(--ease-in-out);
             }
 
             &:hover {
@@ -117,6 +126,8 @@ snackbar-component {
             }
 
             &:active {
+                outline-offset: 0;
+
                 &::before {
                     opacity: 0.1;
                 }

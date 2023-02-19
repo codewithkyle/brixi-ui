@@ -56,9 +56,12 @@ raw-modal {
             align-items: center;
             cursor: pointer;
             color: var(--grey-400);
+            outline-offset: 0;
 
             &:focus-visible {
-                box-shadow: var(--focus-ring);
+                outline: var(--focus-ring);
+                outline-offset: var(--focus-ring-offset);
+                transition: outline-offset 80ms var(--ease-in-out);
             }
 
             &:hover {
@@ -71,6 +74,7 @@ raw-modal {
 
             &:active {
                 color: var(--grey-800);
+                outline-offset: 0;
 
                 &::before {
                     opacity: 0.1;
@@ -142,13 +146,17 @@ raw-modal {
                 text-overflow: ellipsis;
                 cursor: pointer;
                 border-radius: 0.25rem;
+                outline-offset: 0;
 
                 &:focus-visible {
-                    box-shadow: var(--focus-ring) !important;
+                    outline: var(--focus-ring);
+                    outline-offset: var(--focus-ring-offset);
+                    transition: outline-offset 80ms var(--ease-in-out);
                 }
 
                 &:active,
                 &.is-active {
+                    outline-offset: 0;
                     box-shadow: none !important;
                     transform: translateY(1px);
                 }

@@ -83,12 +83,17 @@
             justify-content: center;
             align-items: center;
             cursor: pointer;
+            outline-offset: 0;
 
             &:focus-visible {
-                box-shadow: var(--focus-ring);
+                outline: var(--focus-ring);
+                outline-offset: var(--focus-ring-offset);
+                transition: outline-offset 80ms var(--ease-in-out);
             }
 
             &:active {
+                outline-offset: 0;
+
                 &::before {
                     border-color: var(--primary-500) !important;
                     background-color: var(--white);
