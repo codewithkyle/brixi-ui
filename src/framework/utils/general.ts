@@ -25,6 +25,7 @@ export const debounce = (callback: Function, wait: number): Function => {
 export function parseDataset<T>(dataset: DOMStringMap, model: T): T {
     let out: T = { ...model };
     Object.keys(dataset).map((key) => {
+        // @ts-ignore
         if (key in out) {
             try {
                 out[key] = JSON.parse(dataset[key]);
