@@ -129,7 +129,7 @@
         overflow: hidden;
         border: var(--input-border);
         background-color: var(--white);
-        box-shadow: var(--light-bevel);
+        box-shadow: var(--bevel);
         transition: all 80ms var(--ease-in-out);
     }
 
@@ -178,7 +178,7 @@
         width: 100%;
         background-color: var(--white);
         border: var(--input-border);
-        box-shadow: var(--light-bevel);
+        box-shadow: var(--bevel);
         border-radius: 0.5rem;
         padding: 0.5rem 0;
         opacity: 0;
