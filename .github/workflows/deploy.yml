@@ -24,6 +24,10 @@ jobs:
             - name: Verify
               run: npm run lint:tsc
 
+            - name: Prep
+              run: npm run brixi
+              run: npm run bundle
+
             - name: Compile
               run: npm run prerelease
 
