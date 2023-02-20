@@ -4,8 +4,6 @@ import env from "~brixi/controllers/env";
 import { noop, parseDataset } from "~brixi/utils/general";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 
-type ButtonKind = "solid" | "outline" | "text";
-type ButtonColor = "primary" | "black" | "white" | "grey" | "success" | "warning" | "danger" | "info";
 type ButtonType = "submit" | "button" | "reset";
 
 export interface ISplitButton {
@@ -14,8 +12,6 @@ export interface ISplitButton {
     attributes: {
         [name: string]: string | number;
     };
-    kind: ButtonKind;
-    color: ButtonColor;
     type: ButtonType;
     label: string;
     icon?: string | HTMLElement;
@@ -34,8 +30,6 @@ export interface SplitButtonSettings {
     attributes?: {
         [name: string]: string | number;
     };
-    kind: ButtonKind;
-    color: ButtonColor;
     type: ButtonType;
     label: string;
     icon?: string | HTMLElement;
@@ -55,8 +49,6 @@ export default class SplitButton extends SuperComponent<ISplitButton> {
             css: "",
             class: "",
             attributes: {},
-            kind: "solid",
-            color: "grey",
             type: "button",
             label: "",
             buttons: [],
@@ -123,7 +115,7 @@ export default class SplitButton extends SuperComponent<ISplitButton> {
 
     private renderPrimaryButton() {
         return html`
-            <button class="bttn" type="${this.model.type}" @click=${this.handlePrimaryClick} kind="${this.model.kind}" color="${this.model.color}">
+            <button class="bttn" type="${this.model.type}" @click=${this.handlePrimaryClick} kind="outline" color="grey">
                 ${this.renderIcon(this.model.icon)} ${this.renderLabel(this.model.label)}
             </button>
         `;
@@ -133,15 +125,7 @@ export default class SplitButton extends SuperComponent<ISplitButton> {
         let out;
         if (this.model.buttons.length) {
             out = html`
-                <button
-                    class="split bttn"
-                    aria-label="Open button menu"
-                    type="button"
-                    kind="${this.model.kind}"
-                    color="${this.model.color}"
-                    @click=${this.openMenu}
-                    @focus=${this.hideMenu}
-                >
+                <button class="split bttn" aria-label="Open button menu" type="button" kind="outline" color="grey" @click=${this.openMenu} @focus=${this.hideMenu}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                         <polyline points="6 9 12 15 18 9"></polyline>

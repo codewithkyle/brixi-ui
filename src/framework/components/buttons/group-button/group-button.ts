@@ -4,8 +4,6 @@ import env from "~brixi/controllers/env";
 import { parseDataset } from "~brixi/utils/general";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 
-type ButtonKind = "solid" | "outline" | "text";
-type ButtonColor = "primary" | "black" | "white" | "grey" | "success" | "warning" | "danger" | "info";
 type ButtonType = "submit" | "button" | "reset";
 
 export interface IGroupButton {
@@ -14,8 +12,6 @@ export interface IGroupButton {
     attributes: {
         [name: string]: string | number;
     };
-    kind: ButtonKind;
-    color: ButtonColor;
     buttons: Array<{
         label: string;
         type?: ButtonType;
@@ -29,8 +25,6 @@ export interface GroupButtonSettings {
     attributes?: {
         [name: string]: string | number;
     };
-    kind: ButtonKind;
-    color: ButtonColor;
     buttons: Array<{
         label: string;
         type?: ButtonType;
@@ -45,8 +39,6 @@ export default class GroupButton extends SuperComponent<IGroupButton> {
             css: "",
             class: "",
             attributes: {},
-            kind: "solid",
-            color: "grey",
             buttons: [],
         };
         this.model = parseDataset<IGroupButton>(this.dataset, this.model);
@@ -92,7 +84,7 @@ export default class GroupButton extends SuperComponent<IGroupButton> {
             out = html`
                 ${this.model.buttons.map((button, i) => {
                     return html`
-                        <button class="bttn" @click=${this.handleClick} data-index="${i}" kind="${this.model.kind}" color="${this.model.color}" type="${button?.type ?? "button"}">
+                        <button class="bttn" @click=${this.handleClick} data-index="${i}" kind="outline" color="grey" type="${button?.type ?? "button"}">
                             ${this.renderIcon(button?.icon ?? "")} ${this.renderLabel(button.label)}
                         </button>
                     `;

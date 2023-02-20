@@ -47,6 +47,8 @@ split-button {
         border-radius: 0.25rem 0 0 0.25rem !important;
         box-shadow: none !important;
         transform: none !important;
+        color: var(--grey-700);
+        background: var(--white);
 
         &::before {
             border-radius: 0.25rem 0 0 0.25rem !important;
@@ -54,7 +56,7 @@ split-button {
 
         &.split {
             border-radius: 0 0.25rem 0.25rem 0 !important;
-            border-width: 1px 1px 1px 0 !important;
+            border-width: 2px 2px 2px 0 !important;
             width: 36px;
             padding: 0 !important;
 

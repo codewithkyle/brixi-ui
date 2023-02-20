@@ -53,7 +53,7 @@
             outline-color: var(--primary-500);
         }
 
-        &[color="red"] {
+        &[color="danger"] {
             outline-color: var(--danger-500);
         }
     }
@@ -162,7 +162,7 @@
             }
         }
 
-        &[color="red"] {
+        &[color="danger"] {
             border-color: var(--danger-200);
             background-color: var(--white);
             color: var(--danger-700);
@@ -236,7 +236,7 @@
             }
         }
 
-        &[color="red"] {
+        &[color="danger"] {
             color: var(--danger-700);
 
             &::before {
@@ -298,7 +298,7 @@
             }
         }
 
-        &[color="red"] {
+        &[color="danger"] {
             color: var(--danger-700);
             border-color: var(--danger-200);
 
