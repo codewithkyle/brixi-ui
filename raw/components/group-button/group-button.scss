@@ -24,7 +24,7 @@ group-button {
         }
         &:not(:first-of-type):not(:last-of-type):not(:only-child) {
             border-radius: 0 !important;
-            border-width: 1px 0 1px 0 !important;
+            border-width: 2px 0 2px 0 !important;
 
             &::before {
                 border-radius: 0 !important;

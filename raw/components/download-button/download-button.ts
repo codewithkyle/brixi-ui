@@ -9,7 +9,7 @@ export interface IDownloadButton {
     label: string;
     icon: string;
     kind: "solid" | "outline" | "text";
-    color: "primary" | "black" | "white" | "grey" | "success" | "warning" | "danger";
+    color: "primary" | "grey" | "danger";
     shape: "pill" | "round" | "sharp" | "default";
     size: "default" | "slim";
     callback: Function;
@@ -29,7 +29,7 @@ export interface DownloadButtonSettings {
     url: RequestInfo;
     options: RequestInit;
     kind?: "solid" | "outline" | "text";
-    color?: "primary" | "black" | "white" | "grey" | "success" | "warning" | "danger";
+    color?: "primary" | "grey" | "danger";
     shape?: "pill" | "round" | "sharp" | "default";
     size?: "default" | "slim";
     icon?: string;
@@ -104,7 +104,7 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
                         total: data,
                         class: "mr-0.5",
                         css: "margin-left:-0.25rem;",
-                        color: this.model.color === "white" ? "grey" : "white",
+                        color: "grey",
                     });
                     this.insertBefore(this.indicator, this.childNodes[0]);
                     break;
