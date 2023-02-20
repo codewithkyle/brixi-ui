@@ -13,11 +13,10 @@ toaster-component {
     toast-component {
         background-color: var(--grey-800);
         padding: 1rem;
-        border-radius: 0.25rem;
+        border-radius: 0.5rem;
         box-shadow: var(--shadow-grey-md);
         display: flex;
         flex-flow: row nowrap;
-        border: 1px solid var(--grey-900);
         border-left: 4px solid var(--info-500);
         width: 300px;
         margin: 0 0 1rem;
@@ -76,16 +75,16 @@ toaster-component {
             h3 {
                 display: block;
                 color: var(--white);
-                font-weight: var(--font-bold);
-                margin-bottom: 0.25rem;
+                font-weight: var(--font-medium);
+                margin-bottom: 0.5rem;
                 font-size: var(--font-sm);
             }
 
             p {
                 display: block;
-                color: var(--grey-200);
+                color: var(--white);
                 font-size: var(--font-xs);
-                line-height: 1.618;
+                line-height: 1.375;
             }
         }
 
@@ -93,12 +92,12 @@ toaster-component {
             width: 24px;
             height: 24px;
             position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
+            top: 0.25rem;
+            right: 0.25rem;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: var(--grey-300);
+            color: var(--white);
             outline-offset: 0;
 
             &:focus-visible {
