@@ -3,7 +3,7 @@ snackbar-component {
     align-items: center;
     justify-content: space-between;
     flex-flow: column wrap;
-    border-radius: 0.25rem;
+    border-radius: 0.5rem;
     background-color: var(--grey-800);
     box-shadow: var(--shadow-grey-md);
     color: var(--white);
@@ -17,7 +17,6 @@ snackbar-component {
     transform-origin: left top;
     position: fixed;
     bottom: 1rem;
-    border: 1px solid var(--grey-900);
 
     @media (min-width: 411px) {
         flex-flow: row nowrap;
@@ -29,8 +28,8 @@ snackbar-component {
 
     p {
         padding: 0.875rem 1rem;
-        line-height: 1.618;
-        font-size: 0.875rem;
+        line-height: var(--line-snug);
+        font-size: var(--font-sm);
     }
 
     snackbar-actions {
