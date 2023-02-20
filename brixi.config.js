@@ -104,6 +104,7 @@ module.exports = {
         "primary-opaque-hover": "rgba(14,165,233,0.05)",
         "primary-opaque-active": "rgba(14,165,233,0.1)",
         "input-border": "1px solid var(--grey-300)",
+        "button-shadow": "0px 1px 2px -1px rgba(0, 0, 0, 0.09), 0px 7px 14px -5px rgba(0, 0, 0, 0.06), 0px 3px 7px -2px rgba(0, 0, 0, 0.04), inset 0px -1px 0px 1px rgba(0, 0, 0, 0.06)",
     },
     shadows: {
         colors: {

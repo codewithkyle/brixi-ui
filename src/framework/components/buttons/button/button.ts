@@ -5,7 +5,7 @@ import env from "~brixi/controllers/env";
 import { noop, parseDataset } from "~brixi/utils/general";
 
 type ButtonKind = "solid" | "outline" | "text";
-type ButtonColor = "primary" | "black" | "white" | "grey" | "success" | "warning" | "danger" | "info";
+type ButtonColor = "primary" | "red" | "grey";
 type ButtonShape = "pill" | "round" | "sharp" | "default";
 type ButtonSize = "default" | "slim" | "large";
 type ButtonType = "submit" | "button" | "reset";
@@ -52,7 +52,7 @@ export default class Button extends SuperComponent<IButton> {
         this.model = {
             label: "",
             kind: "solid",
-            color: "primary",
+            color: "grey",
             shape: "default",
             size: "default",
             icon: "",
