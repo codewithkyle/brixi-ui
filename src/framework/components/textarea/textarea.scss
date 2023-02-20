@@ -19,12 +19,12 @@
     }
 
     &[state="ERROR"] {
-        label {
+        p {
             color: var(--danger-700) !important;
         }
 
         textarea {
-            border-color: var(--danger-500) !important;
+            border-color: var(--danger-400) !important;
         }
     }
 
@@ -33,7 +33,7 @@
         width: 100%;
         font-size: var(--font-sm);
         font-weight: var(--font-medium);
-        color: var(--grey-800);
+        color: var(--grey-700);
         margin-bottom: 0.5rem;
         transition: all 80ms var(--ease-in-out);
     }
@@ -60,6 +60,7 @@
         background-color: var(--white);
         box-shadow: var(--bevel);
         resize: vertical;
+        outline-offset: 0;
 
         &:only-child {
             padding: 0 1rem;
@@ -74,13 +75,9 @@
         }
 
         &:focus {
-            border-color: var(--primary-500);
-
-            i {
-                background-color: var(--primary-50);
-                border-color: var(--primary-500);
-                color: var(--primary-600);
-            }
+            outline: var(--focus-ring);
+            outline-offset: 5px;
+            transition: outline-offset 80ms var(--ease-in-out);
         }
     }
 
@@ -88,7 +85,7 @@
         display: block;
         margin-bottom: 0.5rem;
         font-size: var(--font-xs);
-        color: var(--grey-700);
+        color: var(--grey-500);
         line-height: 1.375;
         transition: all 80ms var(--ease-in-out);
     }

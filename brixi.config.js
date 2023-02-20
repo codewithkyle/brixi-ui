@@ -98,7 +98,7 @@ module.exports = {
         radius: [0.125, 0.25, 0.5],
     },
     variables: {
-        "focus-ring": "1px auto var(--primary-600)",
+        "focus-ring": "1px auto var(--primary-500)",
         "focus-ring-offset": "5px",
         "bevel": "0 1px 0 hsl(0deg 0% 0% / 0.1), inset 0 -2px 0 hsl(0deg 0% 0% / 0.05)",
         "primary-opaque-hover": "rgba(14,165,233,0.05)",
