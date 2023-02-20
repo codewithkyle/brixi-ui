@@ -18,6 +18,7 @@
     cursor: pointer;
     border-radius: 0.25rem;
     line-height: 1;
+    outline-offset: 0;
 
     &::before {
         content: "";
@@ -41,7 +42,13 @@
     }
 
     &:focus-visible {
-        box-shadow: var(--focus-ring) !important;
+        outline: var(--focus-ring);
+        outline-offset: var(--focus-ring-offset);
+        transition: outline-offset 80ms var(--ease-in-out);
+    }
+
+    &:active {
+        outline-offset: 0;
     }
 
     &[size="slim"] {
@@ -253,7 +260,7 @@
             border-color: var(--grey-200);
             background-color: var(--white);
             color: var(--black);
-            box-shadow: var(--light-bevel);
+            box-shadow: var(--bevel);
 
             &:hover,
             &:focus-visible {

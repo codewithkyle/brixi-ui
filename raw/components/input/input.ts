@@ -184,7 +184,7 @@ export default class Input extends SuperComponent<IInput> {
     public renderLabel(id: string): string | TemplateResult {
         let output: string | TemplateResult = "";
         if (this.model.label?.length) {
-            output = html`<label for="${id}">${this.model.label}</label>`;
+            output = html`<label for="${id}">${unsafeHTML(this.model.label)}</label>`;
         }
         return output;
     }

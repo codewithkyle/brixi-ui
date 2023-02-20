@@ -33,7 +33,7 @@ raw-modal {
         position: relative;
         overflow: hidden;
         box-shadow: var(--shadow-grey-lg);
-        border: 1px solid var(--grey-200);
+        border: 1px solid var(--grey-300);
 
         &[size="small"] {
             width: 350px;
@@ -56,9 +56,12 @@ raw-modal {
             align-items: center;
             cursor: pointer;
             color: var(--grey-400);
+            outline-offset: 0;
 
             &:focus-visible {
-                box-shadow: var(--focus-ring);
+                outline: var(--focus-ring);
+                outline-offset: var(--focus-ring-offset);
+                transition: outline-offset 80ms var(--ease-in-out);
             }
 
             &:hover {
@@ -71,6 +74,7 @@ raw-modal {
 
             &:active {
                 color: var(--grey-800);
+                outline-offset: 0;
 
                 &::before {
                     opacity: 0.1;
@@ -121,7 +125,7 @@ raw-modal {
             width: 100%;
             padding: 1rem;
             background-color: var(--grey-50);
-            border-top: 1px solid var(--grey-200);
+            border-top: 1px solid var(--grey-300);
 
             button {
                 display: inline-flex;
@@ -142,13 +146,17 @@ raw-modal {
                 text-overflow: ellipsis;
                 cursor: pointer;
                 border-radius: 0.25rem;
+                outline-offset: 0;
 
                 &:focus-visible {
-                    box-shadow: var(--focus-ring) !important;
+                    outline: var(--focus-ring);
+                    outline-offset: var(--focus-ring-offset);
+                    transition: outline-offset 80ms var(--ease-in-out);
                 }
 
                 &:active,
                 &.is-active {
+                    outline-offset: 0;
                     box-shadow: none !important;
                     transform: translateY(1px);
                 }
@@ -188,10 +196,10 @@ raw-modal {
                 }
 
                 &.cancel {
-                    border-color: var(--grey-200);
+                    border-color: var(--grey-300);
                     background-color: var(--white);
                     color: var(--black);
-                    box-shadow: var(--light-bevel);
+                    box-shadow: var(--bevel);
                     margin-right: 1rem;
 
                     &:hover,

@@ -30,7 +30,7 @@ export interface IButton {
 }
 export interface ButtonSettings {
     label?: string;
-    callback: Function;
+    callback?: Function;
     kind?: ButtonKind;
     color?: ButtonColor;
     shape?: ButtonShape;
