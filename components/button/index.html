@@ -20,41 +20,39 @@
     <script type="module" src="/js/button.js"></script>
 </head>
 <body>
-    <div class="text-center mb-0.5">
-    <button sfx="button" class="bttn m-0.5" kind="solid" color="primary">Example</button>
-    <button sfx="button" class="bttn m-0.5" kind="solid" color="warning">Example</button>
-    <button sfx="button" class="bttn m-0.5" kind="solid" color="danger">Example</button>
-    <button sfx="button" class="bttn m-0.5" kind="solid" color="success">Example</button>
-    <button sfx="button" class="bttn m-0.5" kind="solid" color="white">Example</button>
-    <button sfx="button" class="bttn m-0.5" kind="solid" color="grey">Example</button>
-    <button sfx="button" class="bttn m-0.5" kind="solid" color="black">Example</button>
+    <div class="text-center mb-0.5" flex="row nowrap items-center">
+    <button sfx="button" class="bttn m-0.5" kind="solid" color="primary" icon="left">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-box-multiple" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+           <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+           <path d="M7 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z"></path>
+           <path d="M17 17v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h2"></path>
+        </svg>
+        <span>Example</span>
+    </button>
+    <button sfx="button" class="bttn m-0.5" kind="solid" color="red">Example</button>
+    <button sfx="button" class="bttn m-0.5" kind="solid" color="grey" icon="right">
+        <span>Example</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-box-multiple" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+           <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+           <path d="M7 3m0 2a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z"></path>
+           <path d="M17 17v2a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h2"></path>
+        </svg>
+    </button>
 </div>
-<div class="text-center mb-1">
+<div class="text-center mb-1" flex="row nowrap items-center">
     <button sfx="button" class="bttn m-0.5" kind="outline" color="primary">Example</button>
-    <button sfx="button" class="bttn m-0.5" kind="outline" color="warning">Example</button>
-    <button sfx="button" class="bttn m-0.5" kind="outline" color="danger">Example</button>
-    <button sfx="button" class="bttn m-0.5" kind="outline" color="success">Example</button>
-    <button sfx="button" class="bttn m-0.5" kind="outline" color="white">Example</button>
+    <button sfx="button" class="bttn m-0.5" kind="outline" color="red">Example</button>
     <button sfx="button" class="bttn m-0.5" kind="outline" color="grey">Example</button>
-    <button sfx="button" class="bttn m-0.5" kind="outline" color="black">Example</button>
 </div>
-<div class="text-center mb-1">
+<div class="text-center mb-1" flex="row nowrap items-center">
     <button sfx="button" class="bttn m-0.5" kind="dashed" color="primary">Example</button>
-    <button sfx="button" class="bttn m-0.5" kind="dashed" color="warning">Example</button>
-    <button sfx="button" class="bttn m-0.5" kind="dashed" color="danger">Example</button>
-    <button sfx="button" class="bttn m-0.5" kind="dashed" color="success">Example</button>
-    <button sfx="button" class="bttn m-0.5" kind="dashed" color="white">Example</button>
+    <button sfx="button" class="bttn m-0.5" kind="dashed" color="red">Example</button>
     <button sfx="button" class="bttn m-0.5" kind="dashed" color="grey">Example</button>
-    <button sfx="button" class="bttn m-0.5" kind="dashed" color="black">Example</button>
 </div>
-<div class="text-center mb-1">
+<div class="text-center mb-1" flex="row nowrap items-center">
     <button sfx="button" class="bttn m-0.5" kind="text" color="primary">Example</button>
-    <button sfx="button" class="bttn m-0.5" kind="text" color="warning">Example</button>
-    <button sfx="button" class="bttn m-0.5" kind="text" color="danger">Example</button>
-    <button sfx="button" class="bttn m-0.5" kind="text" color="success">Example</button>
-    <button sfx="button" class="bttn m-0.5" kind="text" color="white">Example</button>
+    <button sfx="button" class="bttn m-0.5" kind="text" color="red">Example</button>
     <button sfx="button" class="bttn m-0.5" kind="text" color="grey">Example</button>
-    <button sfx="button" class="bttn m-0.5" kind="text" color="black">Example</button>
 </div>
 <script type="module">
     import Example from "/js/button.js";
