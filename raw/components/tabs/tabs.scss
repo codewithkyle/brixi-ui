@@ -2,107 +2,127 @@ tabs-component {
     white-space: nowrap;
     overflow-x: auto;
     overflow-y: hidden;
-    height: 36px;
+    height: 40px;
     display: inline-flex;
     align-items: center;
     flex-flow: row nowrap;
 
     tabs-container {
         white-space: nowrap;
-        height: 36px;
+        height: 100%;
         display: inline-flex;
         flex-flow: row nowrap;
         align-items: end;
     }
 
     tab-component {
-        padding: 0 1rem;
         height: 100%;
         display: inline-flex;
+        align-items: start;
         justify-content: center;
-        align-items: center;
         flex-flow: row nowrap;
-        color: var(--grey-700);
         position: relative;
-        font-size: var(--font-sm);
-        font-weight: var(--font-medium);
-        vertical-align: bottom;
         cursor: pointer;
+        outline-offset: 0;
+
+        &:not(:last-child) {
+            margin-right: 0.5rem;
+        }
 
         &:hover {
-            &::before {
-                transform: translate(-50%, 0);
+            span {
+                &::before {
+                    opacity: 0.05;
+                }
             }
         }
 
         &:focus-visible {
-            box-shadow: inset 0 0 0 1px var(--black), inset 0 0 0 2px var(--white);
+            outline: var(--focus-ring);
+            outline-offset: var(--focus-ring-offset);
+            transition: outline-offset 80ms var(--ease-in-out);
         }
 
         &.is-active {
             color: var(--primary-900);
 
-            &::before {
-                transform: translate(-50%, 0);
-                background-color: var(--primary-700);
+            &::after {
+                transform: translate(0, 0);
+            }
+
+            span {
+                &::before {
+                    opacity: 0.05;
+                }
             }
         }
 
-        &::before {
+        &.has-icon {
+            span {
+                padding: 0 0.5rem 0 0.75rem;
+            }
+        }
+
+        &:active {
+            span {
+                &::before {
+                    opacity: 0.1;
+                }
+            }
+        }
+
+        span {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-flow: row nowrap;
+            white-space: nowrap;
+            color: var(--grey-700);
+            font-size: var(--font-sm);
+            line-height: 1;
+            height: 32px;
+            padding: 0 0.75rem;
+
+            &::before {
+                transition: all 80ms var(--ease-in-out);
+                content: "";
+                display: inline-block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border-radius: 0.5rem;
+                opacity: 0;
+                background-color: var(--grey-500);
+            }
+
+            i {
+                margin-right: 0.5rem;
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                color: var(--grey-400);
+
+                svg {
+                    width: 16px;
+                    height: 16px;
+                }
+            }
+        }
+
+        &::after {
             transition: all 80ms var(--ease-in-out);
             content: "";
             display: inline-block;
             position: absolute;
             bottom: 0;
-            left: 50%;
-            width: calc(100% - 1rem);
+            left: 0;
+            width: 100%;
             height: 3px;
             border-radius: 3px 3px 0 0;
-            transform: translate(-50%, 4px);
-            background-color: var(--grey-200);
-        }
-
-        i {
-            margin-right: 0.5rem;
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-
-            svg {
-                width: 14px;
-                height: 14px;
-            }
-        }
-
-        button {
-            margin-left: 0.25rem;
-            margin-right: -0.25rem;
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            border-radius: 50%;
-            background-color: transparent;
-            color: var(--grey-500);
-            transition: all 80ms ease-in-out;
-            width: 24px;
-            height: 24px;
-            overflow: hidden;
-
-            &:hover,
-            &:focus-visible {
-                color: var(--danger-700);
-                background-color: var(--danger-50);
-            }
-
-            &:active {
-                background-color: var(--danger-100);
-            }
-
-            svg {
-                width: 12px;
-                height: 12px;
-            }
+            transform: translate(0, 4px);
+            background-color: var(--primary-500);
         }
     }
 }
