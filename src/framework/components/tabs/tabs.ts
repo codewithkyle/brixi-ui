@@ -133,20 +133,6 @@ export default class Tabs extends SuperComponent<ITabs> {
         });
     }
 
-    public removeTab(value: string | number, index: number) {
-        const updated = this.get();
-        updated.tabs.splice(index, 1);
-        if (updated.active === index) {
-            updated.active = 0;
-        }
-        this.set(updated, true);
-        this.resetIndexes();
-        this.model.removeCallback(value);
-        if (updated.tabs.length) {
-            this.callback(updated.tabs[0].value, 0);
-        }
-    }
-
     private renderAddButton() {
         let out;
         if (this.model.expandable) {
@@ -217,39 +203,11 @@ class Tab extends SuperComponent<ITab> {
         return out;
     }
 
-    private removeTab = (e: Event) => {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        const confirmed = window.confirm(`Are you sure you want to delete '${this.model.label}'?`);
-        if (confirmed) {
-            this.remove();
-            this.parent.removeTab(this.model.value, this.index);
-        }
-    };
-
-    private renderRemoveButton() {
-        let out;
-        if (this.shrinkable) {
-            out = html`
-                <button type="button" @click=${this.removeTab} aria-label="Delete ${this.model.label}">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                </button>
-            `;
-        } else {
-            out = "";
-        }
-        return out;
-    }
-
     override render() {
-        const view = html` ${this.renderIcon()} ${this.model.label} ${this.renderRemoveButton()}`;
+        const view = html`<span>${this.renderIcon()} ${this.model.label}</span>`;
         this.tabIndex = 0;
         this.setAttribute("sfx", "button");
-        this.className = this.isActive ? "is-active" : "";
+        this.className = `${this.isActive ? "is-active" : ""} ${this.model?.icon ? "has-icon" : ""}`;
         this.setAttribute("role", "button");
         this.setAttribute("aria-label", `Open ${this.model.label}`);
         render(view, this);
