@@ -45,7 +45,11 @@ export default class RangeSlider extends Input {
             step: 1,
             css: "",
             class: "",
-            callback: noop,
+            callbacks: {
+                onInput: noop,
+                onFocus: noop,
+                onBlur: noop,
+            },
             attributes: {},
             datalist: [],
             autofocus: false,
@@ -73,7 +77,7 @@ export default class RangeSlider extends Input {
         this.set({
             value: newValue,
         });
-        this.model.callback(newValue);
+        this.model.callbacks.onInput(newValue);
     };
 
     override handleBlur: EventListener = (e: Event) => {
@@ -91,6 +95,7 @@ export default class RangeSlider extends Input {
         this.set({
             value: newValue,
         });
+        this.model.callbacks.onBlur(newValue);
     };
 
     override validate(input: HTMLInputElement = null, clearOnly = false): boolean {
@@ -126,6 +131,7 @@ export default class RangeSlider extends Input {
                 <input
                     @input=${this.handleInput}
                     @blur=${this.handleBlur}
+                    @focus=${this.handleFocus}
                     type="range"
                     id="${id}"
                     min=${this.model.min}

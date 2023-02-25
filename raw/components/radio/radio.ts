@@ -68,13 +68,35 @@ export default class Radio extends SuperComponent<IRadio> {
         this.model.callback(target.checked);
     };
 
+    private handleKeydown: EventListener = (e: KeyboardEvent) => {
+        if (e.key === " ") {
+            this.classList.add("is-active");
+        }
+    };
+
+    private handleKeyup: EventListener = (e: KeyboardEvent) => {
+        if (e.key === " ") {
+            this.classList.remove("is-active");
+            const input = this.querySelector("input") as HTMLInputElement;
+            input.checked = !input.checked;
+            this.set({ checked: input.checked });
+            this.model.callback(true);
+        }
+    };
+
     render() {
         const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${this.model.name}`;
         const view = html`
             <div class="inline-block mr-auto">
-                <input @change=${this.handleChange} type="radio" name="${this.model.name}" id="${id}" ?checked=${this.model.checked} ?disabled=${this.model.disabled} />
+                <input @change=${this.handleChange} type="radio" name="${this.model.name}" id="${id}" .checked=${this.model.checked} ?disabled=${this.model.disabled} />
                 <label sfx="button" for="${id}">
-                    <i tabindex="0" role="button" aria-label=${`click to ${this.model.checked ? "uncheck" : "check"} the option ${this.model.label}`}></i>
+                    <i
+                        @keydown=${this.handleKeydown}
+                        @keyup=${this.handleKeyup}
+                        tabindex="0"
+                        role="button"
+                        aria-label=${`click to ${this.model.checked ? "uncheck" : "check"} the option ${this.model.label}`}
+                    ></i>
                     <span>${this.model.label}</span>
                 </label>
             </div>

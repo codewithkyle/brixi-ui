@@ -37,7 +37,11 @@ export default class EmailInput extends Input {
             minlength: 0,
             css: "",
             class: "",
-            callback: noop,
+            callbacks: {
+                onInput: noop,
+                onFocus: noop,
+                onBlur: noop,
+            },
             attributes: {},
             datalist: [],
             autofocus: false,
@@ -86,6 +90,7 @@ export default class EmailInput extends Input {
                 <input
                     @input=${this.handleInput}
                     @blur=${this.handleBlur}
+                    @focus=${this.handleFocus}
                     inputmode="email"
                     type="email"
                     id="${id}"

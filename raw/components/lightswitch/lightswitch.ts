@@ -83,6 +83,27 @@ export default class Lightswitch extends SuperComponent<ILightswitch> {
         }
     };
 
+    private handleKeyup: EventListener = (e: KeyboardEvent) => {
+        if (e.key === " ") {
+            const input = this.querySelector("input") as HTMLInputElement;
+            input.checked = !input.checked;
+            this.classList.remove("is-active");
+            this.set({ enabled: input.checked });
+            this.model.callback(input.checked);
+            if (input.checked) {
+                soundscape.play("activate");
+            } else {
+                soundscape.play("deactivate");
+            }
+        }
+    };
+
+    private handleKeydown: EventListener = (e: KeyboardEvent) => {
+        if (e.key === " ") {
+            this.classList.add("is-active");
+        }
+    };
+
     private renderText(text: string) {
         let out;
         if (text.length) {
@@ -116,7 +137,7 @@ export default class Lightswitch extends SuperComponent<ILightswitch> {
         const id = `${this.model.altLabel.replace(/\s+/g, "-").trim()}-${this.model.name}-${this.model.label.replace(/\s+/g, "-").trim()}`;
         const view = html`
             <input @change=${this.handleChange} type="checkbox" name="${this.model.name}" id="${id}" ?disabled=${this.model.disabled} .checked=${this.model.enabled} />
-            <label for="${id}">
+            <label for="${id}" tabindex="0" @keyup=${this.handleKeyup} @keydown=${this.handleKeydown} aria-label=${this.model.enabled ? this.model.altLabel : this.model.label}>
                 <span> ${unsafeHTML(this.model.altLabelIcon)} ${this.renderText(this.model.altLabel)} </span>
                 <i></i>
                 <span> ${unsafeHTML(this.model.labelIcon)} ${this.renderText(this.model.label)} </span>

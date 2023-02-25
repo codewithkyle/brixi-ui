@@ -43,7 +43,11 @@ export default class PasswordInput extends Input {
             type: "password",
             css: "",
             class: "",
-            callback: noop,
+            callbacks: {
+                onInput: noop,
+                onFocus: noop,
+                onBlur: noop,
+            },
             attributes: {},
             datalist: [],
             autofocus: false,
@@ -129,6 +133,7 @@ export default class PasswordInput extends Input {
                 <input
                     @input=${this.handleInput}
                     @blur=${this.handleBlur}
+                    @focus=${this.handleFocus}
                     type="${this.model.type}"
                     id="${id}"
                     .value=${this.model.value}

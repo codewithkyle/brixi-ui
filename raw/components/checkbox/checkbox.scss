@@ -3,6 +3,18 @@
     width: 100%;
     position: relative;
 
+    &.is-active {
+        label {
+            check-box {
+                i {
+                    box-shadow: none;
+                    transform: translateY(1px);
+                    outline-offset: 0 !important;
+                }
+            }
+        }
+    }
+
     input {
         position: absolute;
         top: 0;

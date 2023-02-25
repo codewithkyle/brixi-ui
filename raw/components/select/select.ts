@@ -37,7 +37,7 @@ export interface SelectOptions {
     instructions?: string;
     required?: boolean;
     disabled?: boolean;
-    callback?: Function;
+    callback: Function;
     css?: string;
     class?: string;
     attributes?: {

@@ -37,7 +37,11 @@ export default class PhoneInput extends Input {
             minlength: 0,
             css: "",
             class: "",
-            callback: noop,
+            callbacks: {
+                onInput: noop,
+                onFocus: noop,
+                onBlur: noop,
+            },
             attributes: {},
             datalist: [],
             autofocus: false,
@@ -99,12 +103,15 @@ export default class PhoneInput extends Input {
             value: formattedValue,
         });
         this.validate(input);
+        this.model.callbacks.onBlur(formattedValue);
     };
 
-    private handleFocus: EventListener = (e: Event) => {
+    override handleFocus: EventListener = (e: Event) => {
+        const value = this.model.value.toString().replace(/[\-\+\s\(\)]/g, "");
         this.set({
-            value: this.model.value.toString().replace(/[\-\+\s\(\)]/g, ""),
+            value: value,
         });
+        this.model.callbacks.onFocus(value);
     };
 
     override render() {

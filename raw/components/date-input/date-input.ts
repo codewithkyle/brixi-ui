@@ -72,7 +72,11 @@ export default class DateInput extends Input {
             timeFormat: "12",
             css: "",
             class: "",
-            callback: noop,
+            callbacks: {
+                onInput: noop,
+                onFocus: noop,
+                onBlur: noop,
+            },
             attributes: {},
             prevValue: null,
             datalist: [],
@@ -109,17 +113,10 @@ export default class DateInput extends Input {
         this.validate(input, true);
         if (this.model.mode === "range") {
             if (this.model.value.toString().search(/\bto\b/i) !== -1 || this.model.prevValue === this.model.value) {
-                this.model.callback(input.value);
+                this.model.callbacks.onInput(input.value);
             }
         } else if (this.model.mode === "single") {
-            this.model.callback(input.value);
-        }
-    };
-
-    override handleBlur: EventListener = (e: Event) => {
-        if (this.model.mode === "multiple") {
-            const target = e.currentTarget as HTMLInputElement;
-            this.model.callback(target.value);
+            this.model.callbacks.onInput(input.value);
         }
     };
 
@@ -135,6 +132,7 @@ export default class DateInput extends Input {
                 <input
                     @input=${this.handleInput}
                     @blur=${this.handleBlur}
+                    @focus=${this.handleFocus}
                     inputmode="email"
                     type="email"
                     id="${id}"

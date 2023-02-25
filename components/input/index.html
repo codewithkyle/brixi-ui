@@ -33,6 +33,17 @@
         type: "text",
         minlength: 2,
         maxlength: 5,
+        callbacks: {
+            onInput: (value) => {
+                console.log("Input", value);
+            },
+            onBlur: (value) => {
+                console.log("Blur", value);
+            },
+            onFocus: (value) => {
+                console.log("Focus", value);
+            },
+        }
     });
     document.body.appendChild(test);
 </script>

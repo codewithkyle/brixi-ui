@@ -52,7 +52,11 @@ export default class NumberInput extends Input {
             disabled: false,
             css: "",
             class: "",
-            callback: noop,
+            callbacks: {
+                onInput: noop,
+                onFocus: noop,
+                onBlur: noop,
+            },
             attributes: {},
             datalist: [],
             autofocus: false,
@@ -97,6 +101,7 @@ export default class NumberInput extends Input {
                 <input
                     @input=${this.handleInput}
                     @blur=${this.handleBlur}
+                    @focus=${this.handleFocus}
                     inputmode="numeric"
                     type="number"
                     id="${id}"
