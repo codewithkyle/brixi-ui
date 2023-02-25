@@ -125,8 +125,12 @@ class Soundscape {
         }
     }
 
+    /**
+     * Creates a new sound source.
+     * Retruns `null` if the sound does not exist OR if playback has been disabled.
+     **/
     public play(handle: string, loop: boolean = false): AudioBufferSourceNode | null {
-        if (!(handle in this.sounds)) return null;
+        if (!(handle in this.sounds) || !this.soundState?.[handle]?.isEnable) return null;
         const source = this.sounds[handle].ctx.createBufferSource();
         source.buffer = this.sounds[handle].buffer;
         source.connect(this.sounds[handle].gain);
@@ -147,7 +151,7 @@ class Soundscape {
         return this.soundState[handle].volumn;
     }
 
-    public async add(handle: string, src: string, force: boolean = false): Promise<ISound | null> {
+    public async add(handle: string, src: string, force: boolean = false): Promise<ISound> {
         if (this.sounds?.[handle] && !force) {
             return this.sounds[handle];
         }
@@ -167,7 +171,7 @@ class Soundscape {
         return this.sounds?.[handle] ?? null;
     }
 
-    private async createSound(src: string): Promise<ISound | null> {
+    private async createSound(src: string): Promise<ISound> {
         try {
             const req = await fetch(src);
             const arrayBuffer = await req.arrayBuffer();
@@ -182,7 +186,11 @@ class Soundscape {
             return sound;
         } catch (e) {
             console.error(e);
-            return null;
+            return {
+                ctx: null,
+                gain: null,
+                buffer: null,
+            };
         }
     }
 
