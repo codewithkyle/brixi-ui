@@ -219,7 +219,7 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
         const out = [];
         const checkboxes: Array<Checkbox> = Array.from(this.querySelectorAll(".options checkbox-component"));
         for (let i = 0; i < checkboxes.length; i++) {
-            checkboxes[i].update({
+            checkboxes[i].set({
                 checked: value,
             });
             const name = checkboxes[i].getName().replace(`${id}-`, "");
@@ -310,7 +310,7 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
     public renderLabel(id: string) {
         let output;
         if (this.model.label?.length) {
-            output = html`<label for="${id}">${unsafeHTML(this.model.label)}</label>`;
+            output = html`<label for="${id}">${this.model.label}</label>`;
         } else {
             output = "";
         }
@@ -390,4 +390,4 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
         }, 80);
     }
 }
-env.bind("multi-select-component", MultiSelect);
+env.mount("multi-select-component", MultiSelect);
