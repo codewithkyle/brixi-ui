@@ -1,6 +1,4 @@
-# Brixi UI
-
-A sleek & slender design system built on web components.
+![Brixi UI - A sleek & slender design system built on web components.](https://repository-images.githubusercontent.com/271347483/e0cb9434-2f3d-451b-b803-1cf14fa6e05d)
 
 ## Installation
 
