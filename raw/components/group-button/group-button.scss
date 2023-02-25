@@ -10,24 +10,27 @@ group-button {
 
         &:first-of-type:not(:only-child) {
             border-radius: 0.25rem 0 0 0.25rem !important;
-
-            &::before {
-                border-radius: 0.25rem 0 0 0.25rem !important;
-            }
+            border-width: 1px 0 1px 1px !important;
         }
         &:last-of-type:not(:only-child) {
             border-radius: 0 0.25rem 0.25rem 0 !important;
-
-            &::before {
-                border-radius: 0 0.25rem 0.25rem 0 !important;
-            }
+            border-width: 1px 1px 1px 0 !important;
         }
         &:not(:first-of-type):not(:last-of-type):not(:only-child) {
             border-radius: 0 !important;
-            border-width: 2px 0 2px 0 !important;
+            border-width: 1px 0 1px 0 !important;
 
             &::before {
                 border-radius: 0 !important;
+            }
+        }
+
+        &.is-active {
+            color: var(--primary-700) !important;
+
+            &::before {
+                background-color: var(--primary-500) !important;
+                opacity: 0.05 !important;
             }
         }
     }

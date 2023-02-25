@@ -134,7 +134,7 @@ export default class Select extends SuperComponent<ISelect> {
             error: error,
         });
         this.trigger("ERROR");
-        soundscape.error();
+        soundscape.play("error");
     }
 
     public validate(input: HTMLSelectElement, clearOnly: boolean = false): boolean {
