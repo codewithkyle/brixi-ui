@@ -20,7 +20,11 @@ export interface IInput {
     minlength: number;
     disabled: boolean;
     readOnly: boolean;
-    callback: Function;
+    callbacks: {
+        onInput: Function;
+        onFocus: Function;
+        onBlur: Function;
+    };
     css: string;
     class: string;
     attributes: {
@@ -43,7 +47,11 @@ export interface InputSettings {
     minlength?: number;
     disabled?: boolean;
     readOnly?: boolean;
-    callback?: Function;
+    callbacks?: {
+        onInput: Function;
+        onFocus: Function;
+        onBlur: Function;
+    };
     css?: string;
     class?: string;
     attributes?: {
@@ -84,7 +92,11 @@ export default class Input extends SuperComponent<IInput> {
             minlength: 0,
             disabled: false,
             readOnly: false,
-            callback: noop,
+            callbacks: {
+                onInput: noop,
+                onFocus: noop,
+                onBlur: noop,
+            },
             css: "",
             class: "",
             attributes: {},
@@ -150,6 +162,7 @@ export default class Input extends SuperComponent<IInput> {
     public handleBlur: EventListener = (e: Event) => {
         const input = e.currentTarget as HTMLInputElement;
         this.validate(input);
+        this.model.callbacks.onBlur(this.model.value);
     };
 
     public handleInput: EventListener = (e: Event) => {
@@ -158,7 +171,11 @@ export default class Input extends SuperComponent<IInput> {
             value: input.value,
         });
         this.validate(input, true);
-        this.model.callback(input.value);
+        this.model.callbacks.onInput(input.value);
+    };
+
+    public handleFocus: EventListener = () => {
+        this.model.callbacks.onFocus(this.model.value);
     };
 
     public renderCopy(): string | TemplateResult {
@@ -212,6 +229,7 @@ export default class Input extends SuperComponent<IInput> {
                 <input
                     @input=${this.handleInput}
                     @blur=${this.handleBlur}
+                    @focus=${this.handleFocus}
                     type="text"
                     id="${id}"
                     maxlength=${this.model.maxlength}
