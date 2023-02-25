@@ -1,4 +1,4 @@
-import { html, render } from "lit-html";
+import { html, render, TemplateResult } from "lit-html";
 import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~brixi/controllers/env";
 import { parseDataset } from "~brixi/utils/general";
@@ -18,6 +18,7 @@ export interface IGroupButton {
         icon?: string | HTMLElement;
         callback: Function;
     }>;
+    active?: number | null;
 }
 export interface GroupButtonSettings {
     css?: string;
@@ -31,6 +32,7 @@ export interface GroupButtonSettings {
         icon?: string | HTMLElement;
         callback: Function;
     }>;
+    active: number | null;
 }
 export default class GroupButton extends SuperComponent<IGroupButton> {
     constructor(settings: GroupButtonSettings) {
@@ -40,6 +42,7 @@ export default class GroupButton extends SuperComponent<IGroupButton> {
             class: "",
             attributes: {},
             buttons: [],
+            active: null,
         };
         this.model = parseDataset<IGroupButton>(this.dataset, this.model);
         env.css(["group-button", "button"]).then(() => {
@@ -48,14 +51,17 @@ export default class GroupButton extends SuperComponent<IGroupButton> {
         });
     }
 
-    private handleClick = (e) => {
-        const target = e.currentTarget;
+    private handleClick = (e: Event) => {
+        const target = e.currentTarget as HTMLElement;
         const index = parseInt(target.dataset.index);
+        this.set({
+            active: index,
+        });
         this.model.buttons[index].callback();
     };
 
     private renderIcon(icon: string | HTMLElement) {
-        let out;
+        let out: TemplateResult | string;
         if (icon instanceof HTMLElement) {
             out = html` <i class="icon">${icon}</i> `;
         } else if (typeof icon === "string" && icon.length) {
@@ -67,7 +73,7 @@ export default class GroupButton extends SuperComponent<IGroupButton> {
     }
 
     private renderLabel(label: string) {
-        let out;
+        let out: TemplateResult | string;
         if (label) {
             out = html` <span>${label}</span> `;
         } else {
@@ -77,14 +83,21 @@ export default class GroupButton extends SuperComponent<IGroupButton> {
     }
 
     private renderButtons() {
-        let out;
+        let out: TemplateResult | string;
         if (!this.model.buttons.length) {
             out = "";
         } else {
             out = html`
                 ${this.model.buttons.map((button, i) => {
                     return html`
-                        <button class="bttn" @click=${this.handleClick} data-index="${i}" kind="outline" color="grey" type="${button?.type ?? "button"}">
+                        <button
+                            class="bttn ${i === this.model.active ? "is-active" : ""}"
+                            @click=${this.handleClick}
+                            data-index="${i}"
+                            kind="outline"
+                            color="grey"
+                            type="${button?.type ?? "button"}"
+                        >
                             ${this.renderIcon(button?.icon ?? "")} ${this.renderLabel(button.label)}
                         </button>
                     `;

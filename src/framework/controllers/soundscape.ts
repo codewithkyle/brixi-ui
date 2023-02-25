@@ -6,28 +6,28 @@ import { randomFloat } from "~brixi/utils/numpy";
  */
 class Soundscape {
     private button: {
-        hover: HTMLAudioElement;
-        click: HTMLAudioElement;
+        hover?: HTMLAudioElement;
+        click?: HTMLAudioElement;
     };
 
     private notifications: {
-        error: HTMLAudioElement;
-        success: HTMLAudioElement;
-        alert: HTMLAudioElement;
-        snackbar: HTMLAudioElement;
-        warning: HTMLAudioElement;
+        error?: HTMLAudioElement;
+        success?: HTMLAudioElement;
+        alert?: HTMLAudioElement;
+        snackbar?: HTMLAudioElement;
+        warning?: HTMLAudioElement;
     };
 
     private toggle: {
-        activate: HTMLAudioElement;
-        deactivate: HTMLAudioElement;
+        activate?: HTMLAudioElement;
+        deactivate?: HTMLAudioElement;
     };
 
     private general: {
-        error: HTMLAudioElement;
+        error?: HTMLAudioElement;
     };
 
-    private camera: HTMLAudioElement;
+    private camera: HTMLAudioElement | null;
 
     private hasTouched: boolean;
     private hasPointer: boolean;
@@ -46,43 +46,15 @@ class Soundscape {
         this.doErrorSounds = localStorage.getItem("disable-error-sfx") ? false : true;
         this.doCameraSounds = localStorage.getItem("disable-camera-sfx") ? false : true;
 
-        this.button = {
-            hover: new Audio("/audio/mouseover.wav"),
-            click: new Audio("/audio/mouseclick.wav"),
-        };
-        this.button.hover.load();
-        this.button.click.load();
-
-        this.notifications = {
-            error: new Audio("/audio/error-alert.wav"),
-            success: new Audio("/audio/success.wav"),
-            alert: new Audio("/audio/notification.wav"),
-            snackbar: new Audio("/audio/snackbar.wav"),
-            warning: new Audio("/audio/warning.wav"),
-        };
-        this.notifications.error.load();
-        this.notifications.success.load();
-        this.notifications.alert.load();
-        this.notifications.snackbar.load();
-        this.notifications.warning.load();
-
-        this.toggle = {
-            activate: new Audio("/audio/activate.wav"),
-            deactivate: new Audio("/audio/deactivate.wav"),
-        };
-        this.toggle.activate.load();
-        this.toggle.deactivate.load();
-
-        this.general = {
-            error: new Audio("/audio/error.wav"),
-        };
-        this.general.error.load();
-
-        this.camera = new Audio("/audio/camera.wav");
-        this.camera.load();
+        this.button = {};
+        this.notifications = {};
+        this.toggle = {};
+        this.general = {};
+        this.camera = null;
 
         this.addButtonListeners();
     }
+
     private addButtonListeners() {
         window.addEventListener("mousemove", this.mousemove, { capture: true, passive: true });
         // Button events
@@ -162,7 +134,7 @@ class Soundscape {
     };
 
     public errorAlert(): void {
-        if (this.doNotificationSounds) {
+        if (this.doNotificationSounds && this.notifications?.error) {
             const temp = this.notifications.error.cloneNode() as HTMLAudioElement;
             temp.volume = 1;
             // @ts-ignore
@@ -171,7 +143,7 @@ class Soundscape {
     }
 
     public warning(): void {
-        if (this.doNotificationSounds) {
+        if (this.doNotificationSounds && this.notifications?.warning) {
             const temp = this.notifications.warning.cloneNode() as HTMLAudioElement;
             temp.volume = 1;
             // @ts-ignore
@@ -180,7 +152,7 @@ class Soundscape {
     }
 
     public alert(): void {
-        if (this.doNotificationSounds) {
+        if (this.doNotificationSounds && this.notifications?.alert) {
             const temp = this.notifications.alert.cloneNode() as HTMLAudioElement;
             temp.volume = 1;
             // @ts-ignore
@@ -189,7 +161,7 @@ class Soundscape {
     }
 
     public success(): void {
-        if (this.doNotificationSounds) {
+        if (this.doNotificationSounds && this.notifications?.success) {
             const temp = this.notifications.success.cloneNode() as HTMLAudioElement;
             temp.volume = 1;
             // @ts-ignore
@@ -198,7 +170,7 @@ class Soundscape {
     }
 
     public error(): void {
-        if (this.doErrorSounds) {
+        if (this.doErrorSounds && this.general?.error) {
             const temp = this.general.error.cloneNode() as HTMLAudioElement;
             temp.volume = 0.5;
             // @ts-ignore
@@ -207,7 +179,7 @@ class Soundscape {
     }
 
     public snackbar(): void {
-        if (this.doNotificationSounds) {
+        if (this.doNotificationSounds && this.notifications?.snackbar) {
             const temp = this.notifications.snackbar.cloneNode() as HTMLAudioElement;
             temp.volume = 1;
             // @ts-ignore
@@ -216,7 +188,7 @@ class Soundscape {
     }
 
     public tap(): void {
-        if (this.doButtonSounds) {
+        if (this.doButtonSounds && this.button?.click) {
             const temp = this.button.click.cloneNode() as HTMLAudioElement;
             temp.volume = 0.5;
             // @ts-ignore
@@ -225,7 +197,7 @@ class Soundscape {
     }
 
     public hover(): void {
-        if (this.doButtonSounds) {
+        if (this.doButtonSounds && this.button?.hover) {
             const temp = this.button.hover.cloneNode() as HTMLAudioElement;
             temp.volume = 0.5;
             // @ts-ignore
@@ -234,7 +206,7 @@ class Soundscape {
     }
 
     public activate(): void {
-        if (this.doToggleSounds) {
+        if (this.doToggleSounds && this.toggle?.activate) {
             const temp = this.toggle.activate.cloneNode() as HTMLAudioElement;
             temp.playbackRate = randomFloat(0.75, 1);
             // @ts-ignore
@@ -243,7 +215,7 @@ class Soundscape {
     }
 
     public deactivate(): void {
-        if (this.doToggleSounds) {
+        if (this.doToggleSounds && this.toggle?.deactivate) {
             const temp = this.toggle.deactivate.cloneNode() as HTMLAudioElement;
             temp.playbackRate = randomFloat(0.75, 1);
             // @ts-ignore
@@ -252,7 +224,7 @@ class Soundscape {
     }
 
     public cameraShutter(): void {
-        if (this.doCameraSounds) {
+        if (this.doCameraSounds && this.camera !== null) {
             const temp = this.camera.cloneNode() as HTMLAudioElement;
             // @ts-ignore
             temp.play();
@@ -282,6 +254,32 @@ class Soundscape {
                 this.doToggleSounds = isEnable;
                 break;
         }
+    }
+
+    public load(): void {
+        this.button = {
+            hover: new Audio("/audio/mouseover.wav"),
+            click: new Audio("/audio/mouseclick.wav"),
+        };
+
+        this.notifications = {
+            error: new Audio("/audio/error-alert.wav"),
+            success: new Audio("/audio/success.wav"),
+            alert: new Audio("/audio/notification.wav"),
+            snackbar: new Audio("/audio/snackbar.wav"),
+            warning: new Audio("/audio/warning.wav"),
+        };
+
+        this.toggle = {
+            activate: new Audio("/audio/activate.wav"),
+            deactivate: new Audio("/audio/deactivate.wav"),
+        };
+
+        this.general = {
+            error: new Audio("/audio/error.wav"),
+        };
+
+        this.camera = new Audio("/audio/camera.wav");
     }
 }
 const sound = new Soundscape();
