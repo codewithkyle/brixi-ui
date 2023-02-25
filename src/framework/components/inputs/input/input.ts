@@ -5,6 +5,11 @@ import env from "~brixi/controllers/env";
 import { noop, parseDataset } from "~brixi/utils/general";
 import soundscape from "~brixi/controllers/soundscape";
 
+interface IInputEvents {
+    onInput?: Function;
+    onFocus?: Function;
+    onBlur?: Function;
+}
 export interface IInput {
     label: string;
     name: string;
@@ -20,11 +25,7 @@ export interface IInput {
     minlength: number;
     disabled: boolean;
     readOnly: boolean;
-    callbacks: {
-        onInput: Function;
-        onFocus: Function;
-        onBlur: Function;
-    };
+    callbacks: Partial<IInputEvents>;
     css: string;
     class: string;
     attributes: {
@@ -47,11 +48,7 @@ export interface InputSettings {
     minlength?: number;
     disabled?: boolean;
     readOnly?: boolean;
-    callbacks?: {
-        onInput: Function;
-        onFocus: Function;
-        onBlur: Function;
-    };
+    callbacks?: Partial<IInputEvents>;
     css?: string;
     class?: string;
     attributes?: {
