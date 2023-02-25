@@ -1,33 +1,39 @@
 import { randomFloat } from "~brixi/utils/numpy";
 
+interface ISound {
+    ctx: AudioContext;
+    gain: GainNode;
+    buffer: AudioBuffer;
+}
+
 /**
  * @see https://material.io/design/sound/sound-resources.html
  * @license CC-BY-4.0
  */
 class Soundscape {
     private button: {
-        hover?: HTMLAudioElement;
-        click?: HTMLAudioElement;
+        hover?: ISound;
+        click?: ISound;
     };
 
     private notifications: {
-        error?: HTMLAudioElement;
-        success?: HTMLAudioElement;
-        alert?: HTMLAudioElement;
-        snackbar?: HTMLAudioElement;
-        warning?: HTMLAudioElement;
+        error?: ISound;
+        success?: ISound;
+        alert?: ISound;
+        snackbar?: ISound;
+        warning?: ISound;
     };
 
     private toggle: {
-        activate?: HTMLAudioElement;
-        deactivate?: HTMLAudioElement;
+        activate?: ISound;
+        deactivate?: ISound;
     };
 
     private general: {
-        error?: HTMLAudioElement;
+        error?: ISound;
     };
 
-    private camera: HTMLAudioElement | null;
+    private camera: ISound | null;
 
     private hasTouched: boolean;
     private hasPointer: boolean;
@@ -135,99 +141,67 @@ class Soundscape {
 
     public errorAlert(): void {
         if (this.doNotificationSounds && this.notifications?.error) {
-            const temp = this.notifications.error.cloneNode() as HTMLAudioElement;
-            temp.volume = 1;
-            // @ts-ignore
-            temp.play();
+            this.playSound(this.notifications.error);
         }
     }
 
     public warning(): void {
         if (this.doNotificationSounds && this.notifications?.warning) {
-            const temp = this.notifications.warning.cloneNode() as HTMLAudioElement;
-            temp.volume = 1;
-            // @ts-ignore
-            temp.play();
+            this.playSound(this.notifications.warning);
         }
     }
 
     public alert(): void {
         if (this.doNotificationSounds && this.notifications?.alert) {
-            const temp = this.notifications.alert.cloneNode() as HTMLAudioElement;
-            temp.volume = 1;
-            // @ts-ignore
-            temp.play();
+            this.playSound(this.notifications.alert);
         }
     }
 
     public success(): void {
         if (this.doNotificationSounds && this.notifications?.success) {
-            const temp = this.notifications.success.cloneNode() as HTMLAudioElement;
-            temp.volume = 1;
-            // @ts-ignore
-            temp.play();
+            this.playSound(this.notifications.success);
         }
     }
 
     public error(): void {
         if (this.doErrorSounds && this.general?.error) {
-            const temp = this.general.error.cloneNode() as HTMLAudioElement;
-            temp.volume = 0.5;
-            // @ts-ignore
-            temp.play();
+            this.playSound(this.general.error);
         }
     }
 
     public snackbar(): void {
         if (this.doNotificationSounds && this.notifications?.snackbar) {
-            const temp = this.notifications.snackbar.cloneNode() as HTMLAudioElement;
-            temp.volume = 1;
-            // @ts-ignore
-            temp.play();
+            this.playSound(this.notifications.snackbar);
         }
     }
 
     public tap(): void {
         if (this.doButtonSounds && this.button?.click) {
-            const temp = this.button.click.cloneNode() as HTMLAudioElement;
-            temp.volume = 0.5;
-            // @ts-ignore
-            temp.play();
+            this.playSound(this.button.click);
         }
     }
 
     public hover(): void {
         if (this.doButtonSounds && this.button?.hover) {
-            const temp = this.button.hover.cloneNode() as HTMLAudioElement;
-            temp.volume = 0.5;
-            // @ts-ignore
-            temp.play();
+            this.playSound(this.button.hover);
         }
     }
 
     public activate(): void {
         if (this.doToggleSounds && this.toggle?.activate) {
-            const temp = this.toggle.activate.cloneNode() as HTMLAudioElement;
-            temp.playbackRate = randomFloat(0.75, 1);
-            // @ts-ignore
-            temp.play();
+            this.playSound(this.toggle.activate);
         }
     }
 
     public deactivate(): void {
         if (this.doToggleSounds && this.toggle?.deactivate) {
-            const temp = this.toggle.deactivate.cloneNode() as HTMLAudioElement;
-            temp.playbackRate = randomFloat(0.75, 1);
-            // @ts-ignore
-            temp.play();
+            this.playSound(this.toggle.deactivate);
         }
     }
 
     public cameraShutter(): void {
         if (this.doCameraSounds && this.camera !== null) {
-            const temp = this.camera.cloneNode() as HTMLAudioElement;
-            // @ts-ignore
-            temp.play();
+            this.playSound(this.camera);
         }
     }
 
@@ -256,30 +230,56 @@ class Soundscape {
         }
     }
 
-    public load(): void {
+    private playSound(sound: ISound): void {
+        const source = sound.ctx.createBufferSource();
+        source.buffer = sound.buffer;
+        source.connect(sound.gain);
+        source.start(0);
+    }
+
+    private async createSound(src: string): Promise<ISound | null> {
+        try {
+            const req = await fetch(src);
+            const arrayBuffer = await req.arrayBuffer();
+            const sound: ISound = {
+                ctx: new AudioContext(),
+                gain: null,
+                buffer: null,
+            };
+            sound.gain = sound.ctx.createGain();
+            sound.gain.connect(sound.ctx.destination);
+            sound.buffer = await sound.ctx.decodeAudioData(arrayBuffer);
+            return sound;
+        } catch (e) {
+            console.error(e);
+            return null;
+        }
+    }
+
+    public async load(): Promise<void> {
         this.button = {
-            hover: new Audio("/audio/mouseover.wav"),
-            click: new Audio("/audio/mouseclick.wav"),
+            hover: await this.createSound("/audio/mouseover.wav"),
+            click: await this.createSound("/audio/mouseclick.wav"),
         };
 
         this.notifications = {
-            error: new Audio("/audio/error-alert.wav"),
-            success: new Audio("/audio/success.wav"),
-            alert: new Audio("/audio/notification.wav"),
-            snackbar: new Audio("/audio/snackbar.wav"),
-            warning: new Audio("/audio/warning.wav"),
+            error: await this.createSound("/audio/error-alert.wav"),
+            success: await this.createSound("/audio/success.wav"),
+            alert: await this.createSound("/audio/notification.wav"),
+            snackbar: await this.createSound("/audio/snackbar.wav"),
+            warning: await this.createSound("/audio/warning.wav"),
         };
 
         this.toggle = {
-            activate: new Audio("/audio/activate.wav"),
-            deactivate: new Audio("/audio/deactivate.wav"),
+            activate: await this.createSound("/audio/activate.wav"),
+            deactivate: await this.createSound("/audio/deactivate.wav"),
         };
 
         this.general = {
-            error: new Audio("/audio/error.wav"),
+            error: await this.createSound("/audio/error.wav"),
         };
 
-        this.camera = new Audio("/audio/camera.wav");
+        this.camera = await this.createSound("/audio/camera.wav");
     }
 }
 const sound = new Soundscape();
