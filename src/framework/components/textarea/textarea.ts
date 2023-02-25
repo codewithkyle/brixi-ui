@@ -106,7 +106,7 @@ export default class Textarea extends SuperComponent<ITextarea> {
             error: error,
         });
         this.trigger("ERROR");
-        soundscape.error();
+        soundscape.play("error");
     }
 
     public validate(input: HTMLInputElement, clearOnly: boolean = false): boolean {

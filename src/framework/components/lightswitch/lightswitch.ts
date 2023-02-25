@@ -77,9 +77,9 @@ export default class Lightswitch extends SuperComponent<ILightswitch> {
         });
         this.model.callback(target.checked);
         if (target.checked) {
-            soundscape.activate();
+            soundscape.play("activate");
         } else {
-            soundscape.deactivate();
+            soundscape.play("deactivate");
         }
     };
 

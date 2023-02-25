@@ -1,5 +1,3 @@
-import { randomFloat } from "~brixi/utils/numpy";
-
 interface ISound {
     ctx: AudioContext;
     gain: GainNode;
@@ -11,52 +9,22 @@ interface ISound {
  * @license CC-BY-4.0
  */
 class Soundscape {
-    private button: {
-        hover?: ISound;
-        click?: ISound;
+    private sounds: {
+        [handle: string]: ISound;
     };
-
-    private notifications: {
-        error?: ISound;
-        success?: ISound;
-        alert?: ISound;
-        snackbar?: ISound;
-        warning?: ISound;
+    private soundState: {
+        [handle: string]: number;
     };
-
-    private toggle: {
-        activate?: ISound;
-        deactivate?: ISound;
-    };
-
-    private general: {
-        error?: ISound;
-    };
-
-    private camera: ISound | null;
 
     private hasTouched: boolean;
     private hasPointer: boolean;
-    public doButtonSounds: boolean;
-    public doNotificationSounds: boolean;
-    public doToggleSounds: boolean;
-    public doErrorSounds: boolean;
-    public doCameraSounds: boolean;
 
     constructor() {
         this.hasTouched = false;
         this.hasPointer = false;
-        this.doButtonSounds = localStorage.getItem("disable-button-sfx") ? false : true;
-        this.doNotificationSounds = localStorage.getItem("disable-notification-sfx") ? false : true;
-        this.doToggleSounds = localStorage.getItem("disable-toggle-sfx") ? false : true;
-        this.doErrorSounds = localStorage.getItem("disable-error-sfx") ? false : true;
-        this.doCameraSounds = localStorage.getItem("disable-camera-sfx") ? false : true;
 
-        this.button = {};
-        this.notifications = {};
-        this.toggle = {};
-        this.general = {};
-        this.camera = null;
+        this.sounds = {};
+        this.soundState = JSON.parse(localStorage.getItem("sfx") || "{}");
 
         this.addButtonListeners();
     }
@@ -88,7 +56,7 @@ class Soundscape {
         });
     }
 
-    private mousemove: EventListener = (e: Event) => {
+    private mousemove: EventListener = () => {
         this.hasPointer = true;
         window.removeEventListener("mousemove", this.mousemove);
     };
@@ -104,7 +72,7 @@ class Soundscape {
         const target = e.target as HTMLElement;
         if (target instanceof HTMLElement && e instanceof MouseEvent && target.getAttribute("sfx") === "button" && target.dataset.isMouseOver !== "1") {
             target.dataset.isMouseOver = "1";
-            this.hover();
+            this.play("hover");
         }
     };
 
@@ -115,7 +83,7 @@ class Soundscape {
         const target = e.target as HTMLElement;
         if (target instanceof HTMLElement && target.getAttribute("sfx") === "button") {
             if (target.dataset.isMouseOver === "0" || !target.dataset.isMouseOver) {
-                this.hover();
+                this.play("hover");
             }
         }
     };
@@ -134,107 +102,54 @@ class Soundscape {
         }
         if (target instanceof HTMLElement && (target.getAttribute("sfx") === "button" || target.closest(`[sfx="button"]`) !== null)) {
             if (validKey || !(e instanceof KeyboardEvent)) {
-                this.tap();
+                this.play("click");
             }
         }
     };
 
-    public errorAlert(): void {
-        if (this.doNotificationSounds && this.notifications?.error) {
-            this.playSound(this.notifications.error);
+    public toggleSound(handle: string, isEnable: boolean): void {
+        if (handle in this.sounds) {
+            this.soundState[handle] = isEnable ? 1 : 0;
+            if (isEnable) {
+                this.sounds[handle].ctx.resume();
+            } else {
+                this.sounds[handle].ctx.suspend();
+            }
+            localStorage.setItem("sfx", JSON.stringify(this.sounds));
         }
     }
 
-    public warning(): void {
-        if (this.doNotificationSounds && this.notifications?.warning) {
-            this.playSound(this.notifications.warning);
-        }
-    }
-
-    public alert(): void {
-        if (this.doNotificationSounds && this.notifications?.alert) {
-            this.playSound(this.notifications.alert);
-        }
-    }
-
-    public success(): void {
-        if (this.doNotificationSounds && this.notifications?.success) {
-            this.playSound(this.notifications.success);
-        }
-    }
-
-    public error(): void {
-        if (this.doErrorSounds && this.general?.error) {
-            this.playSound(this.general.error);
-        }
-    }
-
-    public snackbar(): void {
-        if (this.doNotificationSounds && this.notifications?.snackbar) {
-            this.playSound(this.notifications.snackbar);
-        }
-    }
-
-    public tap(): void {
-        if (this.doButtonSounds && this.button?.click) {
-            this.playSound(this.button.click);
-        }
-    }
-
-    public hover(): void {
-        if (this.doButtonSounds && this.button?.hover) {
-            this.playSound(this.button.hover);
-        }
-    }
-
-    public activate(): void {
-        if (this.doToggleSounds && this.toggle?.activate) {
-            this.playSound(this.toggle.activate);
-        }
-    }
-
-    public deactivate(): void {
-        if (this.doToggleSounds && this.toggle?.deactivate) {
-            this.playSound(this.toggle.deactivate);
-        }
-    }
-
-    public cameraShutter(): void {
-        if (this.doCameraSounds && this.camera !== null) {
-            this.playSound(this.camera);
-        }
-    }
-
-    public toggleSFX(sfx: "button" | "notification" | "error" | "camera" | "toggle", isEnable: boolean): void {
-        if (isEnable) {
-            localStorage.removeItem(`disable-${sfx}-sfx`);
-        } else {
-            localStorage.setItem(`disable-${sfx}-sfx`, "1");
-        }
-        switch (sfx) {
-            case "button":
-                this.doButtonSounds = isEnable;
-                break;
-            case "camera":
-                this.doCameraSounds = isEnable;
-                break;
-            case "error":
-                this.doErrorSounds = isEnable;
-                break;
-            case "notification":
-                this.doNotificationSounds = isEnable;
-                break;
-            case "toggle":
-                this.doToggleSounds = isEnable;
-                break;
-        }
-    }
-
-    private playSound(sound: ISound): void {
-        const source = sound.ctx.createBufferSource();
-        source.buffer = sound.buffer;
-        source.connect(sound.gain);
+    public play(handle: string, loop: boolean = false): AudioBufferSourceNode | null {
+        if (!(handle in this.sounds)) return null;
+        const source = this.sounds[handle].ctx.createBufferSource();
+        source.buffer = this.sounds[handle].buffer;
+        source.connect(this.sounds[handle].gain);
+        source.loop = loop;
         source.start(0);
+        return source;
+    }
+
+    public setVolume(handle: string, volume: number): void {
+        if (!(handle in this.sounds)) return;
+        this.sounds[handle].gain.gain.value = volume;
+    }
+
+    public async add(handle: string, src: string, force: boolean = false): Promise<ISound | null> {
+        if (this.sounds?.[handle] && !force) {
+            return this.sounds[handle];
+        }
+        this.sounds[handle] = await this.createSound(src);
+        if (!(handle in this.soundState)) {
+            this.soundState[handle] = 1;
+        }
+        if (this.soundState[handle] === 0) {
+            this.sounds[handle].ctx.suspend();
+        }
+        return this.sounds[handle];
+    }
+
+    public get(handle: string): ISound | null {
+        return this.sounds?.[handle] ?? null;
     }
 
     private async createSound(src: string): Promise<ISound | null> {
@@ -257,29 +172,20 @@ class Soundscape {
     }
 
     public async load(): Promise<void> {
-        this.button = {
-            hover: await this.createSound("/audio/mouseover.wav"),
-            click: await this.createSound("/audio/mouseclick.wav"),
-        };
-
-        this.notifications = {
-            error: await this.createSound("/audio/error-alert.wav"),
-            success: await this.createSound("/audio/success.wav"),
-            alert: await this.createSound("/audio/notification.wav"),
-            snackbar: await this.createSound("/audio/snackbar.wav"),
-            warning: await this.createSound("/audio/warning.wav"),
-        };
-
-        this.toggle = {
-            activate: await this.createSound("/audio/activate.wav"),
-            deactivate: await this.createSound("/audio/deactivate.wav"),
-        };
-
-        this.general = {
-            error: await this.createSound("/audio/error.wav"),
-        };
-
-        this.camera = await this.createSound("/audio/camera.wav");
+        const promises = [
+            this.add("hover", "/audio/mouseover.wav", true),
+            this.add("click", "/audio/mouseclick.wav", true),
+            this.add("error", "/audio/error.wav", true),
+            this.add("error-alert", "/audio/error-alert.wav", true),
+            this.add("warning", "/audio/warning.wav", true),
+            this.add("notification", "/audio/notification.wav", true),
+            this.add("success", "/audio/success.wav", true),
+            this.add("snackbar", "/audio/snackbar.wav", true),
+            this.add("activate", "/audio/activate.wav", true),
+            this.add("deactivate", "/audio/deactivate.wav", true),
+            this.add("camera", "/audio/camera.wav", true),
+        ];
+        await Promise.all(promises);
     }
 }
 const sound = new Soundscape();

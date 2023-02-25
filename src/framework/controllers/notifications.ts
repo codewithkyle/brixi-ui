@@ -10,7 +10,7 @@ class Notifications {
             message: message,
             buttons: buttons,
         });
-        sound.snackbar();
+        sound.play("snackbar");
     }
 
     /**
@@ -33,7 +33,7 @@ class Notifications {
             closeable: true,
             buttons: actions,
         });
-        sound.alert();
+        sound.play("notification");
     }
 
     /**
@@ -57,7 +57,7 @@ class Notifications {
             closeable: true,
             buttons: actions,
         });
-        sound.success();
+        sound.play("success");
     }
 
     /**
@@ -81,7 +81,7 @@ class Notifications {
             closeable: true,
             buttons: actions,
         });
-        sound.warning();
+        sound.play("warning");
     }
 
     /**
@@ -105,7 +105,7 @@ class Notifications {
             closeable: true,
             buttons: actions,
         });
-        sound.errorAlert();
+        sound.play("error-alert");
     }
 
     /**

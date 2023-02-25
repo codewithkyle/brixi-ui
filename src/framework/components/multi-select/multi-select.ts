@@ -116,7 +116,7 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
             error: error,
         });
         this.trigger("ERROR");
-        soundscape.error();
+        soundscape.play("error");
     }
 
     public getName() {

@@ -112,7 +112,7 @@ export default class Input extends SuperComponent<IInput> {
             error: error,
         });
         this.trigger("ERROR");
-        soundscape.error();
+        soundscape.play("error");
     }
 
     public validate(input: HTMLInputElement = null, clearOnly: boolean = false): boolean {
