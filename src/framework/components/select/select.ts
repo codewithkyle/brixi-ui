@@ -10,12 +10,6 @@ export type SelectOption = {
     value: string | number;
 };
 
-export interface ISelectEvents {
-    onChange?: Function;
-    onBlur?: Function;
-    onFocus?: Function;
-}
-
 export interface ISelect {
     label: string;
     icon: string | HTMLElement;
@@ -27,7 +21,7 @@ export interface ISelect {
     error: string;
     value: any;
     disabled: boolean;
-    callbacks: ISelectEvents;
+    callback: Function;
     css: string;
     class: string;
     attributes: {
@@ -43,7 +37,7 @@ export interface SelectOptions {
     instructions?: string;
     required?: boolean;
     disabled?: boolean;
-    callbacks?: Partial<ISelectEvents>;
+    callback: Function;
     css?: string;
     class?: string;
     attributes?: {
@@ -80,11 +74,7 @@ export default class Select extends SuperComponent<ISelect> {
             error: null,
             value: "",
             disabled: false,
-            callbacks: {
-                onChange: noop,
-                onBlur: noop,
-                onFocus: noop,
-            },
+            callback: noop,
             css: "",
             class: "",
             attributes: {},
@@ -167,7 +157,7 @@ export default class Select extends SuperComponent<ISelect> {
             value: value,
         });
         this.validate(target, true);
-        this.model.callbacks.onChange(value);
+        this.model.callback(value);
     };
 
     public getName(): string {
@@ -181,11 +171,6 @@ export default class Select extends SuperComponent<ISelect> {
     public handleBlur: EventListener = (e: Event) => {
         const input = e.currentTarget as HTMLSelectElement;
         this.validate(input);
-        this.model.callbacks.onBlur(this.model.value);
-    };
-
-    public handleFocus: EventListener = (e: Event) => {
-        this.model.callbacks.onFocus(this.model.value);
     };
 
     public renderLabel(id: string) {
@@ -207,7 +192,6 @@ export default class Select extends SuperComponent<ISelect> {
                 <select
                     @blur=${this.handleBlur}
                     @change=${this.handleChange}
-                    @focus=${this.handleFocus}
                     id="${id}"
                     name="${this.model.name}"
                     ?required=${this.model.required}
