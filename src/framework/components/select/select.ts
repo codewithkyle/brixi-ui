@@ -27,7 +27,7 @@ export interface ISelect {
     error: string;
     value: any;
     disabled: boolean;
-    callbacks: Partial<ISelectEvents>;
+    callbacks: ISelectEvents;
     css: string;
     class: string;
     attributes: {
