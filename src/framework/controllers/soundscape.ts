@@ -13,7 +13,10 @@ class Soundscape {
         [handle: string]: ISound;
     };
     private soundState: {
-        [handle: string]: number;
+        [handle: string]: {
+            isEnable: number;
+            volumn: number;
+        };
     };
 
     private hasTouched: boolean;
@@ -107,15 +110,18 @@ class Soundscape {
         }
     };
 
+    private save(): void {
+        localStorage.setItem("sfx", JSON.stringify(this.sounds));
+    }
+
     public toggleSound(handle: string, isEnable: boolean): void {
         if (handle in this.sounds) {
-            this.soundState[handle] = isEnable ? 1 : 0;
+            this.soundState[handle].isEnable = isEnable ? 1 : 0;
             if (isEnable) {
                 this.sounds[handle].ctx.resume();
             } else {
                 this.sounds[handle].ctx.suspend();
             }
-            localStorage.setItem("sfx", JSON.stringify(this.sounds));
         }
     }
 
@@ -132,6 +138,13 @@ class Soundscape {
     public setVolume(handle: string, volume: number): void {
         if (!(handle in this.sounds)) return;
         this.sounds[handle].gain.gain.value = volume;
+        this.soundState[handle].volumn = volume;
+        this.save();
+    }
+
+    public getVolume(handle: string): number {
+        if (!(handle in this.sounds)) return 0;
+        return this.soundState[handle].volumn;
     }
 
     public async add(handle: string, src: string, force: boolean = false): Promise<ISound | null> {
@@ -140,11 +153,13 @@ class Soundscape {
         }
         this.sounds[handle] = await this.createSound(src);
         if (!(handle in this.soundState)) {
-            this.soundState[handle] = 1;
+            this.soundState[handle] = {
+                isEnable: 1,
+                volumn: 1,
+            };
         }
-        if (this.soundState[handle] === 0) {
-            this.sounds[handle].ctx.suspend();
-        }
+        this.toggleSound(handle, this.soundState[handle].isEnable === 1);
+        this.setVolume(handle, this.soundState[handle].volumn);
         return this.sounds[handle];
     }
 
