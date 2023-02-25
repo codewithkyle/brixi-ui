@@ -38,6 +38,7 @@ module.exports = {
     colors: {
         white: "#ffffff",
         black: "#000000",
+        "off-black": "#212121",
         grey: {
             50: "#FAFAFA",
             100: "#F4F4F5",
@@ -130,41 +131,42 @@ module.exports = {
         radius: [0.125, 0.25, 0.5],
     },
     variables: {
-        "focus-ring": "inset 0 0 0 2px var(--white), 0 0 0 1px var(--black)",
-        bevel: "inset 0 -1px 1px hsl(0deg 0% 50% / 0.5), 0 0px 1px hsl(0deg 0% 50% / 0.25), 0 1px 1px hsl(0deg 0% 50% / 0.25)",
-        "light-bevel": "0 1px 0 hsl(0deg 0% 50% / 0.1), inset 0 -1px 1px hsl(0deg 0% 50% / 0.15)",
-        "input-bevel": "0 1px 0 hsl(0deg 0% 50% / 0.1)",
+        "focus-ring": "1px auto var(--primary-500)",
+        "focus-ring-offset": "5px",
+        "bevel": "0 1px 0 hsl(0deg 0% 0% / 0.1), inset 0 -2px 0 hsl(0deg 0% 0% / 0.05)",
         "primary-opaque-hover": "rgba(14,165,233,0.05)",
         "primary-opaque-active": "rgba(14,165,233,0.1)",
+        "input-border": "1px solid var(--grey-300)",
+        "button-shadow": "0px 1px 2px -1px rgba(0, 0, 0, 0.09), 0px 7px 14px -5px rgba(0, 0, 0, 0.06), 0px 3px 7px -2px rgba(0, 0, 0, 0.04), inset 0px -1px 0px 1px rgba(0, 0, 0, 0.06)",
     },
     shadows: {
         colors: {
-            grey: "0deg 0% 50%",
+            grey: "0deg 0% 0%",
         },
         sizes: {
             sm: `
-                0px 1px 2px hsl(var(--shadow-color) / 0.7)
+                0px 1px 2px hsl(var(--shadow-color) / 0.1)
             `,
             md: `
-                0px 2px 2px hsl(var(--shadow-color) / 0.333),
-                0px 4px 4px hsl(var(--shadow-color) / 0.333),
-                0px 6px 6px hsl(var(--shadow-color) / 0.333)
+                0px 2px 2px hsl(var(--shadow-color) / 0.1),
+                0px 4px 4px hsl(var(--shadow-color) / 0.1),
+                0px 6px 6px hsl(var(--shadow-color) / 0.1)
             `,
             lg: `
-                0px 2px 2px hsl(var(--shadow-color) / 0.2),
-                0px 4px 4px hsl(var(--shadow-color) / 0.2),
-                0px 8px 8px hsl(var(--shadow-color) / 0.2),
-                0px 16px 16px hsl(var(--shadow-color) / 0.2),
-                0px 32px 32px hsl(var(--shadow-color) / 0.2)
+                0px 2px 2px hsl(var(--shadow-color) / 0.1),
+                0px 4px 4px hsl(var(--shadow-color) / 0.1),
+                0px 8px 8px hsl(var(--shadow-color) / 0.1),
+                0px 16px 16px hsl(var(--shadow-color) / 0.1),
+                0px 32px 32px hsl(var(--shadow-color) / 0.1)
             `,
             xl: `
-                0px 2px 2px hsl(var(--shadow-color) / 0.2),
-                0px 4px 4px hsl(var(--shadow-color) / 0.2),
-                0px 8px 8px hsl(var(--shadow-color) / 0.2),
-                0px 16px 16px hsl(var(--shadow-color) / 0.2),
-                0px 32px 32px hsl(var(--shadow-color) / 0.2),
-                0px 48px 48px hsl(var(--shadow-color) / 0.2),
-                0px 64px 64px hsl(var(--shadow-color) / 0.2)
+                0px 2px 2px hsl(var(--shadow-color) / 0.1),
+                0px 4px 4px hsl(var(--shadow-color) / 0.1),
+                0px 8px 8px hsl(var(--shadow-color) / 0.1),
+                0px 16px 16px hsl(var(--shadow-color) / 0.1),
+                0px 32px 32px hsl(var(--shadow-color) / 0.1),
+                0px 48px 48px hsl(var(--shadow-color) / 0.1),
+                0px 64px 64px hsl(var(--shadow-color) / 0.1)
             `,
         },
     },
