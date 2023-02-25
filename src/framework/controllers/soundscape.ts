@@ -15,7 +15,7 @@ class Soundscape {
     private soundState: {
         [handle: string]: {
             isEnable: number;
-            volumn: number;
+            volume: number;
         };
     };
 
@@ -111,7 +111,7 @@ class Soundscape {
     };
 
     private save(): void {
-        localStorage.setItem("sfx", JSON.stringify(this.sounds));
+        localStorage.setItem("sfx", JSON.stringify(this.soundState));
     }
 
     public toggleSound(handle: string, isEnable: boolean): void {
@@ -143,13 +143,13 @@ class Soundscape {
     public setVolume(handle: string, volume: number): void {
         if (!(handle in this.sounds)) return;
         this.sounds[handle].gain.gain.value = volume;
-        this.soundState[handle].volumn = volume;
+        this.soundState[handle].volume = volume;
         this.save();
     }
 
     public getVolume(handle: string): number {
         if (!(handle in this.sounds)) return 0;
-        return this.soundState[handle].volumn;
+        return this.soundState[handle].volume;
     }
 
     public async add(handle: string, src: string, force: boolean = false): Promise<ISound> {
@@ -160,11 +160,12 @@ class Soundscape {
         if (!(handle in this.soundState)) {
             this.soundState[handle] = {
                 isEnable: 1,
-                volumn: 1,
+                volume: 1,
             };
         }
         this.toggleSound(handle, this.soundState[handle].isEnable === 1);
-        this.setVolume(handle, this.soundState[handle].volumn);
+        console.log(this.soundState[handle].volume);
+        this.setVolume(handle, this.soundState[handle].volume);
         return this.sounds[handle];
     }
 
