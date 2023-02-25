@@ -122,6 +122,7 @@ class Soundscape {
             } else {
                 this.sounds[handle].ctx.suspend();
             }
+            this.save();
         }
     }
 
