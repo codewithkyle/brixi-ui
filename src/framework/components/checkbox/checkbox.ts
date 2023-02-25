@@ -73,6 +73,29 @@ export default class Checkbox extends SuperComponent<ICheckbox> {
         }
     };
 
+    private handleKeydown: EventListener = (e: KeyboardEvent) => {
+        if (e.key === " ") {
+            this.classList.add("is-active");
+        }
+    };
+
+    private handleKeyup: EventListener = (e: KeyboardEvent) => {
+        if (e.key === " ") {
+            this.classList.remove("is-active");
+            const target = this.querySelector("input") as HTMLInputElement;
+            const isChecked = !target.checked;
+            this.set({
+                checked: isChecked,
+            });
+            this.model.callback(isChecked, target.name);
+            if (isChecked) {
+                soundscape.play("click");
+            } else {
+                soundscape.play("hover");
+            }
+        }
+    };
+
     public getName(): string {
         return this.model.name;
     }
@@ -108,7 +131,13 @@ export default class Checkbox extends SuperComponent<ICheckbox> {
             <div class="inline-block mr-auto">
                 <input @change=${this.handleChange} type="checkbox" name="${this.model.name}" id="${id}" .checked=${this.model.checked} ?disabled=${this.model.disabled} />
                 <label for="${id}">
-                    <check-box role="button" tabindex="0" aria-label=${`click to ${this.model.checked ? "uncheck" : "check"} the box ${this.model.label}`}>
+                    <check-box
+                        @keydown=${this.handleKeydown}
+                        @keyup=${this.handleKeyup}
+                        role="button"
+                        tabindex="0"
+                        aria-label=${`click to ${this.model.checked ? "uncheck" : "check"} the box ${this.model.label}`}
+                    >
                         <i> ${this.renderIcon()} </i>
                     </check-box>
                     ${this.model.label?.length ? html`<span>${this.model.label}</span>` : ""}
