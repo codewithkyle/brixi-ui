@@ -19,7 +19,11 @@ export interface ITextarea {
     disabled: boolean;
     readOnly: boolean;
     rows: number;
-    callback: Function;
+    callbacks: {
+        onInput: Function;
+        onBlur: Function;
+        onFocus: Function;
+    };
     css: string;
     class: string;
     attributes: {
@@ -40,7 +44,11 @@ export interface TextareaSettings {
     disabled?: boolean;
     readOnly?: boolean;
     rows?: number;
-    callback?: Function;
+    callback?: {
+        onInput?: Function;
+        onBlur?: Function;
+        onFocus?: Function;
+    };
     css?: string;
     class?: string;
     attributes?: {
@@ -79,7 +87,11 @@ export default class Textarea extends SuperComponent<ITextarea> {
             disabled: false,
             readOnly: false,
             rows: 5,
-            callback: noop,
+            callbacks: {
+                onInput: noop,
+                onBlur: noop,
+                onFocus: noop,
+            },
             css: "",
             class: "",
             attributes: {},
@@ -142,6 +154,11 @@ export default class Textarea extends SuperComponent<ITextarea> {
     public handleBlur: EventListener = (e: Event) => {
         const input = e.currentTarget as HTMLInputElement;
         this.validate(input);
+        this.model.callbacks.onBlur(this.model.value);
+    };
+
+    public handleFocus: EventListener = (e: Event) => {
+        this.model.callbacks.onFocus(this.model.value);
     };
 
     public handleInput: EventListener = (e: Event) => {
@@ -150,7 +167,7 @@ export default class Textarea extends SuperComponent<ITextarea> {
             value: input.value,
         });
         this.validate(input, true);
-        this.model.callback(input.value);
+        this.model.callbacks.onInput(input.value);
     };
 
     public renderCopy() {
@@ -192,6 +209,7 @@ export default class Textarea extends SuperComponent<ITextarea> {
             <textarea
                 @input=${this.handleInput}
                 @blur=${this.handleBlur}
+                @focus=${this.handleFocus}
                 placeholder="${this.model.placeholder}"
                 autocomplete="${this.model.autocomplete}"
                 rows="${this.model.rows}"
