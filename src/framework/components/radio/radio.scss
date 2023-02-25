@@ -3,6 +3,24 @@
     width: 100%;
     position: relative;
 
+    &.is-active {
+        label {
+            i {
+                outline-offset: 0 !important;
+
+                &::before {
+                    border-color: var(--primary-500) !important;
+                    background-color: var(--white);
+                }
+
+                &::after {
+                    transform: scale(1.15) !important;
+                    background-color: var(--primary-500);
+                }
+            }
+        }
+    }
+
     input {
         position: absolute;
         top: 0;
@@ -84,6 +102,7 @@
             align-items: center;
             cursor: pointer;
             outline-offset: 0;
+            border-radius: 50%;
 
             &:focus-visible {
                 outline: var(--focus-ring);
