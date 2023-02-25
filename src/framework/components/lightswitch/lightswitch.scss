@@ -59,12 +59,19 @@ lightswitch-component {
         }
     }
 
+    &.is-active {
+        label {
+            outline-offset: 0 !important;
+        }
+    }
+
     input {
         position: absolute;
         opacity: 0;
         top: 0;
         left: 0;
         user-select: none;
+        visibility: hidden;
 
         &:disabled {
             & + label {
@@ -106,6 +113,7 @@ lightswitch-component {
         height: 32px;
         padding: 0 8px;
         overflow: hidden;
+        outline-offset: 0;
         // min-width: 64px;
 
         &::before {
@@ -129,6 +137,13 @@ lightswitch-component {
         &:active {
             background-color: var(--grey-200);
             transform: scale(0.95);
+            outline-offset: 0;
+        }
+
+        &:focus-visible {
+            outline: var(--focus-ring);
+            outline-offset: var(--focus-ring-offset);
+            transition: outline-offset 80ms var(--ease-in-out);
         }
 
         i {
