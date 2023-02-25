@@ -67,9 +67,9 @@ export default class Checkbox extends SuperComponent<ICheckbox> {
         });
         this.model.callback(target.checked, target.name);
         if (target.checked) {
-            soundscape.activate();
+            soundscape.tap();
         } else {
-            soundscape.deactivate();
+            soundscape.hover();
         }
     };
 

@@ -50,7 +50,10 @@ async function renderComponent(name, p) {
     <link rel="stylesheet" href="/css/component-layout.css">
     <link rel="stylesheet" href="/css/tooltip.css">
     <link rel="stylesheet" href="/css/snackbar.css">
-    <script type="module" src="/js/soundscape.js"></script>
+    <script type="module">
+        import soundscape from "/js/soundscape.js";
+        soundscape.load();
+    </script>
     <script type="module" src="/js/tooltipper.js"></script>
     <link rel="stylesheet" href="/css/${name}.css">
     <script type="module" src="/js/${name}.js"></script>
