@@ -1,4 +1,5 @@
 import { html, render, TemplateResult } from "lit-html";
+import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import env from "~brixi/controllers/env";
 import { IInput, InputSettings, default as Input } from "../input/input";
 import { noop, parseDataset } from "~brixi/utils/general";
@@ -98,6 +99,20 @@ export default class RangeSlider extends Input {
         this.model.callbacks.onBlur(newValue);
     };
 
+    private handleIconClick: EventListener = () => {
+        let newValue = 0;
+        if (this.model.value === this.model.min) {
+            newValue = this.model.max;
+        } else {
+            newValue = this.model.min;
+        }
+        this.fillPercentage = calcPercent(newValue, this.model.max);
+        this.set({
+            value: newValue,
+        });
+        this.model.callbacks.onInput(newValue);
+    };
+
     override validate(input: HTMLInputElement = null, clearOnly = false): boolean {
         return true;
     }
@@ -120,6 +135,16 @@ export default class RangeSlider extends Input {
             `;
         }
         return out;
+    }
+
+    override renderIcon(): string | TemplateResult {
+        let output: string | TemplateResult = "";
+        if (typeof this.model.icon === "string") {
+            output = html`<button @click=${this.handleIconClick} type="button">${unsafeHTML(this.model.icon)}</button>`;
+        } else if (this.model.icon instanceof HTMLElement) {
+            output = html`<button @click=${this.handleIconClick} type="button">${this.model.icon}</button>`;
+        }
+        return output;
     }
 
     override render() {
