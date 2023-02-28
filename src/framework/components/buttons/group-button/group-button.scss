@@ -19,10 +19,25 @@ group-button {
         &:not(:first-of-type):not(:last-of-type):not(:only-child) {
             border-radius: 0 !important;
             border-width: 1px 0 1px 0 !important;
+        }
 
-            &::before {
-                border-radius: 0 !important;
+        &:not(:last-of-type):not(:only-child) {
+            &::after {
+                content: "";
+                position: absolute;
+                top: 50%;
+                right: -1px;
+                bottom: 0;
+                width: 2px;
+                height: 50%;
+                border-radius: 1px;
+                background-color: var(--grey-200);
+                transform: translateY(-50%);
             }
+        }
+
+        &::before {
+            border-radius: 0 !important;
         }
 
         &.is-active {
