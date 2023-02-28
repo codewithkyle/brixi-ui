@@ -86,7 +86,7 @@
         "@codewithkyle/twist": "^2.0.2",
         "@codewithkyle/uuid": "1.x",
         "archiver": "^5.3.1",
-        "brixi": "0.6.x",
+        "brixi": "^0.7.0",
         "cssmonster": "^0.5.0",
         "dayjs": "1.x",
         "esbuild": "^0.14.39",
