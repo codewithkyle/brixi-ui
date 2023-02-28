@@ -9,11 +9,11 @@ group-button {
         box-shadow: none !important;
 
         &:first-of-type:not(:only-child) {
-            border-radius: 0.25rem 0 0 0.25rem !important;
+            border-radius: 18px 0 0 18px !important;
             border-width: 1px 0 1px 1px !important;
         }
         &:last-of-type:not(:only-child) {
-            border-radius: 0 0.25rem 0.25rem 0 !important;
+            border-radius: 0 18px 18px 0 !important;
             border-width: 1px 1px 1px 0 !important;
         }
         &:not(:first-of-type):not(:last-of-type):not(:only-child) {
@@ -33,6 +33,27 @@ group-button {
                 border-radius: 1px;
                 background-color: var(--grey-200);
                 transform: translateY(-50%);
+            }
+        }
+
+        &:first-of-type {
+            &::before {
+                border-radius: 18px 0 0 18px !important;
+            }
+        }
+
+        &:last-of-type {
+            &::before {
+                border-radius: 0 18px 18px 0 !important;
+            }
+        }
+
+        &:only-child {
+            border-radius: 18px !important;
+            border-width: 1px !important;
+
+            &::before {
+                border-radius: 18px !important;
             }
         }
 
