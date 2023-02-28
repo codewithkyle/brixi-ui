@@ -109,7 +109,6 @@
         "typescript": "^4.5.4"
     },
     "peerDependencies": {
-        "@codewithkyle/messaging": "1.x",
         "@codewithkyle/modal-maker": "1.x",
         "@codewithkyle/notifyjs": "3.x",
         "@codewithkyle/pubsub": "1.x",
