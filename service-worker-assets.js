@@ -1,6 +1,6 @@
 
 self.manifest = {
-    "version": "f1d6e32cd46038294927c34d405f844a",
+    "version": "419af5fc281586524033b0ad45636f0d",
     "assets": [
 		"/js/accordion.js",
 		"/js/alert.js",
@@ -111,6 +111,8 @@ self.manifest = {
 		"/css/spinner.css",
 		"/css/split-button.css",
 		"/css/status-badge.css",
+		"/css/steps-horizontal.css",
+		"/css/steps-vertical.css",
 		"/css/steps.css",
 		"/css/tabs.css",
 		"/css/textarea.css",

@@ -1,4 +1,5 @@
 import { html, render, TemplateResult } from "lit-html";
+import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import env from "~brixi/controllers/env";
 import { IInput, InputSettings, default as Input } from "../input/input";
 import { noop, parseDataset } from "~brixi/utils/general";
@@ -10,6 +11,8 @@ export interface IRangeSlider extends IInput {
     step: number;
     manual: boolean;
     value: number;
+    minValueIcon: string | HTMLElement;
+    maxValueIcon: string | HTMLElement;
 }
 export interface RangeSliderSettings extends InputSettings {
     min: number;
@@ -17,6 +20,8 @@ export interface RangeSliderSettings extends InputSettings {
     step?: number;
     value?: number;
     manual?: boolean;
+    minValueIcon?: string | HTMLElement;
+    maxValueIcon?: string | HTMLElement;
 }
 export default class RangeSlider extends Input {
     override model: IRangeSlider;
@@ -36,6 +41,8 @@ export default class RangeSlider extends Input {
             autocapitalize: "off",
             autocomplete: "off",
             icon: "",
+            minValueIcon: null,
+            maxValueIcon: null,
             placeholder: "",
             value: settings?.min ?? 0,
             minlength: 0,
@@ -55,10 +62,12 @@ export default class RangeSlider extends Input {
             autofocus: false,
         };
         this.model = parseDataset<IRangeSlider>(this.dataset, this.model);
-        this.fillPercentage = calcPercent(this.model.value, this.model.max);
         env.css(["range-slider"]).then(() => {
             this.set(settings, true);
             this.render();
+            this.className = `js-input ${this.model.class}`;
+            this.style.cssText = this.model.css;
+            this.renderFill(this.model.value);
         });
     }
 
@@ -73,7 +82,7 @@ export default class RangeSlider extends Input {
         } else if (newValue > this.model.max) {
             newValue = this.model.max;
         }
-        this.fillPercentage = calcPercent(newValue, this.model.max);
+        this.renderFill(newValue);
         this.set({
             value: newValue,
         });
@@ -91,11 +100,25 @@ export default class RangeSlider extends Input {
         } else if (newValue > this.model.max) {
             newValue = this.model.max;
         }
-        this.fillPercentage = calcPercent(newValue, this.model.max);
+        this.renderFill(newValue);
         this.set({
             value: newValue,
         });
         this.model.callbacks.onBlur(newValue);
+    };
+
+    private handleIconClick: EventListener = () => {
+        let newValue = 0;
+        if (this.model.value === this.model.min) {
+            newValue = this.model.max;
+        } else {
+            newValue = this.model.min;
+        }
+        this.renderFill(newValue);
+        this.set({
+            value: newValue,
+        });
+        this.model.callbacks.onInput(newValue);
     };
 
     override validate(input: HTMLInputElement = null, clearOnly = false): boolean {
@@ -120,6 +143,35 @@ export default class RangeSlider extends Input {
             `;
         }
         return out;
+    }
+
+    private renderFill(newValue: number): void {
+        this.fillPercentage = calcPercent(newValue, this.model.max);
+        this.style.setProperty("--track-fill", `${this.fillPercentage}%`);
+    }
+
+    override renderIcon(): string | TemplateResult {
+        let output: string | TemplateResult = "";
+        if (this.model.minValueIcon != null && this.model.value === this.model.min) {
+            if (typeof this.model.minValueIcon === "string") {
+                output = html`<button @click=${this.handleIconClick} type="button">${unsafeHTML(this.model.minValueIcon)}</button>`;
+            } else if (this.model.minValueIcon instanceof HTMLElement) {
+                output = html`<button @click=${this.handleIconClick} type="button">${this.model.minValueIcon}</button>`;
+            }
+        } else if (this.model.maxValueIcon != null && this.model.value === this.model.max) {
+            if (typeof this.model.maxValueIcon === "string") {
+                output = html`<button @click=${this.handleIconClick} type="button">${unsafeHTML(this.model.maxValueIcon)}</button>`;
+            } else if (this.model.maxValueIcon instanceof HTMLElement) {
+                output = html`<button @click=${this.handleIconClick} type="button">${this.model.maxValueIcon}</button>`;
+            }
+        } else {
+            if (typeof this.model.icon === "string") {
+                output = html`<button @click=${this.handleIconClick} type="button">${unsafeHTML(this.model.icon)}</button>`;
+            } else if (this.model.icon instanceof HTMLElement) {
+                output = html`<button @click=${this.handleIconClick} type="button">${this.model.icon}</button>`;
+            }
+        }
+        return output;
     }
 
     override render() {
@@ -148,9 +200,6 @@ export default class RangeSlider extends Input {
             </input-container>
         `;
         this.setAttribute("state", this.state);
-        this.className = `js-input ${this.model.class}`;
-        this.style.cssText = this.model.css;
-        this.style.setProperty("--track-fill", `${this.fillPercentage}%`);
         Object.keys(this.model.attributes).map((key) => {
             this.setAttribute(key, `${this.model.attributes[key]}`);
         });

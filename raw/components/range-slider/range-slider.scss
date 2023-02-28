@@ -144,17 +144,17 @@ range-slider {
         background-color: var(--white);
     }
 
-    i {
+    button {
         display: inline-flex;
         justify-content: center;
         align-items: center;
         width: 36px;
         height: 36px;
-        pointer-events: none;
         margin-right: 0.5rem;
         color: var(--grey-400);
         z-index: 2;
         transition: all 80ms var(--ease-in-out);
+        cursor: pointer;
 
         svg {
             width: 24px;
