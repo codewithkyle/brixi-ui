@@ -52,7 +52,7 @@ export default class Steps extends SuperComponent<ISteps> {
                 break;
             }
         }
-        env.css(["steps"]).then(() => {
+        env.css(["steps", `steps-${settings?.layout ?? this.model.layout}`]).then(() => {
             this.set(settings, true);
             this.render();
         });
