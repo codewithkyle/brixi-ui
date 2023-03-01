@@ -100,9 +100,12 @@ export default class RangeSlider extends InputBase<IRangeSlider> {
             newValue = this.model.max;
         }
         this.renderFill(newValue);
-        this.set({
-            value: newValue,
-        });
+        this.set(
+            {
+                value: newValue,
+            },
+            true
+        );
         this.model.callbacks.onInput(newValue);
     };
 
@@ -218,6 +221,7 @@ export default class RangeSlider extends InputBase<IRangeSlider> {
         this.setAttribute("state", this.state);
         this.className = `input ${this.model.class}`;
         this.style.cssText = this.model.css;
+        this.renderFill(this.model.value);
         Object.keys(this.model.attributes).map((key) => {
             this.setAttribute(key, `${this.model.attributes[key]}`);
         });

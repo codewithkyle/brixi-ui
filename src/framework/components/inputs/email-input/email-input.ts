@@ -67,9 +67,12 @@ export default class EmailInput extends InputBase<IInput> {
 
     private handleInput: EventListener = (e: Event) => {
         const input = e.currentTarget as HTMLInputElement;
-        this.set({
-            value: input.value,
-        });
+        this.set(
+            {
+                value: input.value,
+            },
+            true
+        );
         this.clearError();
         this.model.callbacks.onInput(input.value);
     };

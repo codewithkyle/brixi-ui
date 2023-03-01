@@ -17,7 +17,7 @@ interface INumberInput extends IInputBase {
         [name: string]: string | number;
     };
     autofocus: boolean;
-    value: string;
+    value: number | null;
     min: number;
     max: number;
     step: number;
@@ -35,7 +35,7 @@ export interface NumberInputSettings extends IInputBaseSettings {
         [name: string]: string | number;
     };
     autofocus?: boolean;
-    value?: string;
+    value?: number | null;
     min?: number;
     max?: number;
     step?: number;
@@ -52,7 +52,7 @@ export default class NumberInput extends InputBase<INumberInput> {
             required: false,
             icon: null,
             placeholder: "",
-            value: "",
+            value: null,
             min: 0,
             max: 9999,
             step: 1,
@@ -75,15 +75,15 @@ export default class NumberInput extends InputBase<INumberInput> {
 
     override validate(): boolean {
         let isValid = true;
-        if (this.model.required && !this.model.value.length) {
+        if (this.model.required && this.model.value == null) {
             isValid = false;
             this.setError("This field is required.");
         }
-        if (this.model.required || (!this.model.required && this.model.value.length)) {
-            if (parseFloat(this.model.value) < this.model.min) {
+        if (this.model.value !== null) {
+            if (this.model.value < this.model.min) {
                 isValid = false;
                 this.setError(`Minimum allowed number is ${this.model.min}.`);
-            } else if (parseFloat(this.model.value) > this.model.max) {
+            } else if (this.model.value > this.model.max) {
                 isValid = false;
                 this.setError(`Maximum allowed number is ${this.model.max}.`);
             }
@@ -96,9 +96,12 @@ export default class NumberInput extends InputBase<INumberInput> {
 
     private handleInput: EventListener = (e: Event) => {
         const input = e.currentTarget as HTMLInputElement;
-        this.set({
-            value: input.value,
-        });
+        this.set(
+            {
+                value: parseFloat(input.value.replace(/[^\-\d]/g, "")),
+            },
+            true
+        );
         this.clearError();
         this.model.callbacks.onInput(input.value);
     };

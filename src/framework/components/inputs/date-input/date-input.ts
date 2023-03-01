@@ -120,11 +120,14 @@ export default class DateInput extends InputBase<IDateInput> {
 
     private handleInput: EventListener = (e: Event) => {
         const input = e.currentTarget as HTMLInputElement;
-        this.set({
-            // @ts-ignore
-            prevValue: this.model.value.toString(),
-            value: input.value,
-        });
+        this.set(
+            {
+                // @ts-ignore
+                prevValue: this.model.value.toString(),
+                value: input.value,
+            },
+            true
+        );
         this.validate();
         if (this.model.mode === "range") {
             if (this.model.value.toString().search(/\bto\b/i) !== -1 || this.model.prevValue === this.model.value) {
