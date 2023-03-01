@@ -22,7 +22,7 @@ export interface SpinnerSettings {
     };
 }
 export default class Spinner extends SuperComponent<ISpinner> {
-    constructor(settings: SpinnerSettings) {
+    constructor(settings: SpinnerSettings = {}) {
         super();
         this.model = {
             color: "grey",
