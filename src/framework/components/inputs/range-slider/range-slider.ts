@@ -1,11 +1,23 @@
 import { html, render, TemplateResult } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import env from "~brixi/controllers/env";
-import { IInput, InputSettings, default as Input } from "../input/input";
-import { noop, parseDataset } from "~brixi/utils/general";
+import { noop } from "~brixi/utils/general";
+import { InputBase, IInputBase, IInputBaseSettings, IInputEvents } from "../input-base";
 import { calcPercent } from "~brixi/utils/numpy";
 
-export interface IRangeSlider extends IInput {
+export interface IRangeSlider extends IInputBase {
+    label: string;
+    instructions: string;
+    icon: string | HTMLElement;
+    placeholder: string;
+    readOnly: boolean;
+    callbacks: Partial<IInputEvents>;
+    css: string;
+    class: string;
+    attributes: {
+        [name: string]: string | number;
+    };
+    autofocus: boolean;
     min: number;
     max: number;
     step: number;
@@ -14,7 +26,19 @@ export interface IRangeSlider extends IInput {
     minValueIcon: string | HTMLElement;
     maxValueIcon: string | HTMLElement;
 }
-export interface RangeSliderSettings extends InputSettings {
+export interface RangeSliderSettings extends IInputBaseSettings {
+    label?: string;
+    instructions?: string;
+    icon?: string | HTMLElement;
+    placeholder?: string;
+    readOnly?: boolean;
+    callbacks?: Partial<IInputEvents>;
+    css?: string;
+    class?: string;
+    attributes?: {
+        [name: string]: string | number;
+    };
+    autofocus?: boolean;
     min: number;
     max: number;
     step?: number;
@@ -23,8 +47,7 @@ export interface RangeSliderSettings extends InputSettings {
     minValueIcon?: string | HTMLElement;
     maxValueIcon?: string | HTMLElement;
 }
-export default class RangeSlider extends Input {
-    override model: IRangeSlider;
+export default class RangeSlider extends InputBase<IRangeSlider> {
     private fillPercentage: number;
 
     constructor(settings: RangeSliderSettings) {
@@ -38,15 +61,11 @@ export default class RangeSlider extends Input {
             required: false,
             disabled: false,
             error: "",
-            autocapitalize: "off",
-            autocomplete: "off",
             icon: "",
             minValueIcon: null,
             maxValueIcon: null,
             placeholder: "",
             value: settings?.min ?? 0,
-            minlength: 0,
-            maxlength: 9999,
             min: 0,
             max: 9999,
             step: 1,
@@ -58,10 +77,8 @@ export default class RangeSlider extends Input {
                 onBlur: noop,
             },
             attributes: {},
-            datalist: [],
             autofocus: false,
         };
-        this.model = parseDataset<IRangeSlider>(this.dataset, this.model);
         env.css(["range-slider"]).then(() => {
             this.set(settings, true);
             this.render();
@@ -71,7 +88,7 @@ export default class RangeSlider extends Input {
         });
     }
 
-    override handleInput: EventListener = (e: Event) => {
+    private handleInput: EventListener = (e: Event) => {
         const input = e.currentTarget as HTMLInputElement;
         let newValue = parseInt(input.value);
         if (isNaN(newValue)) {
@@ -89,7 +106,7 @@ export default class RangeSlider extends Input {
         this.model.callbacks.onInput(newValue);
     };
 
-    override handleBlur: EventListener = (e: Event) => {
+    private handleBlur: EventListener = (e: Event) => {
         const input = e.currentTarget as HTMLInputElement;
         let newValue = parseInt(input.value);
         if (isNaN(newValue)) {
@@ -107,6 +124,10 @@ export default class RangeSlider extends Input {
         this.model.callbacks.onBlur(newValue);
     };
 
+    private handleFocus: EventListener = () => {
+        this.model.callbacks.onFocus(this.model.value);
+    };
+
     private handleIconClick: EventListener = () => {
         let newValue = 0;
         if (this.model.value === this.model.min) {
@@ -121,8 +142,26 @@ export default class RangeSlider extends Input {
         this.model.callbacks.onInput(newValue);
     };
 
-    override validate(input: HTMLInputElement = null, clearOnly = false): boolean {
+    override validate(): boolean {
         return true;
+    }
+
+    private renderCopy(): string | TemplateResult {
+        let output: string | TemplateResult = "";
+        if (this.state === "IDLING" && this.model.instructions) {
+            output = html`<p>${unsafeHTML(this.model.instructions)}</p>`;
+        } else if (this.state === "ERROR" && this.model.error) {
+            output = html`<p class="font-danger-700">${this.model.error}</p>`;
+        }
+        return output;
+    }
+
+    private renderLabel(id: string): string | TemplateResult {
+        let output: string | TemplateResult = "";
+        if (this.model.label?.length) {
+            output = html`<label for="${id}">${unsafeHTML(this.model.label)}</label>`;
+        }
+        return output;
     }
 
     private renderManualInput(): string | TemplateResult {
@@ -150,7 +189,7 @@ export default class RangeSlider extends Input {
         this.style.setProperty("--track-fill", `${this.fillPercentage}%`);
     }
 
-    override renderIcon(): string | TemplateResult {
+    private renderIcon(): string | TemplateResult {
         let output: string | TemplateResult = "";
         if (this.model.minValueIcon != null && this.model.value === this.model.min) {
             if (typeof this.model.minValueIcon === "string") {
@@ -176,6 +215,12 @@ export default class RangeSlider extends Input {
 
     override render() {
         const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${this.model.name}`;
+        this.setAttribute("state", this.state);
+        this.className = `input ${this.model.class}`;
+        this.style.cssText = this.model.css;
+        Object.keys(this.model.attributes).map((key) => {
+            this.setAttribute(key, `${this.model.attributes[key]}`);
+        });
         const view = html`
             ${this.renderLabel(id)} ${this.renderCopy()}
             <input-container>
@@ -199,10 +244,6 @@ export default class RangeSlider extends Input {
                 ${this.renderManualInput()}
             </input-container>
         `;
-        this.setAttribute("state", this.state);
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
         render(view, this);
     }
 }

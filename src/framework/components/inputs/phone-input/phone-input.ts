@@ -1,25 +1,47 @@
-import { html, render } from "lit-html";
+import { html, render, TemplateResult } from "lit-html";
+import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import env from "~brixi/controllers/env";
-import { noop, parseDataset } from "~brixi/utils/general";
-import { IInput, InputSettings, default as Input } from "../input/input";
+import { noop } from "~brixi/utils/general";
+import { InputBase, IInputBase, IInputBaseSettings, IInputEvents } from "../input-base";
 
-export default class PhoneInput extends Input {
-    constructor(settings: InputSettings) {
+interface IPhoneInput extends IInputBase {
+    label: string;
+    instructions: string;
+    autocomplete: string;
+    icon: string | HTMLElement;
+    placeholder: string;
+    readOnly: boolean;
+    callbacks: Partial<IInputEvents>;
+    css: string;
+    class: string;
+    attributes: {
+        [name: string]: string | number;
+    };
+    datalist: string[];
+    autofocus: boolean;
+    value: string;
+}
+interface PhoneInputSettings extends IInputBaseSettings {
+    label?: string;
+    instructions?: string;
+    autocomplete?: string;
+    icon?: string | HTMLElement;
+    placeholder?: string;
+    readOnly?: boolean;
+    callbacks?: Partial<IInputEvents>;
+    css?: string;
+    class?: string;
+    attributes?: {
+        [name: string]: string | number;
+    };
+    datalist?: string[];
+    autofocus?: boolean;
+    value?: string;
+}
+
+export default class PhoneInput extends InputBase<IPhoneInput> {
+    constructor(settings: PhoneInputSettings) {
         super(settings);
-        this.state = settings?.disabled ? "DISABLED" : "IDLING";
-        this.stateMachine = {
-            IDLING: {
-                ERROR: "ERROR",
-                DISABLE: "DISABLED",
-            },
-            ERROR: {
-                RESET: "IDLING",
-                ERROR: "ERROR",
-            },
-            DISABLED: {
-                ENABLE: "IDLING",
-            },
-        };
         this.model = {
             label: "",
             instructions: null,
@@ -28,13 +50,10 @@ export default class PhoneInput extends Input {
             name: "",
             required: false,
             autocomplete: "off",
-            autocapitalize: "off",
             icon: null,
             placeholder: "",
             value: "",
             disabled: false,
-            maxlength: 9999,
-            minlength: 0,
             css: "",
             class: "",
             callbacks: {
@@ -46,33 +65,23 @@ export default class PhoneInput extends Input {
             datalist: [],
             autofocus: false,
         };
-        this.model = parseDataset<IInput>(this.dataset, this.model);
         env.css("input").then(() => {
             this.set(settings, true);
             this.render();
         });
     }
 
-    override validate(input: HTMLInputElement = null, clearOnly = false): boolean {
-        if (!input) {
-            input = this.querySelector("input");
-        }
+    override validate(): boolean {
         let isValid = true;
         const PhoneNumberCheck = new RegExp(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/gim);
-        if (this.model.required && !input.value.length) {
+        if (this.model.required && !this.model.value.length) {
             isValid = false;
-            this.setError("This field is required.", clearOnly);
+            this.setError("This field is required.");
         }
-        if ((!this.model.required && input.value.length) || this.model.required) {
+        if ((!this.model.required && this.model.value.length) || this.model.required) {
             if (!PhoneNumberCheck.test(`${this.model.value}`)) {
                 isValid = false;
-                this.setError(`Invalid phone number.`, clearOnly);
-            } else if (this.model.minlength > input.value.length) {
-                isValid = false;
-                this.setError(`This input requires a least ${this.model.minlength} characters.`, clearOnly);
-            } else if (this.model.maxlength < input.value.length) {
-                isValid = false;
-                this.setError(`This input requires a least ${this.model.minlength} characters.`, clearOnly);
+                this.setError(`Invalid phone number.`);
             }
         }
         if (isValid) {
@@ -96,17 +105,17 @@ export default class PhoneInput extends Input {
         return phoneNumber;
     }
 
-    override handleBlur: EventListener = (e: Event) => {
+    private handleBlur: EventListener = (e: Event) => {
         const input = e.currentTarget as HTMLInputElement;
         const formattedValue = this.formatPhoneNumber(input.value);
         this.set({
             value: formattedValue,
         });
-        this.validate(input);
+        this.validate();
         this.model.callbacks.onBlur(formattedValue);
     };
 
-    override handleFocus: EventListener = (e: Event) => {
+    private handleFocus: EventListener = () => {
         const value = this.model.value.toString().replace(/[\-\+\s\(\)]/g, "");
         this.set({
             value: value,
@@ -114,8 +123,51 @@ export default class PhoneInput extends Input {
         this.model.callbacks.onFocus(value);
     };
 
+    private handleInput: EventListener = (e: Event) => {
+        const input = e.currentTarget as HTMLInputElement;
+        this.set({
+            value: input.value,
+        });
+        this.clearError();
+        this.model.callbacks.onInput(input.value);
+    };
+
+    private renderCopy(): string | TemplateResult {
+        let output: string | TemplateResult = "";
+        if (this.state === "IDLING" && this.model.instructions) {
+            output = html`<p>${unsafeHTML(this.model.instructions)}</p>`;
+        } else if (this.state === "ERROR" && this.model.error) {
+            output = html`<p class="font-danger-700">${this.model.error}</p>`;
+        }
+        return output;
+    }
+
+    private renderIcon(): string | TemplateResult {
+        let output: string | TemplateResult = "";
+        if (typeof this.model.icon === "string") {
+            output = html`<i>${unsafeHTML(this.model.icon)}</i>`;
+        } else if (this.model.icon instanceof HTMLElement) {
+            output = html`<i>${this.model.icon}</i>`;
+        }
+        return output;
+    }
+
+    private renderLabel(id: string): string | TemplateResult {
+        let output: string | TemplateResult = "";
+        if (this.model.label?.length) {
+            output = html`<label for="${id}">${unsafeHTML(this.model.label)}</label>`;
+        }
+        return output;
+    }
+
     override render() {
         const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${this.model.name}`;
+        this.setAttribute("state", this.state);
+        this.className = `input ${this.model.class}`;
+        this.style.cssText = this.model.css;
+        Object.keys(this.model.attributes).map((key) => {
+            this.setAttribute(key, `${this.model.attributes[key]}`);
+        });
         const view = html`
             ${this.renderLabel(id)} ${this.renderCopy()}
             <input-container>
@@ -130,7 +182,6 @@ export default class PhoneInput extends Input {
                     .value=${this.model.value}
                     placeholder=${this.model.placeholder}
                     name=${this.model.name}
-                    autocapitalize=${this.model.autocapitalize}
                     autocomplete="${this.model.autocomplete}"
                     ?required=${this.model.required}
                     ?disalbed=${this.model.disabled}
@@ -138,12 +189,6 @@ export default class PhoneInput extends Input {
                 />
             </input-container>
         `;
-        this.setAttribute("state", this.state);
-        this.className = `input js-input ${this.model.class}`;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
         render(view, this);
     }
 }

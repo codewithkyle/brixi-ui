@@ -1,9 +1,9 @@
 import { html, render } from "lit-html";
-import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~brixi/controllers/env";
-import { noop, parseDataset } from "~brixi/utils/general";
+import { noop } from "~brixi/utils/general";
+import { IInputBase, IInputBaseSettings, InputBase } from "../input-base";
 
-export interface IColorInput {
+export interface IColorInput extends IInputBase {
     css: string;
     class: string;
     attributes: {
@@ -11,12 +11,10 @@ export interface IColorInput {
     };
     value: string;
     label: string;
-    name: string;
     callback: (name: string, value: string) => void;
-    disabled: boolean;
     readOnly: boolean;
 }
-export interface ColorInputSettings {
+export interface ColorInputSettings extends IInputBaseSettings {
     css?: string;
     class?: string;
     attributes?: {
@@ -24,14 +22,12 @@ export interface ColorInputSettings {
     };
     value?: string;
     label: string;
-    name: string;
     callback: (name: string, value: string) => void;
-    disabled?: boolean;
     readOnly?: boolean;
 }
-export default class ColorInput extends SuperComponent<IColorInput> {
+export default class ColorInput extends InputBase<IColorInput> {
     constructor(settings: ColorInputSettings) {
-        super();
+        super(settings);
         this.model = {
             css: "",
             class: "",
@@ -42,24 +38,17 @@ export default class ColorInput extends SuperComponent<IColorInput> {
             callback: noop,
             disabled: false,
             readOnly: false,
+            error: "",
+            required: false,
         };
-        this.model = parseDataset<IColorInput>(this.dataset, this.model);
         env.css(["color-input"]).then(() => {
             this.set(settings, true);
             this.render();
         });
     }
 
-    public validate(): boolean {
+    override validate(): boolean {
         return true;
-    }
-
-    public getName(): string {
-        return this.model.name;
-    }
-
-    public getValue(): any {
-        return this.model.value;
     }
 
     private handleInput = (e: Event) => {
