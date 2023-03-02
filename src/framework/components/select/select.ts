@@ -1,4 +1,4 @@
-import { html, render } from "lit-html";
+import { html, render, TemplateResult } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~brixi/controllers/env";
@@ -72,7 +72,7 @@ export default class Select extends SuperComponent<ISelect> {
             options: settings?.options ?? [],
             required: false,
             error: null,
-            value: "",
+            value: null,
             disabled: false,
             callback: noop,
             css: "",
@@ -96,8 +96,8 @@ export default class Select extends SuperComponent<ISelect> {
         });
     }
 
-    public renderCopy() {
-        let output;
+    public renderCopy(): string | TemplateResult {
+        let output: string | TemplateResult;
         if (this.state === "IDLING" && this.model.instructions) {
             output = html`<p>${unsafeHTML(this.model.instructions)}</p>`;
         } else if (this.state === "ERROR" && this.model.error) {
@@ -108,8 +108,8 @@ export default class Select extends SuperComponent<ISelect> {
         return output;
     }
 
-    public renderIcon() {
-        let output;
+    public renderIcon(): string | TemplateResult {
+        let output: string | TemplateResult;
         if (this.model.icon instanceof HTMLElement) {
             output = html` <i class="icon"> ${this.model.icon} </i> `;
         } else if (typeof this.model.icon === "string" && this.model.icon.length) {
@@ -126,10 +126,14 @@ export default class Select extends SuperComponent<ISelect> {
         }
     }
 
-    public setError(error: string, clearOnly: boolean) {
-        if (clearOnly) {
-            return;
-        }
+    public reset(): void {
+        this.set({
+            selected: 0,
+            value: null,
+        });
+    }
+
+    public setError(error: string) {
         this.set({
             error: error,
         });
@@ -137,11 +141,11 @@ export default class Select extends SuperComponent<ISelect> {
         soundscape.play("error");
     }
 
-    public validate(input: HTMLSelectElement, clearOnly: boolean = false): boolean {
+    public validate(): boolean {
         let isValid = true;
         if (this.model.required && (this.model.value === "" || this.model.value == null)) {
             isValid = false;
-            this.setError("This field is required.", clearOnly);
+            this.setError("This field is required.");
         } else {
             this.clearError();
         }
@@ -156,7 +160,7 @@ export default class Select extends SuperComponent<ISelect> {
             selected: index,
             value: value,
         });
-        this.validate(target, true);
+        this.validate();
         this.model.callback(value);
     };
 
@@ -168,13 +172,12 @@ export default class Select extends SuperComponent<ISelect> {
         return this.model.value;
     }
 
-    public handleBlur: EventListener = (e: Event) => {
-        const input = e.currentTarget as HTMLSelectElement;
-        this.validate(input);
+    public handleBlur: EventListener = () => {
+        this.validate();
     };
 
-    public renderLabel(id: string) {
-        let output;
+    public renderLabel(id: string): string | TemplateResult {
+        let output: string | TemplateResult;
         if (this.model.label?.length) {
             output = html`<label for="${id}">${unsafeHTML(this.model.label)}</label>`;
         } else {
@@ -185,6 +188,13 @@ export default class Select extends SuperComponent<ISelect> {
 
     render() {
         const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${this.model.name}`;
+        this.setAttribute("state", this.state);
+        this.setAttribute("form-input", "");
+        this.className = `select ${this.model.class}`;
+        this.style.cssText = this.model.css;
+        Object.keys(this.model.attributes).map((key) => {
+            this.setAttribute(key, `${this.model.attributes[key]}`);
+        });
         const view = html`
             ${this.renderLabel(id)} ${this.renderCopy()}
             <select-container>
@@ -209,12 +219,6 @@ export default class Select extends SuperComponent<ISelect> {
                 </i>
             </select-container>
         `;
-        this.setAttribute("state", this.state);
-        this.className = `select js-input ${this.model.class}`;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
         render(view, this);
     }
 }
