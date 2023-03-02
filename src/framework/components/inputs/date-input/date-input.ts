@@ -90,7 +90,7 @@ export default class DateInput extends InputBase<IDateInput> {
             autocapitalize: "off",
             icon: null,
             placeholder: "",
-            value: "",
+            value: null,
             disabled: false,
             dateFormat: "Z",
             displayFormat: "F j, Y",
@@ -123,7 +123,7 @@ export default class DateInput extends InputBase<IDateInput> {
         this.set(
             {
                 // @ts-ignore
-                prevValue: this.model.value.toString(),
+                prevValue: this.model.value?.toString(),
                 value: input.value,
             },
             true
@@ -197,7 +197,7 @@ export default class DateInput extends InputBase<IDateInput> {
                     inputmode="email"
                     type="email"
                     id="${id}"
-                    .value=${this.model.value}
+                    .value=${this.model.value ?? ""}
                     placeholder=${this.model.placeholder}
                     name=${this.model.name}
                     autocapitalize=${this.model.autocapitalize}

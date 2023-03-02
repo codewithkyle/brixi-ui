@@ -51,6 +51,17 @@ export class InputBase<T> extends SuperComponent<T> {
         this.set(settings, true);
     }
 
+    public reset(): void {
+        this.set({
+            // @ts-ignore
+            value: null,
+        });
+        const input = this.querySelector("input") as HTMLInputElement;
+        if (input) {
+            input.value = "";
+        }
+    }
+
     public clearError(): void {
         if (this.state === "ERROR") {
             this.trigger("RESET");

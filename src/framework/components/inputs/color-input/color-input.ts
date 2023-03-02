@@ -32,7 +32,7 @@ export default class ColorInput extends InputBase<IColorInput> {
             css: "",
             class: "",
             attributes: {},
-            value: "000000",
+            value: null,
             name: "",
             label: "",
             callback: noop,
@@ -73,12 +73,12 @@ export default class ColorInput extends InputBase<IColorInput> {
                 id="${id}"
                 @change=${this.handleInput}
                 type="color"
-                .value="${this.model.value}"
+                .value="${this.model.value ?? "000000"}"
                 ?disabled=${this.model.disabled}
                 ?readonly=${this.model.readOnly}
             />
             <label for="${id}">
-                <color-preview style="background-color:#${this.model.value};"></color-preview>
+                <color-preview style="background-color:#${this.model.value ?? "000000"};"></color-preview>
                 <span>${this.model.label}</span>
             </label>
         `;

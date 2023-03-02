@@ -56,7 +56,7 @@ export default class PasswordInput extends InputBase<IPasswordInput> {
             autocomplete: "off",
             icon: null,
             placeholder: "",
-            value: "",
+            value: null,
             disabled: false,
             maxlength: 9999,
             minlength: 0,
@@ -80,11 +80,11 @@ export default class PasswordInput extends InputBase<IPasswordInput> {
 
     override validate(): boolean {
         let isValid = true;
-        if (this.model.required && !this.model.value.length) {
+        if (this.model.required && !this.model.value?.length) {
             isValid = false;
             this.setError("This field is required.");
         }
-        if (this.model.required || (!this.model.required && this.model.value.length)) {
+        if (this.model.required || (!this.model.required && this.model.value?.length)) {
             if (this.model.minlength > this.model.value.length) {
                 isValid = false;
                 this.setError(`This input requires a least ${this.model.minlength} characters.`);
@@ -207,7 +207,7 @@ export default class PasswordInput extends InputBase<IPasswordInput> {
                     @focus=${this.handleFocus}
                     type="${this.model.type}"
                     id="${id}"
-                    .value=${this.model.value}
+                    .value=${this.model.value ?? ""}
                     placeholder=${this.model.placeholder}
                     name=${this.model.name}
                     autocomplete="${this.model.autocomplete}"

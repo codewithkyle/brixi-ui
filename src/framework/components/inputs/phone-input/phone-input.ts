@@ -52,7 +52,7 @@ export default class PhoneInput extends InputBase<IPhoneInput> {
             autocomplete: "off",
             icon: null,
             placeholder: "",
-            value: "",
+            value: null,
             disabled: false,
             css: "",
             class: "",
@@ -74,11 +74,11 @@ export default class PhoneInput extends InputBase<IPhoneInput> {
     override validate(): boolean {
         let isValid = true;
         const PhoneNumberCheck = new RegExp(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/gim);
-        if (this.model.required && !this.model.value.length) {
+        if (this.model.required && !this.model.value?.length) {
             isValid = false;
             this.setError("This field is required.");
         }
-        if ((!this.model.required && this.model.value.length) || this.model.required) {
+        if ((!this.model.required && this.model.value?.length) || this.model.required) {
             if (!PhoneNumberCheck.test(`${this.model.value}`)) {
                 isValid = false;
                 this.setError(`Invalid phone number.`);
@@ -116,7 +116,7 @@ export default class PhoneInput extends InputBase<IPhoneInput> {
     };
 
     private handleFocus: EventListener = () => {
-        const value = this.model.value.toString().replace(/[\-\+\s\(\)]/g, "");
+        const value = this.model.value?.toString()?.replace(/[\-\+\s\(\)]/g, "") ?? null;
         this.set({
             value: value,
         });
@@ -182,7 +182,7 @@ export default class PhoneInput extends InputBase<IPhoneInput> {
                     inputmode="tel"
                     type="tel"
                     id="${id}"
-                    .value=${this.model.value}
+                    .value=${this.model.value ?? ""}
                     placeholder=${this.model.placeholder}
                     name=${this.model.name}
                     autocomplete="${this.model.autocomplete}"
