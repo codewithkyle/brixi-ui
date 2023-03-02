@@ -65,7 +65,6 @@ export default class SubmitButton extends SuperComponent<ISubmitButton> {
     }
 
     private handleClick = () => {
-        this.trigger("START");
         this.model.callback();
     };
 

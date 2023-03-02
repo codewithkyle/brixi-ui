@@ -1,0 +1,36 @@
+<script type="module">
+    import { html } from "/js/lit-html.js";
+    import Input from "/js/input.js";
+    import SubmitButton from "/js/submit-button.js";
+    import Component from "/js/form.js";
+    const example = new Component({
+        class: "p-2 border-solid border-grey-300 border-1 radius-0.5",
+        onSubmit: (form) => {
+            const valid = form.checkValidity();
+            if (valid) {
+                const data = form.serialize();
+                setTimeout(()=>{
+                    console.log(data);
+                    form.stop();
+                    form.reset();
+                }, 3000);
+            } else {
+                form.stop();
+            }
+        },
+        view: html`
+            ${new Input({
+                name: "name",
+                label: "Name",
+                placeholder: "Enter your name",
+                required: true,
+            })}
+            <div class="w-full mt-1">
+                ${new SubmitButton({
+                    label: "Submit",
+                })}
+            </div>
+        `,
+    });
+    document.body.appendChild(example);
+</script>
