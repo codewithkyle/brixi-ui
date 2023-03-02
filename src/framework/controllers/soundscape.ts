@@ -164,7 +164,6 @@ class Soundscape {
             };
         }
         this.toggleSound(handle, this.soundState[handle].isEnable === 1);
-        console.log(this.soundState[handle].volume);
         this.setVolume(handle, this.soundState[handle].volume);
         return this.sounds[handle];
     }
