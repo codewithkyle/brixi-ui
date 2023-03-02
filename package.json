@@ -87,7 +87,7 @@
         "@codewithkyle/uuid": "1.x",
         "archiver": "^5.3.1",
         "brixi": "^0.7.0",
-        "cssmonster": "^0.5.0",
+        "cssmonster": "^0.7.2",
         "dayjs": "1.x",
         "esbuild": "^0.14.39",
         "esinstall": "^1.1.7",

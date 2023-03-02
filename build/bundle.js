@@ -20,7 +20,7 @@ const install = require("esinstall").install;
 	
 	const libDir = path.join(cwd, "src", "framework", "lib");
 	if (fs.existsSync(libDir)) {
-		fs.rmdirSync(libDir, { recursive: true });
+		fs.rmSync(libDir, { recursive: true });
 	}
 	fs.mkdirSync(libDir);
 
@@ -34,5 +34,5 @@ const install = require("esinstall").install;
 		fs.renameSync(script, path.join(libDir, filename));
 	}
 
-	fs.rmdirSync(path.join(cwd, "web_modules"), {recursive: true});
+	fs.rmSync(path.join(cwd, "web_modules"), {recursive: true});
 })();
