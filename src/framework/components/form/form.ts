@@ -72,7 +72,13 @@ export default class Form extends SuperComponent<IForm> {
             // @ts-ignore
             if (el.validate()) {
                 // @ts-ignore
-                data[el.getName()] = el.getValue();
+                const name = el.getName();
+                if (name == null || name === "") {
+                    console.error("Form input is missing a name attribute.", el);
+                } else {
+                    // @ts-ignore
+                    data[name] = el.getValue();
+                }
             } else {
                 allValid = false;
             }
