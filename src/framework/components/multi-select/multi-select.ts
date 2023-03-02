@@ -108,15 +108,20 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
         }
     }
 
-    public setError(error: string, clearOnly: boolean) {
-        if (clearOnly) {
-            return;
-        }
+    public setError(error: string) {
         this.set({
             error: error,
         });
         this.trigger("ERROR");
         soundscape.play("error");
+    }
+
+    public reset(): void {
+        const updated = this.get();
+        for (let i = 0; i < updated.options.length; i++) {
+            updated.options[i].checked = false;
+        }
+        this.set(updated);
     }
 
     public getName() {
@@ -133,11 +138,11 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
         return selected;
     }
 
-    public validate(input, clearOnly: boolean = false): boolean {
+    public validate(): boolean {
         let isValid = true;
-        if (this.model.required) {
+        if (this.model.required && !this.hasOneCheck()) {
             isValid = false;
-            this.setError("This field is required.", clearOnly);
+            this.setError("This field is required.");
         } else {
             this.clearError();
         }
@@ -390,4 +395,4 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
         }, 80);
     }
 }
-env.mount("multi-select-component", MultiSelect);
+env.bind("multi-select-component", MultiSelect);
