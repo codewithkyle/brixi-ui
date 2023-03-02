@@ -1,29 +1,18 @@
 import { html, render, TemplateResult } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
-import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~brixi/controllers/env";
-import { noop, parseDataset } from "~brixi/utils/general";
-import soundscape from "~brixi/controllers/soundscape";
+import { noop } from "~brixi/utils/general";
+import { InputBase, IInputBase, IInputBaseSettings, IInputEvents } from "../input-base";
 
-interface IInputEvents {
-    onInput?: Function;
-    onFocus?: Function;
-    onBlur?: Function;
-}
-export interface IInput {
+export interface IInput extends IInputBase {
     label: string;
-    name: string;
     instructions: string;
-    error: string;
-    required: boolean;
     autocomplete: string;
     autocapitalize: "off" | "on";
     icon: string | HTMLElement;
     placeholder: string;
-    value: string | number;
     maxlength: number;
     minlength: number;
-    disabled: boolean;
     readOnly: boolean;
     callbacks: Partial<IInputEvents>;
     css: string;
@@ -33,20 +22,17 @@ export interface IInput {
     };
     datalist: string[];
     autofocus: boolean;
+    value: string;
 }
-export interface InputSettings {
+export interface InputSettings extends IInputBaseSettings {
     label?: string;
-    name: string;
-    required?: boolean;
     instructions?: string;
     autocomplete?: string;
     autocapitalize?: "off" | "on";
     icon?: string | HTMLElement;
     placeholder?: string;
-    value?: string | number;
     maxlength?: number;
     minlength?: number;
-    disabled?: boolean;
     readOnly?: boolean;
     callbacks?: Partial<IInputEvents>;
     css?: string;
@@ -56,24 +42,11 @@ export interface InputSettings {
     };
     datalist?: string[];
     autofocus?: boolean;
+    value?: string;
 }
-export default class Input extends SuperComponent<IInput> {
+export default class Input extends InputBase<IInput> {
     constructor(settings: InputSettings) {
-        super();
-        this.state = settings?.disabled ? "DISABLED" : "IDLING";
-        this.stateMachine = {
-            IDLING: {
-                ERROR: "ERROR",
-                DISABLE: "DISABLED",
-            },
-            ERROR: {
-                RESET: "IDLING",
-                ERROR: "ERROR",
-            },
-            DISABLED: {
-                ENABLE: "IDLING",
-            },
-        };
+        super(settings);
         this.model = {
             label: "",
             instructions: null,
@@ -100,46 +73,25 @@ export default class Input extends SuperComponent<IInput> {
             datalist: [],
             autofocus: false,
         };
-        this.model = parseDataset<IInput>(this.dataset, this.model);
         env.css("input").then(() => {
             this.set(settings, true);
             this.render();
         });
     }
 
-    public clearError(): void {
-        if (this.state === "ERROR") {
-            this.trigger("RESET");
-        }
-    }
-
-    public setError(error: string, clearOnly: boolean): void {
-        if (clearOnly) {
-            return;
-        }
-        this.set({
-            error: error,
-        });
-        this.trigger("ERROR");
-        soundscape.play("error");
-    }
-
-    public validate(input: HTMLInputElement = null, clearOnly: boolean = false): boolean {
-        if (!input) {
-            input = this.querySelector("input");
-        }
+    override validate(): boolean {
         let isValid = true;
-        if (this.model.required && !input.value.length) {
+        if (this.model.required && !this.model.value.length) {
             isValid = false;
-            this.setError("This field is required.", clearOnly);
+            this.setError("This field is required.");
         }
-        if (this.model.required || (!this.model.required && input.value.length)) {
-            if (this.model.minlength > input.value.length) {
+        if (this.model.required || (!this.model.required && this.model.value.length)) {
+            if (this.model.minlength > this.model.value.length) {
                 isValid = false;
-                this.setError(`This input requires a least ${this.model.minlength} characters.`, clearOnly);
-            } else if (this.model.maxlength < input.value.length) {
+                this.setError(`This input requires a least ${this.model.minlength} characters.`);
+            } else if (this.model.maxlength < this.model.value.length) {
                 isValid = false;
-                this.setError(`This input requires a least ${this.model.minlength} characters.`, clearOnly);
+                this.setError(`This input requires a least ${this.model.minlength} characters.`);
             }
         }
         if (isValid) {
@@ -148,34 +100,28 @@ export default class Input extends SuperComponent<IInput> {
         return isValid;
     }
 
-    public getName(): string {
-        return this.model.name;
-    }
-
-    public getValue(): any {
-        return this.model.value;
-    }
-
-    public handleBlur: EventListener = (e: Event) => {
+    private handleInput: EventListener = (e: Event) => {
         const input = e.currentTarget as HTMLInputElement;
-        this.validate(input);
-        this.model.callbacks.onBlur(this.model.value);
-    };
-
-    public handleInput: EventListener = (e: Event) => {
-        const input = e.currentTarget as HTMLInputElement;
-        this.set({
-            value: input.value,
-        });
-        this.validate(input, true);
+        this.set(
+            {
+                value: input.value,
+            },
+            true
+        );
+        this.clearError();
         this.model.callbacks.onInput(input.value);
     };
 
-    public handleFocus: EventListener = () => {
+    private handleBlur: EventListener = () => {
+        this.validate();
+        this.model.callbacks.onBlur(this.model.value);
+    };
+
+    private handleFocus: EventListener = () => {
         this.model.callbacks.onFocus(this.model.value);
     };
 
-    public renderCopy(): string | TemplateResult {
+    private renderCopy(): string | TemplateResult {
         let output: string | TemplateResult = "";
         if (this.state === "IDLING" && this.model.instructions) {
             output = html`<p>${unsafeHTML(this.model.instructions)}</p>`;
@@ -185,7 +131,7 @@ export default class Input extends SuperComponent<IInput> {
         return output;
     }
 
-    public renderIcon(): string | TemplateResult {
+    private renderIcon(): string | TemplateResult {
         let output: string | TemplateResult = "";
         if (typeof this.model.icon === "string") {
             output = html`<i>${unsafeHTML(this.model.icon)}</i>`;
@@ -195,7 +141,7 @@ export default class Input extends SuperComponent<IInput> {
         return output;
     }
 
-    public renderLabel(id: string): string | TemplateResult {
+    private renderLabel(id: string): string | TemplateResult {
         let output: string | TemplateResult = "";
         if (this.model.label?.length) {
             output = html`<label for="${id}">${unsafeHTML(this.model.label)}</label>`;
@@ -219,6 +165,12 @@ export default class Input extends SuperComponent<IInput> {
 
     render() {
         const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${this.model.name}`;
+        this.setAttribute("state", this.state);
+        this.className = `input ${this.model.class}`;
+        this.style.cssText = this.model.css;
+        Object.keys(this.model.attributes).map((key) => {
+            this.setAttribute(key, `${this.model.attributes[key]}`);
+        });
         const view = html`
             ${this.renderLabel(id)} ${this.renderCopy()}
             <input-container>
@@ -244,12 +196,6 @@ export default class Input extends SuperComponent<IInput> {
             </input-container>
             ${this.renderDatalist(id)}
         `;
-        this.setAttribute("state", this.state);
-        this.className = `input js-input ${this.model.class}`;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
         render(view, this);
     }
 }

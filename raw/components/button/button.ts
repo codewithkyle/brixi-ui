@@ -1,5 +1,5 @@
 import SuperComponent from "@codewithkyle/supercomponent";
-import { html, render } from "lit-html";
+import { html, render, TemplateResult } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import env from "~brixi/controllers/env";
 import { noop, parseDataset } from "~brixi/utils/general";
@@ -76,8 +76,8 @@ export default class Button extends SuperComponent<IButton> {
         });
     }
 
-    private renderIcon() {
-        let icon;
+    private renderIcon(): string | TemplateResult {
+        let icon: string | TemplateResult = "";
         if (this.model.icon.length) {
             icon = html`${unsafeHTML(this.model.icon)}`;
         } else {
@@ -86,8 +86,8 @@ export default class Button extends SuperComponent<IButton> {
         return icon;
     }
 
-    private renderLabel() {
-        let label;
+    private renderLabel(): string | TemplateResult {
+        let label: string | TemplateResult = "";
         if (this.model.label.length) {
             label = html`<span>${this.model.label}</span>`;
         } else {

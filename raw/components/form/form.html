@@ -1,0 +1,50 @@
+<script type="module">
+    import { html } from "/js/lit-html.js";
+    import Input from "/js/input.js";
+    import EmailInput from "/js/email-input.js";
+    import PhoneInput from "/js/phone-input.js";
+    import SubmitButton from "/js/submit-button.js";
+    import Component from "/js/form.js";
+    const example = new Component({
+        class: "p-2 border-solid border-grey-300 border-1 radius-0.5 w-411",
+        onSubmit: (form) => {
+            const valid = form.checkValidity();
+            if (valid) {
+                const data = form.serialize();
+                setTimeout(()=>{
+                    console.log(data);
+                    form.stop();
+                    form.reset();
+                }, 3000);
+            } else {
+                form.stop();
+            }
+        },
+        view: html`
+            <div grid="columns 1 gap-1.5">
+                ${new Input({
+                    name: "name",
+                    label: "Full Name",
+                    required: true,
+                    autocomplete: "name",
+                })}
+                ${new EmailInput({
+                    name: "email",
+                    label: "Email Address",
+                    required: true,
+                })}
+                ${new PhoneInput({
+                    name: "phone",
+                    label: "Phone Number",
+                    required: true,
+                })}
+            </div>
+            <div class="w-full mt-1.5">
+                ${new SubmitButton({
+                    label: "Submit",
+                })}
+            </div>
+        `,
+    });
+    document.body.appendChild(example);
+</script>

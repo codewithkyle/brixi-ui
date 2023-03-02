@@ -19,22 +19,22 @@
         soundscape.load();
     </script>
     <script type="module" src="/js/tooltipper.js"></script>
-    <link rel="stylesheet" href="/css/number-input.css">
-    <script type="module" src="/js/number-input.js"></script>
+    <link rel="stylesheet" href="/css/submit-button.css">
+    <script type="module" src="/js/submit-button.js"></script>
 </head>
 <body>
     <script type="module">
-    import NumberInput from "/js/number-input.js";
-    const test = new NumberInput({
-        label: "Example",
-        required: true,
-        instructions: "This is an example input.",
-        step: 5,
-        min: -50,
-        max: 50,
-        value: 5,
+    import Component from "/js/submit-button.js";
+    const example = new Component({
+        label: "Create Account",
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 5l0 14"></path><path d="M5 12l14 0"></path></svg>`,
+        callback: () => {
+            setTimeout(() => {
+                example.trigger("STOP");
+            }, 5000);
+        }
     });
-    document.body.appendChild(test);
+    document.body.appendChild(example);
 </script>
 
 </body>

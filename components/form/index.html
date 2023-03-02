@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brixi UI</title>
+    <meta name="description" content="A sleek & slender design system built on web components.">
+    <link rel="alternate icon" href="/static/favicon.png">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/framework-core.css">
+    <link rel="stylesheet" href="/css/core.css">
+    <link rel="stylesheet" href="/css/brixi.css">
+    <link rel="stylesheet" href="/css/component-layout.css">
+    <link rel="stylesheet" href="/css/tooltip.css">
+    <link rel="stylesheet" href="/css/snackbar.css">
+    <script type="module">
+        import soundscape from "/js/soundscape.js";
+        soundscape.load();
+    </script>
+    <script type="module" src="/js/tooltipper.js"></script>
+    <link rel="stylesheet" href="/css/form.css">
+    <script type="module" src="/js/form.js"></script>
+</head>
+<body>
+    <script type="module">
+    import { html } from "/js/lit-html.js";
+    import Input from "/js/input.js";
+    import EmailInput from "/js/email-input.js";
+    import PhoneInput from "/js/phone-input.js";
+    import SubmitButton from "/js/submit-button.js";
+    import Component from "/js/form.js";
+    const example = new Component({
+        class: "p-2 border-solid border-grey-300 border-1 radius-0.5 w-411",
+        onSubmit: (form) => {
+            const valid = form.checkValidity();
+            if (valid) {
+                const data = form.serialize();
+                setTimeout(()=>{
+                    console.log(data);
+                    form.stop();
+                    form.reset();
+                }, 3000);
+            } else {
+                form.stop();
+            }
+        },
+        view: html`
+            <div grid="columns 1 gap-1.5">
+                ${new Input({
+                    name: "name",
+                    label: "Full Name",
+                    required: true,
+                    autocomplete: "name",
+                })}
+                ${new EmailInput({
+                    name: "email",
+                    label: "Email Address",
+                    required: true,
+                })}
+                ${new PhoneInput({
+                    name: "phone",
+                    label: "Phone Number",
+                    required: true,
+                })}
+            </div>
+            <div class="w-full mt-1.5">
+                ${new SubmitButton({
+                    label: "Submit",
+                })}
+            </div>
+        `,
+    });
+    document.body.appendChild(example);
+</script>
+
+</body>
+</html>
