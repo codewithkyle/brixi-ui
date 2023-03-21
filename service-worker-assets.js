@@ -1,6 +1,6 @@
 
 self.manifest = {
-    "version": "5880f64f98f0781f9925e89420cb5921",
+    "version": "3dc62e207dc989c9eeed3b812ff9eb01",
     "assets": [
 		"/js/accordion.js",
 		"/js/alert.js",
@@ -37,7 +37,7 @@ self.manifest = {
 		"/js/markdown-worker.js",
 		"/js/markdown.js",
 		"/js/messaging.js",
-		"/js/modal-maker.js",
+		"/js/modals.js",
 		"/js/multi-select.js",
 		"/js/nav.js",
 		"/js/notifications.js",
@@ -260,6 +260,7 @@ self.manifest = {
 		"/raw/components/link/link.scss",
 		"/raw/components/modals/modals.css",
 		"/raw/components/modals/modals.html",
+		"/raw/components/modals/modals.js",
 		"/raw/components/modals/modals.scss",
 		"/raw/components/multi-select/multi-select.css",
 		"/raw/components/multi-select/multi-select.html",
