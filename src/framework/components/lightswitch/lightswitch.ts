@@ -22,6 +22,7 @@ export interface ILightswitch {
         [name: string]: string | number;
     };
     value: string | number;
+    required: boolean;
 }
 export interface LightswitchSettings {
     name?: string;
@@ -39,6 +40,7 @@ export interface LightswitchSettings {
         [name: string]: string | number;
     };
     value: string | number;
+    required?: boolean;
 }
 export default class Lightswitch extends SuperComponent<ILightswitch> {
     constructor(settings: LightswitchSettings) {
@@ -57,6 +59,7 @@ export default class Lightswitch extends SuperComponent<ILightswitch> {
             class: "",
             attributes: {},
             value: null,
+            required: false,
         };
         this.model = parseDataset<ILightswitch>(this.dataset, this.model);
         env.css("lightswitch").then(() => {
@@ -65,12 +68,48 @@ export default class Lightswitch extends SuperComponent<ILightswitch> {
         });
     }
 
-    public getName() {
+    public getName(): string {
         return this.model.name;
     }
 
-    public getValue() {
-        return this.model.enabled;
+    public getValue(): string | number | null {
+        if (this.model.enabled) {
+            return this.model.value;
+        } else {
+            return null;
+        }
+    }
+
+    public reset(): void {
+        this.set({
+            enabled: false,
+        });
+    }
+
+    public clearError(): void {
+        if (this.state === "ERROR") {
+            this.trigger("RESET");
+        }
+    }
+
+    public setError(error: string): void {
+        if (error?.length) {
+            this.set({
+                // @ts-ignore
+                error: error,
+            });
+            this.trigger("ERROR");
+            soundscape.play("error");
+        }
+    }
+
+    public validate(): boolean {
+        let isValid = true;
+        if (this.model.required && !this.model.enabled) {
+            isValid = false;
+            this.setError("This field is required");
+        }
+        return isValid;
     }
 
     private handleChange: EventListener = (e: Event) => {
