@@ -69,14 +69,11 @@ export default class CheckboxGroup extends SuperComponent<ICheckboxGroup> {
     }
 
     public reset(): void {
-        this.set({
-            // @ts-ignore
-            value: null,
-        });
-        const input = this.querySelector("input") as HTMLInputElement;
-        if (input) {
-            input.value = "";
+        const updated = this.get();
+        for (let i = 0; i < updated.options.length; i++) {
+            updated.options[i].checked = false;
         }
+        this.set(updated);
     }
 
     public clearError(): void {
@@ -97,6 +94,12 @@ export default class CheckboxGroup extends SuperComponent<ICheckboxGroup> {
     }
 
     override render() {
+        this.className = `${this.model.class} ${this.model.disabled ? "is-disabled" : ""}`;
+        this.style.cssText = this.model.css;
+        Object.keys(this.model.attributes).map((key) => {
+            this.setAttribute(key, `${this.model.attributes[key]}`);
+        });
+        this.setAttribute("form-input", "");
         const view = html`
             <p>
                 <strong>${this.model.label}</strong>
@@ -106,11 +109,6 @@ export default class CheckboxGroup extends SuperComponent<ICheckboxGroup> {
                 return new Checkbox(option);
             })}
         `;
-        this.className = `${this.model.class} ${this.model.disabled ? "is-disabled" : ""}`;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
         render(view, this);
     }
 }

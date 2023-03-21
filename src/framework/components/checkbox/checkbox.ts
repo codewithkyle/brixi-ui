@@ -129,13 +129,8 @@ export default class Checkbox extends SuperComponent<ICheckbox> {
 
     public reset(): void {
         this.set({
-            // @ts-ignore
-            value: null,
+            checked: false,
         });
-        const input = this.querySelector("input") as HTMLInputElement;
-        if (input) {
-            input.value = "";
-        }
     }
 
     public clearError(): void {

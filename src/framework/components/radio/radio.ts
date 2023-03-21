@@ -120,6 +120,13 @@ export default class Radio extends SuperComponent<IRadio> {
     };
 
     render() {
+        this.setAttribute("state", this.state);
+        this.className = `radio js-input ${this.model.class}`;
+        this.style.cssText = this.model.css;
+        Object.keys(this.model.attributes).map((key) => {
+            this.setAttribute(key, `${this.model.attributes[key]}`);
+        });
+        this.setAttribute("form-input", "");
         const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${this.model.name}`;
         const view = html`
             <div class="inline-block mr-auto">
@@ -144,12 +151,6 @@ export default class Radio extends SuperComponent<IRadio> {
                 </label>
             </div>
         `;
-        this.setAttribute("state", this.state);
-        this.className = `radio js-input ${this.model.class}`;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
         render(view, this);
     }
 }

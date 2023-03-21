@@ -116,6 +116,12 @@ export default class RadioGroup extends SuperComponent<IRadioGroup> {
     }
 
     override render() {
+        this.className = `${this.model.class} ${this.model.disabled ? "is-disabled" : ""}`;
+        this.style.cssText = this.model.css;
+        Object.keys(this.model.attributes).map((key) => {
+            this.setAttribute(key, `${this.model.attributes[key]}`);
+        });
+        this.setAttribute("form-input", "");
         const view = html`
             <p>
                 <strong>${this.model.label}</strong>
@@ -125,11 +131,6 @@ export default class RadioGroup extends SuperComponent<IRadioGroup> {
                 return new Radio(option);
             })}
         `;
-        this.className = `${this.model.class} ${this.model.disabled ? "is-disabled" : ""}`;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
         render(view, this);
     }
 }

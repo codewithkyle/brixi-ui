@@ -3,6 +3,8 @@ import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~brixi/controllers/env";
 import { noop, parseDataset } from "~brixi/utils/general";
 
+const FORM_INPUT_SELECTOR = "[form-input]:not(checkbox-group checkbox-component):not(radio-group radio-component)";
+
 export interface IForm {
     css: string;
     class: string;
@@ -58,7 +60,7 @@ export default class Form extends SuperComponent<IForm> {
     }
 
     public reset() {
-        this.querySelectorAll("[form-input]").forEach((el) => {
+        this.querySelectorAll(FORM_INPUT_SELECTOR).forEach((el) => {
             // @ts-ignore
             el.reset();
         });
@@ -68,7 +70,7 @@ export default class Form extends SuperComponent<IForm> {
         this.start();
         const data = {};
         let allValid = true;
-        this.querySelectorAll("[form-input]").forEach((el) => {
+        this.querySelectorAll(FORM_INPUT_SELECTOR).forEach((el) => {
             // @ts-ignore
             if (el.validate()) {
                 // @ts-ignore
@@ -88,7 +90,7 @@ export default class Form extends SuperComponent<IForm> {
 
     public checkValidity(): boolean {
         let allValid = true;
-        this.querySelectorAll("[form-input]").forEach((el) => {
+        this.querySelectorAll(FORM_INPUT_SELECTOR).forEach((el) => {
             // @ts-ignore
             if (!el.validate()) {
                 allValid = false;
@@ -99,7 +101,7 @@ export default class Form extends SuperComponent<IForm> {
 
     public fail(errors: { [name: string]: string }) {
         const inputs = {};
-        this.querySelectorAll("[form-input]").forEach((el) => {
+        this.querySelectorAll(FORM_INPUT_SELECTOR).forEach((el) => {
             // @ts-ignore
             inputs[el.getName()] = el;
         });
