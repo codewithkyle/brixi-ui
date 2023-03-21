@@ -2,6 +2,7 @@ import { html, render } from "lit-html";
 import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~brixi/controllers/env";
 import { noop, parseDataset } from "~brixi/utils/general";
+import soundscape from "~brixi/controllers/soundscape";
 
 export interface IRadio {
     label: string;
@@ -15,6 +16,7 @@ export interface IRadio {
     attributes: {
         [name: string]: string | number;
     };
+    value: string | number;
 }
 export interface RadioSettings {
     label: string;
@@ -28,6 +30,7 @@ export interface RadioSettings {
     attributes?: {
         [name: string]: string | number;
     };
+    value: string | number;
 }
 export default class Radio extends SuperComponent<IRadio> {
     constructor(settings: RadioSettings) {
@@ -42,6 +45,7 @@ export default class Radio extends SuperComponent<IRadio> {
             css: "",
             class: "",
             attributes: {},
+            value: null,
         };
         this.model = parseDataset<IRadio>(this.dataset, this.model);
         env.css("radio").then(() => {
@@ -50,17 +54,48 @@ export default class Radio extends SuperComponent<IRadio> {
         });
     }
 
-    public getName() {
+    public getName(): string {
         return this.model.name;
     }
 
-    public getValue() {
-        const input = this.querySelector("input");
-        return input.checked;
+    public getValue(): string | number | null {
+        if (this.model.checked) {
+            return this.model.value;
+        } else {
+            return null;
+        }
+    }
+
+    public reset(): void {
+        this.set({
+            checked: false,
+        });
+    }
+
+    public clearError(): void {
+        if (this.state === "ERROR") {
+            this.trigger("RESET");
+        }
+    }
+
+    public setError(error: string): void {
+        if (error?.length) {
+            this.set({
+                // @ts-ignore
+                error: error,
+            });
+            this.trigger("ERROR");
+            soundscape.play("error");
+        }
     }
 
     public validate(): boolean {
-        return true;
+        let isValid = true;
+        if (this.model.required && !this.model.checked) {
+            isValid = false;
+            this.setError("This field is required");
+        }
+        return isValid;
     }
 
     private handleChange: EventListener = (e: Event) => {
@@ -88,7 +123,15 @@ export default class Radio extends SuperComponent<IRadio> {
         const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${this.model.name}`;
         const view = html`
             <div class="inline-block mr-auto">
-                <input @change=${this.handleChange} type="radio" name="${this.model.name}" id="${id}" .checked=${this.model.checked} ?disabled=${this.model.disabled} />
+                <input
+                    @change=${this.handleChange}
+                    type="radio"
+                    name="${this.model.name}"
+                    id="${id}"
+                    .checked=${this.model.checked}
+                    ?disabled=${this.model.disabled}
+                    .value=${this.model.value ?? ""}
+                />
                 <label sfx="button" for="${id}">
                     <i
                         @keydown=${this.handleKeydown}

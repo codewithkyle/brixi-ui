@@ -4,6 +4,7 @@ import env from "~brixi/controllers/env";
 import Radio, { RadioSettings } from "~brixi/components/radio/radio";
 import { parseDataset } from "~brixi/utils/general";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
+import soundscape from "~brixi/controllers/soundscape";
 
 export interface IRadioGroup {
     options: Array<RadioSettings>;
@@ -16,6 +17,7 @@ export interface IRadioGroup {
     attributes: {
         [name: string]: string | number;
     };
+    required: boolean;
 }
 export interface RadioGroupSettings {
     label: string;
@@ -28,6 +30,7 @@ export interface RadioGroupSettings {
     attributes?: {
         [name: string]: string | number;
     };
+    required?: boolean;
 }
 export default class RadioGroup extends SuperComponent<IRadioGroup> {
     constructor(settings: RadioGroupSettings) {
@@ -45,6 +48,7 @@ export default class RadioGroup extends SuperComponent<IRadioGroup> {
             css: "",
             class: "",
             attributes: {},
+            required: false,
         };
         this.model = parseDataset<IRadioGroup>(this.dataset, this.model);
         env.css("radio-group").then(() => {
@@ -57,9 +61,58 @@ export default class RadioGroup extends SuperComponent<IRadioGroup> {
         return this.model.name;
     }
 
-    public getValue(): string {
-        const input: HTMLInputElement = this.querySelector("input:checked");
-        return input.value;
+    public getValue(): string | number | null {
+        let value = null;
+        for (let i = 0; i < this.model.options.length; i++) {
+            if (this.model.options[i].checked) {
+                value = this.model.options[i].value;
+                break;
+            }
+        }
+        return value;
+    }
+
+    public reset(): void {
+        const updated = this.get();
+        for (let i = 0; i < updated.options.length; i++) {
+            updated.options[i].checked = false;
+        }
+        updated.options[0].checked = true;
+        this.set(updated);
+    }
+
+    public clearError(): void {
+        if (this.state === "ERROR") {
+            this.trigger("RESET");
+        }
+    }
+
+    public setError(error: string): void {
+        if (error?.length) {
+            this.set({
+                // @ts-ignore
+                error: error,
+            });
+            this.trigger("ERROR");
+            soundscape.play("error");
+        }
+    }
+
+    public validate(): boolean {
+        let isValid = true;
+        if (this.model.required) {
+            isValid = false;
+            for (let i = 0; i < this.model.options.length; i++) {
+                if (this.model.options[i].checked) {
+                    isValid = true;
+                    break;
+                }
+            }
+            if (!isValid) {
+                this.setError("This field is required");
+            }
+        }
+        return isValid;
     }
 
     override render() {
