@@ -1,0 +1,11 @@
+<script type="module">
+    import Component from "/js/input-chip.js";
+    const example = new Component({
+        label: "Example",
+        value: "example",
+        callback: (value) => {
+            console.log(value, "was removed");
+        }
+    });
+    document.body.appendChild(example);
+</script>

@@ -1,0 +1,49 @@
+input-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: row nowrap;
+    position: relative;
+    height: 32px;
+    border-radius: 0.5rem;
+    background-color: var(--white);
+    border: 1px solid var(--grey-300);
+    color: var(--grey-700);
+    font-size: var(--font-sm);
+    font-weight: var(--font-medium);
+    padding: 0 0.75rem;
+    transition: all 80ms var(--ease-in-out);
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+        background-color: var(--grey-50);
+
+        svg {
+            color: var(--grey-600);
+        }
+    }
+
+    &:active,
+    &.is-active {
+        background-color: var(--grey-100);
+        outline-offset: 0 !important;
+        transition: outline-offset 0ms linear;
+    }
+
+    &:focus-visible {
+        outline: var(--focus-ring);
+        outline-offset: 5px;
+    }
+
+    svg {
+        width: 14px;
+        height: 14px;
+        color: var(--grey-400);
+        margin-left: 0.5rem;
+    }
+
+    span {
+        line-height: 1;
+    }
+}

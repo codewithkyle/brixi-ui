@@ -1,0 +1,17 @@
+<div id="container" flex="row nowrap items-center"></div>
+<script type="module">
+    import Component from "/js/filter-chip.js";
+    const container = document.getElementById("container");
+    const chips = ["Tacos", "Burritos", "Quesadillas"];
+    chips.map(chip => {
+        const example = new Component({
+            label: chip,
+            value: chip,
+            callback: (value, checked) => {
+                console.log(value, checked);
+            },
+            class: "mr-0.5",
+        });
+        container.appendChild(example);
+    });
+</script>

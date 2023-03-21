@@ -1,4 +1,4 @@
-import { html, render } from "lit-html";
+import { html, render, TemplateResult } from "lit-html";
 import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~brixi/controllers/env";
 import { noop, parseDataset } from "~brixi/utils/general";
@@ -62,24 +62,24 @@ export default class SplitButton extends SuperComponent<ISplitButton> {
         });
     }
 
-    private hideMenu = (e) => {
+    private hideMenu = () => {
         const buttonMenu: HTMLElement = this.querySelector("button-menu");
         if (buttonMenu) {
             buttonMenu.style.visibility = "hidden";
         }
     };
 
-    private handlePrimaryClick = (e) => {
+    private handlePrimaryClick = () => {
         this.model.callback();
     };
 
-    private handleSecondaryClick = (e) => {
-        const target = e.currentTarget;
+    private handleSecondaryClick = (e: Event) => {
+        const target = e.currentTarget as HTMLElement;
         const index = parseInt(target.dataset.index);
         this.model.buttons[index].callback();
     };
 
-    private openMenu = (e) => {
+    private openMenu = () => {
         const buttonMenu: HTMLElement = this.querySelector("button-menu");
         if (buttonMenu) {
             buttonMenu.style.visibility = "visible";
@@ -91,8 +91,8 @@ export default class SplitButton extends SuperComponent<ISplitButton> {
         }
     };
 
-    private renderIcon(icon: string | HTMLElement) {
-        let out;
+    private renderIcon(icon: string | HTMLElement): string | TemplateResult {
+        let out: string | TemplateResult;
         if (icon instanceof HTMLElement) {
             out = html` <i class="icon">${icon}</i> `;
         } else if (typeof icon === "string" && icon.length) {
@@ -103,8 +103,8 @@ export default class SplitButton extends SuperComponent<ISplitButton> {
         return out;
     }
 
-    private renderLabel(label: string) {
-        let out;
+    private renderLabel(label: string): string | TemplateResult {
+        let out: string | TemplateResult;
         if (label) {
             out = html` <span>${label}</span> `;
         } else {
@@ -114,18 +114,14 @@ export default class SplitButton extends SuperComponent<ISplitButton> {
     }
 
     private renderPrimaryButton() {
-        return html`
-            <button class="bttn" type="${this.model.type}" @click=${this.handlePrimaryClick} kind="outline" color="grey">
-                ${this.renderIcon(this.model.icon)} ${this.renderLabel(this.model.label)}
-            </button>
-        `;
+        return html` <button type=${this.model.type} @click=${this.handlePrimaryClick}>${this.renderIcon(this.model.icon)} ${this.renderLabel(this.model.label)}</button> `;
     }
 
-    private renderMenuButtons() {
-        let out;
+    private renderMenuButtons(): string | TemplateResult {
+        let out: string | TemplateResult;
         if (this.model.buttons.length) {
             out = html`
-                <button class="split bttn" aria-label="Open button menu" type="button" kind="outline" color="grey" @click=${this.openMenu} @focus=${this.hideMenu}>
+                <button class="split" aria-label="Open button menu" type="button" @click=${this.openMenu} @focus=${this.hideMenu}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                         <polyline points="6 9 12 15 18 9"></polyline>
