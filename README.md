@@ -11,7 +11,7 @@ npm i -D brixi-ui
 Install peer dependencies.
 
 ```
-npm i -D flatpickr@4 fuse.js@6 tooltipper@1 @codewithkyle/modal-maker@1 @codewithkyle/notifyjs@3 @codewithkyle/pubsub@1 @codewithkyle/router@1 @codewithkyle/supercomponent@1 @codewithkyle/uuid@1 brixi@latest dayjs@1 lit-html@2
+npm i -D flatpickr@4 fuse.js@6 tooltipper@1 @codewithkyle/notifyjs@3 @codewithkyle/pubsub@1 @codewithkyle/router@1 @codewithkyle/supercomponent@1 @codewithkyle/uuid@1 brixi@latest dayjs@1 lit-html@2
 ```
 
 Create the install scripts.
