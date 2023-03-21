@@ -1,16 +1,16 @@
 import SuperComponent from "@codewithkyle/supercomponent";
-import { html, render } from "lit-html";
+import { html, render, TemplateResult } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import env from "~brixi/controllers/env";
 import soundscape from "~brixi/controllers/soundscape";
 import { noop, parseDataset } from "~brixi/utils/general";
 
-export type LightswitchColor = "primary" | "success" | "warning" | "danger" | "black" | "grey" | "info";
+export type LightswitchColor = "primary" | "success" | "warning" | "danger" | "info";
 export interface ILightswitch {
     label: string;
-    labelIcon: string;
-    altLabel: string;
-    altLabelIcon: string;
+    instructions: string;
+    enabledLabel: string | HTMLElement;
+    disabledLabel: string | HTMLElement;
     enabled: boolean;
     name: string;
     disabled: boolean;
@@ -21,13 +21,14 @@ export interface ILightswitch {
     attributes: {
         [name: string]: string | number;
     };
+    value: string | number;
 }
 export interface LightswitchSettings {
     name?: string;
     label?: string;
-    labelIcon?: string;
-    altLabel?: string;
-    altLabelIcon?: string;
+    instructions?: string;
+    enabledLabel?: string | HTMLElement;
+    disabledLabel?: string | HTMLElement;
     enabled?: boolean;
     disabled?: boolean;
     callback?: Function;
@@ -37,6 +38,7 @@ export interface LightswitchSettings {
     attributes?: {
         [name: string]: string | number;
     };
+    value: string | number;
 }
 export default class Lightswitch extends SuperComponent<ILightswitch> {
     constructor(settings: LightswitchSettings) {
@@ -44,16 +46,17 @@ export default class Lightswitch extends SuperComponent<ILightswitch> {
         this.model = {
             name: "",
             label: "",
-            labelIcon: "",
-            altLabel: "",
-            altLabelIcon: "",
+            instructions: "",
+            enabledLabel: null,
+            disabledLabel: null,
             enabled: false,
             disabled: false,
             callback: noop,
-            color: "primary",
+            color: "success",
             css: "",
             class: "",
             attributes: {},
+            value: null,
         };
         this.model = parseDataset<ILightswitch>(this.dataset, this.model);
         env.css("lightswitch").then(() => {
@@ -104,50 +107,55 @@ export default class Lightswitch extends SuperComponent<ILightswitch> {
         }
     };
 
-    private renderText(text: string) {
-        let out;
-        if (text.length) {
-            out = html` <div>${text}</div> `;
-        } else {
-            out = "";
-        }
-        return out;
-    }
-
     private resize() {
-        const label: HTMLElement = this.querySelector("label");
+        const label: HTMLElement = this.querySelector("light-switch");
         const span1: HTMLElement = label.querySelector("span:first-of-type");
         const span2: HTMLElement = label.querySelector("span:last-of-type");
         const i = this.querySelector("i");
         if (this.model.enabled) {
-            label.style.width = `${span1.scrollWidth + 23 + 16}px`;
-            span1.style.transform = `translateX(0)`;
-            span2.style.transform = `translateX(0)`;
-            i.style.transform = `translateX(0)`;
+            label.style.width = `${span1.scrollWidth + 32}px`;
+            span1.style.transform = `translateX(6px)`;
+            span2.style.transform = `translateX(6px)`;
+            i.style.transform = `translate(6px, 2px)`;
         } else {
-            label.style.width = `${span2.scrollWidth + 23 + 18}px`;
-            span1.style.transform = `translateX(-${span1.scrollWidth + 8}px)`;
-            span2.style.transform = `translateX(-${span1.scrollWidth + 8}px)`;
-            i.style.transform = `translateX(-${span1.scrollWidth + 8}px)`;
+            label.style.width = `${span2.scrollWidth + 32}px`;
+            span1.style.transform = `translateX(-${span1.scrollWidth}px)`;
+            span2.style.transform = `translateX(-${span1.scrollWidth}px)`;
+            i.style.transform = `translate(-${span1.scrollWidth}px, 2px)`;
         }
     }
 
     override render() {
         this.setAttribute("color", this.model.color);
-        const id = `${this.model.altLabel.replace(/\s+/g, "-").trim()}-${this.model.name}-${this.model.label.replace(/\s+/g, "-").trim()}`;
-        const view = html`
-            <input @change=${this.handleChange} type="checkbox" name="${this.model.name}" id="${id}" ?disabled=${this.model.disabled} .checked=${this.model.enabled} />
-            <label for="${id}" tabindex="0" @keyup=${this.handleKeyup} @keydown=${this.handleKeydown} aria-label=${this.model.enabled ? this.model.altLabel : this.model.label}>
-                <span> ${unsafeHTML(this.model.altLabelIcon)} ${this.renderText(this.model.altLabel)} </span>
-                <i></i>
-                <span> ${unsafeHTML(this.model.labelIcon)} ${this.renderText(this.model.label)} </span>
-            </label>
-        `;
+        this.setAttribute("form-input", "");
         this.className = this.model.class;
         this.style.cssText = this.model.css;
         Object.keys(this.model.attributes).map((key) => {
             this.setAttribute(key, `${this.model.attributes[key]}`);
         });
+        const id = `${this.model.name}-${this.model.label.replace(/\s+/g, "-").trim()}`;
+        const view = html`
+            <input
+                @change=${this.handleChange}
+                type="checkbox"
+                name="${this.model.name}"
+                id="${id}"
+                ?disabled=${this.model.disabled}
+                .checked=${this.model.enabled}
+                .value=${this.model.value ?? ""}
+            />
+            <label for="${id}">
+                <light-switch tabindex="0" @keyup=${this.handleKeyup} @keydown=${this.handleKeydown} aria-label="${this.model.enabled ? "enabled" : "disabled"}">
+                    <span>${this.model.enabledLabel instanceof HTMLElement ? this.model.enabledLabel : unsafeHTML(this.model.enabledLabel)}</span>
+                    <i></i>
+                    <span>${this.model.disabledLabel instanceof HTMLElement ? this.model.disabledLabel : unsafeHTML(this.model.disabledLabel)}</span>
+                </light-switch>
+                <div class="ml-0.75" flex="column wrap">
+                    <span class="block line-snug font-sm font-medium font-grey-700">${this.model.label}</span>
+                    <span class="block line-snug font-xs font-grey-500">${this.model.instructions}</span>
+                </div>
+            </label>
+        `;
         render(view, this);
         setTimeout(this.resize.bind(this), 80);
     }
