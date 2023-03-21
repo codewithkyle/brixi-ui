@@ -11,7 +11,7 @@ overflow-menu {
         transition: all 150ms var(--ease-in-out);
         user-select: none;
         cursor: pointer;
-        color: var(--grey-600);
+        color: var(--grey-400);
         outline-offset: 0;
 
         &:focus-visible {
@@ -101,15 +101,12 @@ overflow-menu-container {
 
         &:hover,
         &:focus-visible {
-            color: var(--grey-800);
-
             &::before {
                 opacity: 0.05;
             }
         }
 
         &:active {
-            color: var(--grey-800);
             outline-offset: 0;
 
             &::before {
@@ -137,10 +134,10 @@ overflow-menu-container {
                 background-color: var(--danger-500);
             }
 
-            &:hover,
-            &:focus-visible,
-            &:active {
-                color: var(--danger-800);
+            i {
+                svg {
+                    color: var(--danger-700);
+                }
             }
         }
 
@@ -156,6 +153,7 @@ overflow-menu-container {
             svg {
                 width: 18px;
                 height: 18px;
+                color: var(--grey-600);
             }
         }
     }
