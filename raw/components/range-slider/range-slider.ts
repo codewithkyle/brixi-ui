@@ -65,7 +65,7 @@ export default class RangeSlider extends InputBase<IRangeSlider> {
             minValueIcon: null,
             maxValueIcon: null,
             placeholder: "",
-            value: settings?.min ?? 0,
+            value: settings?.min,
             min: 0,
             max: 9999,
             step: 1,
@@ -144,6 +144,12 @@ export default class RangeSlider extends InputBase<IRangeSlider> {
         });
         this.model.callbacks.onInput(newValue);
     };
+
+    override reset() {
+        this.set({
+            value: this.model.min,
+        });
+    }
 
     override validate(): boolean {
         return true;

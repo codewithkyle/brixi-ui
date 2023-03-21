@@ -1,4 +1,4 @@
-import { html, render } from "lit-html";
+import { html, render, TemplateResult } from "lit-html";
 import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~brixi/controllers/env";
 import Button from "~brixi/components/buttons/button/button";
@@ -95,29 +95,32 @@ export default class Alert extends SuperComponent<IAlert> {
         }
     }
 
-    private handleClose: EventListener = (e) => {
+    private handleClose: EventListener = () => {
         this.model.closeCallback();
         this.remove();
     };
 
-    private renderCloseButton() {
-        let out;
+    private renderCloseButton(): string | HTMLElement {
+        let out: string | HTMLElement;
         if (this.model.closeable) {
-            out = html`
-                <button sfx="button" @click=${this.handleClose} class="close">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            `;
+            out = new Button({
+                type: "button",
+                class: "close",
+                kind: "text",
+                color: this.model.type,
+                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>`,
+                iconPosition: "center",
+                callback: this.handleClose.bind(this),
+                shape: "round",
+            });
         } else {
             out = "";
         }
         return out;
     }
 
-    private renderList() {
-        let out;
+    private renderList(): string | TemplateResult {
+        let out: string | TemplateResult;
         if (this.model.list.length) {
             out = html`
                 <ul>
@@ -132,19 +135,18 @@ export default class Alert extends SuperComponent<IAlert> {
         return out;
     }
 
-    private renderActions() {
-        let out;
+    private renderActions(): string | TemplateResult {
+        let out: string | TemplateResult;
         if (this.model.actions.length) {
-            let buttonType: string = this.model.type;
             out = html`
                 <div class="actions">
-                    ${this.model.actions.map((bttn, index) => {
+                    ${this.model.actions.map((bttn) => {
                         return html`
                             ${new Button({
                                 label: bttn.label,
                                 kind: "text",
                                 // @ts-ignore
-                                color: buttonType,
+                                color: this.model.type,
                                 callback: bttn.callback,
                             })}
                         `;

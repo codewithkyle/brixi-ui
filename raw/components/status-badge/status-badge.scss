@@ -13,23 +13,23 @@ status-badge {
     border-radius: 0.75rem;
 
     &[color="grey"] {
-        background-color: var(--grey-100);
+        background-color: hsl(var(--grey-500-hsl) / 0.1);
         color: var(--grey-700);
 
         &[dot] {
             &::before {
-                background-color: var(--grey-500);
+                background-color: var(--grey-400);
             }
         }
     }
 
     &[color="primary"] {
-        background-color: var(--primary-50);
+        background-color: hsl(var(--primary-500-hsl) / 0.1);
         color: var(--primary-700);
 
         &[dot] {
             &::before {
-                background-color: var(--primary-500);
+                background-color: var(--primary-400);
             }
         }
     }
@@ -46,34 +46,34 @@ status-badge {
     }
 
     &[color="danger"] {
-        background-color: var(--danger-50);
+        background-color: hsl(var(--danger-500-hsl) / 0.1);
         color: var(--danger-700);
 
         &[dot] {
             &::before {
-                background-color: var(--danger-500);
+                background-color: var(--danger-400);
             }
         }
     }
 
     &[color="warning"] {
-        background-color: var(--warning-50);
+        background-color: hsl(var(--warning-500-hsl) / 0.1);
         color: var(--warning-700);
 
         &[dot] {
             &::before {
-                background-color: var(--warning-500);
+                background-color: var(--warning-400);
             }
         }
     }
 
     &[color="success"] {
-        background-color: var(--success-50);
+        background-color: hsl(var(--success-500-hsl) / 0.1);
         color: var(--success-700);
 
         &[dot] {
             &::before {
-                background-color: var(--success-500);
+                background-color: var(--success-400);
             }
         }
     }

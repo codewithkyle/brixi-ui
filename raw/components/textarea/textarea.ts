@@ -1,4 +1,4 @@
-import { html, render } from "lit-html";
+import { html, render, TemplateResult } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~brixi/controllers/env";
@@ -81,7 +81,7 @@ export default class Textarea extends SuperComponent<ITextarea> {
             required: false,
             autocomplete: "off",
             placeholder: "",
-            value: "",
+            value: null,
             maxlength: Infinity,
             minlength: 0,
             disabled: false,
@@ -110,10 +110,18 @@ export default class Textarea extends SuperComponent<ITextarea> {
         }
     }
 
-    public setError(error: string, clearOnly: boolean) {
-        if (clearOnly) {
-            return;
+    public reset(): void {
+        this.set({
+            // @ts-ignore
+            value: null,
+        });
+        const input = this.querySelector("input") as HTMLInputElement;
+        if (input) {
+            input.value = null;
         }
+    }
+
+    public setError(error: string) {
         this.set({
             error: error,
         });
@@ -121,20 +129,19 @@ export default class Textarea extends SuperComponent<ITextarea> {
         soundscape.play("error");
     }
 
-    public validate(input: HTMLInputElement, clearOnly: boolean = false): boolean {
+    public validate(): boolean {
         let isValid = true;
-        if (this.model.required && !input.value.length) {
+        if (this.model.required && !this.model.value?.length) {
             isValid = false;
-            this.setError("This field is required.", clearOnly);
+            this.setError("This field is required.");
         }
-        if (this.model.required || (!this.model.required && input.value.length)) {
-            if (this.model.minlength > input.value.length) {
-                console.log(input.value);
+        if (this.model.required || (!this.model.required && this.model.value?.length)) {
+            if (this.model.minlength > this.model.value.length) {
                 isValid = false;
-                this.setError(`This input requires a least ${this.model.minlength} characters.`, clearOnly);
-            } else if (this.model.maxlength < input.value.length) {
+                this.setError(`This input requires a least ${this.model.minlength} characters.`);
+            } else if (this.model.maxlength < this.model.value.length) {
                 isValid = false;
-                this.setError(`This input requires a least ${this.model.minlength} characters.`, clearOnly);
+                this.setError(`This input requires a least ${this.model.minlength} characters.`);
             }
         }
         if (isValid) {
@@ -148,16 +155,15 @@ export default class Textarea extends SuperComponent<ITextarea> {
     }
 
     public getValue(): string {
-        return this.model.value.toString();
+        return this.model.value;
     }
 
-    public handleBlur: EventListener = (e: Event) => {
-        const input = e.currentTarget as HTMLInputElement;
-        this.validate(input);
+    public handleBlur: EventListener = () => {
+        this.validate();
         this.model.callbacks.onBlur(this.model.value);
     };
 
-    public handleFocus: EventListener = (e: Event) => {
+    public handleFocus: EventListener = () => {
         this.model.callbacks.onFocus(this.model.value);
     };
 
@@ -166,12 +172,12 @@ export default class Textarea extends SuperComponent<ITextarea> {
         this.set({
             value: input.value,
         });
-        this.validate(input, true);
+        this.validate();
         this.model.callbacks.onInput(input.value);
     };
 
-    public renderCopy() {
-        let output;
+    public renderCopy(): string | TemplateResult {
+        let output: string | TemplateResult;
         if (this.state === "IDLING" && this.model.instructions) {
             output = html`<p>${unsafeHTML(this.model.instructions)}</p>`;
         } else if (this.state === "ERROR" && this.model.error) {
@@ -182,8 +188,8 @@ export default class Textarea extends SuperComponent<ITextarea> {
         return output;
     }
 
-    public renderLabel(id: string) {
-        let output;
+    public renderLabel(id: string): string | TemplateResult {
+        let output: string | TemplateResult;
         if (this.model.label?.length) {
             output = html`<label for="${id}">${unsafeHTML(this.model.label)}</label>`;
         } else {
@@ -192,18 +198,25 @@ export default class Textarea extends SuperComponent<ITextarea> {
         return output;
     }
 
-    public renderCounter() {
-        let out;
+    public renderCounter(): string | TemplateResult {
+        let out: string | TemplateResult;
         if (this.model.maxlength === Infinity) {
             out = "";
         } else {
-            out = html` <span class="counter"> ${this.model.value.length}/${this.model.maxlength} </span> `;
+            out = html` <span class="counter"> ${this.model.value?.length ?? 0}/${this.model.maxlength} </span> `;
         }
         return out;
     }
 
     render() {
         const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${this.model.name}`;
+        this.setAttribute("state", this.state);
+        this.setAttribute("form-input", "");
+        this.className = `textarea ${this.model.class}`;
+        this.style.cssText = this.model.css;
+        Object.keys(this.model.attributes).map((key) => {
+            this.setAttribute(key, `${this.model.attributes[key]}`);
+        });
         const view = html`
             ${this.renderLabel(id)} ${this.renderCopy()}
             <textarea
@@ -222,16 +235,10 @@ export default class Textarea extends SuperComponent<ITextarea> {
                 ?disabled=${this.model.disabled}
                 ?autofocus=${this.model.autofocus}
             >
-${this.model.value}</textarea
+${this.model.value ?? ""}</textarea
             >
             ${this.renderCounter()}
         `;
-        this.setAttribute("state", this.state);
-        this.className = `textarea js-input ${this.model.class}`;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
         render(view, this);
     }
 }

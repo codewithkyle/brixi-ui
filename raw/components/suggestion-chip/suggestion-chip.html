@@ -1,0 +1,11 @@
+<script type="module">
+    import Component from "/js/suggestion-chip.js";
+    const example = new Component({
+        label: "Example",
+        value: "example",
+        callback: (value) => {
+            console.log(value);
+        }
+    });
+    document.body.appendChild(example);
+</script>

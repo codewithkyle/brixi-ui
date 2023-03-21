@@ -5,7 +5,7 @@ import env from "~brixi/controllers/env";
 import { noop, parseDataset } from "~brixi/utils/general";
 
 type ButtonKind = "solid" | "outline" | "text";
-type ButtonColor = "primary" | "danger" | "grey";
+type ButtonColor = "primary" | "danger" | "grey" | "success" | "warning" | "info";
 type ButtonShape = "pill" | "round" | "sharp" | "default";
 type ButtonSize = "default" | "slim" | "large";
 type ButtonType = "submit" | "button" | "reset";

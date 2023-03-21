@@ -19,7 +19,7 @@ export default class EmailInput extends InputBase<IInput> {
             autocapitalize: "off",
             icon: null,
             placeholder: "",
-            value: "",
+            value: null,
             disabled: false,
             maxlength: 9999,
             minlength: 0,
@@ -43,11 +43,11 @@ export default class EmailInput extends InputBase<IInput> {
     override validate(): boolean {
         let isValid = true;
         const EmailTest = new RegExp(/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/gm);
-        if (this.model.required && !this.model.value.length) {
+        if (this.model.required && !this.model.value?.length) {
             isValid = false;
             this.setError("This field is required.");
         }
-        if (this.model.required || (!this.model.required && this.model.value.length)) {
+        if (this.model.required || (!this.model.required && this.model.value?.length)) {
             if (this.model.value.length && !EmailTest.test(this.model.value)) {
                 isValid = false;
                 this.setError(`Invalid email format.`);
@@ -133,7 +133,7 @@ export default class EmailInput extends InputBase<IInput> {
                     inputmode="email"
                     type="email"
                     id="${id}"
-                    .value=${this.model.value}
+                    .value=${this.model.value ?? ""}
                     placeholder=${this.model.placeholder}
                     name=${this.model.name}
                     autocapitalize=${this.model.autocapitalize}

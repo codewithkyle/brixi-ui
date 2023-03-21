@@ -165,7 +165,7 @@ export default class NumberInput extends InputBase<INumberInput> {
                     min=${this.model.min}
                     max=${this.model.max}
                     step=${this.model.step}
-                    .value=${this.model.value}
+                    .value=${this.model.value ?? ""}
                     placeholder=${this.model.placeholder}
                     name=${this.model.name}
                     ?required=${this.model.required}

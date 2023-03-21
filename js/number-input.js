@@ -12,7 +12,7 @@ import{html as s,render as o}from"./lit-html.js";import{unsafeHTML as i}from"./u
                     min=${this.model.min}
                     max=${this.model.max}
                     step=${this.model.step}
-                    .value=${this.model.value}
+                    .value=${this.model.value??""}
                     placeholder=${this.model.placeholder}
                     name=${this.model.name}
                     ?required=${this.model.required}

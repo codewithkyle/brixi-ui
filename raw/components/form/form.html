@@ -4,6 +4,7 @@
     import EmailInput from "/js/email-input.js";
     import PhoneInput from "/js/phone-input.js";
     import SubmitButton from "/js/submit-button.js";
+    import Select from "/js/select.js";
     import Component from "/js/form.js";
     const example = new Component({
         class: "p-2 border-solid border-grey-300 border-1 radius-0.5 w-411",
@@ -37,6 +38,28 @@
                     name: "phone",
                     label: "Phone Number",
                     required: true,
+                })}
+                ${new Select({
+                    label: "Favorite Fruit",
+                    name: "fruit",
+                    options: [
+                        {
+                            label: "",
+                            value: null,
+                        },
+                        {
+                            label: "Apples",
+                            value: "apples",
+                        },
+                        {
+                            label: "Pears",
+                            value: "pears",
+                        },
+                        {
+                            label: "Bananas",
+                            value: "bananas",
+                        },
+                    ],
                 })}
             </div>
             <div class="w-full mt-1.5">
