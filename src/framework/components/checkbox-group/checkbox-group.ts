@@ -4,6 +4,7 @@ import env from "~brixi/controllers/env";
 import Checkbox, { CheckboxSettings } from "~brixi/components/checkbox/checkbox";
 import { parseDataset } from "~brixi/utils/general";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
+import soundscape from "~brixi/controllers/soundscape";
 
 export interface ICheckboxGroup {
     options: Array<CheckboxSettings>;
@@ -57,12 +58,42 @@ export default class CheckboxGroup extends SuperComponent<ICheckboxGroup> {
         return this.model.name;
     }
 
-    public getValue() {
-        const out = [];
-        this.querySelectorAll("input:checked").forEach((input: HTMLInputElement) => {
-            out.push(input.value);
+    public getValue(): Array<string | number> {
+        let values = [];
+        for (let i = 0; i < this.model.options.length; i++) {
+            if (this.model.options[i].checked) {
+                values.push(this.model.options[i].value);
+            }
+        }
+        return values;
+    }
+
+    public reset(): void {
+        this.set({
+            // @ts-ignore
+            value: null,
         });
-        return out;
+        const input = this.querySelector("input") as HTMLInputElement;
+        if (input) {
+            input.value = "";
+        }
+    }
+
+    public clearError(): void {
+        if (this.state === "ERROR") {
+            this.trigger("RESET");
+        }
+    }
+
+    public setError(error: string): void {
+        if (error?.length) {
+            this.set({
+                // @ts-ignore
+                error: error,
+            });
+            this.trigger("ERROR");
+            soundscape.play("error");
+        }
     }
 
     override render() {

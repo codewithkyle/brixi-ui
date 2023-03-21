@@ -334,6 +334,7 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
                         type: "line",
                         class: "inline-flex mr-0.5 js-master-checkbox",
                         css: "width:24px;height:24px;",
+                        value: "all",
                     })}
                     <i>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -379,6 +380,7 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
                             label: option.label,
                             checked: option.checked,
                             callback: this.checkboxCallback.bind(this),
+                            value: option.value,
                         })}`;
                     })}
                 </div>
