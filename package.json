@@ -61,7 +61,6 @@
         "@codewithkyle/supercomponent",
         "@codewithkyle/router",
         "@codewithkyle/messaging",
-        "@codewithkyle/modal-maker",
         "@codewithkyle/pubsub",
         "@codewithkyle/uuid",
         "tooltipper",
@@ -78,7 +77,6 @@
     "devDependencies": {
         "@codewithkyle/asset-manager": "1.x",
         "@codewithkyle/messaging": "1.x",
-        "@codewithkyle/modal-maker": "1.x",
         "@codewithkyle/notifyjs": "3.x",
         "@codewithkyle/pubsub": "1.x",
         "@codewithkyle/router": "1.x",
@@ -109,7 +107,6 @@
         "typescript": "^4.5.4"
     },
     "peerDependencies": {
-        "@codewithkyle/modal-maker": "1.x",
         "@codewithkyle/notifyjs": "3.x",
         "@codewithkyle/pubsub": "1.x",
         "@codewithkyle/supercomponent": "1.x",
