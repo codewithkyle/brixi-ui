@@ -76,10 +76,12 @@ export default class OverflowButton extends SuperComponent<IOverflowButton> {
 
     private handleClick: EventListener = (e: Event) => {
         e.stopImmediatePropagation();
-        const target = e.currentTarget as HTMLElement;
-        const container = new OverflowMenu(this.uid, this.model.items);
+        const container = new OverflowMenu({
+            uid: this.uid,
+            items: this.model.items,
+            target: this,
+        });
         document.body.appendChild(container);
-        pos.positionElementToElement(container, target);
     };
 
     override render() {

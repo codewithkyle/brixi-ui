@@ -2,6 +2,7 @@ import SuperComponent from "@codewithkyle/supercomponent";
 import { html, render } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import env from "~brixi/controllers/env";
+import pos from "~brixi/controllers/pos";
 
 export interface OverflowItem {
     label: string;
@@ -12,16 +13,20 @@ export interface OverflowItem {
 export interface IOverflowMenu {
     items: Array<OverflowItem>;
     uid: string;
+    offset?: number;
+    target: HTMLElement;
 }
 export default class OverflowMenu extends SuperComponent<IOverflowMenu> {
-    constructor(uid: string, items: Array<OverflowItem>) {
+    constructor(settings: IOverflowMenu) {
         super();
         this.model = {
-            items: items,
-            uid: uid,
+            items: [],
+            uid: "",
+            offset: 0,
+            target: null,
         };
         env.css("overflow-menu").then(() => {
-            this.render();
+            this.set(settings);
         });
     }
 
@@ -78,6 +83,7 @@ export default class OverflowMenu extends SuperComponent<IOverflowMenu> {
             })}
         `;
         render(view, this);
+        pos.positionElementToElement(this, this.model.target, this.model.offset);
     }
 }
 env.bind("overflow-menu", OverflowMenu);
