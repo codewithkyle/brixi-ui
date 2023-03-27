@@ -6,11 +6,11 @@ import{html as i,render as p}from"./lit-html.js";import{unsafeHTML as r}from"./u
                     </div>
                     <div class="w-full px-0.5 pb-0.5">
                         <div class="w-full p-0.5 bg-grey-100 radius-0.5" flex="row nowrap items-center justify-end">
-                            ${new c({label:e.cancel,type:"button",color:"grey",kind:"solid",callback:()=>{e.callbacks.cancel(),t.remove()},class:"mr-0.5"})}
+                            ${new c({label:e.cancel,type:"button",color:"grey",kind:"solid",callback:()=>{"cancel"in e.callbacks&&typeof e.callbacks.cancel=="function"&&e.callbacks.cancel(),t.remove()},class:"mr-0.5"})}
                             ${new w({label:e.submit})}
                         </div>
                     </div>
-                `,onSubmit:n=>{if(n.checkValidity()){const b=n.serialize();n.stop(),e.callbacks.submit(b),t.remove()}t.remove()}})}
+                `,onSubmit:n=>{if(n.checkValidity()){const b=n.serialize();e.callbacks.submit(b,n,t)}}})}
         `;t=new o(s,e.width,"static-content"),document.body.appendChild(t)}passive(l){const e=Object.assign({title:"",message:"",actions:[{label:"Close",callback:a}],width:512},l);let t;const s=i`
             <div class="block w-full py-1.5 px-2">
                 <h2>${e.title}</h2>

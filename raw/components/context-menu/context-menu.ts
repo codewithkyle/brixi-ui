@@ -1,31 +1,32 @@
+import { html, render, TemplateResult } from "lit-html";
 import SuperComponent from "@codewithkyle/supercomponent";
-import { html, render } from "lit-html";
-import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import env from "~brixi/controllers/env";
 import pos from "~brixi/controllers/pos";
 
-export interface OverflowItem {
+export interface ContextMenuItem {
     label: string;
+    hotkey?: string;
     callback: Function;
-    icon?: string;
-    danger?: boolean;
 }
-export interface IOverflowMenu {
-    items: Array<OverflowItem>;
-    uid: string;
-    offset?: number;
-    target: HTMLElement;
+export interface IContextMenu {
+    items: ContextMenuItem[];
+    x: number;
+    y: number;
 }
-export default class OverflowMenu extends SuperComponent<IOverflowMenu> {
-    constructor(settings: IOverflowMenu) {
+export interface ContextMenuSettings {
+    items: ContextMenuItem[];
+    x: number;
+    y: number;
+}
+export default class ContextMenu extends SuperComponent<IContextMenu> {
+    constructor(settings: ContextMenuSettings) {
         super();
         this.model = {
             items: [],
-            uid: "",
-            offset: 0,
-            target: null,
+            x: 0,
+            y: 0,
         };
-        env.css("overflow-menu").then(() => {
+        env.css(["context-menu"]).then(() => {
             this.set(settings);
         });
     }
@@ -63,27 +64,22 @@ export default class OverflowMenu extends SuperComponent<IOverflowMenu> {
         this.model.items?.[index]?.callback();
     };
 
-    private renderItem(item: OverflowItem, index: number) {
+    private renderItem(item: ContextMenuItem, index: number): TemplateResult {
         if (item === null) {
             return html`<hr />`;
         }
         return html`
-            <button sfx="button" type="button" @click=${this.handleItemClick} data-index="${index}" class="${item?.danger ? "danger" : ""}">
-                ${item?.icon ? html` <i> ${unsafeHTML(item.icon)} </i> ` : ""}
+            <button sfx="button" type="button" @click=${this.handleItemClick} data-index="${index}">
                 <span>${item.label}</span>
+                ${item.hotkey ? html`<span class="font-grey-400">${item.hotkey}</span>` : ""}
             </button>
         `;
     }
 
     override render() {
-        this.setAttribute("overflow-menu-container-id", this.model.uid);
-        const view = html`
-            ${this.model.items.map((item, index) => {
-                return this.renderItem(item, index);
-            })}
-        `;
+        pos.positionElement(this, this.model.x, this.model.y);
+        const view = html` ${this.model.items?.map((item, index) => this.renderItem(item, index))} `;
         render(view, this);
-        pos.positionElementToElement(this, this.model.target, this.model.offset);
     }
 }
-env.bind("overflow-menu", OverflowMenu);
+env.bind("context-menu", ContextMenu);

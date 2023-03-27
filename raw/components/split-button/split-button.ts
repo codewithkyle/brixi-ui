@@ -3,6 +3,8 @@ import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~brixi/controllers/env";
 import { noop, parseDataset } from "~brixi/utils/general";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
+import OverflowMenu, { OverflowItem } from "~brixi/components/overflow-menu/overflow-menu";
+import { UUID } from "@codewithkyle/uuid";
 
 type ButtonType = "submit" | "button" | "reset";
 
@@ -15,13 +17,7 @@ export interface ISplitButton {
     type: ButtonType;
     label: string;
     icon?: string | HTMLElement;
-    buttons: Array<{
-        label: string;
-        type?: ButtonType;
-        icon?: string | HTMLElement;
-        callback: Function;
-        danger?: boolean;
-    }>;
+    buttons: OverflowItem[];
     callback: Function;
 }
 export interface SplitButtonSettings {
@@ -33,18 +29,15 @@ export interface SplitButtonSettings {
     type: ButtonType;
     label: string;
     icon?: string | HTMLElement;
-    buttons: Array<{
-        label: string;
-        type?: ButtonType;
-        icon?: string | HTMLElement;
-        callback: Function;
-        danger?: boolean;
-    }>;
+    buttons: OverflowItem[];
     callback: Function;
 }
 export default class SplitButton extends SuperComponent<ISplitButton> {
+    private uid: string;
+
     constructor(settings: SplitButtonSettings) {
         super();
+        this.uid = UUID();
         this.model = {
             css: "",
             class: "",
@@ -73,22 +66,14 @@ export default class SplitButton extends SuperComponent<ISplitButton> {
         this.model.callback();
     };
 
-    private handleSecondaryClick = (e: Event) => {
-        const target = e.currentTarget as HTMLElement;
-        const index = parseInt(target.dataset.index);
-        this.model.buttons[index].callback();
-    };
-
     private openMenu = () => {
-        const buttonMenu: HTMLElement = this.querySelector("button-menu");
-        if (buttonMenu) {
-            buttonMenu.style.visibility = "visible";
-            const firstMenuBttn: HTMLElement = buttonMenu.querySelector("button-menu button");
-            console.log(firstMenuBttn);
-            if (firstMenuBttn) {
-                firstMenuBttn.focus();
-            }
-        }
+        const menu = new OverflowMenu({
+            target: this,
+            uid: this.uid,
+            items: this.model.buttons,
+            offset: 4,
+        });
+        document.body.appendChild(menu);
     };
 
     private renderIcon(icon: string | HTMLElement): string | TemplateResult {
@@ -127,19 +112,6 @@ export default class SplitButton extends SuperComponent<ISplitButton> {
                         <polyline points="6 9 12 15 18 9"></polyline>
                     </svg>
                 </button>
-                <button-menu>
-                    ${this.model.buttons.map((button, i) => {
-                        if (button === null) {
-                            return html`<hr />`;
-                        } else {
-                            return html`
-                                <button class="${button?.danger ? "danger" : ""}" type="${button?.type ?? "button"}" @click=${this.handleSecondaryClick} data-index="${i}">
-                                    ${this.renderIcon(button?.icon ?? "")} ${this.renderLabel(button.label)}
-                                </button>
-                            `;
-                        }
-                    })}
-                </button-menu>
             `;
         } else {
             out = "";
