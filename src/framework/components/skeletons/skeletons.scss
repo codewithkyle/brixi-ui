@@ -33,6 +33,11 @@
     &.-button {
         height: 36px;
         width: 96px;
+
+        &.-round {
+            width: 36px;
+            border-radius: 50%;
+        }
     }
 
     &.-primary {
