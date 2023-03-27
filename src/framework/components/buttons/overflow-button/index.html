@@ -1,6 +1,7 @@
 <script type="module">
-    import Example from "/js/overflow-menu.js";
-    const test = new Example("test", [
+    import Component from "/js/overflow-button.js";
+    const example = new Component({
+        items: [
             {
                 label: "Example",
                 callback: () => {
@@ -24,6 +25,6 @@
                 },
             },
         ],
-    );
-    document.body.appendChild(test);
+    });
+    document.body.appendChild(example);
 </script>
