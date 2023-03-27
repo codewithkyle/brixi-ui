@@ -7,6 +7,7 @@ import soundscape from "~brixi/controllers/soundscape";
 import Checkbox from "~brixi/components/checkbox/checkbox";
 import { UUID } from "@codewithkyle/uuid";
 import Fuse from "fuse.js";
+import pos from "~brixi/controllers/pos";
 
 export type MultiSelectOption = {
     label: string;
@@ -357,6 +358,12 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
     render() {
         const id = `${this.model.name}-${this.model.label.replace(/\s+/g, "-").trim()}`;
         this.id = id;
+        this.setAttribute("state", this.state);
+        this.className = `multi-select js-input ${this.model.class}`;
+        this.style.cssText = this.model.css;
+        Object.keys(this.model.attributes).map((key) => {
+            this.setAttribute(key, `${this.model.attributes[key]}`);
+        });
         const selected = this.calcSelected();
         const options = this.filterOptions();
         this.tabIndex = 0;
@@ -386,14 +393,13 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
                 </div>
             </multiselect-options>
         `;
-        this.setAttribute("state", this.state);
-        this.className = `multi-select js-input ${this.model.class}`;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
         setTimeout(() => {
             render(view, this);
+            const options = this.querySelector("multiselect-options") as HTMLElement;
+            if (options) {
+                options.style.width = `${this.scrollWidth}px`;
+                pos.positionElementToElement(options, this, 8);
+            }
         }, 80);
     }
 }

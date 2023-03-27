@@ -153,8 +153,8 @@
     }
 
     multiselect-options {
-        position: absolute;
-        top: calc(100% + 0.25rem);
+        position: fixed;
+        top: 0;
         left: 0;
         width: 100%;
         background-color: var(--white);
