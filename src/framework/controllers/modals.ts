@@ -46,7 +46,7 @@ interface FormSettings {
     width?: number;
     view: TemplateResult;
     callbacks?: {
-        submit?: (data) => void;
+        submit?: (data: { [key: string]: any }, form: Form, modal: HTMLElement) => void;
         cancel?: () => void;
     };
     cancel?: string;
@@ -105,7 +105,9 @@ class ModalMaker {
                                 color: "grey",
                                 kind: "solid",
                                 callback: () => {
-                                    data.callbacks.cancel();
+                                    if ("cancel" in data.callbacks && typeof data.callbacks.cancel === "function") {
+                                        data.callbacks.cancel();
+                                    }
                                     el.remove();
                                 },
                                 class: "mr-0.5",
@@ -120,11 +122,8 @@ class ModalMaker {
                     const valid = form.checkValidity();
                     if (valid) {
                         const formData = form.serialize();
-                        form.stop();
-                        data.callbacks.submit(formData);
-                        el.remove();
+                        data.callbacks.submit(formData, form, el);
                     }
-                    el.remove();
                 },
             })}
         `;

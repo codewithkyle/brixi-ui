@@ -75,8 +75,8 @@
                     })}
                 `,
                 callbacks: {
-                    submit: (data)=>{
-                        console.log(data);
+                    submit: (data, form, model)=>{
+                        console.log(data, form, model);
                     },
                     cancel: ()=>{
                         console.log("Project not created");
