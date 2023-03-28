@@ -82,7 +82,7 @@
         "@codewithkyle/notifyjs": "^4.0.0",
         "@codewithkyle/pubsub": "1.x",
         "@codewithkyle/router": "1.x",
-        "@codewithkyle/supercomponent": "1.x",
+        "@codewithkyle/supercomponent": "^2.0.0",
         "@codewithkyle/twist": "^2.0.2",
         "@codewithkyle/uuid": "1.x",
         "archiver": "^5.3.1",
@@ -111,7 +111,7 @@
     "peerDependencies": {
         "@codewithkyle/notifyjs": "4.x",
         "@codewithkyle/pubsub": "1.x",
-        "@codewithkyle/supercomponent": "1.x",
+        "@codewithkyle/supercomponent": "2.x",
         "@codewithkyle/uuid": "1.x",
         "brixi": "0.6.x",
         "dayjs": "1.x",
