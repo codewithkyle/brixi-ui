@@ -1,6 +1,6 @@
 import SuperComponent from "@codewithkyle/supercomponent";
 import { html, render } from "lit-html";
-import { snackbar } from "@codewithkyle/notifyjs";
+import snackbar from "@codewithkyle/notifyjs/dist/snackbar";
 
 type SourceCode = {
     ext: string;

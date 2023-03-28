@@ -1,11 +1,10 @@
 progress-toast {
     background-color: var(--grey-800);
     padding: 1rem;
-    border-radius: 0.25rem;
+    border-radius: 0.5rem;
     box-shadow: var(--shadow-grey-md);
     display: flex;
     flex-flow: row nowrap;
-    border: 1px solid var(--black);
     width: 300px;
     margin: 0 0 1rem;
     transform-origin: top left;

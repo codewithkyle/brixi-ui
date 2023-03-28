@@ -57,7 +57,9 @@
         "yargs": "^17.3.1"
     },
     "bundle": [
-        "@codewithkyle/notifyjs",
+        "@codewithkyle/notifyjs/notifications",
+        "@codewithkyle/notifyjs/toaster",
+        "@codewithkyle/notifyjs/snackbar",
         "@codewithkyle/supercomponent",
         "@codewithkyle/router",
         "@codewithkyle/messaging",
@@ -77,7 +79,7 @@
     "devDependencies": {
         "@codewithkyle/asset-manager": "1.x",
         "@codewithkyle/messaging": "1.x",
-        "@codewithkyle/notifyjs": "3.x",
+        "@codewithkyle/notifyjs": "^4.0.0",
         "@codewithkyle/pubsub": "1.x",
         "@codewithkyle/router": "1.x",
         "@codewithkyle/supercomponent": "1.x",
@@ -107,7 +109,7 @@
         "typescript": "^4.5.4"
     },
     "peerDependencies": {
-        "@codewithkyle/notifyjs": "3.x",
+        "@codewithkyle/notifyjs": "4.x",
         "@codewithkyle/pubsub": "1.x",
         "@codewithkyle/supercomponent": "1.x",
         "@codewithkyle/uuid": "1.x",
