@@ -27,6 +27,9 @@ export default class ContextMenu extends SuperComponent<IContextMenu> {
             y: 0,
         };
         env.css(["context-menu"]).then(() => {
+            if (!this.isConnected) {
+                document.body.appendChild(this);
+            }
             this.set(settings);
         });
     }
@@ -77,9 +80,9 @@ export default class ContextMenu extends SuperComponent<IContextMenu> {
     }
 
     override render() {
-        pos.positionElement(this, this.model.x, this.model.y);
         const view = html` ${this.model.items?.map((item, index) => this.renderItem(item, index))} `;
         render(view, this);
+        pos.positionElement(this, this.model.x, this.model.y);
     }
 }
 env.bind("context-menu", ContextMenu);
