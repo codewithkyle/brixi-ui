@@ -162,7 +162,9 @@ class ModalMaker {
                                 color: "grey",
                                 kind: "solid",
                                 callback: () => {
-                                    action.callback();
+                                    if (typeof action?.callback === "function") {
+                                        action.callback();
+                                    }
                                     el.remove();
                                 },
                                 class: "ml-0.5",
@@ -204,7 +206,9 @@ class ModalMaker {
                         color: "grey",
                         kind: "solid",
                         callback: () => {
-                            data.callbacks.cancel();
+                            if ("cancel" in data.callbacks && typeof data.callbacks.cancel === "function") {
+                                data.callbacks.cancel();
+                            }
                             el.remove();
                         },
                         class: "mr-0.5",
@@ -215,7 +219,9 @@ class ModalMaker {
                         color: "primary",
                         kind: "solid",
                         callback: () => {
-                            data.callbacks.confirm();
+                            if ("confirm" in data.callbacks && typeof data.callbacks.confirm === "function") {
+                                data.callbacks.confirm();
+                            }
                             el.remove();
                         },
                     })}
@@ -255,7 +261,9 @@ class ModalMaker {
                         color: "grey",
                         kind: "solid",
                         callback: () => {
-                            data.callbacks.cancel();
+                            if ("cancel" in data.callbacks && typeof data.callbacks.cancel === "function") {
+                                data.callbacks.cancel();
+                            }
                             el.remove();
                         },
                         class: "mr-0.5",
@@ -266,7 +274,9 @@ class ModalMaker {
                         color: "danger",
                         kind: "solid",
                         callback: () => {
-                            data.callbacks.confirm();
+                            if ("confirm" in data.callbacks && typeof data.callbacks.confirm === "function") {
+                                data.callbacks.confirm();
+                            }
                             el.remove();
                         },
                     })}
