@@ -57,9 +57,9 @@
         "yargs": "^17.3.1"
     },
     "bundle": [
-        "@codewithkyle/notifyjs/notifications",
-        "@codewithkyle/notifyjs/toaster",
-        "@codewithkyle/notifyjs/snackbar",
+        "@codewithkyle/notifyjs/notifications.js",
+        "@codewithkyle/notifyjs/toaster.js",
+        "@codewithkyle/notifyjs/snackbar.js",
         "@codewithkyle/supercomponent",
         "@codewithkyle/router",
         "@codewithkyle/messaging",
