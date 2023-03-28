@@ -1,5 +1,6 @@
 import snackbar from "@codewithkyle/notifyjs/dist/snackbar";
 import notifications from "@codewithkyle/notifyjs/dist/notifications";
+import toaster from "@codewithkyle/notifyjs/dist/toaster";
 import type { NotificationButton } from "@codewithkyle/notifyjs";
 import sound from "./soundscape";
 
@@ -114,6 +115,13 @@ class Alerts {
      */
     public append(toast: HTMLElement) {
         notifications.append(toast);
+    }
+
+    public toast(message: string, duration = 5) {
+        toaster.push({
+            message: message,
+            duration: duration,
+        });
     }
 }
 const alerts = new Alerts();

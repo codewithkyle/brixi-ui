@@ -1,0 +1,42 @@
+toaster-component {
+    position: fixed;
+    z-index: 2000;
+    width: 300px;
+    bottom: 0;
+    left: 0;
+    padding: 0 0 1rem 1rem;
+    display: grid;
+    justify-content: start;
+    justify-items: center;
+    gap: 0.5rem;
+    pointer-events: none;
+}
+toaster-component output {
+    background-color: var(--grey-800);
+    box-shadow: var(--shadow-grey-md);
+    color: var(--white);
+    max-inline-size: min(25ch, 90vw);
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    animation: fade-in 0.3s ease, slide-in 0.3s ease, fade-out 0.3s 4.4s ease;
+    animation-fill-mode: forwards;
+    font-size: var(--font-sm);
+    line-height: var(--font-snug);
+}
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+}
+
+@keyframes fade-out {
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes slide-in {
+    from {
+        transform: translateY(1rem);
+    }
+}
