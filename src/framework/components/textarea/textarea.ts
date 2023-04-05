@@ -160,11 +160,15 @@ export default class Textarea extends SuperComponent<ITextarea> {
 
     public handleBlur: EventListener = () => {
         this.validate();
-        this.model.callbacks?.onBlur(this.model.value);
+        if (this.model.callbacks?.onBlur && typeof this.model.callbacks?.onBlur === "function") {
+            this.model.callbacks?.onBlur(this.model.value);
+        }
     };
 
     public handleFocus: EventListener = () => {
-        this.model.callbacks?.onFocus(this.model.value);
+        if (this.model.callbacks?.onFocus && typeof this.model.callbacks?.onFocus === "function") {
+            this.model.callbacks?.onFocus(this.model.value);
+        }
     };
 
     public handleInput: EventListener = (e: Event) => {
@@ -173,7 +177,9 @@ export default class Textarea extends SuperComponent<ITextarea> {
             value: input.value,
         });
         this.validate();
-        this.model.callbacks?.onInput(input.value);
+        if (this.model.callbacks?.onInput && typeof this.model.callbacks?.onInput === "function") {
+            this.model.callbacks?.onInput(input.value);
+        }
     };
 
     public renderCopy(): string | TemplateResult {

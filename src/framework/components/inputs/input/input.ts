@@ -109,16 +109,22 @@ export default class Input extends InputBase<IInput> {
             true
         );
         this.clearError();
-        this.model.callbacks?.onInput(input.value);
+        if (this.model.callbacks?.onInput && typeof this.model.callbacks?.onInput === "function") {
+            this.model.callbacks?.onInput(input.value);
+        }
     };
 
     private handleBlur: EventListener = () => {
         this.validate();
-        this.model.callbacks?.onBlur(this.model.value);
+        if (this.model.callbacks?.onBlur && typeof this.model.callbacks?.onBlur === "function") {
+            this.model.callbacks?.onBlur(this.model.value);
+        }
     };
 
     private handleFocus: EventListener = () => {
-        this.model.callbacks?.onFocus(this.model.value);
+        if (this.model.callbacks?.onFocus && typeof this.model.callbacks?.onFocus === "function") {
+            this.model.callbacks?.onFocus(this.model.value);
+        }
     };
 
     private renderCopy(): string | TemplateResult {

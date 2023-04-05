@@ -112,7 +112,9 @@ export default class PhoneInput extends InputBase<IPhoneInput> {
             value: formattedValue,
         });
         this.validate();
-        this.model.callbacks?.onBlur(formattedValue);
+        if (this.model.callbacks?.onBlur && typeof this.model.callbacks?.onBlur === "function") {
+            this.model.callbacks?.onBlur(formattedValue);
+        }
     };
 
     private handleFocus: EventListener = () => {
@@ -120,7 +122,9 @@ export default class PhoneInput extends InputBase<IPhoneInput> {
         this.set({
             value: value,
         });
-        this.model.callbacks?.onFocus(value);
+        if (this.model.callbacks?.onFocus && typeof this.model.callbacks?.onFocus === "function") {
+            this.model.callbacks?.onFocus(value);
+        }
     };
 
     private handleInput: EventListener = (e: Event) => {
@@ -132,7 +136,9 @@ export default class PhoneInput extends InputBase<IPhoneInput> {
             true
         );
         this.clearError();
-        this.model.callbacks?.onInput(input.value);
+        if (this.model.callbacks?.onInput && typeof this.model.callbacks?.onInput === "function") {
+            this.model.callbacks?.onInput(input.value);
+        }
     };
 
     private renderCopy(): string | TemplateResult {

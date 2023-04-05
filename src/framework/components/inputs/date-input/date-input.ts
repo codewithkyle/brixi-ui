@@ -129,22 +129,28 @@ export default class DateInput extends InputBase<IDateInput> {
             true
         );
         this.validate();
-        if (this.model.mode === "range") {
-            if (this.model.value.toString().search(/\bto\b/i) !== -1 || this.model.prevValue === this.model.value) {
+        if (this.model.callbacks?.onInput && typeof this.model.callbacks.onInput === "function") {
+            if (this.model.mode === "range") {
+                if (this.model.value.toString().search(/\bto\b/i) !== -1 || this.model.prevValue === this.model.value) {
+                    this.model.callbacks?.onInput(input.value);
+                }
+            } else if (this.model.mode === "single") {
                 this.model.callbacks?.onInput(input.value);
             }
-        } else if (this.model.mode === "single") {
-            this.model.callbacks?.onInput(input.value);
         }
     };
 
     private handleBlur: EventListener = () => {
         this.validate();
-        this.model.callbacks?.onBlur(this.model.value);
+        if (this.model.callbacks?.onBlur && typeof this.model.callbacks.onBlur === "function") {
+            this.model.callbacks?.onBlur(this.model.value);
+        }
     };
 
     private handleFocus: EventListener = () => {
-        this.model.callbacks?.onFocus(this.model.value);
+        if (this.model.callbacks?.onFocus && typeof this.model.callbacks.onFocus === "function") {
+            this.model.callbacks?.onFocus(this.model.value);
+        }
     };
 
     private renderCopy(): string | TemplateResult {
