@@ -174,7 +174,8 @@
             }
         }
 
-        &[color="grey"] {
+        &[color="grey"],
+        &[color="white"] {
             border-color: var(--grey-200);
             background-color: var(--white);
             color: var(--grey-700);
@@ -230,6 +231,18 @@
 
         &::before {
             opacity: 0;
+        }
+
+        &[color="white"] {
+            color: var(--white);
+
+            &::before {
+                background-color: var(--white);
+            }
+
+            &[icon="center"] {
+                color: var(--grey-50);
+            }
         }
 
         &[color="grey"] {
@@ -369,6 +382,15 @@
     &[kind="dashed"] {
         &::before {
             opacity: 0;
+        }
+
+        &[color="white"] {
+            color: var(--white);
+            border-color: var(--grey-200);
+
+            &::before {
+                background-color: var(--white);
+            }
         }
 
         &[color="grey"] {
