@@ -74,16 +74,16 @@ export default class EmailInput extends InputBase<IInput> {
             true
         );
         this.clearError();
-        this.model.callbacks.onInput(input.value);
+        this.model.callbacks?.onInput(input.value);
     };
 
     private handleBlur: EventListener = () => {
         this.validate();
-        this.model.callbacks.onBlur(this.model.value);
+        this.model.callbacks?.onBlur(this.model.value);
     };
 
     private handleFocus: EventListener = () => {
-        this.model.callbacks.onFocus(this.model.value);
+        this.model.callbacks?.onFocus(this.model.value);
     };
 
     private renderCopy(): string | TemplateResult {

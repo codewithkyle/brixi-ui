@@ -131,20 +131,20 @@ export default class DateInput extends InputBase<IDateInput> {
         this.validate();
         if (this.model.mode === "range") {
             if (this.model.value.toString().search(/\bto\b/i) !== -1 || this.model.prevValue === this.model.value) {
-                this.model.callbacks.onInput(input.value);
+                this.model.callbacks?.onInput(input.value);
             }
         } else if (this.model.mode === "single") {
-            this.model.callbacks.onInput(input.value);
+            this.model.callbacks?.onInput(input.value);
         }
     };
 
     private handleBlur: EventListener = () => {
         this.validate();
-        this.model.callbacks.onBlur(this.model.value);
+        this.model.callbacks?.onBlur(this.model.value);
     };
 
     private handleFocus: EventListener = () => {
-        this.model.callbacks.onFocus(this.model.value);
+        this.model.callbacks?.onFocus(this.model.value);
     };
 
     private renderCopy(): string | TemplateResult {

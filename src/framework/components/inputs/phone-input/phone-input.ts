@@ -112,7 +112,7 @@ export default class PhoneInput extends InputBase<IPhoneInput> {
             value: formattedValue,
         });
         this.validate();
-        this.model.callbacks.onBlur(formattedValue);
+        this.model.callbacks?.onBlur(formattedValue);
     };
 
     private handleFocus: EventListener = () => {
@@ -120,7 +120,7 @@ export default class PhoneInput extends InputBase<IPhoneInput> {
         this.set({
             value: value,
         });
-        this.model.callbacks.onFocus(value);
+        this.model.callbacks?.onFocus(value);
     };
 
     private handleInput: EventListener = (e: Event) => {
@@ -132,7 +132,7 @@ export default class PhoneInput extends InputBase<IPhoneInput> {
             true
         );
         this.clearError();
-        this.model.callbacks.onInput(input.value);
+        this.model.callbacks?.onInput(input.value);
     };
 
     private renderCopy(): string | TemplateResult {
