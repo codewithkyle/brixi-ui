@@ -136,8 +136,11 @@ class Soundscape {
         source.buffer = this.sounds[handle].buffer;
         source.connect(this.sounds[handle].gain);
         source.loop = loop;
-        if (!this.soundState?.[handle]?.isEnable) return null;
         source.start(0);
+        if (!this.soundState?.[handle]?.isEnable) {
+            this.sounds[handle].ctx.suspend();
+            return null;
+        }
         return source;
     }
 
