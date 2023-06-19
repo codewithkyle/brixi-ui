@@ -128,16 +128,33 @@ class Soundscape {
 
     /**
      * Creates a new sound source.
-     * Retruns `null` if the sound does not exist OR if playback has been disabled.
+     * Returns `null` if the sound does not exist OR if playback has been disabled.
      **/
     public play(handle: string, loop: boolean = false): AudioBufferSourceNode | null {
-        if (!(handle in this.sounds) || !this.soundState?.[handle]?.isEnable) return null;
+        if (!(handle in this.sounds)) return null;
         const source = this.sounds[handle].ctx.createBufferSource();
         source.buffer = this.sounds[handle].buffer;
         source.connect(this.sounds[handle].gain);
         source.loop = loop;
+        if (!this.soundState?.[handle]?.isEnable) return null;
         source.start(0);
         return source;
+    }
+
+    /**
+     * Pauses a sound source.
+     */
+    public pause(handle: string): void {
+        if (!(handle in this.sounds) || !this.soundState?.[handle]?.isEnable) return;
+        this.sounds[handle].ctx.suspend();
+    }
+
+    /**
+     * Resumes a sound source.
+     */
+    public resume(handle: string): void {
+        if (!(handle in this.sounds) || !this.soundState?.[handle]?.isEnable) return;
+        this.sounds[handle].ctx.resume();
     }
 
     public setVolume(handle: string, volume: number): void {
