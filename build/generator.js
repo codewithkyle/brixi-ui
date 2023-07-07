@@ -16,60 +16,40 @@ async function getDirectories(basePath) {
     return dirs;
 }
 
-function renderIndex(name) {
-    return `<script type="module">
-    import Component from "/js/${name.toKebabCase()}.js";
-    const example = new Component({
+function renderIndex(name, tagName) {
+    return `<script type="module" src="/js/${name.toKebabCase()}.js"></script>
 
-    });
-    document.body.appendChild(example);
-</script>
-`;
+<${tagName}></${tagName}>`;
 }
 
 function renderTypescript(name, tagName) {
     return `import { html, render } from "lit-html";
-import SuperComponent from "@codewithkyle/supercomponent";
+import Component from "component";
 import env from "~brixi/controllers/env";
 import { parseDataset } from "~brixi/utils/general";
 
+env.css(["${name.toKebabCase()}"]);
+
 export interface I${name.toPascalCase()} {
-    css: string,
-    class: string,
-    attributes: {
-        [name:string]: string|number,
-    },
 }
-export interface ${name.toPascalCase()}Settings {
-    css?: string,
-    class?: string,
-    attributes?: {
-        [name:string]: string|number,
-    },
-}
-export default class ${name.toPascalCase()} extends SuperComponent<I${name.toPascalCase()}>{
-    constructor(settings:${name.toPascalCase()}Settings){
+export default class ${name.toPascalCase()} extends Component<I${name.toPascalCase()}>{
+    constructor(){
         super();
         this.model = {
-            css: "",
-            class: "",
-            attributes: {},
         };
-        this.model = parseDataset<I${name.toPascalCase()}>(this.dataset, this.model);
-        env.css(["${name.toKebabCase()}"]).then(()=>{
-            this.set(settings, true);
-            this.render();
-        });
+    }
+
+    static get observedAttributes() {
+        return [];
+    }
+
+    override connected(){
+        const settings = parseDataset(this.dataset, this.model);
+        this.set(settings);
     }
 
     override render(){
-        this.className = this.model.class;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map(key => {
-            this.setAttribute(key, \`\$\{this.model.attributes[key]\}\`);
-        });
         const view = html\`
-
         \`;
         render(view, this);
     }
@@ -80,41 +60,30 @@ env.bind("${tagName}", ${name.toPascalCase()});
 
 function renderTypescriptExtended(name, tagName, extend, path) {
     return `import { html, render } from "lit-html";
-import env from "~controllers/env";
-import { parseDataset } from "~brixi/utils/general";
-import { default as ${extend}, I${extend}, ${extend}Settings } from "~components${path ? `/${path}/` : "/"}${extend.toKebabCase()}";
+import env from "~brixi/controllers/env";
+import { ${extend}, I${extend} } from "~brixi/components${path ? `/${path}/` : "/"}${extend.toKebabCase()}";
+
+env.css(["${name.toKebabCase()}"]);
 
 export interface I${name.toPascalCase()} extends I${extend} {
-
 }
-export interface ${name.toPascalCase()}Settings extends ${extend}Settings {
-    
-}
-export default class ${name.toPascalCase()} extends ${extend}{
-    override model: I${name.toPascalCase()};
-
-    constructor(settings:${name.toPascalCase()}Settings){
-        super(settings);
+export default class ${name.toPascalCase()} extends ${extend}<I${name.toPascalCase()}>{
+    constructor(){
+        super();
         this.model = {
-            css: "",
-            class: "",
-            attributes: {},
         };
-        this.model = parseDataset<I${name.toPascalCase()}>(this.dataset, this.model);
-        env.css(["${name.toKebabCase()}"]).then(()=>{
-            this.set(settings, true);
-            this.render();
-        });
+    }
+
+    static get observedAttributes() {
+        return [];
+    }
+
+    override connected(){
+        super.connected();
     }
 
     override render(){
-        this.className = this.model.class;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map(key => {
-            this.setAttribute(key, \`\$\{this.model.attributes[key]\}\`);
-        });
         const view = html\`
-
         \`;
         render(view, this);
     }
@@ -214,7 +183,7 @@ const basePath = path.join(cwd, "src", "framework", "components");
         tagName = `${name.toKebabCase()}-component`;
     }
     await fs.promises.mkdir(newDir);
-    await fs.promises.writeFile(path.join(newDir, "index.html"), renderIndex(name), { encoding: "utf-8" });
+    await fs.promises.writeFile(path.join(newDir, "index.html"), renderIndex(name, tagName), { encoding: "utf-8" });
     const script = extendClassName ? renderTypescriptExtended(name, tagName, extendClassName, extendedClassPath) : renderTypescript(name, tagName);
     await fs.promises.writeFile(path.join(newDir, `${name.toKebabCase()}.ts`), script, { encoding: "utf-8" });
     await fs.promises.writeFile(path.join(newDir, `${name.toKebabCase()}.scss`), renderSass(tagName), { encoding: "utf-8" });
