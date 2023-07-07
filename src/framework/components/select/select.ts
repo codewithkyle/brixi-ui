@@ -1,9 +1,13 @@
 import { html, render, TemplateResult } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
-import SuperComponent from "@codewithkyle/supercomponent";
+import { cache } from "lit-html/directives/cache";
 import env from "~brixi/controllers/env";
-import { noop, parseDataset } from "~brixi/utils/general";
+import { parseDataset } from "~brixi/utils/general";
 import soundscape from "~brixi/controllers/soundscape";
+import Component from "~brixi/component";
+import { UUID } from "@codewithkyle/uuid";
+
+env.css("select");
 
 export type SelectOption = {
     label: string;
@@ -21,12 +25,6 @@ export interface ISelect {
     error: string;
     value: any;
     disabled: boolean;
-    callback: Function;
-    css: string;
-    class: string;
-    attributes: {
-        [name: string]: string | number;
-    };
     autofocus: boolean;
 }
 export interface SelectOptions {
@@ -37,19 +35,15 @@ export interface SelectOptions {
     instructions?: string;
     required?: boolean;
     disabled?: boolean;
-    callback: Function;
-    css?: string;
-    class?: string;
-    attributes?: {
-        [name: string]: string | number;
-    };
     value?: any;
     autofocus?: boolean;
 }
-export default class Select extends SuperComponent<ISelect> {
-    constructor(settings: SelectOptions) {
+export default class Select extends Component<ISelect> {
+    override id: string;
+    constructor() {
         super();
-        this.state = settings?.disabled ? "DISABLED" : "IDLING";
+        this.id = UUID();
+        this.state = this.dataset?.disabled ? "DISABLED" : "IDLING";
         this.stateMachine = {
             IDLING: {
                 ERROR: "ERROR",
@@ -69,31 +63,32 @@ export default class Select extends SuperComponent<ISelect> {
             name: "",
             icon: "",
             instructions: "",
-            options: settings?.options ?? [],
+            options: [],
             required: false,
             error: null,
             value: null,
             disabled: false,
-            callback: noop,
-            css: "",
-            class: "",
-            attributes: {},
             autofocus: false,
         };
-        this.model = parseDataset<ISelect>(this.dataset, this.model);
-        for (let i = 0; i < this.model.options.length; i++) {
-            if (settings?.value) {
-                if (this.model.options[i].value === settings.value) {
-                    this.model.selected = i;
+    }
+
+    static get observedAttributes() {
+        return [];
+    }
+
+    override async connected() {
+        const settings = parseDataset(this.dataset, this.model);
+        if (settings?.value) {
+            for (let i = 0; i < settings.options.length; i++) {
+                if (settings.options[i].value === settings.value) {
+                    settings.selected = i;
                 }
-            } else if (this.model.options[i].value === this.model.value) {
-                this.model.selected = i;
             }
+        } else {
+            settings.value = settings.options[0].value;
+            settings.selected = 0;
         }
-        env.css("select").then(() => {
-            this.set(settings, true);
-            this.render();
-        });
+        this.set(settings);
     }
 
     public renderCopy(): string | TemplateResult {
@@ -161,7 +156,7 @@ export default class Select extends SuperComponent<ISelect> {
             value: value,
         });
         this.validate();
-        this.model.callback(value);
+        //this.model.callback(value);
     };
 
     public getName(): string {
@@ -176,33 +171,21 @@ export default class Select extends SuperComponent<ISelect> {
         this.validate();
     };
 
-    public renderLabel(id: string): string | TemplateResult {
-        let output: string | TemplateResult;
-        if (this.model.label?.length) {
-            output = html`<label for="${id}">${unsafeHTML(this.model.label)}</label>`;
-        } else {
-            output = "";
-        }
-        return output;
+    public renderLabel(): string | TemplateResult {
+        return html`<label for="${this.id}">${unsafeHTML(this.model.label)}</label>`;
     }
 
     render() {
-        const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${this.model.name}`;
         this.setAttribute("state", this.state);
         this.setAttribute("form-input", "");
-        this.className = `select ${this.model.class}`;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
         const view = html`
-            ${this.renderLabel(id)} ${this.renderCopy()}
+            ${cache(this.model.label?.length ? this.renderLabel() : "")} ${this.renderCopy()}
             <select-container>
                 ${this.renderIcon()}
                 <select
                     @blur=${this.handleBlur}
                     @change=${this.handleChange}
-                    id="${id}"
+                    id="${this.id}"
                     name="${this.model.name}"
                     ?required=${this.model.required}
                     ?disabled=${this.model.disabled}

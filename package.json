@@ -69,6 +69,7 @@
         "flatpickr",
         "lit-html",
         "lit-html/directives/unsafe-html.js",
+        "lit-html/directives/cache.js",
         "dayjs",
         {
             "in": "fuse.js/dist/fuse.basic.esm.js",

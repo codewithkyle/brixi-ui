@@ -1,73 +1,130 @@
+<example-component></example-component>
+
 <script type="module">
-    import { html } from "/js/lit-html.js";
+    import { html, render } from "/js/lit-html.js";
+    import { cache } from "/js/cache.js";
     import Input from "/js/input.js";
     import EmailInput from "/js/email-input.js";
     import PhoneInput from "/js/phone-input.js";
     import SubmitButton from "/js/submit-button.js";
     import Select from "/js/select.js";
-    import Component from "/js/form.js";
-    const example = new Component({
-        class: "p-2 border-solid border-grey-300 border-1 radius-0.5 w-411",
-        onSubmit: (form) => {
-            const valid = form.checkValidity();
-            if (valid) {
-                const data = form.serialize();
-                setTimeout(()=>{
-                    console.log(data);
-                    form.stop();
-                    form.reset();
-                }, 3000);
-            } else {
-                form.stop();
-            }
-        },
-        view: html`
-            <div grid="columns 1 gap-1.5">
-                ${new Input({
-                    name: "name",
-                    label: "Full Name",
-                    required: true,
-                    autocomplete: "name",
-                })}
-                ${new EmailInput({
-                    name: "email",
-                    label: "Email Address",
-                    required: true,
-                })}
-                ${new PhoneInput({
-                    name: "phone",
-                    label: "Phone Number",
-                    required: true,
-                })}
-                ${new Select({
-                    label: "Favorite Fruit",
-                    name: "fruit",
-                    options: [
-                        {
-                            label: "",
-                            value: null,
+    import Component from "/js/component.js";
+    import Checkbox from "/js/checkbox.js";
+
+    class Example extends Component{
+        constructor(){
+            super();
+            this.favFruit = true;
+            this.render();
+        }
+        render(){
+            const view = html`
+                <div grid="columns 1 gap-1.5">
+                    ${new Input({
+                        name: "name",
+                        label: "Full Name",
+                        required: true,
+                        autocomplete: "name",
+                    })}
+                    ${new EmailInput({
+                        name: "email",
+                        label: "Email Address",
+                        required: true,
+                    })}
+                    ${new PhoneInput({
+                        name: "phone",
+                        label: "Phone Number",
+                        required: true,
+                    })}
+                    <select-component
+                        data-label="Favorite Ice Cream"
+                        data-name="iceCream"
+                        data-options='${JSON.stringify([
+                            {
+                                label: "",
+                                value: null,
+                            },
+                            {
+                                label: "Chocolate",
+                                value: "chocolate",
+                            },
+                            {
+                                label: "Vanilla",
+                                value: "vanilla",
+                            },
+                            {
+                                label: "Strawberry",
+                                value: "strawberry",
+                            },
+                        ])}'
+                    ></select-component>
+                    ${new Checkbox({
+                        name: "fruit",
+                        label: "Fruit are better than vegetables?",
+                        checked: this.favFruit,
+                        callback: (checked) => {
+                            this.favFruit = checked;
+                            this.render();
                         },
-                        {
-                            label: "Apples",
-                            value: "apples",
-                        },
-                        {
-                            label: "Pears",
-                            value: "pears",
-                        },
-                        {
-                            label: "Bananas",
-                            value: "bananas",
-                        },
-                    ],
-                })}
-            </div>
-            <div class="w-full mt-1.5">
-                ${new SubmitButton({
-                    label: "Submit",
-                })}
-            </div>
-        `,
-    });
-    document.body.appendChild(example);
+                    })}
+                    ${cache(this.favFruit ? html`
+                        <select-component
+                            data-label="Favorite Fruit"
+                            data-name="fruit"
+                            data-options='${JSON.stringify([
+                                {
+                                    label: "",
+                                    value: null,
+                                },
+                                {
+                                    label: "Apples",
+                                    value: "apples",
+                                },
+                                {
+                                    label: "Pears",
+                                    value: "pears",
+                                },
+                                {
+                                    label: "Bananas",
+                                    value: "bananas",
+                                },
+                            ])}'
+                        ></select-component>
+                    ` : html`
+                        <select-component
+                            data-label="Favorite Vegetable"
+                            data-name="vegetable"
+                            data-options="${JSON.stringify([
+                                {
+                                    label: "",
+                                    value: null,
+                                },
+                                {
+                                    label: "Carrots",
+                                    value: "carrots",
+                                },
+                                {
+                                    label: "Peas",
+                                    value: "peas",
+                                },
+                                {
+                                    label: "Broccoli",
+                                    value: "broccoli",
+                                },
+                            ])}"
+                        >
+                        </select-component>
+                    `)}
+                </div>
+                <div class="w-full mt-1.5">
+                    ${new SubmitButton({
+                        label: "Submit",
+                    })}
+                </div>
+            `;
+            this.className = "p-2 border-solid border-grey-300 border-1 radius-0.5 w-411 block";
+            render(view, this);
+        }
+    }
+    customElements.define("example-component", Example);
 </script>
