@@ -111,7 +111,7 @@ export default class View extends SuperComponent<ViewData> {
                     </p>
                     <p class=" mb-0.5 font-grey-700 font-sm line-normal">
                         The lit-html library renders HTML templates in JavaScript using template literals with embedded JavaScript expressions. lit-html identifies the static and dynamic HTML to efficiently update just the changed portions without using a virtual DOM. lit-html is not tied to any component model, it focuses only
-                        on creating and updating DOM and that's where SuperComponents come in.
+                        on creating and updating DOM.
                     </p>
                     <p class=" mb-0.5 font-grey-700 font-sm line-normal">
                         The SuperComponent library gives your Web Components modern-day superpowers like creating stateful Web Components (similar to
@@ -147,7 +147,7 @@ export default class View extends SuperComponent<ViewData> {
                     <p class=" mb-0.5 font-grey-700 font-sm line-normal">
                         There are two ways to use Brixi UI. All the UI components can be installed into a project via NPM using the command
                         <code class="inline-block font-xs font-warning-700 bg-warning-100 px-0.25 radius-0.25">npm i -D brixi-ui</code>
-                        or you can browse the source code of individual components using the menu on the left. Each component is contained in a seperate JavaScript file that defines a custom HTML element that can be appended to the DOM.
+                        or you can browse the source code of individual components using the menu on the left. Each component is contained in separate JavaScript file that defines a custom HTML element that can be appended to the DOM.
                     </p>
                     <p class=" mb-4 font-grey-700 font-sm line-normal">
                         The benifit of downloading the UI package instead of cherry-picking individual components is all the extra utility classes that the library provides.
