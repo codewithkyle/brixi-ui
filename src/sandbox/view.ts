@@ -156,7 +156,7 @@ export default class View extends SuperComponent<ViewData> {
                     <h2 class="block font-grey-700 font-lg font-bold mb-0.5 line-normal">What does Brixi UI provide?</h2>
                     <ul class="font-sm line-normal mb-4 list">
                         <li>Dozens of Web Components that can be rendered/configured in JavaScript or via SSR (server-side rendering).</li>
-                        <li>An enviroment class which can be used to bootstrap new components or load CSS.</li>
+                        <li>An enviroment class which can be used to bootstrap new components or load CSS along with other goodies such as browser detection, global loading state tracking, and network type detection.</li>
                         <li>A soundscape class which provides generic sound effects such as hover, tap, notifications, and toggles along with methods to load, play, pause, and disable custom audio files.</li>
                         <li>Utility functions such as native UUID v4 generation and a debounce function.</li>
                         <li>A modal class for creating and destroying various modals such as passive modals, confirmation modals, and form modals.</li>
