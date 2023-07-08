@@ -1,5 +1,9 @@
 ![Brixi UI - A sleek & slender design system built on web components.](https://repository-images.githubusercontent.com/271347483/e0cb9434-2f3d-451b-b803-1cf14fa6e05d)
 
+## Figma
+
+[Click here](https://www.figma.com/file/mvBHgmtgyS0HdIJo7tsGxQ/Brixi-UI?type=design&mode=design&t=4KvDY1GHhJNstcqf-1) to view the Figma file.
+
 ## Installation
 
 Install the NPM packages.
