@@ -1,27 +1,8 @@
-<script type="module">
-    import Example from "/js/select.js";
-    const test = new Example({
-        label: "Example",
-        required: true,
-        instructions: "This is an example input.",
-        options: [
-            {
-                label: "",
-                value: "",
-            },
-            {
-                label: "Apples",
-                value: "apples",
-            },
-            {
-                label: "Pears",
-                value: "pears",
-            },
-            {
-                label: "Bananas",
-                value: "bananas",
-            },
-        ],
-    });
-    document.body.appendChild(test);
-</script>
+<select-component 
+    data-options='[{"label":"Option 1","value":"option1"},{"label":"Option 2","value":"option2"}]' 
+    data-label="Example Select" 
+    data-instructions="This is an example select component" 
+    data-name="example"
+></select-component>
+
+<script type="module" src="/js/select.js"></script>

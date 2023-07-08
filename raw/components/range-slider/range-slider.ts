@@ -106,7 +106,9 @@ export default class RangeSlider extends InputBase<IRangeSlider> {
             },
             true
         );
-        this.model.callbacks.onInput(newValue);
+        if (this.model.callbacks?.onInput && typeof this.model.callbacks?.onInput === "function") {
+            this.model.callbacks?.onInput(newValue);
+        }
     };
 
     private handleBlur: EventListener = (e: Event) => {
@@ -124,11 +126,15 @@ export default class RangeSlider extends InputBase<IRangeSlider> {
         this.set({
             value: newValue,
         });
-        this.model.callbacks.onBlur(newValue);
+        if (this.model.callbacks?.onBlur && typeof this.model.callbacks?.onBlur === "function") {
+            this.model.callbacks?.onBlur(newValue);
+        }
     };
 
     private handleFocus: EventListener = () => {
-        this.model.callbacks.onFocus(this.model.value);
+        if (this.model.callbacks?.onFocus && typeof this.model.callbacks?.onFocus === "function") {
+            this.model.callbacks?.onFocus(this.model.value);
+        }
     };
 
     private handleIconClick: EventListener = () => {
@@ -142,7 +148,9 @@ export default class RangeSlider extends InputBase<IRangeSlider> {
         this.set({
             value: newValue,
         });
-        this.model.callbacks.onInput(newValue);
+        if (this.model.callbacks?.onInput && typeof this.model.callbacks?.onInput === "function") {
+            this.model.callbacks?.onInput(newValue);
+        }
     };
 
     override reset() {

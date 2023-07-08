@@ -22,6 +22,15 @@ toaster-component output {
     animation-fill-mode: forwards;
     font-size: var(--font-sm);
     line-height: var(--font-snug);
+    pointer-events: all;
+    transition: all 150ms var(--ease-in-out);
+    cursor: pointer;
+
+    &:active {
+        transform: scale(0.95);
+        background-color: var(--grey-900);
+        box-shadow: none;
+    }
 }
 @keyframes fade-in {
     from {

@@ -1,6 +1,6 @@
 
 self.manifest = {
-    "version": "1a6fda96822d6a036222af824805c937",
+    "version": "b5d49c28f83f672dd2fb9e4b15a40a68",
     "assets": [
 		"/js/accordion.js",
 		"/js/alert.js",
@@ -11,13 +11,16 @@ self.manifest = {
 		"/js/bootstrap.js",
 		"/js/breadcrumb-trail.js",
 		"/js/button.js",
+		"/js/cache.js",
 		"/js/checkbox-group.js",
 		"/js/checkbox.js",
 		"/js/code-viewer.js",
 		"/js/color-input.js",
+		"/js/component.js",
 		"/js/context-menu.js",
 		"/js/date-input.js",
 		"/js/dayjs.js",
+		"/js/directive-d639fc45.js",
 		"/js/divider.js",
 		"/js/doc-viewer.js",
 		"/js/download-button.js",
