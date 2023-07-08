@@ -221,7 +221,7 @@ export default class View extends SuperComponent<ViewData> {
                         That works too. Every component is configured using
                         <a class="link" href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes" target="_blank" rel="noopener">data attributes</a>. On
                         the server all you need to do is render the empty custom element with the data attributes corresponding to the model object keys. Using a <code class="inline-block font-xs font-warning-700 bg-warning-100 px-0.25 radius-0.25">script</code> tag to load a components JavaScript file
-                        will automatically bind the component to be automatically mounted and rendered.
+                        will bind the component to the custom element to be automatically mounted and rendered.
                     </p>
 
                     <h2 class="block font-grey-700 font-lg font-bold mb-0.5 line-normal">Contributing to Brixi UI.</h2>
