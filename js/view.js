@@ -73,7 +73,10 @@ import a from"./supercomponent.js";import{register as l}from"./messaging.js";imp
                     <h2 class="block font-grey-700 font-lg font-bold mb-0.5 line-normal">What does Brixi UI provide?</h2>
                     <ul class="font-sm line-normal mb-4 list">
                         <li>Dozens of Web Components that can be rendered/configured in JavaScript or via SSR (server-side rendering).</li>
-                        <li>An enviroment class which can be used to bootstrap new components or load CSS.</li>
+                        <li>
+                            An enviroment class which can be used to bootstrap new components or load CSS along with other goodies such as browser detection, global loading state
+                            tracking, and network type detection.
+                        </li>
                         <li>
                             A soundscape class which provides generic sound effects such as hover, tap, notifications, and toggles along with methods to load, play, pause, and
                             disable custom audio files.
@@ -142,8 +145,8 @@ import a from"./supercomponent.js";import{register as l}from"./messaging.js";imp
                         That works too. Every component is configured using
                         <a class="link" href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes" target="_blank" rel="noopener">data attributes</a>. On
                         the server all you need to do is render the empty custom element with the data attributes corresponding to the model object keys. Using a
-                        <code class="inline-block font-xs font-warning-700 bg-warning-100 px-0.25 radius-0.25">script</code> tag to load a components JavaScript file will
-                        automatically bind the component to be automatically mounted and rendered.
+                        <code class="inline-block font-xs font-warning-700 bg-warning-100 px-0.25 radius-0.25">script</code> tag to load a components JavaScript file will bind the
+                        component to the custom element to be automatically mounted and rendered.
                     </p>
 
                     <h2 class="block font-grey-700 font-lg font-bold mb-0.5 line-normal">Contributing to Brixi UI.</h2>
