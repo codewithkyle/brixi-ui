@@ -1,4 +1,4 @@
-import l from"./supercomponent.js";import{register as a}from"./messaging.js";import{html as t,render as r}from"./lit-html.js";import n from"./doc-viewer.js";customElements.define("docs-view",n);import c from"./resizer.js";customElements.define("iframe-resizer",c);import s from"./code-viewer.js";customElements.define("code-view",s);class m extends l{constructor(){super();this.switchView=e=>{const i=e.currentTarget.dataset.view;this.set({view:i})};this.state="IDLING",this.stateMachine={IDLING:{LOAD:"LOADING"},LOADING:{SUCCESS:"IDLING",FAIL:"ERROR"},ERROR:{LOAD:"LOADING"}},this.model={component:null,view:"demo"},this.inboxId=a("view",this.inbox.bind(this)),this.render()}inbox(e){const{data:o}=e;this.load(o)}async load(e){this.set({component:e,view:"demo"}),this.state!=="LOADING"&&this.trigger("LOAD")}renderContent(){switch(this.model.view){case"code":return new s(this.model.component);case"demo":return t`
+import a from"./supercomponent.js";import{register as l}from"./messaging.js";import{html as t,render as r}from"./lit-html.js";import n from"./doc-viewer.js";customElements.define("docs-view",n);import c from"./resizer.js";customElements.define("iframe-resizer",c);import i from"./code-viewer.js";customElements.define("code-view",i);class m extends a{constructor(){super();this.switchView=e=>{const s=e.currentTarget.dataset.view;this.set({view:s})};this.state="IDLING",this.stateMachine={IDLING:{LOAD:"LOADING"},LOADING:{SUCCESS:"IDLING",FAIL:"ERROR"},ERROR:{LOAD:"LOADING"}},this.model={component:null,view:"demo"},this.inboxId=l("view",this.inbox.bind(this)),this.render()}inbox(e){const{data:o}=e;this.load(o)}async load(e){this.set({component:e,view:"demo"}),this.state!=="LOADING"&&this.trigger("LOAD")}renderContent(){switch(this.model.view){case"code":return new i(this.model.component);case"demo":return t`
                     <iframe-resizer>
                         <resize-container>
                             <resize-bar>
@@ -74,9 +74,14 @@ import l from"./supercomponent.js";import{register as a}from"./messaging.js";imp
                     <ul class="font-sm line-normal mb-4 list">
                         <li>Dozens of Web Components that can be rendered/configured at runtime.</li>
                         <li>An enviroment class which can be used to bootstrap new components or load CSS.</li>
-                        <li>A soundscape class which provides generic sound effects such as hover, tap, notifications, and toggles.</li>
+                        <li>
+                            A soundscape class which provides generic sound effects such as hover, tap, notifications, and toggles along with methods to load, play, pause, and
+                            disable custom audio files.
+                        </li>
                         <li>Utility functions such as native UUID v4 generation and a debounce function.</li>
-                        <li>A Web Component based dynamic runtime router that can be used to build SPAs.</li>
+                        <li>A modal class to creating and destroying various modals such as passive modals, confirmation modals, and form modal.</li>
+                        <li>A form component that handles serializing form data, submission animations, client side validation, and error reporting.</li>
+                        <li>A window component that can be reposition anywhere within the window along with resizing, maximizing, minimizing.</li>
                     </ul>
 
                     <h2 class="block font-grey-700 font-lg font-bold mb-0.5 line-normal">What doesn't Brixi UI provide?</h2>
