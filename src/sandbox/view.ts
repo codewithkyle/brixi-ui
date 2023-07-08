@@ -99,17 +99,18 @@ export default class View extends SuperComponent<ViewData> {
                     <h1 class="block font-grey-700 font-3xl font-bold mb-0.5 line-normal">Howdy stranger!</h1>
                     <p class=" mb-0.5 font-grey-700 font-sm line-normal">
                         Brixi UI is a sleek & slender design system built on the
-                        <a class="link" href="https://brixi.dev/" target="_blank" rel="noopener">Brixi</a>
-                        CSS framework. The goal of Brixi UI is to provide me with a lightweight accessibility-conscious design system built on web standards such as ES Modules and
-                        Web Components while providing fast JIT resource fetching using the dynamic import syntax.
+                        <a class="link" href="https://brixi.dev/" target="_blank" rel="noopener">Brixi
+                        CSS framework</a>. The goal of Brixi UI is to provide me with a lightweight accessibility-conscious design system built on web standards such as ES Modules and
+                        Web Components.
                     </p>
                     <p class=" mb-0.5 font-grey-700 font-sm line-normal">
                         Brixi UI is built on two primary NPM packages:
-                        <a class="link" href="https://lit-html.polymer-project.org/guide" target="_blank" rel="noopener">lit-html</a>
+                        <a class="link" href="https://lit.dev/docs/libraries/standalone-templates/" target="_blank" rel="noopener">lit-html</a>
                         and
-                        <a class="link" href="https://github.com/codewithkyle/supercomponent" target="_blank" rel="noopener">SuperComponents</a>. The lit-html library lets you
-                        write HTML templates in JavaScript using template literals with embedded JavaScript expressions. lit-html identifies the static and dynamic parts of your
-                        templates so it can efficiently update just the changed portions without using a virtual DOM. lit-html is not tied to any component model, it focuses only
+                        <a class="link" href="https://github.com/codewithkyle/supercomponent" target="_blank" rel="noopener">SuperComponents</a>.
+                    </p>
+                    <p class=" mb-0.5 font-grey-700 font-sm line-normal">
+                        The lit-html library renders HTML templates in JavaScript using template literals with embedded JavaScript expressions. lit-html identifies the static and dynamic HTML to efficiently update just the changed portions without using a virtual DOM. lit-html is not tied to any component model, it focuses only
                         on creating and updating DOM and that's where SuperComponents come in.
                     </p>
                     <p class=" mb-0.5 font-grey-700 font-sm line-normal">
