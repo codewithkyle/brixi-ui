@@ -72,22 +72,23 @@ import a from"./supercomponent.js";import{register as l}from"./messaging.js";imp
 
                     <h2 class="block font-grey-700 font-lg font-bold mb-0.5 line-normal">What does Brixi UI provide?</h2>
                     <ul class="font-sm line-normal mb-4 list">
-                        <li>Dozens of Web Components that can be rendered/configured at runtime.</li>
+                        <li>Dozens of Web Components that can be rendered/configured in JavaScript or via SSR (server-side rendering).</li>
                         <li>An enviroment class which can be used to bootstrap new components or load CSS.</li>
                         <li>
                             A soundscape class which provides generic sound effects such as hover, tap, notifications, and toggles along with methods to load, play, pause, and
                             disable custom audio files.
                         </li>
                         <li>Utility functions such as native UUID v4 generation and a debounce function.</li>
-                        <li>A modal class to creating and destroying various modals such as passive modals, confirmation modals, and form modal.</li>
+                        <li>A modal class for creating and destroying various modals such as passive modals, confirmation modals, and form modals.</li>
                         <li>A form component that handles serializing form data, submission animations, client side validation, and error reporting.</li>
-                        <li>A window component that can be reposition anywhere within the window along with resizing, maximizing, minimizing.</li>
+                        <li>A window component that can be reposition anywhere within the browser along with resizing, maximizing, and minimizing.</li>
                     </ul>
 
                     <h2 class="block font-grey-700 font-lg font-bold mb-0.5 line-normal">What doesn't Brixi UI provide?</h2>
                     <ul class="font-sm line-normal mb-4 list">
                         <li>Tools for compiling/bundling your JavaScript or CSS.</li>
                         <li>A built in web server for developing or demoing your project.</li>
+                        <li>A Web Component based router.</li>
                     </ul>
 
                     <h2 class="block font-grey-700 font-lg font-bold mb-0.5 line-normal">Who should use Brixi UI?</h2>
@@ -140,8 +141,9 @@ import a from"./supercomponent.js";import{register as l}from"./messaging.js";imp
                     <p class=" mb-4 font-grey-700 font-sm line-normal">
                         That works too. Every component is configured using
                         <a class="link" href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes" target="_blank" rel="noopener">data attributes</a>. On
-                        the server all you need to do is render the empty custom element with the data attributes corresponding to the model objects keys. When the browser loads
-                        the component's JavaScript file the component will be automatically mounted and rendered.
+                        the server all you need to do is render the empty custom element with the data attributes corresponding to the model object keys. Using a
+                        <code class="inline-block font-xs font-warning-700 bg-warning-100 px-0.25 radius-0.25">script</code> tag to load a components JavaScript file will
+                        automatically bind the component to be automatically mounted and rendered.
                     </p>
 
                     <h2 class="block font-grey-700 font-lg font-bold mb-0.5 line-normal">Contributing to Brixi UI.</h2>
