@@ -99,9 +99,8 @@ export default class View extends SuperComponent<ViewData> {
                     <h1 class="block font-grey-700 font-3xl font-bold mb-0.5 line-normal">Howdy stranger!</h1>
                     <p class=" mb-0.5 font-grey-700 font-sm line-normal">
                         Brixi UI is a sleek & slender design system built on the
-                        <a class="link" href="https://brixi.dev/" target="_blank" rel="noopener">Brixi
-                        CSS framework</a>. The goal of Brixi UI is to provide me with a lightweight accessibility-conscious design system built on web standards such as ES Modules and
-                        Web Components.
+                        <a class="link" href="https://brixi.dev/" target="_blank" rel="noopener">Brixi CSS framework</a>. The goal of Brixi UI is to provide me with a lightweight
+                        accessibility-conscious design system built on web standards such as ES Modules and Web Components.
                     </p>
                     <p class=" mb-0.5 font-grey-700 font-sm line-normal">
                         Brixi UI is built on two primary NPM packages:
@@ -110,8 +109,9 @@ export default class View extends SuperComponent<ViewData> {
                         <a class="link" href="https://github.com/codewithkyle/supercomponent" target="_blank" rel="noopener">SuperComponents</a>.
                     </p>
                     <p class=" mb-0.5 font-grey-700 font-sm line-normal">
-                        The lit-html library renders HTML templates in JavaScript using template literals with embedded JavaScript expressions. lit-html identifies the static and dynamic HTML to efficiently update just the changed portions without using a virtual DOM. lit-html is not tied to any component model, it focuses only
-                        on creating and updating DOM.
+                        The lit-html library renders HTML templates in JavaScript using template literals with embedded JavaScript expressions. lit-html identifies the static and
+                        dynamic HTML to efficiently update just the changed portions without using a virtual DOM. lit-html is not tied to any component model, it focuses only on
+                        creating and updating DOM.
                     </p>
                     <p class=" mb-0.5 font-grey-700 font-sm line-normal">
                         The SuperComponent library gives your Web Components modern-day superpowers like creating stateful Web Components (similar to
@@ -147,7 +147,8 @@ export default class View extends SuperComponent<ViewData> {
                     <p class=" mb-0.5 font-grey-700 font-sm line-normal">
                         There are two ways to use Brixi UI. All the UI components can be installed into a project via NPM using the command
                         <code class="inline-block font-xs font-warning-700 bg-warning-100 px-0.25 radius-0.25">npm i -D brixi-ui</code>
-                        or you can browse the source code of individual components using the menu on the left. Each component is contained in separate JavaScript file that defines a custom HTML element that can be appended to the DOM.
+                        or you can browse the source code of individual components using the menu on the left. Each component is contained in separate JavaScript file that defines
+                        a custom HTML element that can be appended to the DOM.
                     </p>
                     <p class=" mb-4 font-grey-700 font-sm line-normal">
                         The benifit of downloading the UI package instead of cherry-picking individual components is all the extra utility classes that the library provides.
@@ -156,8 +157,14 @@ export default class View extends SuperComponent<ViewData> {
                     <h2 class="block font-grey-700 font-lg font-bold mb-0.5 line-normal">What does Brixi UI provide?</h2>
                     <ul class="font-sm line-normal mb-4 list">
                         <li>Dozens of Web Components that can be rendered/configured in JavaScript or via SSR (server-side rendering).</li>
-                        <li>An enviroment class which can be used to bootstrap new components or load CSS along with other goodies such as browser detection, global loading state tracking, and network type detection.</li>
-                        <li>A soundscape class which provides generic sound effects such as hover, tap, notifications, and toggles along with methods to load, play, pause, and disable custom audio files.</li>
+                        <li>
+                            An enviroment class which can be used to bootstrap new components or load CSS along with other goodies such as browser detection, global loading state
+                            tracking, and network type detection.
+                        </li>
+                        <li>
+                            A soundscape class which provides generic sound effects such as hover, tap, notifications, and toggles along with methods to load, play, pause, and
+                            disable custom audio files.
+                        </li>
                         <li>Utility functions such as native UUID v4 generation and a debounce function.</li>
                         <li>A modal class for creating and destroying various modals such as passive modals, confirmation modals, and form modals.</li>
                         <li>A form component that handles serializing form data, submission animations, client side validation, and error reporting.</li>
@@ -173,8 +180,8 @@ export default class View extends SuperComponent<ViewData> {
 
                     <h2 class="block font-grey-700 font-lg font-bold mb-0.5 line-normal">Who should use Brixi UI?</h2>
                     <p class=" mb-4 font-grey-700 font-sm line-normal">
-                        Everybody, or maybe nobody. The Brixi UI design system is a tool I created for myself to build SPAs faster. All of the components are licensed
-                        under MIT. Feel free to download and use any component for any commercial/non-commercial project.
+                        Everybody, or maybe nobody. The Brixi UI design system is a tool I created for myself to build SPAs faster. All of the components are licensed under MIT.
+                        Feel free to download and use any component for any commercial/non-commercial project.
                     </p>
 
                     <h2 class="block font-grey-700 font-lg font-bold mb-0.5 line-normal">Why create a custom CSS framework?</h2>
@@ -205,7 +212,8 @@ export default class View extends SuperComponent<ViewData> {
                         Web Components are (and have been) supported in
                         <a class="link" href="https://caniuse.com/custom-elementsv1" target="_blank" rel="noopener">every major browser</a>
                         for a while. They provide native component mount/unmount functionality and with the way Web Components bind to the DOM nodes they can be queried and their
-                        functions can be immediately invoked from the element(s) returned from the query. This means you don't need to provide state/prop callbacks between components, just
+                        functions can be immediately invoked from the element(s) returned from the query. This means you don't need to provide state/prop callbacks between
+                        components, just
                         <code class="inline-block font-xs font-warning-700 bg-warning-100 px-0.25 radius-0.25">querySelector</code>
                         your component's custom element name to gain access to any of it's public methods.
                     </p>
@@ -220,8 +228,9 @@ export default class View extends SuperComponent<ViewData> {
                     <p class=" mb-4 font-grey-700 font-sm line-normal">
                         That works too. Every component is configured using
                         <a class="link" href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes" target="_blank" rel="noopener">data attributes</a>. On
-                        the server all you need to do is render the empty custom element with the data attributes corresponding to the model object keys. Using a <code class="inline-block font-xs font-warning-700 bg-warning-100 px-0.25 radius-0.25">script</code> tag to load a components JavaScript file
-                        will bind the component to the custom element to be automatically mounted and rendered.
+                        the server all you need to do is render the empty custom element with the data attributes corresponding to the model object keys. Using a
+                        <code class="inline-block font-xs font-warning-700 bg-warning-100 px-0.25 radius-0.25">script</code> tag to load a components JavaScript file will bind the
+                        component to the custom element to be automatically mounted and rendered.
                     </p>
 
                     <h2 class="block font-grey-700 font-lg font-bold mb-0.5 line-normal">Contributing to Brixi UI.</h2>

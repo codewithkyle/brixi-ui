@@ -4,7 +4,6 @@ export default class Component<T> extends SuperComponent<T> {
     attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
         if (name.indexOf("data-") === 0) {
             name = name.substring(5);
-            console.log(name, oldValue, newValue);
             // @ts-ignore
             if (name in this.model) {
                 let value: any;
