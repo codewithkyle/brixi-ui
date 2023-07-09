@@ -27,17 +27,6 @@ export interface ISelect {
     disabled: boolean;
     autofocus: boolean;
 }
-export interface SelectOptions {
-    label?: string;
-    name: string;
-    options: Array<SelectOption>;
-    icon?: string | HTMLElement;
-    instructions?: string;
-    required?: boolean;
-    disabled?: boolean;
-    value?: any;
-    autofocus?: boolean;
-}
 export default class Select extends Component<ISelect> {
     override id: string;
     constructor() {
@@ -48,6 +37,7 @@ export default class Select extends Component<ISelect> {
             IDLING: {
                 ERROR: "ERROR",
                 DISABLE: "DISABLED",
+                ENABLE: "IDLING",
             },
             ERROR: {
                 RESET: "IDLING",
@@ -55,6 +45,7 @@ export default class Select extends Component<ISelect> {
             },
             DISABLED: {
                 ENABLE: "IDLING",
+                DISABLE: "DISABLED",
             },
         };
         this.model = {
@@ -73,7 +64,19 @@ export default class Select extends Component<ISelect> {
     }
 
     static get observedAttributes() {
-        return [];
+        return [
+            "data-label",
+            "data-icon",
+            "data-instructions",
+            "data-options",
+            "data-required",
+            "data-selected",
+            "data-name",
+            "data-error",
+            "data-value",
+            "data-disabled",
+            "data-autofocus",
+        ];
     }
 
     override async connected() {
@@ -88,15 +91,22 @@ export default class Select extends Component<ISelect> {
             settings.value = settings.options[0].value;
             settings.selected = 0;
         }
+        if (settings?.disabled) {
+            this.state = "DISABLED";
+        }
+        if (settings?.autofocus) {
+            // @ts-ignore
+            document?.activeElement?.blur();
+        }
         this.set(settings);
     }
 
     public renderCopy(): string | TemplateResult {
         let output: string | TemplateResult;
-        if (this.state === "IDLING" && this.model.instructions) {
-            output = html`<p>${unsafeHTML(this.model.instructions)}</p>`;
-        } else if (this.state === "ERROR" && this.model.error) {
+        if (this.state === "ERROR" && this.model.error?.length) {
             output = html`<p class="font-danger-700">${this.model.error}</p>`;
+        } else if (this.model.instructions?.length) {
+            output = html`<p>${unsafeHTML(this.model.instructions)}</p>`;
         } else {
             output = "";
         }
@@ -156,7 +166,12 @@ export default class Select extends Component<ISelect> {
             value: value,
         });
         this.validate();
-        //this.model.callback(value);
+        const event = new CustomEvent("change", {
+            detail: {
+                value: value,
+            },
+        });
+        this.dispatchEvent(event);
     };
 
     public getName(): string {
@@ -176,6 +191,11 @@ export default class Select extends Component<ISelect> {
     }
 
     render() {
+        if (this.state !== "DISABLED" && this.model.disabled) {
+            this.trigger("DISABLE");
+        } else if (this.state === "DISABLED" && !this.model.disabled) {
+            this.trigger("ENABLE");
+        }
         this.setAttribute("state", this.state);
         this.setAttribute("form-input", "");
         const view = html`

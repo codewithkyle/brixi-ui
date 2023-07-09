@@ -1,1 +1,1 @@
-import r from"./supercomponent.js";class e extends r{attributeChangedCallback(t,l,s){if(t.indexOf("data-")===0&&(t=t.substring(5),console.log(t,l,s),t in this.model)){let i;try{i=JSON.parse(s)}catch{i=s}const o=this.get();o[t]=i,this.set(o)}}}export{e as default};
+import l from"./supercomponent.js";class n extends l{attributeChangedCallback(t,o,e){if(t.indexOf("data-")===0&&(t=t.substring(5),t in this.model)){let s;try{s=JSON.parse(e)}catch{s=e}const i=this.get();i[t]=s,this.set(i)}}}export{n as default};

@@ -1,0 +1,30 @@
+# Select
+
+```html
+<select-component></select-component>
+```
+
+| Data Attribute | Type |
+| -------------- | ---- |
+| label | string |
+| icon | string or HTMLElement |
+| instructions | string |
+| options | Array<SelectOption> |
+| required | boolean |
+| selected | number |
+| name | string |
+| error | string |
+| value | string or number |
+| disabled | boolean |
+| autofocus | boolean |
+
+Not sure what Data Attributes are? Learn about [Data Attributes on MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/data-*).
+
+### Select Option
+
+```typescript
+type SelectOption = {
+    label: string;
+    value: string | number;
+}
+```

@@ -1,6 +1,6 @@
 
 self.manifest = {
-    "version": "adbb5a558054ba6070ca9d22c15412ee",
+    "version": "839f6debbc6e37336312d271f72b9172",
     "assets": [
 		"/js/accordion.js",
 		"/js/alert.js",
@@ -163,6 +163,7 @@ self.manifest = {
 		"/docs/components/button.md",
 		"/docs/components/input.md",
 		"/docs/components/notifications.md",
+		"/docs/components/select.md",
 		"/docs/components/snackbar.md",
 		"/",
 		"/404",
@@ -347,6 +348,7 @@ self.manifest = {
 		"/raw/components/range-slider/range-slider.js",
 		"/raw/components/range-slider/range-slider.scss",
 		"/raw/components/range-slider/range-slider.ts",
+		"/raw/components/select/readme.md",
 		"/raw/components/select/select.css",
 		"/raw/components/select/select.html",
 		"/raw/components/select/select.js",
