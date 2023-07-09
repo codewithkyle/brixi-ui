@@ -20,7 +20,7 @@ accordion-component {
                 border-radius: 0 0 0.5rem 0.5rem;
             }
 
-            p {
+            .content {
                 border-radius: 0 0 0.5rem 0.5rem;
             }
 
@@ -34,7 +34,7 @@ accordion-component {
                 border-radius: 0.5rem;
             }
 
-            p {
+            .content {
                 border-radius: 0 0 0.5rem 0.5rem;
             }
 
@@ -59,7 +59,7 @@ accordion-component {
                     }
                 }
 
-                & ~ p {
+                & ~ .content {
                     display: block;
                 }
             }
@@ -99,6 +99,7 @@ accordion-component {
                 font-weight: var(--font-medium);
                 flex: 1;
                 width: 100%;
+                user-select: none;
             }
 
             i {
@@ -118,7 +119,7 @@ accordion-component {
             }
         }
 
-        p {
+        .content {
             font-size: var(--font-sm);
             display: none;
             width: 100%;
