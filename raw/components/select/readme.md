@@ -1,5 +1,15 @@
 ```html
-<select-component></select-component>
+<select-component 
+    data-label="Example Select" 
+    data-icon='<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"></path><path d="M12 8v4"></path><path d="M12 16h.01"></path></svg>'
+    data-instructions="This is an example select component" 
+    data-options='[{"label":"Option 1","value":"option1"},{"label":"Option 2","value":"option2"}]' 
+    data-required="false"
+    data-name="example"
+    data-value="option1"
+    data-disabled="false"
+    data-autofocus="true"
+></select-component>
 ```
 
 | Data Attribute | Type | Required |
@@ -10,7 +20,6 @@
 | options | SelectOption[] | ✅ |
 | required | boolean | |
 | name | string | ✅ |
-| error | string | |
 | value | string or number | |
 | disabled | boolean | |
 | autofocus | boolean | |
@@ -24,4 +33,18 @@ type SelectOption = {
     label: string;
     value: string | number;
 }
+```
+
+### Querying Form Inputs
+
+All form inputs can be queried using the `[form-input]` attribute.
+
+```typescript
+document.body.querySelectorAll("[form-input]").forEach(el => {
+    const name = el.getName();
+    const value = el.getValue();
+    const isValid = el.validate();
+    el.setError("Set a custom error message");
+    el.clearError();
+});
 ```
