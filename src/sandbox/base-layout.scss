@@ -381,9 +381,9 @@ component-viewer {
 
             code {
                 height: 24px;
-                padding: 0 0.25rem;
+                padding: 0.125rem 0.25rem;
                 border-radius: 0.25rem;
-                background-color: var(--warning-200);
+                background-color: var(--warning-100);
                 color: var(--warning-700);
                 font-size: var(--font-sm);
             }
@@ -428,6 +428,7 @@ component-viewer {
             border: 1px solid var(--neutral-300);
             border-radius: 0.5rem;
             margin-bottom: 1.5rem;
+            overflow: hidden;
 
             thead {
                 background-color: var(--neutral-100);
@@ -458,9 +459,14 @@ component-viewer {
                     display: flex;
                     width: 100%;
                     padding: 0 1rem;
+                    transition: all 80ms var(--ease-in-out);
 
                     &:not(:last-of-type) {
                         border-bottom: 1px solid var(--neutral-300);
+                    }
+
+                    &:hover {
+                        background-color: var(--neutral-100);
                     }
 
                     td {
@@ -473,9 +479,9 @@ component-viewer {
 
                         code {
                             height: 24px;
-                            padding: 0 0.25rem;
+                            padding: 0.125rem 0.25rem;
                             border-radius: 0.25rem;
-                            background-color: var(--warning-200);
+                            background-color: var(--warning-100);
                             color: var(--warning-700);
                             font-size: var(--font-sm);
                         }
