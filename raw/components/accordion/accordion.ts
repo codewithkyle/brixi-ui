@@ -1,7 +1,11 @@
+import { UUID } from "@codewithkyle/uuid";
 import { html, render } from "lit-html";
-import SuperComponent from "@codewithkyle/supercomponent";
+import { unsafeHTML } from "lit-html/directives/unsafe-html";
+import Component from "~brixi/component";
 import env from "~brixi/controllers/env";
 import { parseDataset } from "~brixi/utils/general";
+
+env.css(["accordion"]);
 
 export interface AccordionSection {
     label: string;
@@ -9,38 +13,26 @@ export interface AccordionSection {
 }
 export interface IAccordion {
     sections: Array<AccordionSection>;
-    css: string;
-    class: string;
-    attributes: {
-        [name: string]: string | number;
-    };
 }
-export interface AccordionSettings {
-    sections: Array<AccordionSection>;
-    css?: string;
-    class?: string;
-    attributes?: {
-        [name: string]: string | number;
-    };
-}
-export default class Accordion extends SuperComponent<IAccordion> {
-    constructor(settings: AccordionSettings) {
+export default class Accordion extends Component<IAccordion> {
+    constructor() {
         super();
         this.model = {
             sections: [],
-            css: "",
-            class: "",
-            attributes: {},
         };
-        this.model = parseDataset<IAccordion>(this.dataset, this.model);
-        env.css(["accordion"]).then(() => {
-            this.set(settings, true);
-            this.render();
-        });
+    }
+
+    static get observedAttributes() {
+        return ["data-sections"];
+    }
+
+    override connected() {
+        const settings = parseDataset(this.dataset, this.model);
+        this.set(settings);
     }
 
     private renderSection(section: AccordionSection) {
-        const name = section.label.toLowerCase().trim().replace(/\s+/g, "-");
+        const name = UUID();
         return html`
             <div class="section">
                 <input type="checkbox" name="${name}" id="${name}" />
@@ -52,17 +44,12 @@ export default class Accordion extends SuperComponent<IAccordion> {
                         </svg>
                     </i>
                 </label>
-                <p class="content">${section.content}</p>
+                <div class="content">${unsafeHTML(decodeURI(section.content))}</div>
             </div>
         `;
     }
 
     override render() {
-        this.style.cssText = this.model.css;
-        this.className = this.model.class;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
         const view = html` ${this.model.sections.map(this.renderSection)} `;
         render(view, this);
     }

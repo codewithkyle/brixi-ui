@@ -1,4 +1,4 @@
-import{html as s,render as i}from"./lit-html.js";import n from"./supercomponent.js";import r from"./env.js";import{parseDataset as c}from"./general.js";class o extends n{constructor(t){super(),this.model={sections:[],css:"",class:"",attributes:{}},this.model=c(this.dataset,this.model),r.css(["accordion"]).then(()=>{this.set(t,!0),this.render()})}renderSection(t){const e=t.label.toLowerCase().trim().replace(/\s+/g,"-");return s`
+import{UUID as i}from"./uuid.js";import{html as o,render as s}from"./lit-html.js";import{unsafeHTML as c}from"./unsafe-html.js";import d from"./component.js";import n from"./env.js";import{parseDataset as a}from"./general.js";n.css(["accordion"]);class r extends d{constructor(){super(),this.model={sections:[]}}static get observedAttributes(){return["data-sections"]}connected(){const t=a(this.dataset,this.model);this.set(t)}renderSection(t){const e=i();return o`
             <div class="section">
                 <input type="checkbox" name="${e}" id="${e}" />
                 <label sfx="button" role="button" tabindex="0" for="${e}">
@@ -9,6 +9,6 @@ import{html as s,render as i}from"./lit-html.js";import n from"./supercomponent.
                         </svg>
                     </i>
                 </label>
-                <p class="content">${t.content}</p>
+                <div class="content">${c(decodeURI(t.content))}</div>
             </div>
-        `}render(){this.style.cssText=this.model.css,this.className=this.model.class,Object.keys(this.model.attributes).map(e=>{this.setAttribute(e,`${this.model.attributes[e]}`)});const t=s` ${this.model.sections.map(this.renderSection)} `;i(t,this)}}r.bind("accordion-component",o);export{o as default};
+        `}render(){const t=o` ${this.model.sections.map(this.renderSection)} `;s(t,this)}}n.bind("accordion-component",r);export{r as default};
