@@ -425,8 +425,7 @@ component-viewer {
             display: block;
             width: 100%;
             background-color: var(--white);
-            box-shadow: var(--shadow-grey-lg);
-            border: 1px solid var(--neutral-200);
+            border: 1px solid var(--neutral-300);
             border-radius: 0.5rem;
             margin-bottom: 1.5rem;
 
@@ -435,7 +434,6 @@ component-viewer {
                 border-bottom: 1px solid var(--neutral-300);
                 display: block;
                 width: 100%;
-                box-shadow: var(--shadow-grey-sm);
 
                 tr {
                     display: flex;
@@ -462,7 +460,7 @@ component-viewer {
                     padding: 0 1rem;
 
                     &:not(:last-of-type) {
-                        border-bottom: 1px solid var(--neutral-200);
+                        border-bottom: 1px solid var(--neutral-300);
                     }
 
                     td {

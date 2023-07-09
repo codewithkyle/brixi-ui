@@ -64,19 +64,7 @@ export default class Select extends Component<ISelect> {
     }
 
     static get observedAttributes() {
-        return [
-            "data-label",
-            "data-icon",
-            "data-instructions",
-            "data-options",
-            "data-required",
-            "data-selected",
-            "data-name",
-            "data-error",
-            "data-value",
-            "data-disabled",
-            "data-autofocus",
-        ];
+        return ["data-label", "data-icon", "data-instructions", "data-options", "data-required", "data-name", "data-value", "data-disabled", "data-autofocus"];
     }
 
     override async connected() {
@@ -90,6 +78,9 @@ export default class Select extends Component<ISelect> {
         } else {
             settings.value = settings.options[0].value;
             settings.selected = 0;
+        }
+        if (settings?.error) {
+            this.state = "ERROR";
         }
         if (settings?.disabled) {
             this.state = "DISABLED";
@@ -127,6 +118,7 @@ export default class Select extends Component<ISelect> {
 
     public clearError() {
         if (this.state === "ERROR") {
+            this.set({ error: null });
             this.trigger("RESET");
         }
     }
