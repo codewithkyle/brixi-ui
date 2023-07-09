@@ -1,8 +1,10 @@
-import SuperComponent from "@codewithkyle/supercomponent";
 import { html, render, TemplateResult } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
+import Component from "~brixi/component";
 import env from "~brixi/controllers/env";
-import { noop, parseDataset } from "~brixi/utils/general";
+import { parseDataset } from "~brixi/utils/general";
+
+env.css(["button"]);
 
 type ButtonKind = "solid" | "outline" | "text";
 type ButtonColor = "primary" | "danger" | "grey" | "success" | "warning" | "info" | "white";
@@ -18,36 +20,11 @@ export interface IButton {
     color: ButtonColor;
     shape: ButtonShape;
     size: ButtonSize;
-    callback: Function;
-    tooltip: string;
-    css: string;
-    class: string;
-    attributes: {
-        [name: string]: string | number;
-    };
     disabled: boolean;
     type: ButtonType;
 }
-export interface ButtonSettings {
-    label?: string;
-    callback?: Function;
-    kind?: ButtonKind;
-    color?: ButtonColor;
-    shape?: ButtonShape;
-    size?: ButtonSize;
-    icon?: string;
-    iconPosition?: "left" | "right" | "center";
-    tooltip?: string;
-    css?: string;
-    class?: string;
-    attributes?: {
-        [name: string]: string | number;
-    };
-    disabled?: boolean;
-    type?: ButtonType;
-}
-export default class Button extends SuperComponent<IButton> {
-    constructor(settings: ButtonSettings) {
+export default class Button extends Component<IButton> {
+    constructor() {
         super();
         this.model = {
             label: "",
@@ -57,23 +34,20 @@ export default class Button extends SuperComponent<IButton> {
             size: "default",
             icon: "",
             iconPosition: "left",
-            callback: noop,
-            tooltip: null,
-            css: "",
-            class: "",
-            attributes: {},
             disabled: false,
             type: "button",
         };
-        this.model = parseDataset<IButton>(this.dataset, this.model);
-        const classes = ["button"];
-        if (settings?.tooltip?.length || this.dataset?.tooltip?.length) {
-            classes.push("tooltip");
-        }
-        env.css(classes).then(() => {
-            this.set(settings, true);
-            this.render();
-        });
+    }
+
+    static get observedAttributes() {
+        return ["data-label", "data-icon", "data-icon-position", "data-kind", "data-color", "data-shape", "data-size", "data-disabled", "data-type"];
+    }
+
+    override async connected() {
+        const settings = parseDataset(this.dataset, this.model);
+        this.set(settings);
+        this.addEventListener("keydown", this.handleKeydown);
+        this.addEventListener("keyup", this.handleKeyup);
     }
 
     private renderIcon(): string | TemplateResult {
@@ -96,13 +70,9 @@ export default class Button extends SuperComponent<IButton> {
         return label;
     }
 
-    private handleClick: EventListener = (e: Event) => {
-        e.stopImmediatePropagation();
-        if (this.model.disabled) {
-            return;
-        }
-        this.model.callback();
-    };
+    private dispatchClick() {
+        this.dispatchEvent(new CustomEvent("click"));
+    }
 
     private handleKeydown: EventListener = (e: KeyboardEvent) => {
         if (e instanceof KeyboardEvent) {
@@ -126,23 +96,13 @@ export default class Button extends SuperComponent<IButton> {
                     return;
                 }
                 this.classList.remove("is-active");
-                this.model.callback();
+                this.dispatchClick();
             }
         }
     };
 
-    override connected() {
-        this.addEventListener("click", this.handleClick);
-        this.addEventListener("keydown", this.handleKeydown);
-        this.addEventListener("keyup", this.handleKeyup);
-    }
-
     override render() {
-        this.style.cssText = this.model.css;
-        this.className = `${this.model.class} bttn`;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
+        this.classList.add("bttn");
         const view = html` ${this.renderIcon()} ${this.renderLabel()} `;
         this.setAttribute("role", "button");
         this.tabIndex = 0;
@@ -153,9 +113,6 @@ export default class Button extends SuperComponent<IButton> {
         this.setAttribute("type", this.model.type);
         if (this.model.icon.length) {
             this.setAttribute("icon", this.model.iconPosition);
-        }
-        if (this.model.tooltip) {
-            this.setAttribute("tooltip", this.model.tooltip);
         }
         this.setAttribute("sfx", "button");
         if (this.model.disabled) {

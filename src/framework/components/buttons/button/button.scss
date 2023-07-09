@@ -58,8 +58,9 @@
         }
     }
 
-    &:active {
-        outline-offset: 0;
+    &:active,
+    &.is-active {
+        outline-offset: 0px !important;
     }
 
     &[size="slim"] {
