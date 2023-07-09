@@ -1,12 +1,14 @@
 import { html, render, TemplateResult } from "lit-html";
-import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~brixi/controllers/env";
-import Button from "~brixi/components/buttons/button/button";
-import { noop, parseDataset } from "~brixi/utils/general";
+import "~brixi/components/buttons/button/button";
+import { parseDataset } from "~brixi/utils/general";
+import Component from "~brixi/component";
+
+env.css(["alert", "button"]);
 
 export interface Action {
     label: string;
-    callback: Function;
+    id: string;
 }
 export interface IAlert {
     type: "warning" | "info" | "danger" | "success";
@@ -15,29 +17,9 @@ export interface IAlert {
     list: Array<string>;
     closeable: boolean;
     actions: Array<Action>;
-    closeCallback: Function;
-    css: string;
-    class: string;
-    attributes: {
-        [name: string]: string | number;
-    };
 }
-export interface AlertSettings {
-    type?: "warning" | "info" | "danger" | "success";
-    heading?: string;
-    description?: string;
-    list?: Array<string>;
-    closeable?: boolean;
-    actions?: Array<Action>;
-    closeCallback?: Function;
-    css?: string;
-    class?: string;
-    attributes?: {
-        [name: string]: string | number;
-    };
-}
-export default class Alert extends SuperComponent<IAlert> {
-    constructor(settings: AlertSettings) {
+export default class Alert extends Component<IAlert> {
+    constructor() {
         super();
         this.model = {
             type: "info",
@@ -46,16 +28,16 @@ export default class Alert extends SuperComponent<IAlert> {
             list: [],
             closeable: false,
             actions: [],
-            closeCallback: noop,
-            css: "",
-            class: "",
-            attributes: {},
         };
-        this.model = parseDataset<IAlert>(this.dataset, this.model);
-        env.css(["alert"]).then(() => {
-            this.set(settings, true);
-            this.render();
-        });
+    }
+
+    static get observedAttributes() {
+        return ["data-type", "data-heading", "data-description", "data-list", "data-closeable", "data-actions"];
+    }
+
+    override async connected() {
+        const settings = parseDataset(this.dataset, this.model);
+        this.set(settings);
     }
 
     private renderIcon() {
@@ -96,23 +78,36 @@ export default class Alert extends SuperComponent<IAlert> {
     }
 
     private handleClose: EventListener = () => {
-        this.model.closeCallback();
+        const event = new CustomEvent("close");
+        this.dispatchEvent(event);
         this.remove();
     };
 
-    private renderCloseButton(): string | HTMLElement {
-        let out: string | HTMLElement;
+    private handleActionClick: EventListener = (e: Event) => {
+        const event = new CustomEvent("action", {
+            detail: {
+                // @ts-ignore
+                id: e.currentTarget.dataset.id ?? null,
+            },
+        });
+        this.dispatchEvent(event);
+    };
+
+    private renderCloseButton(): string | TemplateResult {
+        let out: string | TemplateResult;
         if (this.model.closeable) {
-            out = new Button({
-                type: "button",
-                class: "close",
-                kind: "text",
-                color: this.model.type,
-                icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>`,
-                iconPosition: "center",
-                callback: this.handleClose.bind(this),
-                shape: "round",
-            });
+            out = html`
+                <button-component
+                    class="close"
+                    @click=${this.handleClose}
+                    data-type="button"
+                    data-kind="text"
+                    data-color="${this.model.type}"
+                    data-icon='<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>'
+                    data-icon-position="center"
+                    data-shape="round"
+                ></button-component>
+            `;
         } else {
             out = "";
         }
@@ -142,13 +137,7 @@ export default class Alert extends SuperComponent<IAlert> {
                 <div class="actions">
                     ${this.model.actions.map((bttn) => {
                         return html`
-                            ${new Button({
-                                label: bttn.label,
-                                kind: "text",
-                                // @ts-ignore
-                                color: this.model.type,
-                                callback: bttn.callback,
-                            })}
+                            <button class="bttn" @click=${this.handleActionClick} data-id="${bttn.id}" type="button" kind="text" color="${this.model.type}">${bttn.label}</button>
                         `;
                     })}
                 </div>
@@ -160,11 +149,6 @@ export default class Alert extends SuperComponent<IAlert> {
     }
 
     override render() {
-        this.style.cssText = this.model.css;
-        this.className = this.model.class;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
         const view = html`
             ${this.renderCloseButton()}
             <i> ${this.renderIcon()} </i>
