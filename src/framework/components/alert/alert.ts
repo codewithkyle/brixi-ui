@@ -154,8 +154,8 @@ export default class Alert extends Component<IAlert> {
             ${this.renderCloseButton()}
             <i> ${this.renderIcon()} </i>
             <div class="copy">
-                ${this.model.heading ? html`<h3>${this.model.heading}</h3>` : ""} ${this.model.description ? html`<p>${unsafeHTML(decodeURI(this.model.description))}</p>` : ""} ${this.renderList()}
-                ${this.renderActions()}
+                ${this.model.heading ? html`<h3>${this.model.heading}</h3>` : ""} ${this.model.description ? html`<p>${unsafeHTML(decodeURI(this.model.description))}</p>` : ""}
+                ${this.renderList()} ${this.renderActions()}
             </div>
         `;
         this.setAttribute("kind", this.model.type);
