@@ -46,4 +46,4 @@ html`
         data-list="[${encodeURI('<a href='#'>Learn more on MDN.</a>')]"
     ></alert-component>
 `
-`````
+```
