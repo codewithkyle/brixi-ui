@@ -160,7 +160,7 @@
             box-shadow: var(--button-shadow);
 
             &:hover {
-                box-shadow: var(--button-shadow), 0 0 0 8px var(--primary-50);
+                box-shadow: var(--button-shadow), 0 0 0 8px hsl(var(--primary-500-hsl) / 0.05);
             }
         }
 
@@ -171,7 +171,7 @@
             box-shadow: var(--button-shadow);
 
             &:hover {
-                box-shadow: var(--button-shadow), 0 0 0 8px var(--danger-50);
+                box-shadow: var(--button-shadow), 0 0 0 8px hsl(var(--danger-500-hsl) / 0.05);
             }
         }
 
@@ -183,7 +183,7 @@
             box-shadow: var(--button-shadow);
 
             &:hover {
-                box-shadow: var(--button-shadow), 0 0 0 8px var(--grey-100);
+                box-shadow: var(--button-shadow), 0 0 0 8px hsl(var(--grey-500-hsl) / 0.05);
             }
         }
 
@@ -194,7 +194,7 @@
             box-shadow: var(--button-shadow);
 
             &:hover {
-                box-shadow: var(--button-shadow), 0 0 0 8px var(--warning-50);
+                box-shadow: var(--button-shadow), 0 0 0 8px hsl(var(--warning-500-hsv) / 0.05);
             }
         }
 
@@ -205,7 +205,7 @@
             box-shadow: var(--button-shadow);
 
             &:hover {
-                box-shadow: var(--button-shadow), 0 0 0 8px var(--success-50);
+                box-shadow: var(--button-shadow), 0 0 0 8px hsl(var(--success-500-hsl) / 0.05);
             }
         }
 
@@ -216,7 +216,7 @@
             box-shadow: var(--button-shadow);
 
             &:hover {
-                box-shadow: var(--button-shadow), 0 0 0 8px var(--info-50);
+                box-shadow: var(--button-shadow), 0 0 0 8px hsl(var(--info-500-hsl) / 0.05);
             }
         }
 
