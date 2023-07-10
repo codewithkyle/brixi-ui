@@ -6,11 +6,11 @@ import { parseDataset } from "~brixi/utils/general";
 
 env.css(["button"]);
 
-type ButtonKind = "solid" | "outline" | "text";
-type ButtonColor = "primary" | "danger" | "grey" | "success" | "warning" | "info" | "white";
-type ButtonShape = "pill" | "round" | "sharp" | "default";
-type ButtonSize = "default" | "slim" | "large";
-type ButtonType = "submit" | "button" | "reset";
+export type ButtonKind = "solid" | "outline" | "text";
+export type ButtonColor = "primary" | "danger" | "grey" | "success" | "warning" | "info" | "white";
+export type ButtonShape = "pill" | "round" | "sharp" | "default";
+export type ButtonSize = "default" | "slim" | "large";
+export type ButtonType = "submit" | "button" | "reset";
 
 export interface IButton {
     label: string;
