@@ -32,12 +32,12 @@ export default class BreadcrumbTrail extends Component<IBreadcrumbTrail> {
         this.set(settings);
     }
 
-    private handleClick = (e:Event) => {
+    private handleClick = (e: Event) => {
         const event = new CustomEvent("navigate", {
             detail: {
                 // @ts-ignore
                 id: e.currentTarget.dataset.id,
-            }
+            },
         });
         this.dispatchEvent(event);
     };
@@ -57,7 +57,7 @@ export default class BreadcrumbTrail extends Component<IBreadcrumbTrail> {
             return "";
         }
         return html`
-            <button type="button" @click=${this.handleClick} data-id="${link.id}" aria-label="${link?.ariaLabel ?? ""}">
+            <button sfx="button" type="button" @click=${this.handleClick} data-id="${link.id}" aria-label="${link?.ariaLabel ?? ""}">
                 ${this.renderIcon(link?.icon ?? "")} ${link?.label?.length ? html` <span>${link.label}</span> ` : ""}
             </button>
             ${renderArrowIcon
@@ -81,7 +81,7 @@ export default class BreadcrumbTrail extends Component<IBreadcrumbTrail> {
     }
 
     override render() {
-        let view:TemplateResult;
+        let view: TemplateResult;
         if (this.model.links.length <= 3) {
             view = html`
                 ${this.model.links.map((link, i) => {
@@ -96,7 +96,7 @@ export default class BreadcrumbTrail extends Component<IBreadcrumbTrail> {
             view = html`
                 ${this.renderLink(this.model.links[0], true)}
                 <breadcrumb-overflow-menu>
-                    <button aria-label="Open hidden link menu">
+                    <button aria-label="Open hidden link menu" sfx="button">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
