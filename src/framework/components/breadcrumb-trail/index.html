@@ -1,51 +1,14 @@
-<div id="example1" class="w-full block"></div>
-<div id="example2" class="w-full block mt-1"></div>
-<script type="module">
-    import Component from "/js/breadcrumb-trail.js";
-    const example = new Component({
-        links: [
-            {
-                ariaLabel: "Go to homepage",
-                icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><polyline points="5 12 3 12 12 3 21 12 19 12"></polyline><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path><rect x="10" y="12" width="4" height="4"></rect></svg>`,
-                callback: ()=>{},
-            },
-            {
-                label: "Example 1",
-                callback: ()=>{},
-            },
-            {
-                icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><ellipse cx="12" cy="6" rx="8" ry="3"></ellipse><path d="M4 6v6a8 3 0 0 0 16 0v-6"></path><path d="M4 12v6a8 3 0 0 0 16 0v-6"></path></svg>`,
-                label: "Example 2",
-                callback: ()=>{},
-            },
-        ],
-    });
-    const example2 = new Component({
-        links: [
-            {
-                ariaLabel: "Go to homepage",
-                icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><polyline points="5 12 3 12 12 3 21 12 19 12"></polyline><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path><rect x="10" y="12" width="4" height="4"></rect></svg>`,
-                callback: ()=>{},
-            },
-            {
-                label: "Example 1",
-                callback: ()=>{},
-            },
-            {
-                icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M7 16h-4l3.47 -4.66a2 2 0 1 0 -3.47 -1.54"></path><path d="M10 16v-8h4"></path><line x1="10" y1="12" x2="13" y2="12"></line><path d="M17 16v-6a2 2 0 0 1 4 0v6"></path><line x1="17" y1="13" x2="21" y2="13"></line></svg>`,
-                label: "Example 2",
-                callback: ()=>{},
-            },
-            {
-                label: "Example 3",
-                callback: ()=>{},
-            },
-            {
-                label: "Example 4",
-                callback: ()=>{},
-            },
-        ],
-    });
-    document.body.querySelector("#example1").appendChild(example);
-    document.body.querySelector("#example2").appendChild(example2);
-</script>
+<div class="w-full block">
+    <breadcrumb-trail
+        data-links='[{"ariaLabel":"Go to homepage","icon":"%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20class=%22icon%20icon-tabler%20icon-tabler-home-2%22%20width=%2224%22%20height=%2224%22%20viewBox=%220%200%2024%2024%22%20stroke-width=%222%22%20stroke=%22currentColor%22%20fill=%22none%22%20stroke-linecap=%22round%22%20stroke-linejoin=%22round%22%3E%3Cpath%20stroke=%22none%22%20d=%22M0%200h24v24H0z%22%20fill=%22none%22%3E%3C/path%3E%3Cpath%20d=%22M5%2012l-2%200l9%20-9l9%209l-2%200%22%3E%3C/path%3E%3Cpath%20d=%22M5%2012v7a2%202%200%200%200%202%202h10a2%202%200%200%200%202%20-2v-7%22%3E%3C/path%3E%3Cpath%20d=%22M10%2012h4v4h-4z%22%3E%3C/path%3E%3C/svg%3E","id":"home"},{"label":"Example 1","id":"exmaple1"}]'
+    ></breadcrumb-trail>
+</div>
+
+<div class="w-full block mt-1">
+    <breadcrumb-trail
+        data-links='[{"ariaLabel":"Go to homepage","icon":"%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20stroke-width=%222%22%20stroke=%22currentColor%22%20fill=%22none%22%20stroke-linecap=%22round%22%20stroke-linejoin=%22round%22%3E%3Cpath%20stroke=%22none%22%20d=%22M0%200h24v24H0z%22%20fill=%22none%22%3E%3C/path%3E%3Cpolyline%20points=%225%2012%203%2012%2012%203%2021%2012%2019%2012%22%3E%3C/polyline%3E%3Cpath%20d=%22M5%2012v7a2%202%200%200%200%202%202h10a2%202%200%200%200%202%20-2v-7%22%3E%3C/path%3E%3Crect%20x=%2210%22%20y=%2212%22%20width=%224%22%20height=%224%22%3E%3C/rect%3E%3C/svg%3E","id":"home"},{"label":"Example 1","id":"example1"},{"icon":"%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20stroke-width=%222%22%20stroke=%22currentColor%22%20fill=%22none%22%20stroke-linecap=%22round%22%20stroke-linejoin=%22round%22%3E%3Cpath%20stroke=%22none%22%20d=%22M0%200h24v24H0z%22%20fill=%22none%22%3E%3C/path%3E%3Cpath%20d=%22M7%2016h-4l3.47%20-4.66a2%202%200%201%200%20-3.47%20-1.54%22%3E%3C/path%3E%3Cpath%20d=%22M10%2016v-8h4%22%3E%3C/path%3E%3Cline%20x1=%2210%22%20y1=%2212%22%20x2=%2213%22%20y2=%2212%22%3E%3C/line%3E%3Cpath%20d=%22M17%2016v-6a2%202%200%200%201%204%200v6%22%3E%3C/path%3E%3Cline%20x1=%2217%22%20y1=%2213%22%20x2=%2221%22%20y2=%2213%22%3E%3C/line%3E%3C/svg%3E","label":"Example 2","id":"example2"},{"label":"Example 3","id":"example3"},{"label":"Example 4","id":"example4"}]'
+    ></breadcrumb-trail>
+</div>
+
+
+<script type="module" src="/js/breadcrumb-trail.js"></script>
