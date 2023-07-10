@@ -85,9 +85,13 @@ export default class DownloadButton extends Component<IDownloadButton> {
                     this.insertBefore(this.indicator, this.childNodes[0]);
                     break;
                 case "done":
-                    this.dispatchEvent(new CustomEvent("download", { detail: {
-                        blob: new Blob([data]),
-                    }}));
+                    this.dispatchEvent(
+                        new CustomEvent("download", {
+                            detail: {
+                                blob: new Blob([data]),
+                            },
+                        })
+                    );
                     this.indicator.remove();
                     label.innerText = this.model.label;
                     if (icon) {
@@ -97,9 +101,13 @@ export default class DownloadButton extends Component<IDownloadButton> {
                     this.downloading = false;
                     break;
                 case "error":
-                    this.dispatchEvent(new CustomEvent("error", { detail: {
-                        error: data,
-                    }}));
+                    this.dispatchEvent(
+                        new CustomEvent("error", {
+                            detail: {
+                                error: data,
+                            },
+                        })
+                    );
                     worker.terminate();
                     this.indicator.remove();
                     label.innerText = this.model.label;
