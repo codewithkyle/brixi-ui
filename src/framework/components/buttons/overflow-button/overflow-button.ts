@@ -1,16 +1,13 @@
 import { html, render } from "lit-html";
-import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~brixi/controllers/env";
 import { parseDataset } from "~brixi/utils/general";
 import OverflowMenu, { OverflowItem } from "~brixi/components/overflow-menu/overflow-menu";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import { UUID } from "@codewithkyle/uuid";
-import pos from "~brixi/controllers/pos";
+import Component from "~brixi/component";
+import type { ButtonColor, ButtonKind, ButtonShape, ButtonSize } from "../button/button";
 
-type ButtonKind = "solid" | "outline" | "text";
-type ButtonColor = "primary" | "danger" | "grey" | "success" | "warning" | "info";
-type ButtonShape = "pill" | "round" | "sharp" | "default";
-type ButtonSize = "default" | "slim" | "large";
+env.css(["button"]);
 
 export interface IOverflowButton {
     icon: string;
@@ -19,35 +16,13 @@ export interface IOverflowButton {
     color: ButtonColor;
     shape: ButtonShape;
     size: ButtonSize;
-    tooltip: string;
-    css: string;
-    class: string;
-    attributes: {
-        [name: string]: string | number;
-    };
     disabled: boolean;
     items: Array<OverflowItem>;
 }
-export interface OverflowButtonSettings {
-    kind?: ButtonKind;
-    color?: ButtonColor;
-    shape?: ButtonShape;
-    size?: ButtonSize;
-    icon?: string;
-    iconPosition?: "left" | "right" | "center";
-    tooltip?: string;
-    css?: string;
-    class?: string;
-    attributes?: {
-        [name: string]: string | number;
-    };
-    disabled?: boolean;
-    items: Array<OverflowItem>;
-}
-export default class OverflowButton extends SuperComponent<IOverflowButton> {
+export default class OverflowButton extends Component<IOverflowButton> {
     private uid: string;
 
-    constructor(settings: OverflowButtonSettings) {
+    constructor() {
         super();
         this.uid = UUID();
         this.model = {
@@ -57,20 +32,18 @@ export default class OverflowButton extends SuperComponent<IOverflowButton> {
             size: "default",
             icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" /></svg>`,
             iconPosition: "center",
-            tooltip: "Open menu",
-            css: "",
-            class: "",
-            attributes: {},
             disabled: false,
             items: [],
         };
-        this.model = parseDataset<IOverflowButton>(this.dataset, this.model);
-        env.css(["button"]).then(() => {
-            this.set(settings);
-        });
+    }
+
+    static get observedAttributes() {
+        return ["data-kind", "data-color", "data-shape", "data-size", "data-icon", "data-icon-position", "data-disabled", "data-items"];
     }
 
     override connected() {
+        const settings = parseDataset(this.dataset, this.model);
+        this.set(settings);
         this.addEventListener("click", this.handleClick);
     }
 
@@ -80,16 +53,20 @@ export default class OverflowButton extends SuperComponent<IOverflowButton> {
             uid: this.uid,
             items: this.model.items,
             target: this,
+            callback: (id: string) => {
+                const event = new CustomEvent("action", {
+                    detail: {
+                        id: id,
+                    }
+                });
+                this.dispatchEvent(event);
+            },
         });
         document.body.appendChild(container);
     };
 
     override render() {
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
-        this.className = `bttn ${this.model.class}`;
+        this.classList.add("bttn");
         this.setAttribute("kind", this.model.kind);
         this.setAttribute("color", this.model.color);
         this.setAttribute("shape", this.model.shape);
@@ -98,8 +75,6 @@ export default class OverflowButton extends SuperComponent<IOverflowButton> {
         if (this.model.disabled) {
             this.setAttribute("disabled", `${this.model.disabled}`);
         }
-        this.setAttribute("tooltip", "");
-        this.setAttribute("aria-label", this.model.tooltip);
         const view = html` ${unsafeHTML(this.model.icon)} `;
         render(view, this);
     }

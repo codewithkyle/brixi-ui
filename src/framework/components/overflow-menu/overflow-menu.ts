@@ -1,12 +1,15 @@
-import SuperComponent from "@codewithkyle/supercomponent";
 import { html, render } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
+import Component from "~brixi/component";
 import env from "~brixi/controllers/env";
 import pos from "~brixi/controllers/pos";
+import { noop } from "~brixi/utils/general";
+
+env.css("overflow-menu");
 
 export interface OverflowItem {
     label: string;
-    callback: Function;
+    id: string;
     icon?: string;
     danger?: boolean;
 }
@@ -15,19 +18,19 @@ export interface IOverflowMenu {
     uid: string;
     offset?: number;
     target: HTMLElement;
+    callback: (id: string) => void;
 }
-export default class OverflowMenu extends SuperComponent<IOverflowMenu> {
+export default class OverflowMenu extends Component<IOverflowMenu> {
     constructor(settings: IOverflowMenu) {
         super();
         this.model = {
             items: [],
-            uid: "",
+            uid: null,
             offset: 0,
             target: null,
+            callback: noop,
         };
-        env.css("overflow-menu").then(() => {
-            this.set(settings);
-        });
+        this.set(settings);
     }
 
     override connected() {
@@ -58,18 +61,18 @@ export default class OverflowMenu extends SuperComponent<IOverflowMenu> {
     }
 
     private handleItemClick: EventListener = (e: Event) => {
-        const target = e.currentTarget as HTMLElement;
-        const index = parseInt(target.dataset.index);
-        this.model.items?.[index]?.callback();
+        e.stopImmediatePropagation();
+        // @ts-ignore
+        this.model.callback(e.currentTarget.dataset.id);
     };
 
-    private renderItem(item: OverflowItem, index: number) {
+    private renderItem(item: OverflowItem) {
         if (item === null) {
             return html`<hr />`;
         }
         return html`
-            <button sfx="button" type="button" @click=${this.handleItemClick} data-index="${index}" class="${item?.danger ? "danger" : ""}">
-                ${item?.icon ? html` <i> ${unsafeHTML(item.icon)} </i> ` : ""}
+            <button sfx="button" type="button" @click=${this.handleItemClick} data-id="${item.id}" class="${item?.danger ? "danger" : ""}">
+                ${item?.icon ? html` <i> ${unsafeHTML(decodeURI(item.icon))} </i> ` : ""}
                 <span>${item.label}</span>
             </button>
         `;
@@ -78,8 +81,8 @@ export default class OverflowMenu extends SuperComponent<IOverflowMenu> {
     override render() {
         this.setAttribute("overflow-menu-container-id", this.model.uid);
         const view = html`
-            ${this.model.items.map((item, index) => {
-                return this.renderItem(item, index);
+            ${this.model.items.map((item) => {
+                return this.renderItem(item);
             })}
         `;
         render(view, this);
