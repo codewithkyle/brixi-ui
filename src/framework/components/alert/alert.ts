@@ -3,10 +3,11 @@ import env from "~brixi/controllers/env";
 import "~brixi/components/buttons/button/button";
 import { parseDataset } from "~brixi/utils/general";
 import Component from "~brixi/component";
+import { unsafeHTML } from "lit-html/directives/unsafe-html";
 
 env.css(["alert", "button"]);
 
-export interface Action {
+export interface ActionItem {
     label: string;
     id: string;
 }
@@ -16,7 +17,7 @@ export interface IAlert {
     description: string;
     list: Array<string>;
     closeable: boolean;
-    actions: Array<Action>;
+    actions: Array<ActionItem>;
 }
 export default class Alert extends Component<IAlert> {
     constructor() {
@@ -120,7 +121,7 @@ export default class Alert extends Component<IAlert> {
             out = html`
                 <ul>
                     ${this.model.list.map((item) => {
-                        return html` <li>${item}</li> `;
+                        return html` <li>${unsafeHTML(decodeURI(item))}</li> `;
                     })}
                 </ul>
             `;
@@ -153,7 +154,7 @@ export default class Alert extends Component<IAlert> {
             ${this.renderCloseButton()}
             <i> ${this.renderIcon()} </i>
             <div class="copy">
-                ${this.model.heading ? html`<h3>${this.model.heading}</h3>` : ""} ${this.model.description ? html`<p>${this.model.description}</p>` : ""} ${this.renderList()}
+                ${this.model.heading ? html`<h3>${this.model.heading}</h3>` : ""} ${this.model.description ? html`<p>${unsafeHTML(decodeURI(this.model.description))}</p>` : ""} ${this.renderList()}
                 ${this.renderActions()}
             </div>
         `;
