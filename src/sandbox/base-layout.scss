@@ -115,10 +115,6 @@ nav-component {
             &::before {
                 opacity: 0.05;
             }
-
-            i {
-                opacity: 1;
-            }
         }
 
         &:active {
@@ -135,8 +131,6 @@ nav-component {
             }
 
             i {
-                opacity: 1;
-
                 svg {
                     transform: rotate(90deg);
                 }
@@ -176,7 +170,6 @@ nav-component {
             justify-content: center;
             align-items: center;
             color: var(--neutral-500);
-            opacity: 0;
             transition: all 80ms var(--ease-in-out);
 
             svg {
