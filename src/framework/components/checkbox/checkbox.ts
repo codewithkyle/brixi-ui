@@ -67,7 +67,7 @@ export default class Checkbox extends Component<ICheckbox> {
         this.set({
             checked: isChecked,
         });
-        this.dispatchEvent(new CustomEvent("change", { detail: { checked: isChecked, name: this.model.name } }));
+        this.dispatchEvent(new CustomEvent("change", { detail: { checked: isChecked, name: this.model.name, value: this.model.value } }));
         if (isChecked) {
             soundscape.play("click");
         } else {

@@ -2,7 +2,7 @@ import { html, render } from "lit-html";
 import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~brixi/controllers/env";
 import { noop, parseDataset } from "~brixi/utils/general";
-import Button from "../buttons/button/button";
+import "~brixi/components/buttons/button/button";
 
 export interface IPagination {
     css: string;
@@ -52,6 +52,13 @@ export default class Pagination extends SuperComponent<IPagination> {
         this.processPageChange(pageNumber);
     }
 
+    private handleBack: EventListener = () => {
+        this.back();
+    };
+    private handleForward: EventListener = () => {
+        this.forward();
+    };
+
     private processPageChange(nextPageNumber: number): void {
         const updated = this.get();
         updated.activePage = nextPageNumber;
@@ -88,40 +95,38 @@ export default class Pagination extends SuperComponent<IPagination> {
         });
         const visiblePageNumbers: number[] = this.calcVisiblePageNumbers();
         const view = html`
-            ${new Button({
-                callback: this.back.bind(this),
-                disabled: this.model.activePage === 1,
-                kind: "text",
-                color: "grey",
-                size: "slim",
-                tooltip: "Back",
-                iconPosition: "center",
-                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><polyline points="15 6 9 12 15 18"></polyline></svg>`,
-            })}
+            <button-component
+                data-kind="text"
+                data-color="grey"
+                data-size="slim"
+                tooltip="Back"
+                data-icon-position="center"
+                data-icon='<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><polyline points="15 6 9 12 15 18"></polyline></svg>'
+                @click=${this.handleBack}
+                data-disabled="${this.model.activePage === 1}"
+            ></button-component>
             ${visiblePageNumbers.map((pageNumber) => {
                 return html`
-                    ${new Button({
-                        callback: () => {
-                            this.jumpToPage(pageNumber);
-                        },
-                        kind: "text",
-                        color: "grey",
-                        css: "min-width: 36px;",
-                        class: pageNumber === this.model.activePage ? "is-active" : "",
-                        label: pageNumber.toString(),
-                    })}
+                    <button-component
+                        data-kind="text"
+                        data-color="grey"
+                        data-label="${pageNumber}"
+                        class="${pageNumber === this.model.activePage ? "is-active" : ""}"
+                        style="min-width: 36px;"
+                        @click=${this.jumpToPage.bind(this, pageNumber)}
+                    ></button-component>
                 `;
             })}
-            ${new Button({
-                callback: this.forward.bind(this),
-                disabled: this.model.activePage === this.model.totalPages,
-                kind: "text",
-                color: "grey",
-                size: "slim",
-                tooltip: "Next",
-                iconPosition: "center",
-                icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><polyline points="9 6 15 12 9 18"></polyline></svg>`,
-            })}
+            <button-component
+                data-kind="text"
+                data-color="grey"
+                data-size="slim"
+                tooltip="Next"
+                data-icon-position="center"
+                data-icon='<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><polyline points="9 6 15 12 9 18"></polyline></svg>'
+                data-disabled="${this.model.activePage === this.model.totalPages}"
+                @click=${this.handleForward}
+            ></button-component>
         `;
         render(view, this);
     }
