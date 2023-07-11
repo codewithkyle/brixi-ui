@@ -1,53 +1,45 @@
-import { html, render, TemplateResult } from "lit-html";
-import SuperComponent from "@codewithkyle/supercomponent";
+import { html, render } from "lit-html";
 import env from "~brixi/controllers/env";
-import { noop, parseDataset } from "~brixi/utils/general";
+import { parseDataset } from "~brixi/utils/general";
+import Component from "~brixi/component";
+import { UUID } from "@codewithkyle/uuid";
+
+env.css(["filter-chip"]);
 
 export interface IFilterChip {
-    css: string;
-    class: string;
-    attributes: {
-        [name: string]: string | number;
-    };
     label: string;
     value: string | number;
-    callback: (value: string | number, checked: boolean) => void;
     checked: boolean;
 }
-export interface FilterChipSettings {
-    css?: string;
-    class?: string;
-    attributes?: {
-        [name: string]: string | number;
-    };
-    label: string;
-    value: string | number;
-    callback: (value: string | number, checked: boolean) => void;
-    checked?: boolean;
-}
-export default class FilterChip extends SuperComponent<IFilterChip> {
-    constructor(settings: FilterChipSettings) {
+export default class FilterChip extends Component<IFilterChip> {
+    constructor() {
         super();
+        this.id = UUID();
         this.model = {
-            css: "",
-            class: "",
-            attributes: {},
-            label: null,
+            label: "",
             value: null,
-            callback: noop,
             checked: false,
         };
-        this.model = parseDataset<IFilterChip>(this.dataset, this.model);
-        env.css(["filter-chip"]).then(() => {
-            this.set(settings, true);
-            this.render();
-        });
+    }
+
+    static get observedAttributes() {
+        return ["data-label", "data-value", "data-checked"];
+    }
+
+    override async connected() {
+        const settings = parseDataset(this.dataset, this.model);
+        this.set(settings);
     }
 
     private handleClick = () => {
-        const value = !this.model.checked;
-        this.set({ checked: value }, true);
-        this.model.callback(this.model.value, value);
+        const isChecked = !this.model.checked;
+        this.set({ checked: isChecked });
+        this.dispatchEvent(new CustomEvent("change", {
+            detail: {
+                checked: isChecked,
+                value: this.model.value,
+            }
+        }));
     };
 
     private handleKeydown = (e: KeyboardEvent) => {
@@ -58,24 +50,17 @@ export default class FilterChip extends SuperComponent<IFilterChip> {
 
     private handleKeyup = (e: KeyboardEvent) => {
         if (e.key === " ") {
-            const value = !this.model.checked;
             this.classList.remove("is-active");
-            this.model.callback(this.model.value, value);
-            this.set({ checked: value });
+            this.click();
         }
     };
 
     override render() {
-        this.className = this.model.class;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
         this.setAttribute("role", "button");
-        const id = `${this.model.label.trim().replace(/\s+/g, "-")}-${this.model.value.toString().trim().replace(/\s+/g, "-")}`;
+        this.setAttribute("sfx", "button");
         const view = html`
-            <input type="checkbox" ?checked="${this.model.checked}" .value=${this.model.value} id="${id}" />
-            <label for="${id}" tabindex="0" @click=${this.handleClick} @keyup=${this.handleKeyup} @keydown=${this.handleKeydown}>
+            <input type="checkbox" ?checked="${this.model.checked}" .value=${this.model.value || ""} id="${this.id}" />
+            <label for="${this.id}" tabindex="0" @click=${this.handleClick} @keyup=${this.handleKeyup} @keydown=${this.handleKeydown}>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
