@@ -9,7 +9,6 @@ env.css(["form"]);
 
 export interface IForm {}
 export default class Form extends Component<IForm> {
-    
     override connected(): void {
         this.render();
     }
@@ -79,7 +78,7 @@ export default class Form extends Component<IForm> {
     private handleReset: EventListener = (e) => {
         e.preventDefault();
         this.reset();
-    }
+    };
 
     override render() {
         this.setAttribute("role", "form");

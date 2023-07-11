@@ -57,7 +57,7 @@ export default class OverflowButton extends Component<IOverflowButton> {
                 const event = new CustomEvent("action", {
                     detail: {
                         id: id,
-                    }
+                    },
                 });
                 this.dispatchEvent(event);
             },

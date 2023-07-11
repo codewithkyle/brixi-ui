@@ -31,11 +31,13 @@ export default class InputChip extends Component<IInputChip> {
     }
 
     private handleClick = () => {
-        this.dispatchEvent(new CustomEvent("remove", {
-            detail: {
-                value: this.model.value,
-            }
-        }));
+        this.dispatchEvent(
+            new CustomEvent("remove", {
+                detail: {
+                    value: this.model.value,
+                },
+            })
+        );
         this.remove();
     };
 

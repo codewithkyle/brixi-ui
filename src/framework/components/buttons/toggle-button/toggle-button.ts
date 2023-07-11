@@ -47,7 +47,7 @@ export default class ToggleButton extends Component<IToggleButton> {
         const event = new CustomEvent("change", {
             detail: {
                 id: this.model.buttons[this.model.states[this.model.index]].id,
-            }
+            },
         });
         const updated = this.get();
         updated.index++;

@@ -48,11 +48,13 @@ export default class SplitButton extends Component<ISplitButton> {
     };
 
     private handlePrimaryClick = () => {
-        this.dispatchEvent(new CustomEvent("action", {
-            detail: {
-                id: this.model.id,
-            },
-        }));
+        this.dispatchEvent(
+            new CustomEvent("action", {
+                detail: {
+                    id: this.model.id,
+                },
+            })
+        );
     };
 
     private openMenu = () => {
@@ -62,12 +64,14 @@ export default class SplitButton extends Component<ISplitButton> {
             items: this.model.buttons,
             offset: 4,
             callback: (id: string) => {
-                this.dispatchEvent(new CustomEvent("action", {
-                    detail: {
-                        id,
-                    },
-                }));
-            }
+                this.dispatchEvent(
+                    new CustomEvent("action", {
+                        detail: {
+                            id,
+                        },
+                    })
+                );
+            },
         });
         document.body.appendChild(menu);
     };
@@ -93,7 +97,9 @@ export default class SplitButton extends Component<ISplitButton> {
     }
 
     private renderPrimaryButton() {
-        return html` <button sfx="button" type=${this.model.type} @click=${this.handlePrimaryClick}>${this.renderIcon(this.model.icon)} ${this.renderLabel(this.model.label)}</button> `;
+        return html`
+            <button sfx="button" type=${this.model.type} @click=${this.handlePrimaryClick}>${this.renderIcon(this.model.icon)} ${this.renderLabel(this.model.label)}</button>
+        `;
     }
 
     private renderMenuButtons(): string | TemplateResult {

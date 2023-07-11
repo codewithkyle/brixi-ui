@@ -37,7 +37,7 @@ export default class Divider extends Component<IDivider> {
         this.setAttribute("layout", this.model.layout);
         this.setAttribute("color", this.model.color);
         this.setAttribute("line-style", this.model.type);
-        let view:TemplateResult;
+        let view: TemplateResult;
         if (this.model.label?.length) {
             view = html`
                 <div></div>

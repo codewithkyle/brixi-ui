@@ -34,12 +34,14 @@ export default class FilterChip extends Component<IFilterChip> {
     private handleClick = () => {
         const isChecked = !this.model.checked;
         this.set({ checked: isChecked });
-        this.dispatchEvent(new CustomEvent("change", {
-            detail: {
-                checked: isChecked,
-                value: this.model.value,
-            }
-        }));
+        this.dispatchEvent(
+            new CustomEvent("change", {
+                detail: {
+                    checked: isChecked,
+                    value: this.model.value,
+                },
+            })
+        );
     };
 
     private handleKeydown = (e: KeyboardEvent) => {

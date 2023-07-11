@@ -44,7 +44,7 @@ export default class AssistChip extends Component<IAssistChip> {
     };
 
     private renderIcon() {
-        let out:any = "";
+        let out: any = "";
         if (this.model.icon?.length) {
             out = unsafeHTML(this.model.icon);
         }

@@ -24,7 +24,7 @@ export default class CheckboxGroup extends Component<ICheckboxGroup> {
             instructions: "",
             disabled: false,
             name: "",
-            options: []
+            options: [],
         };
     }
 
@@ -81,16 +81,18 @@ export default class CheckboxGroup extends Component<ICheckboxGroup> {
         }
     }
 
-    private handleChange:EventListener = (e:CustomEvent) => {
-        this.dispatchEvent(new CustomEvent("change", {
-            detail: {
-                name: this.model.name,
-                checked: e.detail.checked,
-                // @ts-ignore
-                value: e.currentTarget?.getValue(),
-            },
-        }));
-    }
+    private handleChange: EventListener = (e: CustomEvent) => {
+        this.dispatchEvent(
+            new CustomEvent("change", {
+                detail: {
+                    name: this.model.name,
+                    checked: e.detail.checked,
+                    // @ts-ignore
+                    value: e.currentTarget?.getValue(),
+                },
+            })
+        );
+    };
 
     override render() {
         this.setAttribute("form-input", "");
@@ -99,10 +101,10 @@ export default class CheckboxGroup extends Component<ICheckboxGroup> {
                 <strong>${this.model.label}</strong>
                 ${unsafeHTML(this.model.instructions)}
             </p>
-            ${this.model.options.map((option:ICheckbox) => {
+            ${this.model.options.map((option: ICheckbox) => {
                 return html`
                     <checkbox-component
-                        @change=${this.handleChange} 
+                        @change=${this.handleChange}
                         data-label="${option?.label ?? ""}"
                         data-value="${option?.value ?? ""}"
                         data-checked="${option?.checked ?? false}"

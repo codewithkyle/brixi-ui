@@ -72,8 +72,7 @@ export default class SubmitButton extends Component<ISubmitButton> {
         let label: string | TemplateResult = "";
         if (this.state === "SUBMITTING" && this.model.submittingLabel?.length) {
             label = html`<span>${this.model.submittingLabel}</span>`;
-        }
-        else if (this.model.label?.length) {
+        } else if (this.model.label?.length) {
             label = html`<span>${this.model.label}</span>`;
         } else {
             label = "";

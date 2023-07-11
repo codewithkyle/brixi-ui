@@ -54,7 +54,7 @@ export default class GenericList extends Component<IGenericList> {
         }
     }
 
-    private renderItem(item:string, style: ItemStyle = "disc", customIcon = "") {
+    private renderItem(item: string, style: ItemStyle = "disc", customIcon = "") {
         return html` <li style="list-style-type:${this.renderStyleType(style, customIcon)};">${unsafeHTML(decodeURI(item))}</li> `;
     }
 
@@ -63,13 +63,13 @@ export default class GenericList extends Component<IGenericList> {
             case "ordered":
                 return html`
                     <ol class="list">
-                        ${list.items.map((item:string) => this.renderItem(item, list?.style, list?.icon))} ${list?.sub ? this.renderList(list.sub) : ""}
+                        ${list.items.map((item: string) => this.renderItem(item, list?.style, list?.icon))} ${list?.sub ? this.renderList(list.sub) : ""}
                     </ol>
                 `;
             default:
                 return html`
                     <ul class="list">
-                        ${list.items.map((item:string) => this.renderItem(item, list?.style, list?.icon))} ${list?.sub ? this.renderList(list.sub) : ""}
+                        ${list.items.map((item: string) => this.renderItem(item, list?.style, list?.icon))} ${list?.sub ? this.renderList(list.sub) : ""}
                     </ul>
                 `;
         }

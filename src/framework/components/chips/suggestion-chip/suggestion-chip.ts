@@ -31,11 +31,13 @@ export default class SuggestionChip extends Component<ISuggestionChip> {
     }
 
     private handleClick = () => {
-        this.dispatchEvent(new CustomEvent("suggest", {
-            detail: {
-                value: this.model.value,
-            }
-        }));
+        this.dispatchEvent(
+            new CustomEvent("suggest", {
+                detail: {
+                    value: this.model.value,
+                },
+            })
+        );
     };
 
     private handleKeydown = (e: KeyboardEvent) => {
