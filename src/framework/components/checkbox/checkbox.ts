@@ -1,8 +1,11 @@
 import { html, render, TemplateResult } from "lit-html";
-import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~brixi/controllers/env";
-import { noop, parseDataset } from "~brixi/utils/general";
+import { parseDataset } from "~brixi/utils/general";
 import soundscape from "~brixi/controllers/soundscape";
+import Component from "~brixi/component";
+import { UUID } from "@codewithkyle/uuid";
+
+env.css("checkbox");
 
 export interface ICheckbox {
     label: string;
@@ -11,34 +14,15 @@ export interface ICheckbox {
     checked: boolean;
     error: string;
     disabled: boolean;
-    callback: Function;
-    css: string;
-    class: string;
-    attributes: {
-        [name: string]: string | number;
-    };
     type: "check" | "line";
     value: string | number;
 }
-export interface CheckboxSettings {
-    label?: string;
-    name?: string;
-    required?: boolean;
-    checked?: boolean;
-    disabled?: boolean;
-    callback?: Function;
-    css?: string;
-    class?: string;
-    attributes?: {
-        [name: string]: string | number;
-    };
-    type?: "check" | "line";
-    value: string | number;
-}
-export default class Checkbox extends SuperComponent<ICheckbox> {
-    constructor(settings: CheckboxSettings) {
+
+export default class Checkbox extends Component<ICheckbox> {
+    constructor() {
         super();
-        this.state = settings?.disabled ? "DISABLED" : "IDLING";
+        this.id = UUID();
+        this.state = "IDLING";
         this.stateMachine = {
             IDLING: {
                 ERROR: "ERROR",
@@ -59,33 +43,32 @@ export default class Checkbox extends SuperComponent<ICheckbox> {
             checked: false,
             error: "",
             disabled: false,
-            callback: noop,
-            css: "",
-            class: "",
-            attributes: {},
             type: "check",
             value: null,
         };
-        this.model = parseDataset<ICheckbox>(this.dataset, this.model);
-        env.css("checkbox").then(() => {
-            this.set(settings, true);
-            this.render();
-        });
     }
 
-    override connected(): void {
-        this.addEventListener("click", (e: Event) => {
-            e.stopImmediatePropagation();
-        });
+    static get observedAttributes() {
+        return ["data-label", "data-required", "data-name", "data-checked", "data-disabled", "data-type", "data-value"];
+    }
+
+    override async connected() {
+        const settings = parseDataset(this.dataset, this.model);
+        if (settings?.disabled) {
+            this.state = "DISABLED";
+        }
+        this.set(settings);
+        this.addEventListener("click", this.handleChange);
     }
 
     private handleChange: EventListener = (e: Event) => {
-        const target = e.currentTarget as HTMLInputElement;
+        e.stopImmediatePropagation();
+        const isChecked = !this.model.checked;
         this.set({
-            checked: target.checked,
+            checked: isChecked,
         });
-        this.model.callback(target.checked);
-        if (target.checked) {
+        this.dispatchEvent(new CustomEvent("change", { detail: { checked: isChecked, name: this.model.name } }));
+        if (isChecked) {
             soundscape.play("click");
         } else {
             soundscape.play("hover");
@@ -106,7 +89,7 @@ export default class Checkbox extends SuperComponent<ICheckbox> {
             this.set({
                 checked: isChecked,
             });
-            this.model.callback(isChecked, target.name);
+            this.dispatchEvent(new CustomEvent("change", { detail: { checked: isChecked, name: target.name } }));
             if (isChecked) {
                 soundscape.play("click");
             } else {
@@ -173,26 +156,21 @@ export default class Checkbox extends SuperComponent<ICheckbox> {
     }
 
     render() {
-        const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${this.model.name}`;
         this.setAttribute("state", this.state);
         this.setAttribute("form-input", "");
-        this.className = `checkbox ${this.model.class}`;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
+        this.classList.add("checkbox");
         const view = html`
             <div class="inline-block mr-auto">
                 <input
                     @change=${this.handleChange}
                     type="checkbox"
                     name="${this.model.name}"
-                    id="${id}"
+                    id="${this.id}"
                     .checked=${this.model.checked}
                     ?disabled=${this.model.disabled}
-                    .value=${this.model.value ?? ""}
+                    .value=${this.model.value || ""}
                 />
-                <label for="${id}">
+                <label for="${this.id}">
                     <check-box
                         @keydown=${this.handleKeydown}
                         @keyup=${this.handleKeyup}
