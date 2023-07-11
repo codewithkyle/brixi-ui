@@ -1,57 +1,43 @@
 import { html, render } from "lit-html";
-import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~brixi/controllers/env";
-import Checkbox, { CheckboxSettings } from "~brixi/components/checkbox/checkbox";
+import type { ICheckbox } from "~brixi/components/checkbox/checkbox";
+import "~brixi/components/checkbox/checkbox";
 import { parseDataset } from "~brixi/utils/general";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import soundscape from "~brixi/controllers/soundscape";
+import Component from "~brixi/component";
+
+env.css("checkbox-group");
 
 export interface ICheckboxGroup {
-    options: Array<CheckboxSettings>;
+    options: Array<ICheckbox>;
     instructions: string;
     disabled: boolean;
     label: string;
     name: string;
-    css: string;
-    class: string;
-    attributes: {
-        [name: string]: string | number;
-    };
 }
-export interface CheckboxGroupSettings {
-    label: string;
-    instructions?: string;
-    options: Array<CheckboxSettings>;
-    disabled?: boolean;
-    name: string;
-    css?: string;
-    class?: string;
-    attributes?: {
-        [name: string]: string | number;
-    };
-}
-export default class CheckboxGroup extends SuperComponent<ICheckboxGroup> {
-    constructor(settings: CheckboxGroupSettings) {
+export default class CheckboxGroup extends Component<ICheckboxGroup> {
+    constructor() {
         super();
-        settings.options.map((option) => {
-            option.name = settings.name;
-            option.disabled = settings?.disabled ?? false;
-        });
         this.model = {
             label: "",
             instructions: "",
             disabled: false,
             name: "",
-            options: [],
-            css: "",
-            class: "",
-            attributes: {},
+            options: []
         };
-        this.model = parseDataset<ICheckboxGroup>(this.dataset, this.model);
-        env.css("checkbox-group").then(() => {
-            this.set(settings, true);
-            this.render();
+    }
+
+    static get observedAttributes() {
+        return ["data-label", "data-instructions", "data-disabled", "data-name", "data-options"];
+    }
+
+    override async connected() {
+        const settings = parseDataset(this.dataset, this.model);
+        settings.options.map((option) => {
+            option.disabled = settings?.disabled ?? false;
         });
+        this.set(settings);
     }
 
     public getName(): string {
@@ -60,11 +46,13 @@ export default class CheckboxGroup extends SuperComponent<ICheckboxGroup> {
 
     public getValue(): Array<string | number> {
         let values = [];
-        for (let i = 0; i < this.model.options.length; i++) {
-            if (this.model.options[i].checked) {
-                values.push(this.model.options[i].value);
+        this.querySelectorAll("checkbox-component").forEach((checkbox) => {
+            // @ts-ignore
+            const value = checkbox.getValue();
+            if (value) {
+                values.push(value);
             }
-        }
+        });
         return values;
     }
 
@@ -93,20 +81,35 @@ export default class CheckboxGroup extends SuperComponent<ICheckboxGroup> {
         }
     }
 
+    private handleChange:EventListener = (e:CustomEvent) => {
+        this.dispatchEvent(new CustomEvent("change", {
+            detail: {
+                name: this.model.name,
+                checked: e.detail.checked,
+                // @ts-ignore
+                value: e.currentTarget?.getValue(),
+            },
+        }));
+    }
+
     override render() {
-        this.className = `${this.model.class} ${this.model.disabled ? "is-disabled" : ""}`;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
         this.setAttribute("form-input", "");
         const view = html`
             <p>
                 <strong>${this.model.label}</strong>
                 ${unsafeHTML(this.model.instructions)}
             </p>
-            ${this.model.options.map((option) => {
-                return new Checkbox(option);
+            ${this.model.options.map((option:ICheckbox) => {
+                return html`
+                    <checkbox-component
+                        @change=${this.handleChange} 
+                        data-label="${option?.label ?? ""}"
+                        data-value="${option?.value ?? ""}"
+                        data-checked="${option?.checked ?? false}"
+                        data-disabled="${option?.disabled ?? false}"
+                        data-name="${this.model.name}"
+                    ></checkbox-component>
+                `;
             })}
         `;
         render(view, this);

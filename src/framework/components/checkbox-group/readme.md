@@ -1,34 +1,41 @@
 ```html
-<checkbox-component
+<checkbox-group
     data-label="Example"
     data-name="example"
-    data-required="false"
-    data-checked="false"
+    data-instructions="Lorem ipsum and wat knot..."
+    data-options='[{"label": "Example 1","value":"example1"},{"label": "Example 2","value":"example2"},{"label": "Example 3","checked": true,"value":"example3"}]'
     data-disabled="false"
-    data-value="example"
-    data-type="check"
-></checkbox-component>
+></checkbox-group>
 ```
 
 | Data Attribute | Type | Required |
 | -------------- | ---- | -------- |
 | name | string | ✅ |
+| options | Checkbox[] | ✅ |
 | label | string | |
-| required | boolean | |
-| checked | boolean | |
+| instructions | string | |
 | disabled | boolean | |
-| type | "check" or "line" | |
-| value | string or number | |
 
 Not sure what Data Attributes are? Learn about [Data Attributes on MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/data-*).
+
+### Types
+
+```typescript
+type Checkbox = {
+    label: string;
+    value: string;
+    checked?: boolean;
+    disabled?: boolean;
+};
+```
 
 ### Event Listeners
 
 The `change` event will fire when the checkbox value changes.
 
 ```typescript
-document.body.querySelector('checkbox-component').addEventListener('change', (e) => {
-    const { checked, name } = e.detail;
+document.body.querySelector('checkbox-group').addEventListener('change', (e) => {
+    const { checked, name, value } = e.detail;
 });
 ```
 
