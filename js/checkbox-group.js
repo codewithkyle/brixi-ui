@@ -1,7 +1,16 @@
-import{html as r,render as o}from"./lit-html.js";import n from"./supercomponent.js";import s from"./env.js";import a from"./checkbox.js";import{parseDataset as l}from"./general.js";import{unsafeHTML as h}from"./unsafe-html.js";import c from"./soundscape.js";class i extends n{constructor(t){super(),t.options.map(e=>{e.name=t.name,e.disabled=t?.disabled??!1}),this.model={label:"",instructions:"",disabled:!1,name:"",options:[],css:"",class:"",attributes:{}},this.model=l(this.dataset,this.model),s.css("checkbox-group").then(()=>{this.set(t,!0),this.render()})}getName(){return this.model.name}getValue(){let t=[];for(let e=0;e<this.model.options.length;e++)this.model.options[e].checked&&t.push(this.model.options[e].value);return t}reset(){const t=this.get();for(let e=0;e<t.options.length;e++)t.options[e].checked=!1;this.set(t)}clearError(){this.state==="ERROR"&&this.trigger("RESET")}setError(t){t?.length&&(this.set({error:t}),this.trigger("ERROR"),c.play("error"))}render(){this.className=`${this.model.class} ${this.model.disabled?"is-disabled":""}`,this.style.cssText=this.model.css,Object.keys(this.model.attributes).map(e=>{this.setAttribute(e,`${this.model.attributes[e]}`)}),this.setAttribute("form-input","");const t=r`
+import{html as o,render as i}from"./lit-html.js";import r from"./env.js";import"./checkbox.js";import{parseDataset as n}from"./general.js";import{unsafeHTML as c}from"./unsafe-html.js";import l from"./soundscape.js";import d from"./component.js";r.css("checkbox-group");class a extends d{constructor(){super();this.handleChange=e=>{this.dispatchEvent(new CustomEvent("change",{detail:{name:this.model.name,checked:e.detail.checked,value:e.currentTarget?.getValue()}}))};this.model={label:"",instructions:"",disabled:!1,name:"",options:[]}}static get observedAttributes(){return["data-label","data-instructions","data-disabled","data-name","data-options"]}async connected(){const e=n(this.dataset,this.model);e.options.map(t=>{t.disabled=e?.disabled??!1}),this.set(e)}getName(){return this.model.name}getValue(){let e=[];return this.querySelectorAll("checkbox-component").forEach(t=>{const s=t.getValue();s&&e.push(s)}),e}reset(){const e=this.get();for(let t=0;t<e.options.length;t++)e.options[t].checked=!1;this.set(e)}clearError(){this.state==="ERROR"&&this.trigger("RESET")}setError(e){e?.length&&(this.set({error:e}),this.trigger("ERROR"),l.play("error"))}render(){this.setAttribute("form-input","");const e=o`
             <p>
                 <strong>${this.model.label}</strong>
-                ${h(this.model.instructions)}
+                ${c(this.model.instructions)}
             </p>
-            ${this.model.options.map(e=>new a(e))}
-        `;o(t,this)}}s.bind("checkbox-group",i);export{i as default};
+            ${this.model.options.map(t=>o`
+                    <checkbox-component
+                        @change=${this.handleChange}
+                        data-label="${t?.label??""}"
+                        data-value="${t?.value??""}"
+                        data-checked="${t?.checked??!1}"
+                        data-disabled="${t?.disabled??!1}"
+                        data-name="${this.model.name}"
+                    ></checkbox-component>
+                `)}
+        `;i(e,this)}}r.bind("checkbox-group",a);export{a as default};

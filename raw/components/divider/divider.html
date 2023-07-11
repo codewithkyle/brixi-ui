@@ -1,37 +1,19 @@
-<script type="module">
-    import Component from "/js/divider.js";
-    const colors = ["primary", "success", "warning", "danger", "black", "grey"];
-    colors.map((color) => {
-        const example = new Component({
-            color: color,
-            class: "mb-1",
-        });
-        document.body.appendChild(example);
-    });
-    colors.map((color) => {
-        const example = new Component({
-            label: "Solid Divider",
-            color: color,
-            class: "mb-1",
-        });
-        document.body.appendChild(example);
-    });
-    colors.map((color) => {
-        const example = new Component({
-            label: "Dashed Divider",
-            color: color,
-            type: "dashed",
-            class: "mb-1",
-        });
-        document.body.appendChild(example);
-    });
-    colors.map((color) => {
-        const example = new Component({
-            label: "Dotted Divider",
-            color: color,
-            type: "dotted",
-            class: "mb-1",
-        });
-        document.body.appendChild(example);
-    });
-</script>
+<divider-component
+    data-color="primary"
+    class="mb-4"
+></divider-component>
+
+<divider-component
+    data-label="Solid Divider"
+    data-color="success"
+    class="mb-4"
+></divider-component>
+
+<divider-component
+    data-label="Dashed Divider"
+    data-color="grey"
+    data-type="dashed"
+    class="mb-4"
+></divider-component>
+
+<script type="module" src="/js/divider.js"></script>

@@ -1,8 +1,8 @@
-import{html as n,render as o}from"./lit-html.js";import a from"./supercomponent.js";import i from"./env.js";import{parseDataset as c}from"./general.js";import{unsafeHTML as d}from"./unsafe-html.js";class l extends a{constructor(e){super();this.handleClick=e=>{const r=e.currentTarget,t=parseInt(r.dataset.index);this.model.links[t].callback()};this.model={css:"",class:"",attributes:{},links:[]},this.model=c(this.dataset,this.model),i.css(["breadcrumb-trail"]).then(()=>{this.set(e,!0),this.render()})}renderIcon(e){let r;return e instanceof HTMLElement?r=n` <i class="icon">${e}</i> `:typeof e=="string"&&e.length?r=n` <i class="icon">${d(e)}</i> `:r="",r}renderLink(e,r,t=!1){return!e?.label&&!e?.icon?"":n`
-            <button type="button" @click=${this.handleClick} data-index="${r}" aria-label="${e?.ariaLabel??""}">
-                ${this.renderIcon(e?.icon??"")} ${e?.label?.length?n` <span>${e.label}</span> `:""}
+import{html as r,render as s}from"./lit-html.js";import o from"./env.js";import{parseDataset as a}from"./general.js";import{unsafeHTML as d}from"./unsafe-html.js";import c from"./component.js";o.css(["breadcrumb-trail"]);class l extends c{constructor(){super();this.handleClick=e=>{const t=new CustomEvent("navigate",{detail:{id:e.currentTarget.dataset.id}});this.dispatchEvent(t)};this.model={links:[]}}static get observedAttributes(){return["data-links"]}async connected(){const e=a(this.dataset,this.model);this.set(e)}renderIcon(e){let t="";return e.length?t=r` <i class="icon">${d(decodeURI(e))}</i> `:t="",t}renderLink(e,t=!1){return!e?.label&&!e?.icon?"":r`
+            <button sfx="button" type="button" @click=${this.handleClick} data-id="${e.id}" aria-label="${e?.ariaLabel??""}">
+                ${this.renderIcon(e?.icon??"")} ${e?.label?.length?r` <span>${e.label}</span> `:""}
             </button>
-            ${t?n`
+            ${t?r`
                       <svg
                           class="arrow"
                           xmlns="http://www.w3.org/2000/svg"
@@ -17,12 +17,12 @@ import{html as n,render as o}from"./lit-html.js";import a from"./supercomponent.
                           <polyline points="9 6 15 12 9 18"></polyline>
                       </svg>
                   `:""}
-        `}render(){this.className=this.model.class,this.style.cssText=this.model.css,Object.keys(this.model.attributes).map(r=>{this.setAttribute(r,`${this.model.attributes[r]}`)});let e;this.model.links.length<=3?e=n`
-                ${this.model.links.map((r,t)=>{let s=!0;return t===this.model.links.length-1&&(s=!1),this.renderLink(r,t,s)})}
-            `:e=n`
-                ${this.renderLink(this.model.links[0],0,!0)}
+        `}render(){let e;this.model.links.length<=3?e=r`
+                ${this.model.links.map((t,n)=>{let i=!0;return n===this.model.links.length-1&&(i=!1),this.renderLink(t,i)})}
+            `:e=r`
+                ${this.renderLink(this.model.links[0],!0)}
                 <breadcrumb-overflow-menu>
-                    <button aria-label="Open hidden link menu">
+                    <button aria-label="Open hidden link menu" sfx="button">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
@@ -39,7 +39,7 @@ import{html as n,render as o}from"./lit-html.js";import a from"./supercomponent.
                         </svg>
                     </button>
                     <breadcrumb-menu>
-                        ${this.model.links.map((r,t)=>{if(t!==0&&t!==this.model.links.length-1)return this.renderLink(r,t)})}
+                        ${this.model.links.map((t,n)=>{if(n!==0&&n!==this.model.links.length-1)return this.renderLink(t)})}
                     </breadcrumb-menu>
                 </breadcrumb-overflow-menu>
                 <svg
@@ -55,5 +55,5 @@ import{html as n,render as o}from"./lit-html.js";import a from"./supercomponent.
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                     <polyline points="9 6 15 12 9 18"></polyline>
                 </svg>
-                ${this.renderLink(this.model.links[this.model.links.length-1],this.model.links.length-1)}
-            `,o(e,this)}}i.bind("breadcrumb-trail",l);export{l as default};
+                ${this.renderLink(this.model.links[this.model.links.length-1])}
+            `,s(e,this)}}o.bind("breadcrumb-trail",l);export{l as default};

@@ -23,15 +23,13 @@
     <script type="module" src="/js/badge.js"></script>
 </head>
 <body>
-    <button sfx="button" class="bttn m-0.5" kind="solid" color="grey">Example</button>
+    <button sfx="button" class="bttn m-0.5" kind="solid" color="grey">
+    Example
+    <badge-component></badge-component>
+</button>
+
 <link href="/css/button.css" rel="stylesheet" />
-<script type="module">
-    import Component from "/js/badge.js";
-    const example = new Component({
-        // value: 1000,
-    });
-    document.body.querySelector("button").appendChild(example);
-</script>
+<script type="module" src="/js/badge.js"></script>
 
 </body>
 </html>

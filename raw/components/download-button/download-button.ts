@@ -1,51 +1,30 @@
-import SuperComponent from "@codewithkyle/supercomponent";
-import { html, render } from "lit-html";
+import { html, render, TemplateResult } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import env from "~brixi/controllers/env";
-import { noop, parseDataset } from "~brixi/utils/general";
+import { parseDataset } from "~brixi/utils/general";
 import ProgressIndicator from "~brixi/components/progress/progress-indicator/progress-indicator";
+import Component from "~brixi/component";
+import type { ButtonColor, ButtonKind, ButtonShape, ButtonSize } from "../button/button";
+
+env.css(["button", "download-button"]);
 
 export interface IDownloadButton {
     label: string;
     icon: string;
-    kind: "solid" | "outline" | "text";
-    color: "primary" | "grey" | "danger";
-    shape: "pill" | "round" | "sharp" | "default";
-    size: "default" | "slim";
-    callback: Function;
-    css: string;
-    class: string;
-    attributes: {
-        [name: string]: string | number;
-    };
+    kind: ButtonKind;
+    color: ButtonColor;
+    shape: ButtonShape;
+    size: ButtonSize;
     url: RequestInfo;
     options: RequestInit;
     downloadingLabel: string;
     workerURL: string;
 }
-export interface DownloadButtonSettings {
-    label: string;
-    callback: Function;
-    url: RequestInfo;
-    options: RequestInit;
-    kind?: "solid" | "outline" | "text";
-    color?: "primary" | "grey" | "danger";
-    shape?: "pill" | "round" | "sharp" | "default";
-    size?: "default" | "slim";
-    icon?: string;
-    css?: string;
-    class?: string;
-    attributes?: {
-        [name: string]: string | number;
-    };
-    downloadingLabel?: string;
-    workerURL?: string;
-}
-export default class DownloadButton extends SuperComponent<IDownloadButton> {
+export default class DownloadButton extends Component<IDownloadButton> {
     private indicator: ProgressIndicator;
     private downloading: boolean;
 
-    constructor(settings: DownloadButtonSettings) {
+    constructor() {
         super();
         this.downloading = false;
         this.model = {
@@ -56,24 +35,21 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
             shape: "default",
             size: "default",
             icon: "",
-            callback: noop,
-            css: "",
-            class: "",
-            attributes: {},
             url: location.origin,
             options: {
                 method: "GET",
             },
             workerURL: "/js/file-download-worker.js",
         };
-        this.model = parseDataset<IDownloadButton>(this.dataset, this.model);
-        env.css(["button", "download-button"]).then(() => {
-            this.set(settings, true);
-            this.render();
-        });
     }
 
-    override connected() {
+    static get observedAttributes() {
+        return ["data-label", "data-icon", "data-kind", "data-color", "data-shape", "data-size", "data-url", "data-options", "data-worker-url", "data-downloading-label"];
+    }
+
+    override async connected() {
+        const settings = parseDataset(this.dataset, this.model);
+        this.set(settings);
         this.addEventListener("click", this.handleClick);
         this.addEventListener("keydown", this.handleKeydown);
         this.addEventListener("keyup", this.handleKeyup);
@@ -109,7 +85,13 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
                     this.insertBefore(this.indicator, this.childNodes[0]);
                     break;
                 case "done":
-                    this.model.callback(new Blob([data]));
+                    this.dispatchEvent(
+                        new CustomEvent("download", {
+                            detail: {
+                                blob: new Blob([data]),
+                            },
+                        })
+                    );
                     this.indicator.remove();
                     label.innerText = this.model.label;
                     if (icon) {
@@ -119,8 +101,13 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
                     this.downloading = false;
                     break;
                 case "error":
-                    console.error(data);
-                    this.model.callback(null);
+                    this.dispatchEvent(
+                        new CustomEvent("error", {
+                            detail: {
+                                error: data,
+                            },
+                        })
+                    );
                     worker.terminate();
                     this.indicator.remove();
                     label.innerText = this.model.label;
@@ -164,7 +151,7 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
     };
 
     private renderIcon() {
-        let icon;
+        let icon: string | TemplateResult;
         if (this.model.icon.length) {
             icon = html`${unsafeHTML(this.model.icon)}`;
         } else {
@@ -174,13 +161,8 @@ export default class DownloadButton extends SuperComponent<IDownloadButton> {
     }
 
     override render() {
-        this.style.cssText = this.model.css;
-        this.className = this.model.class;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
         const view = html` ${this.renderIcon()} <span>${this.model.label}</span> `;
-        this.className = "bttn";
+        this.classList.add("bttn");
         this.setAttribute("role", "button");
         this.tabIndex = 0;
         this.setAttribute("color", this.model.color);

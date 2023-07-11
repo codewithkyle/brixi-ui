@@ -1,71 +1,63 @@
-import { html, render } from "lit-html";
-import SuperComponent from "@codewithkyle/supercomponent";
+import { html, render, TemplateResult } from "lit-html";
 import env from "~brixi/controllers/env";
 import { parseDataset } from "~brixi/utils/general";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
+import Component from "~brixi/component";
+
+env.css(["breadcrumb-trail"]);
 
 interface ILink {
     label?: string;
-    icon?: string | HTMLElement;
+    icon?: string;
     ariaLabel?: string;
-    callback: Function;
+    id: string;
 }
 export interface IBreadcrumbTrail {
-    css: string;
-    class: string;
-    attributes: {
-        [name: string]: string | number;
-    };
     links: Array<ILink>;
 }
-export interface BreadcrumbTrailSettings {
-    css?: string;
-    class?: string;
-    attributes?: {
-        [name: string]: string | number;
-    };
-    links: Array<ILink>;
-}
-export default class BreadcrumbTrail extends SuperComponent<IBreadcrumbTrail> {
-    constructor(settings: BreadcrumbTrailSettings) {
+export default class BreadcrumbTrail extends Component<IBreadcrumbTrail> {
+    constructor() {
         super();
         this.model = {
-            css: "",
-            class: "",
-            attributes: {},
             links: [],
         };
-        this.model = parseDataset<IBreadcrumbTrail>(this.dataset, this.model);
-        env.css(["breadcrumb-trail"]).then(() => {
-            this.set(settings, true);
-            this.render();
-        });
     }
 
-    private handleClick = (e) => {
-        const target = e.currentTarget;
-        const index = parseInt(target.dataset.index);
-        this.model.links[index].callback();
+    static get observedAttributes() {
+        return ["data-links"];
+    }
+
+    override async connected() {
+        const settings = parseDataset(this.dataset, this.model);
+        this.set(settings);
+    }
+
+    private handleClick = (e: Event) => {
+        const event = new CustomEvent("navigate", {
+            detail: {
+                // @ts-ignore
+                id: e.currentTarget.dataset.id,
+            },
+        });
+        this.dispatchEvent(event);
     };
 
-    private renderIcon(icon: string | HTMLElement) {
-        let out;
-        if (icon instanceof HTMLElement) {
-            out = html` <i class="icon">${icon}</i> `;
-        } else if (typeof icon === "string" && icon.length) {
-            out = html` <i class="icon">${unsafeHTML(icon)}</i> `;
+    private renderIcon(icon: string) {
+        let out: TemplateResult | string = "";
+        if (icon.length) {
+            out = html` <i class="icon">${unsafeHTML(decodeURI(icon))}</i> `;
         } else {
             out = "";
         }
         return out;
     }
 
-    private renderLink(link: ILink, i: number, renderArrowIcon: boolean = false) {
+    private renderLink(link: ILink, renderArrowIcon: boolean = false) {
         if (!link?.label && !link?.icon) {
             return "";
         }
         return html`
-            <button type="button" @click=${this.handleClick} data-index="${i}" aria-label="${link?.ariaLabel ?? ""}">
+            <button sfx="button" type="button" @click=${this.handleClick} data-id="${link.id}" aria-label="${link?.ariaLabel ?? ""}">
                 ${this.renderIcon(link?.icon ?? "")} ${link?.label?.length ? html` <span>${link.label}</span> ` : ""}
             </button>
             ${renderArrowIcon
@@ -89,12 +81,7 @@ export default class BreadcrumbTrail extends SuperComponent<IBreadcrumbTrail> {
     }
 
     override render() {
-        this.className = this.model.class;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
-        let view;
+        let view: TemplateResult;
         if (this.model.links.length <= 3) {
             view = html`
                 ${this.model.links.map((link, i) => {
@@ -102,14 +89,14 @@ export default class BreadcrumbTrail extends SuperComponent<IBreadcrumbTrail> {
                     if (i === this.model.links.length - 1) {
                         renderArrowIcon = false;
                     }
-                    return this.renderLink(link, i, renderArrowIcon);
+                    return this.renderLink(link, renderArrowIcon);
                 })}
             `;
         } else {
             view = html`
-                ${this.renderLink(this.model.links[0], 0, true)}
+                ${this.renderLink(this.model.links[0], true)}
                 <breadcrumb-overflow-menu>
-                    <button aria-label="Open hidden link menu">
+                    <button aria-label="Open hidden link menu" sfx="button">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
@@ -128,7 +115,7 @@ export default class BreadcrumbTrail extends SuperComponent<IBreadcrumbTrail> {
                     <breadcrumb-menu>
                         ${this.model.links.map((link, i) => {
                             if (i !== 0 && i !== this.model.links.length - 1) {
-                                return this.renderLink(link, i);
+                                return this.renderLink(link);
                             }
                         })}
                     </breadcrumb-menu>
@@ -146,7 +133,7 @@ export default class BreadcrumbTrail extends SuperComponent<IBreadcrumbTrail> {
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                     <polyline points="9 6 15 12 9 18"></polyline>
                 </svg>
-                ${this.renderLink(this.model.links[this.model.links.length - 1], this.model.links.length - 1)}
+                ${this.renderLink(this.model.links[this.model.links.length - 1])}
             `;
         }
         render(view, this);

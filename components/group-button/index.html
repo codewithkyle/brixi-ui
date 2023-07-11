@@ -23,34 +23,11 @@
     <script type="module" src="/js/group-button.js"></script>
 </head>
 <body>
-    <script type="module">
-    import Component from "/js/group-button.js";
-    const example = new Component({
-        kind: "solid",
-        color: "white",
-        buttons: [
-            {
-                label: "Example 1",
-                callback: ()=>{
-                    console.log("Example 1 clicked");
-                },
-            },
-            {
-                label: "Example 2",
-                callback: ()=>{
-                    console.log("Example 2 clicked");
-                },
-            },
-            {
-                label: "Example 3",
-                callback: ()=>{
-                    console.log("Example 3 clicked");
-                },
-            },
-        ],
-    });
-    document.body.appendChild(example);
-</script>
+    <group-button-component
+    data-buttons='[{"label":"Example 1","id":"example-1"},{"label":"Example 2","id":"example-2"},{"label":"Example 3","id":"example-3"}]'
+></group-button-component>
+
+<script type="module" src="/js/group-button.js"></script>
 
 </body>
 </html>

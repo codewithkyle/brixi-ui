@@ -1,14 +1,15 @@
-import{html as s,render as o}from"./lit-html.js";import l from"./supercomponent.js";import r from"./env.js";import{parseDataset as a}from"./general.js";import{unsafeHTML as u}from"./unsafe-html.js";class i extends l{constructor(t){super();this.handleClick=t=>{const e=t.currentTarget,n=parseInt(e.dataset.index);this.set({active:n}),this.model.buttons[n].callback()};this.model={css:"",class:"",attributes:{},buttons:[],active:null},this.model=a(this.dataset,this.model),r.css(["group-button","button"]).then(()=>{this.set(t,!0),this.render()})}renderIcon(t){let e;return t instanceof HTMLElement?e=s` <i class="icon">${t}</i> `:typeof t=="string"&&t.length?e=s` <i class="icon"> ${u(t)} </i> `:e="",e}renderLabel(t){let e;return t?e=s` <span>${t}</span> `:e="",e}renderButtons(){let t;return this.model.buttons.length?t=s`
-                ${this.model.buttons.map((e,n)=>s`
+import{html as n,render as o}from"./lit-html.js";import r from"./env.js";import{parseDataset as a}from"./general.js";import{unsafeHTML as u}from"./unsafe-html.js";import l from"./component.js";r.css(["group-button","button"]);class s extends l{constructor(){super();this.handleClick=e=>{const t=e.currentTarget;this.set({active:t.dataset.id});const i=new CustomEvent("change",{detail:{id:t.dataset.id}});this.dispatchEvent(i)};this.model={buttons:[],active:null}}static get observedAttributes(){return["data-buttons","data-active"]}async connected(){const e=a(this.dataset,this.model);this.set(e)}renderIcon(e){let t;return e?.length?t=n` <i class="icon"> ${u(decodeURI(e))} </i> `:t="",t}renderLabel(e){let t;return e?t=n` <span>${e}</span> `:t="",t}renderButtons(){let e;return this.model.buttons.length?e=n`
+                ${this.model.buttons.map(t=>n`
                         <button
-                            class="bttn ${n===this.model.active?"is-active":""}"
+                            class="bttn ${t.id===this.model.active?"is-active":""}"
                             @click=${this.handleClick}
-                            data-index="${n}"
+                            data-id="${t.id}"
                             kind="outline"
                             color="grey"
-                            type="${e?.type??"button"}"
+                            sfx="button"
+                            type="${t?.type??"button"}"
                         >
-                            ${this.renderIcon(e?.icon??"")} ${this.renderLabel(e.label)}
+                            ${this.renderIcon(t?.icon??"")} ${this.renderLabel(t.label)}
                         </button>
                     `)}
-            `:t="",t}render(){this.className=this.model.class,this.style.cssText=this.model.css,Object.keys(this.model.attributes).map(e=>{this.setAttribute(e,`${this.model.attributes[e]}`)});const t=s` ${this.renderButtons()} `;o(t,this)}}r.bind("group-button",i);export{i as default};
+            `:e="",e}render(){const e=n` ${this.renderButtons()} `;o(e,this)}}r.bind("group-button-component",s);export{s as default};

@@ -1,40 +1,23 @@
 import { html, render, TemplateResult } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
-import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~brixi/controllers/env";
-import { noop, parseDataset } from "~brixi/utils/general";
+import { parseDataset } from "~brixi/utils/general";
 import Spinner from "~brixi/components/progress/spinner/spinner";
+import Component from "~brixi/component";
+import type { ButtonSize } from "../button/button";
 
-type ButtonSize = "default" | "slim" | "large";
+env.css(["submit-button", "button"]);
 
 export interface ISubmitButton {
     label: string;
     icon: string;
     size: ButtonSize;
-    callback: Function;
-    tooltip: string;
     disabled: boolean;
-    css: string;
-    class: string;
-    attributes: {
-        [name: string]: string | number;
-    };
-}
-export interface SubmitButtonSettings {
-    label?: string;
-    callback?: Function;
-    size?: ButtonSize;
-    icon?: string;
-    tooltip?: string;
-    css?: string;
-    class?: string;
-    attributes?: {
-        [name: string]: string | number;
-    };
+    submittingLabel: string;
 }
 
-export default class SubmitButton extends SuperComponent<ISubmitButton> {
-    constructor(settings: SubmitButtonSettings) {
+export default class SubmitButton extends Component<ISubmitButton> {
+    constructor() {
         super();
         this.state = "IDLING";
         this.stateMachine = {
@@ -47,25 +30,27 @@ export default class SubmitButton extends SuperComponent<ISubmitButton> {
             },
         };
         this.model = {
-            label: "",
+            label: "Submit",
+            submittingLabel: "",
             size: "default",
             icon: "",
-            callback: noop,
-            tooltip: null,
-            css: "",
-            class: "",
-            attributes: {},
             disabled: false,
         };
-        this.model = parseDataset<ISubmitButton>(this.dataset, this.model);
-        env.css(["submit-button", "button"]).then(() => {
-            this.set(settings, true);
-            this.render();
-        });
+    }
+
+    static get observedAttributes() {
+        return ["data-label", "data-size", "data-icon", "data-disabled"];
+    }
+
+    override async connected() {
+        const settings = parseDataset(this.dataset, this.model);
+        this.set(settings);
     }
 
     private handleClick = () => {
-        this.model.callback();
+        if (this.state !== "SUBMITTING") {
+            this.dispatchEvent(new CustomEvent("submit"));
+        }
     };
 
     private renderIcon(): string | TemplateResult | HTMLElement {
@@ -75,7 +60,7 @@ export default class SubmitButton extends SuperComponent<ISubmitButton> {
                 size: 16,
                 class: "mr-0.5",
             });
-        } else if (this.model.icon.length) {
+        } else if (this.model.icon?.length) {
             icon = html`${unsafeHTML(this.model.icon)}`;
         } else {
             icon = "";
@@ -85,7 +70,9 @@ export default class SubmitButton extends SuperComponent<ISubmitButton> {
 
     private renderLabel(): string | TemplateResult {
         let label: string | TemplateResult = "";
-        if (this.model.label.length) {
+        if (this.state === "SUBMITTING" && this.model.submittingLabel?.length) {
+            label = html`<span>${this.model.submittingLabel}</span>`;
+        } else if (this.model.label?.length) {
             label = html`<span>${this.model.label}</span>`;
         } else {
             label = "";
@@ -94,11 +81,6 @@ export default class SubmitButton extends SuperComponent<ISubmitButton> {
     }
 
     override render() {
-        this.style.cssText = this.model.css;
-        this.className = this.model.class;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
         this.setAttribute("state", this.state);
         const view = html`
             <button
@@ -109,7 +91,6 @@ export default class SubmitButton extends SuperComponent<ISubmitButton> {
                 kind="solid"
                 type="submit"
                 icon=${this.model.icon || this.state === "SUBMITTING" ? "left" : ""}
-                ?tooltip=${this.model.tooltip}
                 sfx="button"
                 ?disabled=${this.model.disabled || this.state === "SUBMITTING"}
             >

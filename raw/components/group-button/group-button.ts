@@ -1,71 +1,56 @@
 import { html, render, TemplateResult } from "lit-html";
-import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~brixi/controllers/env";
 import { parseDataset } from "~brixi/utils/general";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
+import type { ButtonType } from "~brixi/components/buttons/button/button";
+import Component from "~brixi/component";
 
-type ButtonType = "submit" | "button" | "reset";
+env.css(["group-button", "button"]);
 
 export interface IGroupButton {
-    css: string;
-    class: string;
-    attributes: {
-        [name: string]: string | number;
-    };
     buttons: Array<{
         label: string;
         type?: ButtonType;
-        icon?: string | HTMLElement;
-        callback: Function;
+        icon?: string;
+        id: string;
     }>;
-    active?: number | null;
+    active?: string;
 }
-export interface GroupButtonSettings {
-    css?: string;
-    class?: string;
-    attributes?: {
-        [name: string]: string | number;
-    };
-    buttons: Array<{
-        label: string;
-        type?: ButtonType;
-        icon?: string | HTMLElement;
-        callback: Function;
-    }>;
-    active: number | null;
-}
-export default class GroupButton extends SuperComponent<IGroupButton> {
-    constructor(settings: GroupButtonSettings) {
+export default class GroupButton extends Component<IGroupButton> {
+    constructor() {
         super();
         this.model = {
-            css: "",
-            class: "",
-            attributes: {},
             buttons: [],
             active: null,
         };
-        this.model = parseDataset<IGroupButton>(this.dataset, this.model);
-        env.css(["group-button", "button"]).then(() => {
-            this.set(settings, true);
-            this.render();
-        });
+    }
+
+    static get observedAttributes() {
+        return ["data-buttons", "data-active"];
+    }
+
+    override async connected() {
+        const settings = parseDataset(this.dataset, this.model);
+        this.set(settings);
     }
 
     private handleClick = (e: Event) => {
         const target = e.currentTarget as HTMLElement;
-        const index = parseInt(target.dataset.index);
         this.set({
-            active: index,
+            active: target.dataset.id,
         });
-        this.model.buttons[index].callback();
+        const event = new CustomEvent("change", {
+            detail: {
+                id: target.dataset.id,
+            },
+        });
+        this.dispatchEvent(event);
     };
 
-    private renderIcon(icon: string | HTMLElement) {
+    private renderIcon(icon: string) {
         let out: TemplateResult | string;
-        if (icon instanceof HTMLElement) {
-            out = html` <i class="icon">${icon}</i> `;
-        } else if (typeof icon === "string" && icon.length) {
-            out = html` <i class="icon"> ${unsafeHTML(icon)} </i> `;
+        if (icon?.length) {
+            out = html` <i class="icon"> ${unsafeHTML(decodeURI(icon))} </i> `;
         } else {
             out = "";
         }
@@ -88,14 +73,15 @@ export default class GroupButton extends SuperComponent<IGroupButton> {
             out = "";
         } else {
             out = html`
-                ${this.model.buttons.map((button, i) => {
+                ${this.model.buttons.map((button) => {
                     return html`
                         <button
-                            class="bttn ${i === this.model.active ? "is-active" : ""}"
+                            class="bttn ${button.id === this.model.active ? "is-active" : ""}"
                             @click=${this.handleClick}
-                            data-index="${i}"
+                            data-id="${button.id}"
                             kind="outline"
                             color="grey"
+                            sfx="button"
                             type="${button?.type ?? "button"}"
                         >
                             ${this.renderIcon(button?.icon ?? "")} ${this.renderLabel(button.label)}
@@ -108,13 +94,8 @@ export default class GroupButton extends SuperComponent<IGroupButton> {
     }
 
     override render() {
-        this.className = this.model.class;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
         const view = html` ${this.renderButtons()} `;
         render(view, this);
     }
 }
-env.bind("group-button", GroupButton);
+env.bind("group-button-component", GroupButton);

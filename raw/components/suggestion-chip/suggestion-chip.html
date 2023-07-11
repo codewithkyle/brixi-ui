@@ -1,11 +1,11 @@
-<script type="module">
-    import Component from "/js/suggestion-chip.js";
-    const example = new Component({
-        label: "Example",
-        value: "example",
-        callback: (value) => {
-            console.log(value);
-        }
+<suggestion-chip
+    data-label="Example"
+    data-value="example"
+></suggestion-chip>
+
+<script type="module" src="/js/suggestion-chip.js"></script>
+<script>
+    document.querySelector('suggestion-chip').addEventListener('suggest', (event) => {
+        console.log(event.detail.value);
     });
-    document.body.appendChild(example);
 </script>

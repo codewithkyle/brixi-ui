@@ -1,6 +1,6 @@
-import{html as r,render as a}from"./lit-html.js";import n from"./supercomponent.js";import i from"./env.js";import{noop as o,parseDataset as h}from"./general.js";class l extends n{constructor(e){super();this.handleClick=()=>{const e=!this.model.checked;this.set({checked:e},!0),this.model.callback(this.model.value,e)};this.handleKeydown=e=>{e.key===" "&&this.classList.add("is-active")};this.handleKeyup=e=>{if(e.key===" "){const t=!this.model.checked;this.classList.remove("is-active"),this.model.callback(this.model.value,t),this.set({checked:t})}};this.model={css:"",class:"",attributes:{},label:null,value:null,callback:o,checked:!1},this.model=h(this.dataset,this.model),i.css(["filter-chip"]).then(()=>{this.set(e,!0),this.render()})}render(){this.className=this.model.class,this.style.cssText=this.model.css,Object.keys(this.model.attributes).map(s=>{this.setAttribute(s,`${this.model.attributes[s]}`)}),this.setAttribute("role","button");const e=`${this.model.label.trim().replace(/\s+/g,"-")}-${this.model.value.toString().trim().replace(/\s+/g,"-")}`,t=r`
-            <input type="checkbox" ?checked="${this.model.checked}" .value=${this.model.value} id="${e}" />
-            <label for="${e}" tabindex="0" @click=${this.handleClick} @keyup=${this.handleKeyup} @keydown=${this.handleKeydown}>
+import{html as s,render as l}from"./lit-html.js";import t from"./env.js";import{parseDataset as o}from"./general.js";import a from"./component.js";import{UUID as r}from"./uuid.js";t.css(["filter-chip"]);class i extends a{constructor(){super();this.handleClick=()=>{const e=!this.model.checked;this.set({checked:e}),this.dispatchEvent(new CustomEvent("change",{detail:{checked:e,value:this.model.value}}))};this.handleKeydown=e=>{e.key===" "&&this.classList.add("is-active")};this.handleKeyup=e=>{e.key===" "&&(this.classList.remove("is-active"),this.click())};this.id=r(),this.model={label:"",value:null,checked:!1}}static get observedAttributes(){return["data-label","data-value","data-checked"]}async connected(){const e=o(this.dataset,this.model);this.set(e)}render(){this.setAttribute("role","button"),this.setAttribute("sfx","button");const e=s`
+            <input type="checkbox" ?checked="${this.model.checked}" .value=${this.model.value||""} id="${this.id}" />
+            <label for="${this.id}" tabindex="0" @click=${this.handleClick} @keyup=${this.handleKeyup} @keydown=${this.handleKeydown}>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -17,4 +17,4 @@ import{html as r,render as a}from"./lit-html.js";import n from"./supercomponent.
                 </svg>
                 <span>${this.model.label}</span>
             </label>
-        `;a(t,this)}}i.bind("filter-chip",l);export{l as default};
+        `;l(e,this)}}t.bind("filter-chip",i);export{i as default};

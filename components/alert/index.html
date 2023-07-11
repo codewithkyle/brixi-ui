@@ -23,68 +23,43 @@
     <script type="module" src="/js/alert.js"></script>
 </head>
 <body>
-    <!-- Server side rendered component -->
-<alert-component
-    data-class="mb-1"
+    <alert-component
+    class="mb-1"
     data-type="info"
     data-description="This component was server side rendered. Any component can be created using the custom element tag and the settings can be configured using data attributes. View this components HTML source to learn more."
 ></alert-component>
 
-<!-- Client side rendered components -->
-<script type="module">
-    import Component from "/js/alert.js";
-    const example = new Component({
-        type: "warning",
-        heading: "Attention needed",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        list: ["Lorem ipsum dolor sit amet.", "Consectetur adipiscing elit.", "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."],
-        closeable: true,
-        closeCallback: () => {
-            console.log("closed");
-        },
-        class: "mb-1",
-    });
-    document.body.appendChild(example);
-    const example2 = new Component({
-        class: "mb-1",
-        type: "info",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        closeable: true,
-    });
-    document.body.appendChild(example2);
-    const example3 = new Component({
-        class: "mb-1",
-        type: "success",
-        heading: "Submission Successfully Sent",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        actions: [
-            {
-                label: "View status",
-                callback: () => {
-                    console.log("View status");
-                },
-            },
-            {
-                label: "Details",
-                callback: () => {
-                    console.log("View details");
-                },
-            },
-        ],
-    });
-    document.body.appendChild(example3);
-    const example4 = new Component({
-        class: "mb-1",
-        type: "danger",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    });
-    document.body.appendChild(example4);
+<alert-component
+    data-type="warning"
+    data-heading="Attention needed"
+    data-description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    data-list='["Lorem ipsum dolor sit amet.", "Consectetur adipiscing elit.", "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."]'
+    data-closeable="true"
+    class="mb-1"
+></alert-component>
 
-    example.classList.add("mb-1");
-    example2.classList.add("mb-1");
-    example3.classList.add("mb-1");
-    example4.classList.add("mb-1");
-</script>
+<alert-component
+    class="mb-1"
+    data-type="info"
+    data-description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    data-closeable="true"
+></alert-component>
+
+<alert-component
+    class="mb-1"
+    data-type="success"
+    data-heading="Submission Successfully Sent"
+    data-description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    data-actions='[{"label": "View status", "id": "view" }, {"label": "Details", "id": "details" }]'
+></alert-component>
+
+<alert-component
+    class="mb-1"
+    data-type="danger"
+    data-description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+></alert-component>
+
+<script type="module" src="/js/alert.js"></script>
 
 </body>
 </html>

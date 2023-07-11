@@ -1,10 +1,10 @@
-import { html, render } from "lit-html";
+import { html, render, TemplateResult } from "lit-html";
 import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~brixi/controllers/env";
 import { noop, parseDataset } from "~brixi/utils/general";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import Sortable from "sortablejs";
-import Button from "~brixi/components/buttons/button/button";
+import "~brixi/components/buttons/button/button";
 import { UUID } from "@codewithkyle/uuid";
 
 export interface ITab {
@@ -134,17 +134,19 @@ export default class Tabs extends SuperComponent<ITabs> {
     }
 
     private renderAddButton() {
-        let out;
+        let out: string | TemplateResult;
         if (this.model.expandable) {
-            out = new Button({
-                kind: "text",
-                color: "grey",
-                icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>`,
-                iconPosition: "center",
-                shape: "round",
-                css: "margin-bottom:6px;",
-                callback: this.addTab.bind(this),
-            });
+            out = html`
+                <button-component
+                    data-kind="text"
+                    data-color="grey"
+                    data-icon='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>'
+                    data-icon-position="center"
+                    data-shape="round"
+                    style="margin-bottom:6px;"
+                    @click=${this.addTab.bind(this)}
+                ></button-component>
+            `;
         } else {
             out = "";
         }

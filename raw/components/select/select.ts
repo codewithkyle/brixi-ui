@@ -150,6 +150,7 @@ export default class Select extends Component<ISelect> {
     }
 
     private handleChange: EventListener = (e: Event) => {
+        e.stopImmediatePropagation();
         const target = e.currentTarget as HTMLSelectElement;
         const index = parseInt(target.value);
         const value = this.model.options[index].value;

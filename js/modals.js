@@ -1,49 +1,93 @@
-import{html as i,render as p}from"./lit-html.js";import{unsafeHTML as r}from"./unsafe-html.js";import s from"./button.js";import u from"./submit-button.js";import f from"./form.js";import{noop as n}from"./general.js";import d from"./env.js";class w{raw(t){const e=Object.assign({view:i``,width:512},t),l=new o(e.view,e.width,"raw");return document.body.appendChild(l),l}form(t){const e=Object.assign({title:"",message:"",view:i``,width:512,callbacks:{onSubmit:n,onCancel:n},cancel:"Cancel",submit:"Submit"},t);let l;const c=i`
-            ${new f({class:"w-full",view:i`
-                    <div class="block w-full py-1.5 px-2">
-                        ${e.title?.length?i`<h2>${e.title}</h2>`:""} ${e.message?.length?i`<p class="mb-1.5">${r(e.message)}</p>`:""}
-                        ${e.view}
+import{html as n,render as p}from"./lit-html.js";import{unsafeHTML as o}from"./unsafe-html.js";import"./button.js";import"./submit-button.js";import"./form.js";import{noop as c}from"./general.js";import r from"./env.js";class u{raw(a){const t=Object.assign({view:n``,width:512},a),e=new s(t.view,t.width,"raw");return document.body.appendChild(e),e}form(a){const t=Object.assign({title:"",message:"",view:n``,width:512,callbacks:{onSubmit:c,onCancel:c},cancel:"Cancel",submit:"Submit"},a);let e;const l=n`
+            <form-component
+                class="w-full"
+                @submit=${i=>{i.preventDefault();const d=i.currentTarget;if(d.checkValidity()){const b=d.serialize();t.callbacks.submit(b,d,e)}}}
+            >
+                <div class="block w-full py-1.5 px-2">
+                    ${t.title?.length?n`<h2>${t.title}</h2>`:""} ${t.message?.length?n`<p class="mb-1.5">${o(t.message)}</p>`:""} ${t.view}
+                </div>
+                <div class="w-full px-0.5 pb-0.5">
+                    <div class="w-full p-0.5 bg-grey-100 radius-0.5" flex="row nowrap items-center justify-end">
+                        <button-component
+                            data-label="${t.cancel}"
+                            data-type="button"
+                            data-color="grey"
+                            data-kind="solid"
+                            @click=${()=>{"cancel"in t.callbacks&&typeof t.callbacks.cancel=="function"&&t.callbacks.cancel(),e.remove()}}
+                            class="mr-0.5"
+                        ></button-component>
+                        <submit-button data-label="${t.submit}"></submit-button>
                     </div>
-                    <div class="w-full px-0.5 pb-0.5">
-                        <div class="w-full p-0.5 bg-grey-100 radius-0.5" flex="row nowrap items-center justify-end">
-                            ${new s({label:e.cancel,type:"button",color:"grey",kind:"solid",callback:()=>{"cancel"in e.callbacks&&typeof e.callbacks.cancel=="function"&&e.callbacks.cancel(),l.remove()},class:"mr-0.5"})}
-                            ${new u({label:e.submit})}
-                        </div>
-                    </div>
-                `,onSubmit:a=>{if(a.checkValidity()){const b=a.serialize();e.callbacks.submit(b,a,l)}}})}
-        `;l=new o(c,e.width,"static-content"),document.body.appendChild(l)}passive(t){const e=Object.assign({title:"",message:"",actions:[{label:"Close",callback:n}],width:512},t);let l;const c=i`
+                </div>
+            </form-component>
+        `;e=new s(l,t.width,"static-content"),document.body.appendChild(e)}passive(a){const t=Object.assign({title:"",message:"",actions:[{label:"Close",callback:c}],width:512},a);let e;const l=n`
             <div class="block w-full py-1.5 px-2">
-                <h2>${e.title}</h2>
-                <p>${r(e.message)}</p>
+                <h2>${t.title}</h2>
+                <p>${o(t.message)}</p>
             </div>
             <div class="w-full px-0.5 pb-0.5">
                 <div class="w-full p-0.5 bg-grey-100 radius-0.5" flex="row nowrap items-center justify-end">
-                    ${e.actions.map(a=>new s({label:a.label,type:"button",color:"grey",kind:"solid",callback:()=>{typeof a?.callback=="function"&&a.callback(),l.remove()},class:"ml-0.5"}))}
+                    ${t.actions.map(i=>n`
+                            <button-component
+                                data-label="${i.label}"
+                                data-type="button"
+                                data-color="grey"
+                                data-kind="solid"
+                                @click=${()=>{typeof i?.callback=="function"&&i.callback(),e.remove()}}
+                                class="mr-0.5"
+                            ></button-component>
+                        `)}
                 </div>
             </div>
-        `;l=new o(c,e.width,"static-content"),document.body.appendChild(l)}confirm(t){const e=Object.assign({title:"",message:"",confirm:"Submit",cancel:"Cancel",callbacks:{cancel:n,confirm:n},width:512},t);let l;const c=i`
+        `;e=new s(l,t.width,"static-content"),document.body.appendChild(e)}confirm(a){const t=Object.assign({title:"",message:"",confirm:"Submit",cancel:"Cancel",callbacks:{cancel:c,confirm:c},width:512},a);let e;const l=n`
             <div class="block w-full py-1.5 px-2">
-                <h2>${e.title}</h2>
-                <p>${r(e.message)}</p>
+                <h2>${t.title}</h2>
+                <p>${o(t.message)}</p>
             </div>
             <div class="w-full px-0.5 pb-0.5">
                 <div class="w-full p-0.5 bg-grey-100 radius-0.5" flex="row nowrap items-center justify-end">
-                    ${new s({label:e.cancel,type:"button",color:"grey",kind:"solid",callback:()=>{"cancel"in e.callbacks&&typeof e.callbacks.cancel=="function"&&e.callbacks.cancel(),l.remove()},class:"mr-0.5"})}
-                    ${new s({label:e.confirm,type:"button",color:"primary",kind:"solid",callback:()=>{"confirm"in e.callbacks&&typeof e.callbacks.confirm=="function"&&e.callbacks.confirm(),l.remove()}})}
+                    <button-component
+                        data-label="${t.cancel}"
+                        data-type="button"
+                        data-color="grey"
+                        data-kind="solid"
+                        @click=${()=>{"cancel"in t.callbacks&&typeof t.callbacks.cancel=="function"&&t.callbacks.cancel(),e.remove()}}
+                        class="mr-0.5"
+                    ></button-component>
+                    <button-component
+                        data-label="${t.confirm}"
+                        data-type="button"
+                        data-color="primary"
+                        data-kind="solid"
+                        @click=${()=>{"confirm"in t.callbacks&&typeof t.callbacks.confirm=="function"&&t.callbacks.confirm(),e.remove()}}
+                    ></button-component>
                 </div>
             </div>
-        `;l=new o(c,e.width,"static-content"),document.body.appendChild(l)}dangerous(t){const e=Object.assign({title:"",message:"",confirm:"Delete",cancel:"Cancel",callbacks:{cancel:n,confirm:n},width:512},t);let l;const c=i`
+        `;e=new s(l,t.width,"static-content"),document.body.appendChild(e)}dangerous(a){const t=Object.assign({title:"",message:"",confirm:"Delete",cancel:"Cancel",callbacks:{cancel:c,confirm:c},width:512},a);let e;const l=n`
             <div class="block w-full py-1.5 px-2">
-                <h2>${e.title}</h2>
-                <p>${r(e.message)}</p>
+                <h2>${t.title}</h2>
+                <p>${o(t.message)}</p>
             </div>
             <div class="w-full px-0.5 pb-0.5">
                 <div class="w-full p-0.5 bg-grey-100 radius-0.5" flex="row nowrap items-center justify-end">
-                    ${new s({label:e.cancel,type:"button",color:"grey",kind:"solid",callback:()=>{"cancel"in e.callbacks&&typeof e.callbacks.cancel=="function"&&e.callbacks.cancel(),l.remove()},class:"mr-0.5"})}
-                    ${new s({label:e.confirm,type:"button",color:"danger",kind:"solid",callback:()=>{"confirm"in e.callbacks&&typeof e.callbacks.confirm=="function"&&e.callbacks.confirm(),l.remove()}})}
+                    <button-component
+                        data-label="${t.cancel}"
+                        data-type="button"
+                        data-color="grey"
+                        data-kind="solid"
+                        @click=${()=>{"cancel"in t.callbacks&&typeof t.callbacks.cancel=="function"&&t.callbacks.cancel(),e.remove()}}
+                        class="mr-0.5"
+                    ></button-component>
+                    <button-component
+                        data-label="${t.confirm}"
+                        data-type="button"
+                        data-color="danger"
+                        data-kind="solid"
+                        @click=${()=>{"confirm"in t.callbacks&&typeof t.callbacks.confirm=="function"&&t.callbacks.confirm(),e.remove()}}
+                    ></button-component>
                 </div>
             </div>
-        `;l=new o(c,e.width,"static-content"),document.body.appendChild(l)}}const v=new w;var M=v;class o extends HTMLElement{constructor(e,l,c){super();this.view=e,this.width=l,this.className=c,d.css(["modals"]).then(()=>this.render())}render(){this.tabIndex=0,this.focus();const e=i`
+        `;e=new s(l,t.width,"static-content"),document.body.appendChild(e)}}const f=new u;var M=f;class s extends HTMLElement{constructor(t,e,l){super();this.view=t,this.width=e,this.className=l,r.css(["modals"]).then(()=>this.render())}render(){this.tabIndex=0,this.focus();const t=n`
             <div class="backdrop"></div>
             <div class="modal" style="width:${this.width}px;">${this.view}</div>
-        `;p(e,this)}}d.bind("modal-component",o);export{M as default};
+        `;p(t,this)}}r.bind("modal-component",s);export{M as default};

@@ -4,10 +4,11 @@ import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~brixi/controllers/env";
 import { noop, parseDataset } from "~brixi/utils/general";
 import soundscape from "~brixi/controllers/soundscape";
-import Checkbox from "~brixi/components/checkbox/checkbox";
+import "~brixi/components/checkbox/checkbox";
 import { UUID } from "@codewithkyle/uuid";
 import Fuse from "fuse.js";
 import pos from "~brixi/controllers/pos";
+import Component from "~brixi/component";
 
 export type MultiSelectOption = {
     label: string;
@@ -216,14 +217,15 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
         this.debounceFilterInput(value);
     };
 
-    private checkAllCallback(value, name) {
+    private checkAllCallback: EventListener = (e: CustomEvent) => {
+        const { name, checked, value } = e.detail;
         const updatedModel = { ...this.model };
         const id = `${this.model.name}-${this.model.label.replace(/\s+/g, "-").trim()}`;
         for (let j = 0; j < updatedModel.options.length; j++) {
             updatedModel.options[j].checked = false;
         }
         const out = [];
-        const checkboxes: Array<Checkbox> = Array.from(this.querySelectorAll(".options checkbox-component"));
+        const checkboxes: Array<any> = Array.from(this.querySelectorAll(".options checkbox-component"));
         for (let i = 0; i < checkboxes.length; i++) {
             checkboxes[i].set({
                 checked: value,
@@ -249,9 +251,10 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
         }
         this.set(updatedModel, true);
         this.model.callback(out);
-    }
+    };
 
-    private checkboxCallback(value, name) {
+    private checkboxCallback: EventListener = (e: CustomEvent) => {
+        const { value, name, checked } = e.detail;
         const updatedModel = this.get();
         for (let i = 0; i < updatedModel.options.length; i++) {
             if (updatedModel.options[i].uid === name) {
@@ -265,7 +268,7 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
                 out.push(updatedModel.options[j].value);
             }
         }
-        const masterCheckbox: Checkbox = this.querySelector(".js-master-checkbox");
+        const masterCheckbox = this.querySelector(".js-master-checkbox") as Component<any>;
         if (masterCheckbox) {
             if (out.length) {
                 masterCheckbox.set({
@@ -287,7 +290,7 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
         }
         this.set(updatedModel, true);
         this.model.callback(out);
-    }
+    };
 
     public renderCopy() {
         let output;
@@ -328,15 +331,15 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
         if (this.model.search !== null) {
             out = html`
                 <div class="search">
-                    ${new Checkbox({
-                        name: `multiselect-checkall`,
-                        checked: this.hasOneCheck(),
-                        callback: this.checkAllCallback.bind(this),
-                        type: "line",
-                        class: "inline-flex mr-0.5 js-master-checkbox",
-                        css: "width:24px;height:24px;",
-                        value: "all",
-                    })}
+                    <checkbox-component
+                        data-name="multiselect-checkall"
+                        data-checked="${this.hasOneCheck()}"
+                        data-type="line"
+                        class="inline-flex mr-0.5 js-master-checkbox"
+                        style="width:24px;height:24px;"
+                        data-value="all"
+                        @change=${this.checkAllCallback}
+                    ></checkbox-component>
                     <i>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path
@@ -382,13 +385,15 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
                 ${this.renderSearch()}
                 <div class="options">
                     ${options.map((option) => {
-                        return html`${new Checkbox({
-                            name: option.uid,
-                            label: option.label,
-                            checked: option.checked,
-                            callback: this.checkboxCallback.bind(this),
-                            value: option.value,
-                        })}`;
+                        return html`
+                            <checkbox-component
+                                data-name="${option.uid}"
+                                data-checked="${option.checked}"
+                                data-label="${option.label}"
+                                data-value="${option.value}"
+                                @change=${this.checkboxCallback}
+                            ></checkbox-component>
+                        `;
                     })}
                 </div>
             </multiselect-options>

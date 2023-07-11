@@ -1,55 +1,41 @@
 import { html, render } from "lit-html";
-import SuperComponent from "@codewithkyle/supercomponent";
+import Component from "~brixi/component";
 import env from "~brixi/controllers/env";
 import { parseDataset } from "~brixi/utils/general";
+
+env.css(["badge"]);
 
 export interface IBadge {
     value: number;
     offsetX: number;
     offsetY: number;
-    css: string;
-    class: string;
-    attributes: {
-        [name: string]: string | number;
-    };
 }
-export interface BadgeSettings {
-    value?: number;
-    offsetX?: number;
-    offsetY?: number;
-    css?: string;
-    class?: string;
-    attributes?: {
-        [name: string]: string | number;
-    };
-}
-export default class Badge extends SuperComponent<IBadge> {
-    constructor(settings: BadgeSettings = {}) {
+export default class Badge extends Component<IBadge> {
+    constructor() {
         super();
         this.model = {
             value: null,
             offsetX: 0,
             offsetY: 0,
-            css: "",
-            class: "",
-            attributes: {},
         };
-        this.model = parseDataset<IBadge>(this.dataset, this.model);
-        env.css(["badge"]).then(() => {
-            this.set(settings, true);
-            this.render();
-        });
+    }
+
+    static get observedAttributes() {
+        return ["data-value", "data-offset-x", "data-offset-y"];
+    }
+
+    override async connected() {
+        const settings = parseDataset(this.dataset, this.model);
+        this.set(settings);
     }
 
     override render() {
-        this.style.cssText = `${this.model.css} transform: translate(${this.model.offsetX}px, ${this.model.offsetY}px);`;
-        this.className = this.model.class;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
-        const hasValue = this.model.value !== null;
+        this.style.transform = `translate(${this.model.offsetX}px, ${this.model.offsetY}px)`;
+        const hasValue = this.model.value !== null && this.model.value?.toString() !== "";
         if (hasValue) {
-            this.className = "-text";
+            this.classList.add("-text");
+        } else {
+            this.classList.remove("-text");
         }
         let value: string | number = this.model.value;
         if (value > 9) {
