@@ -1,56 +1,34 @@
-import { html, render, TemplateResult } from "lit-html";
-import SuperComponent from "@codewithkyle/supercomponent";
+import { html, render } from "lit-html";
 import env from "~brixi/controllers/env";
-import { noop, parseDataset } from "~brixi/utils/general";
+import { parseDataset } from "~brixi/utils/general";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
+import Component from "~brixi/component";
+
+env.css(["assist-chip"]);
 
 export interface IAssistChip {
-    css: string;
-    class: string;
-    attributes: {
-        [name: string]: string | number;
-    };
     label: string;
-    callback: Function;
-    icon: string | HTMLElement;
+    icon: string;
 }
-export interface AssistChipSettings {
-    css?: string;
-    class?: string;
-    attributes?: {
-        [name: string]: string | number;
-    };
-    label: string;
-    callback: Function;
-    icon: string | HTMLElement;
-}
-export default class AssistChip extends SuperComponent<IAssistChip> {
-    constructor(settings: AssistChipSettings) {
+export default class AssistChip extends Component<IAssistChip> {
+    constructor() {
         super();
         this.model = {
-            css: "",
-            class: "",
-            attributes: {},
-            label: null,
-            callback: noop,
+            label: "",
             icon: "",
         };
-        this.model = parseDataset<IAssistChip>(this.dataset, this.model);
-        env.css(["assist-chip"]).then(() => {
-            this.set(settings, true);
-            this.render();
-        });
+    }
+
+    static get observedAttributes() {
+        return ["data-label", "data-icon"];
     }
 
     override connected(): void {
-        this.addEventListener("click", this.handleClick);
+        const settings = parseDataset(this.dataset, this.model);
+        this.set(settings);
         this.addEventListener("keyup", this.handleKeyup);
         this.addEventListener("keydown", this.handleKeydown);
     }
-
-    private handleClick = () => {
-        this.model.callback();
-    };
 
     private handleKeydown = (e: KeyboardEvent) => {
         if (e.key === " ") {
@@ -61,26 +39,19 @@ export default class AssistChip extends SuperComponent<IAssistChip> {
     private handleKeyup = (e: KeyboardEvent) => {
         if (e.key === " ") {
             this.classList.remove("is-active");
-            this.model.callback();
+            this.click();
         }
     };
 
     private renderIcon() {
-        let out: any = "";
-        if (this.model.icon instanceof HTMLElement) {
-            out = this.model.icon;
-        } else if (typeof this.model.icon === "string") {
+        let out:any = "";
+        if (this.model.icon?.length) {
             out = unsafeHTML(this.model.icon);
         }
         return out;
     }
 
     override render() {
-        this.className = this.model.class;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
         this.tabIndex = 0;
         this.setAttribute("role", "button");
         const view = html`
