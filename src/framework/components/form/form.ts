@@ -1,46 +1,17 @@
-import { html, render, TemplateResult } from "lit-html";
-import SuperComponent from "@codewithkyle/supercomponent";
+import { html, render } from "lit-html";
 import env from "~brixi/controllers/env";
-import { noop, parseDataset } from "~brixi/utils/general";
+import Component from "~brixi/component";
+import { unsafeHTML } from "lit-html/directives/unsafe-html";
 
-const FORM_INPUT_SELECTOR = "[form-input]:not(checkbox-group checkbox-component):not(radio-group radio-component)";
+const FORM_INPUT_SELECTOR = "[form-input]";
 
-export interface IForm {
-    css: string;
-    class: string;
-    attributes: {
-        [name: string]: string | number;
-    };
-    view: HTMLElement | TemplateResult;
-    onSubmit: Function;
-    onReset: Function;
-}
-export interface FormSettings {
-    css?: string;
-    class?: string;
-    attributes?: {
-        [name: string]: string | number;
-    };
-    view: HTMLElement | TemplateResult;
-    onSubmit: Function;
-    onReset?: Function;
-}
-export default class Form extends SuperComponent<IForm> {
-    constructor(settings: FormSettings) {
-        super();
-        this.model = {
-            css: "",
-            class: "",
-            attributes: {},
-            view: null,
-            onSubmit: noop,
-            onReset: noop,
-        };
-        this.model = parseDataset<IForm>(this.dataset, this.model);
-        env.css(["form"]).then(() => {
-            this.set(settings, true);
-            this.render();
-        });
+env.css(["form"]);
+
+export interface IForm {}
+export default class Form extends Component<IForm> {
+    
+    override connected(): void {
+        this.render();
     }
 
     public start() {
@@ -69,20 +40,14 @@ export default class Form extends SuperComponent<IForm> {
     public serialize() {
         this.start();
         const data = {};
-        let allValid = true;
         this.querySelectorAll(FORM_INPUT_SELECTOR).forEach((el) => {
             // @ts-ignore
-            if (el.validate()) {
-                // @ts-ignore
-                const name = el.getName();
-                if (name == null || name === "") {
-                    console.error("Form input is missing a name attribute.", el);
-                } else {
-                    // @ts-ignore
-                    data[name] = el.getValue();
-                }
+            const name = el.getName();
+            if (name == null || name === "") {
+                console.error("Form input is missing a name attribute.", el);
             } else {
-                allValid = false;
+                // @ts-ignore
+                data[name] = el.getValue();
             }
         });
         return data;
@@ -111,24 +76,16 @@ export default class Form extends SuperComponent<IForm> {
         this.stop();
     }
 
-    private handleSubmit = (e: Event) => {
-        e.preventDefault();
-        this.model.onSubmit(this);
-    };
-
-    private handleReset = (e: Event) => {
+    private handleReset: EventListener = (e) => {
         e.preventDefault();
         this.reset();
-        this.model.onReset();
-    };
+    }
 
     override render() {
-        this.className = this.model.class;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
-        const view = html` <form @submit=${this.handleSubmit} @reset=${this.handleReset}>${this.model.view}</form> `;
+        this.setAttribute("role", "form");
+        const content = this.innerHTML;
+        this.innerHTML = "";
+        const view = html` <form @reset=${this.handleReset}>${unsafeHTML(content)}</form> `;
         render(view, this);
     }
 }
