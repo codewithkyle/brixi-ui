@@ -1,11 +1,13 @@
-<script type="module">
-    import Component from "/js/color-input.js";
-    const example = new Component({
-        name: "demo",
-        label: "Background Color",
-        callback: (name, value) => {
-            console.log(name, value);
-        },
+<color-input 
+    data-name="demo" 
+    data-label="Background Color"
+    data-value="#ff0000"
+></color-input>
+
+<script type="module" src="/js/color-input.js"></script>
+<script>
+    const colorInput = document.querySelector('color-input');
+    colorInput.addEventListener('change', (e) => {
+        console.log(e.detail);
     });
-    document.body.appendChild(example);
 </script>
