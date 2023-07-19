@@ -43,12 +43,14 @@ export default class ColorInput extends InputBase<IColorInput> {
         this.set({
             value: value,
         });
-        this.dispatchEvent(new CustomEvent("change", {
-            detail: {
-                name: target.name,
-                value: value,
-            }
-        }));
+        this.dispatchEvent(
+            new CustomEvent("change", {
+                detail: {
+                    name: target.name,
+                    value: value,
+                },
+            })
+        );
     };
 
     override render() {
@@ -63,7 +65,7 @@ export default class ColorInput extends InputBase<IColorInput> {
                 ?readonly=${this.model.readOnly}
             />
             <label for="${this.inputId}">
-                <color-preview style="background-color:#${this.model.value.ltrim('#')};"></color-preview>
+                <color-preview style="background-color:#${this.model.value.ltrim("#")};"></color-preview>
                 <span>${this.model.label}</span>
             </label>
         `;

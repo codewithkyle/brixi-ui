@@ -5,4 +5,4 @@ interface String {
 // @ts-ignore
 String.prototype.ltrim = function (char: string) {
     return this.replace(new RegExp(`^${char}+`), "");
-}
+};

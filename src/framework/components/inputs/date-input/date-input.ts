@@ -76,9 +76,27 @@ export default class DateInput extends InputBase<IDateInput> {
 
     static get observedAttributes() {
         return [
-            "data-read-only", "data-label", "data-instructions", "data-name", "data-required", "data-autocomplete", "data-autocapitalize",
-            "data-icon", "data-placeholder", "data-value", "data-disabled", "data-date-format", "data-display-format", "data-enable-time",
-            "data-min-date", "data-max-date", "data-mode", "data-disable-calendar", "data-time-format", "data-prev-value", "data-autofocus"
+            "data-read-only",
+            "data-label",
+            "data-instructions",
+            "data-name",
+            "data-required",
+            "data-autocomplete",
+            "data-autocapitalize",
+            "data-icon",
+            "data-placeholder",
+            "data-value",
+            "data-disabled",
+            "data-date-format",
+            "data-display-format",
+            "data-enable-time",
+            "data-min-date",
+            "data-max-date",
+            "data-mode",
+            "data-disable-calendar",
+            "data-time-format",
+            "data-prev-value",
+            "data-autofocus",
         ];
     }
 
@@ -95,27 +113,36 @@ export default class DateInput extends InputBase<IDateInput> {
         );
         this.validate();
         if (this.model.mode === "range") {
-            if (this.model.value.toString().search(/\bto\b/i) !== -1 || this.model.prevValue === this.model.value && this.model.value != null) {
+            if (this.model.value.toString().search(/\bto\b/i) !== -1 || (this.model.prevValue === this.model.value && this.model.value != null)) {
                 const values = this.model.value.toString().split(" to ");
-                this.dispatchEvent(new CustomEvent("change", {
-                    detail: {
-                        start: values[0].trim(),
-                        end: values[1].trim(),
-                    },
-                }));
+                this.dispatchEvent(
+                    new CustomEvent("change", {
+                        detail: {
+                            start: values[0].trim(),
+                            end: values[1].trim(),
+                        },
+                    })
+                );
             }
         } else if (this.model.mode === "multiple") {
-            this.dispatchEvent(new CustomEvent("change", {
-                detail: {
-                    values: this.model.value.toString().split(",").map((value) => value.trim()),
-                },
-            }));
+            this.dispatchEvent(
+                new CustomEvent("change", {
+                    detail: {
+                        values: this.model.value
+                            .toString()
+                            .split(",")
+                            .map((value) => value.trim()),
+                    },
+                })
+            );
         } else {
-            this.dispatchEvent(new CustomEvent("change", {
-                detail: {
-                    value: this.model.value.toString(),
-                },
-            }));
+            this.dispatchEvent(
+                new CustomEvent("change", {
+                    detail: {
+                        value: this.model.value.toString(),
+                    },
+                })
+            );
         }
     };
 

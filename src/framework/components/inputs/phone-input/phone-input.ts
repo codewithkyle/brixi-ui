@@ -42,8 +42,17 @@ export default class PhoneInput extends InputBase<IPhoneInput> {
 
     static get observedAttributes() {
         return [
-            "data-label", "data-instructions", "data-name", "data-required", "data-icon", "data-placeholder",
-            "data-value", "data-disabled", "data-datalist", "data-autofocus", "data-read-only",
+            "data-label",
+            "data-instructions",
+            "data-name",
+            "data-required",
+            "data-icon",
+            "data-placeholder",
+            "data-value",
+            "data-disabled",
+            "data-datalist",
+            "data-autofocus",
+            "data-read-only",
         ];
     }
 
@@ -89,26 +98,30 @@ export default class PhoneInput extends InputBase<IPhoneInput> {
             value: formattedValue,
         });
         this.validate();
-        this.dispatchEvent(new CustomEvent("blur", {
-            detail: {
-                value: formattedValue,
-                name: this.model.name,
-            }
-        }));
+        this.dispatchEvent(
+            new CustomEvent("blur", {
+                detail: {
+                    value: formattedValue,
+                    name: this.model.name,
+                },
+            })
+        );
     };
 
-    private handleFocus: EventListener = (e:Event) => {
+    private handleFocus: EventListener = (e: Event) => {
         e.stopImmediatePropagation();
         const value = this.model.value?.toString()?.replace(/[\-\+\s\(\)]/g, "") ?? null;
         this.set({
             value: value,
         });
-        this.dispatchEvent(new CustomEvent("focus", {
-            detail: {
-                value: value,
-                name: this.model.name,
-            }
-        }));
+        this.dispatchEvent(
+            new CustomEvent("focus", {
+                detail: {
+                    value: value,
+                    name: this.model.name,
+                },
+            })
+        );
     };
 
     private handleInput: EventListener = (e: Event) => {
@@ -121,12 +134,14 @@ export default class PhoneInput extends InputBase<IPhoneInput> {
             true
         );
         this.clearError();
-        this.dispatchEvent(new CustomEvent("input", {
-            detail: {
-                value: input.value,
-                name: this.model.name,
-            }
-        }));
+        this.dispatchEvent(
+            new CustomEvent("input", {
+                detail: {
+                    value: input.value,
+                    name: this.model.name,
+                },
+            })
+        );
     };
 
     private renderCopy(): string | TemplateResult {

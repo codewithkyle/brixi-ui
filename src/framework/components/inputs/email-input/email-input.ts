@@ -35,9 +35,21 @@ export default class EmailInput extends InputBase<IInput> {
 
     static get observedAttributes() {
         return [
-            "data-label", "data-instructions", "data-name", "data-required", "data-autocomplete", "data-autocapitalize",
-            "data-icon", "data-placeholder", "data-value", "data-maxlength", "data-minlength", "data-disabled", "data-read-only",
-            "data-datalist", "data-autofocus"
+            "data-label",
+            "data-instructions",
+            "data-name",
+            "data-required",
+            "data-autocomplete",
+            "data-autocapitalize",
+            "data-icon",
+            "data-placeholder",
+            "data-value",
+            "data-maxlength",
+            "data-minlength",
+            "data-disabled",
+            "data-read-only",
+            "data-datalist",
+            "data-autofocus",
         ];
     }
 
@@ -47,8 +59,7 @@ export default class EmailInput extends InputBase<IInput> {
         if (this.model.required && !this.model.value?.length) {
             isValid = false;
             this.setError("This field is required.");
-        }
-        else if (this.model.required || (!this.model.required && this.model.value?.length)) {
+        } else if (this.model.required || (!this.model.required && this.model.value?.length)) {
             if (this.model.value.length && !EmailTest.test(this.model.value)) {
                 isValid = false;
                 this.setError(`Invalid email format.`);
@@ -76,33 +87,39 @@ export default class EmailInput extends InputBase<IInput> {
             true
         );
         this.clearError();
-        this.dispatchEvent(new CustomEvent("input", {
-            detail: {
-                value: input.value,
-                name: this.model.name,
-            }
-        }));
+        this.dispatchEvent(
+            new CustomEvent("input", {
+                detail: {
+                    value: input.value,
+                    name: this.model.name,
+                },
+            })
+        );
     };
 
-    private handleBlur: EventListener = (e:Event) => {
+    private handleBlur: EventListener = (e: Event) => {
         e.stopImmediatePropagation();
         this.validate();
-        this.dispatchEvent(new CustomEvent("blur", {
-            detail: {
-                value: this.model.value,
-                name: this.model.name,
-            }
-        }));
+        this.dispatchEvent(
+            new CustomEvent("blur", {
+                detail: {
+                    value: this.model.value,
+                    name: this.model.name,
+                },
+            })
+        );
     };
 
-    private handleFocus: EventListener = (e:Event) => {
+    private handleFocus: EventListener = (e: Event) => {
         e.stopImmediatePropagation();
-        this.dispatchEvent(new CustomEvent("focus", {
-            detail: {
-                value: this.model.value,
-                name: this.model.name,
-            }
-        }));
+        this.dispatchEvent(
+            new CustomEvent("focus", {
+                detail: {
+                    value: this.model.value,
+                    name: this.model.name,
+                },
+            })
+        );
     };
 
     private renderCopy(): string | TemplateResult {

@@ -44,8 +44,19 @@ export default class NumberInput extends InputBase<INumberInput> {
 
     static get observedAttributes() {
         return [
-            "data-label", "data-instructions", "data-icon", "data-placeholder", "data-value", "data-min", "data-max",
-            "data-step", "data-disabled", "data-autofocus", "data-name", "data-required", "data-read-only",
+            "data-label",
+            "data-instructions",
+            "data-icon",
+            "data-placeholder",
+            "data-value",
+            "data-min",
+            "data-max",
+            "data-step",
+            "data-disabled",
+            "data-autofocus",
+            "data-name",
+            "data-required",
+            "data-read-only",
         ];
     }
 
@@ -74,39 +85,43 @@ export default class NumberInput extends InputBase<INumberInput> {
         e.stopImmediatePropagation();
         const input = e.currentTarget as HTMLInputElement;
         const value = input.value.replace(/[^\d\.\-]/g, "").trim();
-        this.set(
-            {
-                value: value?.length ? parseFloat(value) : null,
-            }
-        );
+        this.set({
+            value: value?.length ? parseFloat(value) : null,
+        });
         this.clearError();
-        this.dispatchEvent(new CustomEvent("input", {
-            detail: {
-                value: this.model.value,
-                name: this.model.name,
-            }
-        }));
+        this.dispatchEvent(
+            new CustomEvent("input", {
+                detail: {
+                    value: this.model.value,
+                    name: this.model.name,
+                },
+            })
+        );
     };
 
-    private handleBlur: EventListener = (e:Event) => {
+    private handleBlur: EventListener = (e: Event) => {
         e.stopImmediatePropagation();
         this.validate();
-        this.dispatchEvent(new CustomEvent("blur", {
-            detail: {
-                value: this.model.value,
-                name: this.model.name,
-            }
-        }));
+        this.dispatchEvent(
+            new CustomEvent("blur", {
+                detail: {
+                    value: this.model.value,
+                    name: this.model.name,
+                },
+            })
+        );
     };
 
-    private handleFocus: EventListener = (e:Event) => {
+    private handleFocus: EventListener = (e: Event) => {
         e.stopImmediatePropagation();
-        this.dispatchEvent(new CustomEvent("focus", {
-            detail: {
-                value: this.model.value,
-                name: this.model.name,
-            }
-        }));
+        this.dispatchEvent(
+            new CustomEvent("focus", {
+                detail: {
+                    value: this.model.value,
+                    name: this.model.name,
+                },
+            })
+        );
     };
 
     private renderCopy(): string | TemplateResult {
