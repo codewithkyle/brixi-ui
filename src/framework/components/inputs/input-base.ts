@@ -2,11 +2,6 @@ import { parseDataset } from "~brixi/utils/general";
 import soundscape from "~brixi/controllers/soundscape";
 import Component from "~brixi/component";
 
-export interface IInputEvents {
-    onInput?: Function;
-    onFocus?: Function;
-    onBlur?: Function;
-}
 export interface IInputBase {
     name: string;
     error: string;

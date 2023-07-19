@@ -2,24 +2,19 @@ import { html, render, TemplateResult } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import env from "~brixi/controllers/env";
 import flatpickr from "flatpickr";
-import { noop } from "~brixi/utils/general";
-import { IInputBase, IInputBaseSettings, InputBase, IInputEvents } from "../input-base";
+import { IInputBase, InputBase } from "../input-base";
+import { UUID } from "@codewithkyle/uuid";
+
+env.css(["input", "flatpickr"]);
 
 export interface IDateInput extends IInputBase {
     label: string;
     instructions: string;
     autocomplete: string;
     autocapitalize: "off" | "on";
-    icon: string | HTMLElement;
+    icon: string;
     placeholder: string;
     readOnly: boolean;
-    callbacks: Partial<IInputEvents>;
-    css: string;
-    class: string;
-    attributes: {
-        [name: string]: string | number;
-    };
-    datalist: string[];
     autofocus: boolean;
     value: string;
     dateFormat: string;
@@ -32,40 +27,14 @@ export interface IDateInput extends IInputBase {
     timeFormat: "24" | "12";
     prevValue: string | number;
 }
-export interface DateInputSettings extends IInputBaseSettings {
-    label?: string;
-    instructions?: string;
-    autocomplete?: string;
-    autocapitalize?: "off" | "on";
-    icon?: string | HTMLElement;
-    placeholder?: string;
-    readOnly?: boolean;
-    callbacks?: Partial<IInputEvents>;
-    css?: string;
-    class?: string;
-    attributes?: {
-        [name: string]: string | number;
-    };
-    datalist?: string[];
-    autofocus?: boolean;
-    value?: string;
-    dateFormat?: string;
-    displayFormat?: string;
-    enableTime?: boolean;
-    minDate?: string;
-    maxDate?: string;
-    mode?: "multiple" | "single" | "range";
-    disableCalendar?: boolean;
-    timeFormat?: "24" | "12";
-    style?: string;
-}
 export default class DateInput extends InputBase<IDateInput> {
     private firstRender: boolean;
+    private inputId: string;
 
-    constructor(settings: DateInputSettings) {
-        super(settings);
+    constructor() {
+        super();
+        this.inputId = UUID();
         this.firstRender = true;
-        this.state = settings?.disabled ? "DISABLED" : "IDLING";
         this.stateMachine = {
             IDLING: {
                 ERROR: "ERROR",
@@ -100,25 +69,21 @@ export default class DateInput extends InputBase<IDateInput> {
             mode: "single",
             disableCalendar: false,
             timeFormat: "12",
-            css: "",
-            class: "",
-            callbacks: {
-                onInput: noop,
-                onFocus: noop,
-                onBlur: noop,
-            },
-            attributes: {},
             prevValue: null,
-            datalist: [],
             autofocus: false,
         };
-        env.css(["input", "flatpickr"]).then(() => {
-            this.set(settings, true);
-            this.render();
-        });
+    }
+
+    static get observedAttributes() {
+        return [
+            "data-read-only", "data-label", "data-instructions", "data-name", "data-required", "data-autocomplete", "data-autocapitalize",
+            "data-icon", "data-placeholder", "data-value", "data-disabled", "data-date-format", "data-display-format", "data-enable-time",
+            "data-min-date", "data-max-date", "data-mode", "data-disable-calendar", "data-time-format", "data-prev-value", "data-autofocus"
+        ];
     }
 
     private handleInput: EventListener = (e: Event) => {
+        e.stopImmediatePropagation();
         const input = e.currentTarget as HTMLInputElement;
         this.set(
             {
@@ -129,27 +94,28 @@ export default class DateInput extends InputBase<IDateInput> {
             true
         );
         this.validate();
-        if (this.model.callbacks?.onInput && typeof this.model.callbacks.onInput === "function") {
-            if (this.model.mode === "range") {
-                if (this.model.value.toString().search(/\bto\b/i) !== -1 || this.model.prevValue === this.model.value) {
-                    this.model.callbacks?.onInput(input.value);
-                }
-            } else if (this.model.mode === "single") {
-                this.model.callbacks?.onInput(input.value);
+        if (this.model.mode === "range") {
+            if (this.model.value.toString().search(/\bto\b/i) !== -1 || this.model.prevValue === this.model.value && this.model.value != null) {
+                const values = this.model.value.toString().split(" to ");
+                this.dispatchEvent(new CustomEvent("change", {
+                    detail: {
+                        start: values[0].trim(),
+                        end: values[1].trim(),
+                    },
+                }));
             }
-        }
-    };
-
-    private handleBlur: EventListener = () => {
-        this.validate();
-        if (this.model.callbacks?.onBlur && typeof this.model.callbacks.onBlur === "function") {
-            this.model.callbacks?.onBlur(this.model.value);
-        }
-    };
-
-    private handleFocus: EventListener = () => {
-        if (this.model.callbacks?.onFocus && typeof this.model.callbacks.onFocus === "function") {
-            this.model.callbacks?.onFocus(this.model.value);
+        } else if (this.model.mode === "multiple") {
+            this.dispatchEvent(new CustomEvent("change", {
+                detail: {
+                    values: this.model.value.toString().split(",").map((value) => value.trim()),
+                },
+            }));
+        } else {
+            this.dispatchEvent(new CustomEvent("change", {
+                detail: {
+                    value: this.model.value.toString(),
+                },
+            }));
         }
     };
 
@@ -165,18 +131,16 @@ export default class DateInput extends InputBase<IDateInput> {
 
     private renderIcon(): string | TemplateResult {
         let output: string | TemplateResult = "";
-        if (typeof this.model.icon === "string") {
+        if (this.model.icon?.length) {
             output = html`<i>${unsafeHTML(this.model.icon)}</i>`;
-        } else if (this.model.icon instanceof HTMLElement) {
-            output = html`<i>${this.model.icon}</i>`;
         }
         return output;
     }
 
-    private renderLabel(id: string): string | TemplateResult {
+    private renderLabel(): string | TemplateResult {
         let output: string | TemplateResult = "";
         if (this.model.label?.length) {
-            output = html`<label for="${id}">${unsafeHTML(this.model.label)}</label>`;
+            output = html`<label for="${this.inputId}">${unsafeHTML(this.model.label)}</label>`;
         }
         return output;
     }
@@ -185,24 +149,17 @@ export default class DateInput extends InputBase<IDateInput> {
         if (this.model.mode === "range" && !this.firstRender) {
             return;
         }
-        const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${this.model.name}`;
+        this.classList.add("input");
         this.setAttribute("state", this.state);
-        this.className = `input ${this.model.class}`;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
         const view = html`
-            ${this.renderLabel(id)} ${this.renderCopy()}
+            ${this.renderLabel()} ${this.renderCopy()}
             <input-container>
                 ${this.renderIcon()}
                 <input
-                    @input=${this.handleInput}
-                    @blur=${this.handleBlur}
-                    @focus=${this.handleFocus}
-                    inputmode="email"
-                    type="email"
-                    id="${id}"
+                    @change=${this.handleInput}
+                    inputmode="text"
+                    type="text"
+                    id="${this.inputId}"
                     .value=${this.model.value ?? ""}
                     placeholder=${this.model.placeholder}
                     name=${this.model.name}
