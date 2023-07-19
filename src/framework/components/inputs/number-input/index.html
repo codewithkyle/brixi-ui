@@ -1,13 +1,23 @@
-<script type="module">
-    import NumberInput from "/js/number-input.js";
-    const test = new NumberInput({
-        label: "Example",
-        required: true,
-        instructions: "This is an example input.",
-        step: 5,
-        min: -50,
-        max: 50,
-        value: 5,
+<number-input-component
+    data-label="Example"
+    data-required="true"
+    data-instructions="This is an example input."
+    data-step="5"
+    data-min="-50"
+    data-max="50"
+    data-value="5"
+    data-name="example"
+></number-input-component>
+
+<script>
+    const inputComponent = document.querySelector('number-input-component');
+    inputComponent.addEventListener('input', (event) => {
+        console.log(event.detail)
     });
-    document.body.appendChild(test);
+    inputComponent.addEventListener('focus', (event) => {
+        console.log(event.detail);
+    });
+    inputComponent.addEventListener('blur', (event) => {
+        console.log(event.detail);
+    });
 </script>

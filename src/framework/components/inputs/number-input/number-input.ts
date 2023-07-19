@@ -1,48 +1,29 @@
+import { UUID } from "@codewithkyle/uuid";
 import { html, render, TemplateResult } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import env from "~brixi/controllers/env";
-import { noop } from "~brixi/utils/general";
-import { InputBase, IInputBase, IInputBaseSettings, IInputEvents } from "../input-base";
+import { InputBase, IInputBase } from "../input-base";
+
+env.css("input");
 
 interface INumberInput extends IInputBase {
     label: string;
     instructions: string;
-    icon: string | HTMLElement;
+    icon: string;
     placeholder: string;
     readOnly: boolean;
-    callbacks: Partial<IInputEvents>;
-    css: string;
-    class: string;
-    attributes: {
-        [name: string]: string | number;
-    };
     autofocus: boolean;
     value: number | null;
     min: number;
     max: number;
     step: number;
 }
-export interface NumberInputSettings extends IInputBaseSettings {
-    label?: string;
-    instructions?: string;
-    icon?: string | HTMLElement;
-    placeholder?: string;
-    readOnly?: boolean;
-    callbacks?: Partial<IInputEvents>;
-    css?: string;
-    class?: string;
-    attributes?: {
-        [name: string]: string | number;
-    };
-    autofocus?: boolean;
-    value?: number | null;
-    min?: number;
-    max?: number;
-    step?: number;
-}
 export default class NumberInput extends InputBase<INumberInput> {
-    constructor(settings: NumberInputSettings) {
-        super(settings);
+    private inputId: string;
+
+    constructor() {
+        super();
+        this.inputId = UUID();
         this.model = {
             label: "",
             instructions: null,
@@ -57,20 +38,15 @@ export default class NumberInput extends InputBase<INumberInput> {
             max: 9999,
             step: 1,
             disabled: false,
-            css: "",
-            class: "",
-            callbacks: {
-                onInput: noop,
-                onFocus: noop,
-                onBlur: noop,
-            },
-            attributes: {},
             autofocus: false,
         };
-        env.css("input").then(() => {
-            this.set(settings, true);
-            this.render();
-        });
+    }
+
+    static get observedAttributes() {
+        return [
+            "data-label", "data-instructions", "data-icon", "data-placeholder", "data-value", "data-min", "data-max",
+            "data-step", "data-disabled", "data-autofocus", "data-name", "data-required", "data-read-only",
+        ];
     }
 
     override validate(): boolean {
@@ -95,30 +71,42 @@ export default class NumberInput extends InputBase<INumberInput> {
     }
 
     private handleInput: EventListener = (e: Event) => {
+        e.stopImmediatePropagation();
         const input = e.currentTarget as HTMLInputElement;
+        const value = input.value.replace(/[^\d\.\-]/g, "").trim();
         this.set(
             {
-                value: parseFloat(input.value.replace(/[^\-\d]/g, "")),
-            },
-            true
+                value: value?.length ? parseFloat(value) : null,
+            }
         );
         this.clearError();
-        if (this.model.callbacks?.onInput && typeof this.model.callbacks?.onInput === "function") {
-            this.model.callbacks?.onInput(input.value);
-        }
+        this.dispatchEvent(new CustomEvent("input", {
+            detail: {
+                value: this.model.value,
+                name: this.model.name,
+            }
+        }));
     };
 
-    private handleBlur: EventListener = () => {
+    private handleBlur: EventListener = (e:Event) => {
+        e.stopImmediatePropagation();
         this.validate();
-        if (this.model.callbacks?.onBlur && typeof this.model.callbacks?.onBlur === "function") {
-            this.model.callbacks?.onBlur(this.model.value);
-        }
+        this.dispatchEvent(new CustomEvent("blur", {
+            detail: {
+                value: this.model.value,
+                name: this.model.name,
+            }
+        }));
     };
 
-    private handleFocus: EventListener = () => {
-        if (this.model.callbacks?.onFocus && typeof this.model.callbacks?.onFocus === "function") {
-            this.model.callbacks?.onFocus(this.model.value);
-        }
+    private handleFocus: EventListener = (e:Event) => {
+        e.stopImmediatePropagation();
+        this.dispatchEvent(new CustomEvent("focus", {
+            detail: {
+                value: this.model.value,
+                name: this.model.name,
+            }
+        }));
     };
 
     private renderCopy(): string | TemplateResult {
@@ -133,32 +121,25 @@ export default class NumberInput extends InputBase<INumberInput> {
 
     private renderIcon(): string | TemplateResult {
         let output: string | TemplateResult = "";
-        if (typeof this.model.icon === "string") {
+        if (this.model.icon?.length) {
             output = html`<i>${unsafeHTML(this.model.icon)}</i>`;
-        } else if (this.model.icon instanceof HTMLElement) {
-            output = html`<i>${this.model.icon}</i>`;
         }
         return output;
     }
 
-    private renderLabel(id: string): string | TemplateResult {
+    private renderLabel(): string | TemplateResult {
         let output: string | TemplateResult = "";
         if (this.model.label?.length) {
-            output = html`<label for="${id}">${unsafeHTML(this.model.label)}</label>`;
+            output = html`<label for="${this.inputId}">${unsafeHTML(this.model.label)}</label>`;
         }
         return output;
     }
 
     override render() {
-        const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${this.model.name}`;
         this.setAttribute("state", this.state);
-        this.className = `input ${this.model.class}`;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
+        this.classList.add("input");
         const view = html`
-            ${this.renderLabel(id)} ${this.renderCopy()}
+            ${this.renderLabel()} ${this.renderCopy()}
             <input-container>
                 ${this.renderIcon()}
                 <input
@@ -167,11 +148,11 @@ export default class NumberInput extends InputBase<INumberInput> {
                     @focus=${this.handleFocus}
                     inputmode="numeric"
                     type="number"
-                    id="${id}"
+                    id="${this.inputId}"
                     min=${this.model.min}
                     max=${this.model.max}
                     step=${this.model.step}
-                    .value=${this.model.value ?? ""}
+                    value=${this.model.value ?? ""}
                     placeholder=${this.model.placeholder}
                     name=${this.model.name}
                     ?required=${this.model.required}
