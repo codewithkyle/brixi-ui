@@ -1,47 +1,28 @@
+import { UUID } from "@codewithkyle/uuid";
 import { html, render, TemplateResult } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import env from "~brixi/controllers/env";
-import { noop } from "~brixi/utils/general";
-import { InputBase, IInputBase, IInputBaseSettings, IInputEvents } from "../input-base";
+import { InputBase, IInputBase } from "../input-base";
+
+env.css("input");
 
 interface IPhoneInput extends IInputBase {
     label: string;
     instructions: string;
     autocomplete: string;
-    icon: string | HTMLElement;
+    icon: string;
     placeholder: string;
     readOnly: boolean;
-    callbacks: Partial<IInputEvents>;
-    css: string;
-    class: string;
-    attributes: {
-        [name: string]: string | number;
-    };
     datalist: string[];
     autofocus: boolean;
     value: string;
 }
-interface PhoneInputSettings extends IInputBaseSettings {
-    label?: string;
-    instructions?: string;
-    autocomplete?: string;
-    icon?: string | HTMLElement;
-    placeholder?: string;
-    readOnly?: boolean;
-    callbacks?: Partial<IInputEvents>;
-    css?: string;
-    class?: string;
-    attributes?: {
-        [name: string]: string | number;
-    };
-    datalist?: string[];
-    autofocus?: boolean;
-    value?: string;
-}
-
 export default class PhoneInput extends InputBase<IPhoneInput> {
-    constructor(settings: PhoneInputSettings) {
-        super(settings);
+    private inputId: string;
+
+    constructor() {
+        super();
+        this.inputId = UUID();
         this.model = {
             label: "",
             instructions: null,
@@ -54,21 +35,16 @@ export default class PhoneInput extends InputBase<IPhoneInput> {
             placeholder: "",
             value: null,
             disabled: false,
-            css: "",
-            class: "",
-            callbacks: {
-                onInput: noop,
-                onFocus: noop,
-                onBlur: noop,
-            },
-            attributes: {},
             datalist: [],
             autofocus: false,
         };
-        env.css("input").then(() => {
-            this.set(settings, true);
-            this.render();
-        });
+    }
+
+    static get observedAttributes() {
+        return [
+            "data-label", "data-instructions", "data-name", "data-required", "data-icon", "data-placeholder",
+            "data-value", "data-disabled", "data-datalist", "data-autofocus", "data-read-only",
+        ];
     }
 
     override validate(): boolean {
@@ -106,28 +82,37 @@ export default class PhoneInput extends InputBase<IPhoneInput> {
     }
 
     private handleBlur: EventListener = (e: Event) => {
+        e.stopImmediatePropagation();
         const input = e.currentTarget as HTMLInputElement;
         const formattedValue = this.formatPhoneNumber(input.value);
         this.set({
             value: formattedValue,
         });
         this.validate();
-        if (this.model.callbacks?.onBlur && typeof this.model.callbacks?.onBlur === "function") {
-            this.model.callbacks?.onBlur(formattedValue);
-        }
+        this.dispatchEvent(new CustomEvent("blur", {
+            detail: {
+                value: formattedValue,
+                name: this.model.name,
+            }
+        }));
     };
 
-    private handleFocus: EventListener = () => {
+    private handleFocus: EventListener = (e:Event) => {
+        e.stopImmediatePropagation();
         const value = this.model.value?.toString()?.replace(/[\-\+\s\(\)]/g, "") ?? null;
         this.set({
             value: value,
         });
-        if (this.model.callbacks?.onFocus && typeof this.model.callbacks?.onFocus === "function") {
-            this.model.callbacks?.onFocus(value);
-        }
+        this.dispatchEvent(new CustomEvent("focus", {
+            detail: {
+                value: value,
+                name: this.model.name,
+            }
+        }));
     };
 
     private handleInput: EventListener = (e: Event) => {
+        e.stopImmediatePropagation();
         const input = e.currentTarget as HTMLInputElement;
         this.set(
             {
@@ -136,9 +121,12 @@ export default class PhoneInput extends InputBase<IPhoneInput> {
             true
         );
         this.clearError();
-        if (this.model.callbacks?.onInput && typeof this.model.callbacks?.onInput === "function") {
-            this.model.callbacks?.onInput(input.value);
-        }
+        this.dispatchEvent(new CustomEvent("input", {
+            detail: {
+                value: input.value,
+                name: this.model.name,
+            }
+        }));
     };
 
     private renderCopy(): string | TemplateResult {
@@ -153,32 +141,25 @@ export default class PhoneInput extends InputBase<IPhoneInput> {
 
     private renderIcon(): string | TemplateResult {
         let output: string | TemplateResult = "";
-        if (typeof this.model.icon === "string") {
+        if (this.model.icon?.length) {
             output = html`<i>${unsafeHTML(this.model.icon)}</i>`;
-        } else if (this.model.icon instanceof HTMLElement) {
-            output = html`<i>${this.model.icon}</i>`;
         }
         return output;
     }
 
-    private renderLabel(id: string): string | TemplateResult {
+    private renderLabel(): string | TemplateResult {
         let output: string | TemplateResult = "";
         if (this.model.label?.length) {
-            output = html`<label for="${id}">${unsafeHTML(this.model.label)}</label>`;
+            output = html`<label for="${this.inputId}">${unsafeHTML(this.model.label)}</label>`;
         }
         return output;
     }
 
     override render() {
-        const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${this.model.name}`;
         this.setAttribute("state", this.state);
-        this.className = `input ${this.model.class}`;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
+        this.classList.add("input");
         const view = html`
-            ${this.renderLabel(id)} ${this.renderCopy()}
+            ${this.renderLabel()} ${this.renderCopy()}
             <input-container>
                 ${this.renderIcon()}
                 <input
@@ -187,7 +168,7 @@ export default class PhoneInput extends InputBase<IPhoneInput> {
                     @blur=${this.handleBlur}
                     inputmode="tel"
                     type="tel"
-                    id="${id}"
+                    id="${this.inputId}"
                     .value=${this.model.value ?? ""}
                     placeholder=${this.model.placeholder}
                     name=${this.model.name}
