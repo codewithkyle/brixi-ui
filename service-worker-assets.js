@@ -1,6 +1,6 @@
 
 self.manifest = {
-    "version": "93cc7657f4c43bad689d3c14cccf9776",
+    "version": "0457ff973278ed7000eb6a89fb5aad28",
     "assets": [
 		"/js/accordion.js",
 		"/js/alert.js",
@@ -178,6 +178,7 @@ self.manifest = {
 		"/docs/components/group-button.md",
 		"/docs/components/input-chip.md",
 		"/docs/components/input.md",
+		"/docs/components/lightswitch.md",
 		"/docs/components/notifications.md",
 		"/docs/components/number-input.md",
 		"/docs/components/overflow-button.md",
@@ -315,6 +316,7 @@ self.manifest = {
 		"/raw/components/lightswitch/lightswitch.js",
 		"/raw/components/lightswitch/lightswitch.scss",
 		"/raw/components/lightswitch/lightswitch.ts",
+		"/raw/components/lightswitch/readme.md",
 		"/raw/components/link/link.css",
 		"/raw/components/link/link.html",
 		"/raw/components/link/link.scss",
