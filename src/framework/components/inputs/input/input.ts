@@ -1,52 +1,31 @@
+import { UUID } from "@codewithkyle/uuid";
 import { html, render, TemplateResult } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import env from "~brixi/controllers/env";
-import { noop } from "~brixi/utils/general";
-import { InputBase, IInputBase, IInputBaseSettings, IInputEvents } from "../input-base";
+import { InputBase, IInputBase } from "../input-base";
+
+env.css("input");
 
 export interface IInput extends IInputBase {
     label: string;
     instructions: string;
     autocomplete: string;
     autocapitalize: "off" | "on";
-    icon: string | HTMLElement;
+    icon: string;
     placeholder: string;
     maxlength: number;
     minlength: number;
     readOnly: boolean;
-    callbacks: Partial<IInputEvents>;
-    css: string;
-    class: string;
-    attributes: {
-        [name: string]: string | number;
-    };
     datalist: string[];
     autofocus: boolean;
     value: string;
 }
-export interface InputSettings extends IInputBaseSettings {
-    label?: string;
-    instructions?: string;
-    autocomplete?: string;
-    autocapitalize?: "off" | "on";
-    icon?: string | HTMLElement;
-    placeholder?: string;
-    maxlength?: number;
-    minlength?: number;
-    readOnly?: boolean;
-    callbacks?: Partial<IInputEvents>;
-    css?: string;
-    class?: string;
-    attributes?: {
-        [name: string]: string | number;
-    };
-    datalist?: string[];
-    autofocus?: boolean;
-    value?: string;
-}
 export default class Input extends InputBase<IInput> {
-    constructor(settings: InputSettings) {
-        super(settings);
+    private inputId: string;
+
+    constructor() {
+        super();
+        this.inputId = UUID();
         this.model = {
             label: "",
             instructions: null,
@@ -62,21 +41,17 @@ export default class Input extends InputBase<IInput> {
             minlength: 0,
             disabled: false,
             readOnly: false,
-            callbacks: {
-                onInput: noop,
-                onFocus: noop,
-                onBlur: noop,
-            },
-            css: "",
-            class: "",
-            attributes: {},
             datalist: [],
             autofocus: false,
         };
-        env.css("input").then(() => {
-            this.set(settings, true);
-            this.render();
-        });
+    }
+
+    static get observedAttributes() {
+        return [
+            "data-label", "data-instructions", "data-name", "data-required", "data-autocomplete", "data-autocapitalize",
+            "data-icon", "data-placeholder", "data-value", "data-maxlength", "data-minlength", "data-disabled",
+            "data-read-only", "data-datalist", "data-autofocus"
+        ];
     }
 
     override validate(): boolean {
@@ -85,11 +60,11 @@ export default class Input extends InputBase<IInput> {
             isValid = false;
             this.setError("This field is required.");
         }
-        if (this.model.required || (!this.model.required && this.model.value?.length)) {
-            if (this.model.minlength > this.model.value.length) {
+        else if (this.model.required || (!this.model.required && this.model.value?.length)) {
+            if (this.model.minlength > this.model.value?.length) {
                 isValid = false;
                 this.setError(`This input requires a least ${this.model.minlength} characters.`);
-            } else if (this.model.maxlength < this.model.value.length) {
+            } else if (this.model.maxlength < this.model.value?.length) {
                 isValid = false;
                 this.setError(`This input requires a least ${this.model.minlength} characters.`);
             }
@@ -101,6 +76,7 @@ export default class Input extends InputBase<IInput> {
     }
 
     private handleInput: EventListener = (e: Event) => {
+        e.stopImmediatePropagation();
         const input = e.currentTarget as HTMLInputElement;
         this.set(
             {
@@ -109,22 +85,33 @@ export default class Input extends InputBase<IInput> {
             true
         );
         this.clearError();
-        if (this.model.callbacks?.onInput && typeof this.model.callbacks?.onInput === "function") {
-            this.model.callbacks?.onInput(input.value);
-        }
+        this.dispatchEvent(new CustomEvent("input", {
+            detail: {
+                value: input.value,
+                name: this.model.name,
+            }
+        }));
     };
 
-    private handleBlur: EventListener = () => {
+    private handleBlur: EventListener = (e:Event) => {
+        e.stopImmediatePropagation();
         this.validate();
-        if (this.model.callbacks?.onBlur && typeof this.model.callbacks?.onBlur === "function") {
-            this.model.callbacks?.onBlur(this.model.value);
-        }
+        this.dispatchEvent(new CustomEvent("blur", {
+            detail: {
+                value: this.model.value,
+                name: this.model.name,
+            }
+        }));
     };
 
-    private handleFocus: EventListener = () => {
-        if (this.model.callbacks?.onFocus && typeof this.model.callbacks?.onFocus === "function") {
-            this.model.callbacks?.onFocus(this.model.value);
-        }
+    private handleFocus: EventListener = (e:Event) => {
+        e.stopImmediatePropagation();
+        this.dispatchEvent(new CustomEvent("focus", {
+            detail: {
+                value: this.model.value,
+                name: this.model.name,
+            }
+        }));
     };
 
     private renderCopy(): string | TemplateResult {
@@ -139,27 +126,25 @@ export default class Input extends InputBase<IInput> {
 
     private renderIcon(): string | TemplateResult {
         let output: string | TemplateResult = "";
-        if (typeof this.model.icon === "string") {
+        if (this.model.icon?.length) {
             output = html`<i>${unsafeHTML(this.model.icon)}</i>`;
-        } else if (this.model.icon instanceof HTMLElement) {
-            output = html`<i>${this.model.icon}</i>`;
         }
         return output;
     }
 
-    private renderLabel(id: string): string | TemplateResult {
+    private renderLabel(): string | TemplateResult {
         let output: string | TemplateResult = "";
         if (this.model.label?.length) {
-            output = html`<label for="${id}">${unsafeHTML(this.model.label)}</label>`;
+            output = html`<label for="${this.inputId}">${unsafeHTML(this.model.label)}</label>`;
         }
         return output;
     }
 
-    private renderDatalist(id: string): string | TemplateResult {
+    private renderDatalist(): string | TemplateResult {
         let out: string | TemplateResult = "";
         if (this.model.datalist.length) {
             out = html`
-                <datalist id="${id}-datalist">
+                <datalist id="${this.inputId}-datalist">
                     ${this.model.datalist.map((item) => {
                         return html` <option value="${item}"></option> `;
                     })}
@@ -170,15 +155,10 @@ export default class Input extends InputBase<IInput> {
     }
 
     render() {
-        const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${this.model.name}`;
         this.setAttribute("state", this.state);
-        this.className = `input ${this.model.class}`;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
+        this.classList.add("input");
         const view = html`
-            ${this.renderLabel(id)} ${this.renderCopy()}
+            ${this.renderLabel()} ${this.renderCopy()}
             <input-container>
                 ${this.renderIcon()}
                 <input
@@ -186,7 +166,7 @@ export default class Input extends InputBase<IInput> {
                     @blur=${this.handleBlur}
                     @focus=${this.handleFocus}
                     type="text"
-                    id="${id}"
+                    id="${this.inputId}"
                     maxlength=${this.model.maxlength}
                     minlength="${this.model.minlength}"
                     .value=${this.model.value ?? ""}
@@ -196,11 +176,11 @@ export default class Input extends InputBase<IInput> {
                     autocomplete="${this.model.autocomplete}"
                     ?required=${this.model.required}
                     ?disabled=${this.model.disabled}
-                    list="${this.model.datalist.length ? `${id}-datalist` : ""}"
+                    list="${this.model.datalist.length ? `${this.inputId}-datalist` : ""}"
                     ?autofocus=${this.model.autofocus}
                 />
             </input-container>
-            ${this.renderDatalist(id)}
+            ${this.renderDatalist()}
         `;
         render(view, this);
     }

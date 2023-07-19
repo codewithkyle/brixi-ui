@@ -1,13 +1,18 @@
+import { UUID } from "@codewithkyle/uuid";
 import { html, render, TemplateResult } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import env from "~brixi/controllers/env";
-import { noop } from "~brixi/utils/general";
 import { InputBase } from "../input-base";
-import { IInput, InputSettings } from "../input/input";
+import { IInput } from "../input/input";
+
+env.css("input");
 
 export default class EmailInput extends InputBase<IInput> {
-    constructor(settings: InputSettings) {
-        super(settings);
+    private inputId: string;
+
+    constructor() {
+        super();
+        this.inputId = UUID();
         this.model = {
             label: "",
             instructions: null,
@@ -23,21 +28,17 @@ export default class EmailInput extends InputBase<IInput> {
             disabled: false,
             maxlength: 9999,
             minlength: 0,
-            css: "",
-            class: "",
-            callbacks: {
-                onInput: noop,
-                onFocus: noop,
-                onBlur: noop,
-            },
-            attributes: {},
             datalist: [],
             autofocus: false,
         };
-        env.css("input").then(() => {
-            this.set(settings, true);
-            this.render();
-        });
+    }
+
+    static get observedAttributes() {
+        return [
+            "data-label", "data-instructions", "data-name", "data-required", "data-autocomplete", "data-autocapitalize",
+            "data-icon", "data-placeholder", "data-value", "data-maxlength", "data-minlength", "data-disabled", "data-read-only",
+            "data-datalist", "data-autofocus"
+        ];
     }
 
     override validate(): boolean {
@@ -47,7 +48,7 @@ export default class EmailInput extends InputBase<IInput> {
             isValid = false;
             this.setError("This field is required.");
         }
-        if (this.model.required || (!this.model.required && this.model.value?.length)) {
+        else if (this.model.required || (!this.model.required && this.model.value?.length)) {
             if (this.model.value.length && !EmailTest.test(this.model.value)) {
                 isValid = false;
                 this.setError(`Invalid email format.`);
@@ -66,6 +67,7 @@ export default class EmailInput extends InputBase<IInput> {
     }
 
     private handleInput: EventListener = (e: Event) => {
+        e.stopImmediatePropagation();
         const input = e.currentTarget as HTMLInputElement;
         this.set(
             {
@@ -74,22 +76,33 @@ export default class EmailInput extends InputBase<IInput> {
             true
         );
         this.clearError();
-        if (this.model.callbacks?.onInput && typeof this.model.callbacks?.onInput === "function") {
-            this.model.callbacks?.onInput(input.value);
-        }
+        this.dispatchEvent(new CustomEvent("input", {
+            detail: {
+                value: input.value,
+                name: this.model.name,
+            }
+        }));
     };
 
-    private handleBlur: EventListener = () => {
+    private handleBlur: EventListener = (e:Event) => {
+        e.stopImmediatePropagation();
         this.validate();
-        if (this.model.callbacks?.onBlur && typeof this.model.callbacks?.onBlur === "function") {
-            this.model.callbacks?.onBlur(this.model.value);
-        }
+        this.dispatchEvent(new CustomEvent("blur", {
+            detail: {
+                value: this.model.value,
+                name: this.model.name,
+            }
+        }));
     };
 
-    private handleFocus: EventListener = () => {
-        if (this.model.callbacks?.onFocus && typeof this.model.callbacks?.onFocus === "function") {
-            this.model.callbacks?.onFocus(this.model.value);
-        }
+    private handleFocus: EventListener = (e:Event) => {
+        e.stopImmediatePropagation();
+        this.dispatchEvent(new CustomEvent("focus", {
+            detail: {
+                value: this.model.value,
+                name: this.model.name,
+            }
+        }));
     };
 
     private renderCopy(): string | TemplateResult {
@@ -104,32 +117,25 @@ export default class EmailInput extends InputBase<IInput> {
 
     private renderIcon(): string | TemplateResult {
         let output: string | TemplateResult = "";
-        if (typeof this.model.icon === "string") {
+        if (this.model.icon?.length) {
             output = html`<i>${unsafeHTML(this.model.icon)}</i>`;
-        } else if (this.model.icon instanceof HTMLElement) {
-            output = html`<i>${this.model.icon}</i>`;
         }
         return output;
     }
 
-    private renderLabel(id: string): string | TemplateResult {
+    private renderLabel(): string | TemplateResult {
         let output: string | TemplateResult = "";
         if (this.model.label?.length) {
-            output = html`<label for="${id}">${unsafeHTML(this.model.label)}</label>`;
+            output = html`<label for="${this.inputId}">${unsafeHTML(this.model.label)}</label>`;
         }
         return output;
     }
 
     override render() {
-        const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${this.model.name}`;
         this.setAttribute("state", this.state);
-        this.className = `input ${this.model.class}`;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
+        this.classList.add("input");
         const view = html`
-            ${this.renderLabel(id)} ${this.renderCopy()}
+            ${this.renderLabel()} ${this.renderCopy()}
             <input-container>
                 ${this.renderIcon()}
                 <input
@@ -138,7 +144,7 @@ export default class EmailInput extends InputBase<IInput> {
                     @focus=${this.handleFocus}
                     inputmode="email"
                     type="email"
-                    id="${id}"
+                    id="${this.inputId}"
                     .value=${this.model.value ?? ""}
                     placeholder=${this.model.placeholder}
                     name=${this.model.name}
