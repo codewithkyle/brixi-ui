@@ -1,15 +1,15 @@
-import{html as n,render as a}from"./lit-html.js";import l from"./env.js";import{noop as i}from"./general.js";import{InputBase as o}from"./input-base.js";class r extends o{constructor(e){super(e);this.handleInput=e=>{const s=e.currentTarget,t=s.value;this.set({value:t.substring(1)}),this.model.callback(s.name,t.substring(1))};this.model={css:"",class:"",attributes:{},value:null,name:"",label:"",callback:i,disabled:!1,readOnly:!1,error:"",required:!1},l.css(["color-input"]).then(()=>{this.set(e,!0),this.render()})}validate(){return!0}render(){const e=`${this.model.label.replace(/\s+/g,"-").trim()}-${this.model.name}`;this.className=this.model.class,this.style.cssText=this.model.css,Object.keys(this.model.attributes).map(t=>{this.setAttribute(t,`${this.model.attributes[t]}`)});const s=n`
+import{UUID as n}from"./uuid.js";import{html as o,render as i}from"./lit-html.js";import r from"./env.js";import{InputBase as d}from"./input-base.js";import"./strings.js";r.css(["color-input"]);class l extends d{constructor(){super();this.handleInput=e=>{e.stopImmediatePropagation();const t=e.currentTarget,a=t.value;this.set({value:a}),this.dispatchEvent(new CustomEvent("change",{detail:{name:t.name,value:a}}))};this.inputId=n(),this.model={value:"000000",name:"",label:"",disabled:!1,readOnly:!1,error:"",required:!1}}static get observedAttributes(){return["data-value","data-name","data-label","data-disabled","data-read-only","data-required"]}validate(){return!0}render(){const e=o`
             <input
                 name="${this.model.name}"
-                id="${e}"
+                id="${this.inputId}"
                 @change=${this.handleInput}
                 type="color"
-                .value="${this.model.value??"000000"}"
+                value="${this.model.value}"
                 ?disabled=${this.model.disabled}
                 ?readonly=${this.model.readOnly}
             />
-            <label for="${e}">
-                <color-preview style="background-color:#${this.model.value??"000000"};"></color-preview>
+            <label for="${this.inputId}">
+                <color-preview style="background-color:#${this.model.value.ltrim("#")};"></color-preview>
                 <span>${this.model.label}</span>
             </label>
-        `;a(s,this)}}l.bind("color-input",r);export{r as default};
+        `;i(e,this)}}r.bind("color-input",l);export{l as default};

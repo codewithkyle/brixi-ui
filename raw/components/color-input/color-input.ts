@@ -1,50 +1,35 @@
+import { UUID } from "@codewithkyle/uuid";
 import { html, render } from "lit-html";
 import env from "~brixi/controllers/env";
-import { noop } from "~brixi/utils/general";
-import { IInputBase, IInputBaseSettings, InputBase } from "../input-base";
+import { IInputBase, InputBase } from "../input-base";
+import "~brixi/utils/strings";
+
+env.css(["color-input"]);
 
 export interface IColorInput extends IInputBase {
-    css: string;
-    class: string;
-    attributes: {
-        [name: string]: string | number;
-    };
     value: string;
     label: string;
-    callback: (name: string, value: string) => void;
     readOnly: boolean;
 }
-export interface ColorInputSettings extends IInputBaseSettings {
-    css?: string;
-    class?: string;
-    attributes?: {
-        [name: string]: string | number;
-    };
-    value?: string;
-    label: string;
-    callback: (name: string, value: string) => void;
-    readOnly?: boolean;
-}
 export default class ColorInput extends InputBase<IColorInput> {
-    constructor(settings: ColorInputSettings) {
-        super(settings);
+    private inputId: string;
+
+    constructor() {
+        super();
+        this.inputId = UUID();
         this.model = {
-            css: "",
-            class: "",
-            attributes: {},
-            value: null,
+            value: "000000",
             name: "",
             label: "",
-            callback: noop,
             disabled: false,
             readOnly: false,
             error: "",
             required: false,
         };
-        env.css(["color-input"]).then(() => {
-            this.set(settings, true);
-            this.render();
-        });
+    }
+
+    static get observedAttributes() {
+        return ["data-value", "data-name", "data-label", "data-disabled", "data-read-only", "data-required"];
     }
 
     override validate(): boolean {
@@ -52,33 +37,35 @@ export default class ColorInput extends InputBase<IColorInput> {
     }
 
     private handleInput = (e: Event) => {
+        e.stopImmediatePropagation();
         const target = e.currentTarget as HTMLInputElement;
         const value = target.value;
         this.set({
-            value: value.substring(1),
+            value: value,
         });
-        this.model.callback(target.name, value.substring(1));
+        this.dispatchEvent(
+            new CustomEvent("change", {
+                detail: {
+                    name: target.name,
+                    value: value,
+                },
+            })
+        );
     };
 
     override render() {
-        const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${this.model.name}`;
-        this.className = this.model.class;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
         const view = html`
             <input
                 name="${this.model.name}"
-                id="${id}"
+                id="${this.inputId}"
                 @change=${this.handleInput}
                 type="color"
-                .value="${this.model.value ?? "000000"}"
+                value="${this.model.value}"
                 ?disabled=${this.model.disabled}
                 ?readonly=${this.model.readOnly}
             />
-            <label for="${id}">
-                <color-preview style="background-color:#${this.model.value ?? "000000"};"></color-preview>
+            <label for="${this.inputId}">
+                <color-preview style="background-color:#${this.model.value.ltrim("#")};"></color-preview>
                 <span>${this.model.label}</span>
             </label>
         `;

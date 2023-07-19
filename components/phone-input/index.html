@@ -23,12 +23,22 @@
     <script type="module" src="/js/phone-input.js"></script>
 </head>
 <body>
-    <script type="module">
-    import Input from "/js/phone-input.js";
-    const test = new Input({
-        label: "Example",
+    <phone-input-component
+    data-label="Phone Number"
+    data-name="phone"
+></phone-input-component>
+
+<script>
+    const inputComponent = document.querySelector('phone-input-component');
+    inputComponent.addEventListener('input', (event) => {
+        console.log(event.detail)
     });
-    document.body.appendChild(test);
+    inputComponent.addEventListener('focus', (event) => {
+        console.log(event.detail);
+    });
+    inputComponent.addEventListener('blur', (event) => {
+        console.log(event.detail);
+    });
 </script>
 
 </body>
