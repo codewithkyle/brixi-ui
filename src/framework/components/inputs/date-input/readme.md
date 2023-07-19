@@ -28,6 +28,8 @@
 
 Not sure what Data Attributes are? Learn about [Data Attributes on MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/data-*).
 
+Not sure what `autocomplete` values you can use? Learn about the [autocomplete attribute on MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete).
+
 ### Event Listeners
 
 The `change` event will fire when the user picks dates using the date picker.

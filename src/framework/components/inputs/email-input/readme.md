@@ -13,7 +13,7 @@
 | instructions | string | |
 | icon | string | |
 | required | boolean | |
-| autocomplete | boolean | |
+| autocomplete | string | |
 | autocapitalize | "on" or "off" | |
 | placeholder | string | |
 | value | string | |
@@ -25,6 +25,8 @@
 | autofocus | boolean | |
 
 Not sure what Data Attributes are? Learn about [Data Attributes on MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/data-*).
+
+Not sure what `autocomplete` values you can use? Learn about the [autocomplete attribute on MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete).
 
 ### Event Listeners
 
