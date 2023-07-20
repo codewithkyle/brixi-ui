@@ -56,10 +56,10 @@ html`
 
 ### Event Listeners
 
-The `change` event will fire when the user clicks on one of the buttons.
+The `action` event will fire when the user clicks on one of the buttons.
 
 ```typescript
-document.body.querySelector('toggle-button').addEventListener('change', (e) => {
+document.body.querySelector('toggle-button').addEventListener('action', (e) => {
     console.log(e.detail.id);
 });
 ```

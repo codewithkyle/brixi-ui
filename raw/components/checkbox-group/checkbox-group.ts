@@ -81,21 +81,6 @@ export default class CheckboxGroup extends Component<ICheckboxGroup> {
         }
     }
 
-    private handleChange: EventListener = (e: CustomEvent) => {
-        this.dispatchEvent(
-            new CustomEvent("change", {
-                detail: {
-                    name: this.model.name,
-                    checked: e.detail.checked,
-                    // @ts-ignore
-                    value: e.currentTarget?.getValue(),
-                },
-                bubbles: true,
-                cancelable: true,
-            })
-        );
-    };
-
     override render() {
         this.setAttribute("form-input", "");
         const view = html`
@@ -106,7 +91,6 @@ export default class CheckboxGroup extends Component<ICheckboxGroup> {
             ${this.model.options.map((option: ICheckbox) => {
                 return html`
                     <checkbox-component
-                        @change=${this.handleChange}
                         data-label="${option?.label ?? ""}"
                         data-value="${option?.value ?? ""}"
                         data-checked="${option?.checked ?? false}"

@@ -39,8 +39,8 @@ The `change` event will fire when the user picks dates using the date picker.
 
 ```typescript
 document.body.querySelector('date-input-component').addEventListener('change', (e) => {
-    const { value } = e.detail; // mode: signle
-    const { values } = e.detail; // mode: multiple
-    const { start, end } = e.detail; // mode: range
+    const { name, value } = e.detail; // mode: signle
+    const { name, values } = e.detail; // mode: multiple
+    const { name, start, end } = e.detail; // mode: range
 });
 ```

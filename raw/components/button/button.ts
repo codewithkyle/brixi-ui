@@ -48,6 +48,7 @@ export default class Button extends Component<IButton> {
         this.set(settings);
         this.addEventListener("keydown", this.handleKeydown);
         this.addEventListener("keyup", this.handleKeyup);
+        this.addEventListener("click", this.handleClick);
     }
 
     private renderIcon(): string | TemplateResult {
@@ -71,8 +72,15 @@ export default class Button extends Component<IButton> {
     }
 
     private dispatchClick() {
-        this.dispatchEvent(new CustomEvent("click", { bubbles: true, cancelable: true }));
+        this.dispatchEvent(new CustomEvent("action", { bubbles: true, cancelable: true }));
     }
+
+    private handleClick: EventListener = () => {
+        if (this.model.disabled) {
+            return;
+        }
+        this.dispatchClick();
+    };
 
     private handleKeydown: EventListener = (e: KeyboardEvent) => {
         if (e instanceof KeyboardEvent) {

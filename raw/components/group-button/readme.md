@@ -43,7 +43,7 @@ html`
 The `change` event will fire when the user clicks on one of the buttons.
 
 ```typescript
-document.body.querySelector('group-button-component').addEventListener('action', (e) => {
+document.body.querySelector('group-button-component').addEventListener('change', (e) => {
     console.error(e.detail.id);
 });
 ```

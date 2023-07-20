@@ -28,6 +28,6 @@ The `change` event will fire when the user changes the color.
 
 ```typescript
 document.body.querySelector('color-input').addEventListener('change', (e) => {
-    console.error(e.detail.name, e.detail.value);
+    const { name, value } = e.detail;
 });
 ```

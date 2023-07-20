@@ -38,13 +38,11 @@ export default class ToggleButton extends Component<IToggleButton> {
     override async connected() {
         const settings = parseDataset(this.dataset, this.model);
         this.set(settings);
-        this.addEventListener("click", this.handleClick, { passive: false, capture: true });
+        this.addEventListener("click", this.handleClick);
     }
 
-    private handleClick: EventListener = (e: Event) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const event = new CustomEvent("change", {
+    private handleClick: EventListener = () => {
+        const event = new CustomEvent("action", {
             detail: {
                 id: this.model.buttons[this.model.states[this.model.index]].id,
             },

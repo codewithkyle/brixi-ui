@@ -159,15 +159,16 @@ export default class Select extends Component<ISelect> {
             value: value,
         });
         this.validate();
-        const event = new CustomEvent("change", {
-            detail: {
-                value: value,
-                name: this.model.name,
-            },
-            bubbles: true,
-            cancelable: true,
-        });
-        this.dispatchEvent(event);
+        this.dispatchEvent(
+            new CustomEvent("change", {
+                detail: {
+                    value: value,
+                    name: this.model.name,
+                },
+                bubbles: true,
+                cancelable: true,
+            })
+        );
     };
 
     public getName(): string {
@@ -178,8 +179,33 @@ export default class Select extends Component<ISelect> {
         return this.model.value;
     }
 
-    public handleBlur: EventListener = () => {
+    public handleBlur: EventListener = (e: Event) => {
+        e.stopImmediatePropagation();
         this.validate();
+        this.dispatchEvent(
+            new CustomEvent("blur", {
+                detail: {
+                    value: this.model.value,
+                    name: this.model.name,
+                },
+                bubbles: true,
+                cancelable: true,
+            })
+        );
+    };
+
+    private handleFocus: EventListener = (e: Event) => {
+        e.stopImmediatePropagation();
+        this.dispatchEvent(
+            new CustomEvent("focus", {
+                detail: {
+                    value: this.model.value,
+                    name: this.model.name,
+                },
+                bubbles: true,
+                cancelable: true,
+            })
+        );
     };
 
     public renderLabel(): string | TemplateResult {
@@ -201,6 +227,7 @@ export default class Select extends Component<ISelect> {
                 <select
                     @blur=${this.handleBlur}
                     @change=${this.handleChange}
+                    @focus=${this.handleFocus}
                     id="${this.inputId}"
                     name="${this.model.name}"
                     ?required=${this.model.required}
