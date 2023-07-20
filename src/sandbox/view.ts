@@ -147,8 +147,8 @@ export default class View extends SuperComponent<ViewData> {
                     <p class=" mb-0.5 font-grey-700 font-sm line-normal">
                         There are two ways to use Brixi UI. All the UI components can be installed into a project via NPM using the command
                         <code class="inline-block font-xs font-warning-700 bg-warning-100 px-0.25 radius-0.25">npm i -D brixi-ui</code>
-                        or you can browse the source code of individual components using the menu on the left. Each component is contained in separate JavaScript file that defines
-                        a custom HTML element that can be appended to the DOM.
+                        You can also browse the source code of individual components using the menu on the left. Each component is contained in separate JavaScript files that
+                        define a custom HTML element as a Web Component.
                     </p>
                     <p class=" mb-4 font-grey-700 font-sm line-normal">
                         The benifit of downloading the UI package instead of cherry-picking individual components is all the extra utility classes that the library provides.
@@ -180,8 +180,8 @@ export default class View extends SuperComponent<ViewData> {
 
                     <h2 class="block font-grey-700 font-lg font-bold mb-0.5 line-normal">Who should use Brixi UI?</h2>
                     <p class=" mb-4 font-grey-700 font-sm line-normal">
-                        Everybody, or maybe nobody. The Brixi UI design system is a tool I created for myself to build SPAs faster. All of the components are licensed under MIT.
-                        Feel free to download and use any component for any commercial/non-commercial project.
+                        Everybody, or maybe nobody. The Brixi UI design system is a tool I created for myself to build web applications faster. All of the components are licensed
+                        under MIT. Feel free to download and use any component for any commercial/non-commercial project.
                     </p>
 
                     <h2 class="block font-grey-700 font-lg font-bold mb-0.5 line-normal">Why create a custom CSS framework?</h2>
