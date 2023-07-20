@@ -1,6 +1,6 @@
 
 self.manifest = {
-    "version": "5b6b701ceb613273eb017173b6999487",
+    "version": "07b315021c26e367ac0d79d934ac07f7",
     "assets": [
 		"/js/accordion.js",
 		"/js/alert.js",
@@ -184,6 +184,7 @@ self.manifest = {
 		"/docs/components/notifications.md",
 		"/docs/components/number-input.md",
 		"/docs/components/overflow-button.md",
+		"/docs/components/overflow-menu.md",
 		"/docs/components/pagination.md",
 		"/docs/components/password-input.md",
 		"/docs/components/phone-input.md",
@@ -367,6 +368,7 @@ self.manifest = {
 		"/raw/components/overflow-menu/overflow-menu.js",
 		"/raw/components/overflow-menu/overflow-menu.scss",
 		"/raw/components/overflow-menu/overflow-menu.ts",
+		"/raw/components/overflow-menu/readme.md",
 		"/raw/components/pagination/pagination.css",
 		"/raw/components/pagination/pagination.html",
 		"/raw/components/pagination/pagination.js",
