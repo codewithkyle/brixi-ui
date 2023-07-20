@@ -94,6 +94,8 @@ export default class RangeSlider extends InputBase<IRangeSlider> {
                     value: newValue,
                     name: this.model.name,
                 },
+                bubbles: true,
+                cancelable: true,
             })
         );
     };
@@ -120,6 +122,8 @@ export default class RangeSlider extends InputBase<IRangeSlider> {
                     value: newValue,
                     name: this.model.name,
                 },
+                bubbles: true,
+                cancelable: true,
             })
         );
     };
@@ -132,6 +136,8 @@ export default class RangeSlider extends InputBase<IRangeSlider> {
                     value: this.model.value,
                     name: this.model.name,
                 },
+                bubbles: true,
+                cancelable: true,
             })
         );
     };
@@ -153,6 +159,8 @@ export default class RangeSlider extends InputBase<IRangeSlider> {
                     value: newValue,
                     name: this.model.name,
                 },
+                bubbles: true,
+                cancelable: true,
             })
         );
     };

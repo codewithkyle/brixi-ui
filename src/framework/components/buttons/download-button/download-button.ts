@@ -93,6 +93,8 @@ export default class DownloadButton extends Component<IDownloadButton> {
                             detail: {
                                 blob: new Blob([data]),
                             },
+                            bubbles: true,
+                            cancelable: true,
                         })
                     );
                     this.indicator.remove();
@@ -109,6 +111,8 @@ export default class DownloadButton extends Component<IDownloadButton> {
                             detail: {
                                 error: data,
                             },
+                            bubbles: true,
+                            cancelable: true,
                         })
                     );
                     worker.terminate();

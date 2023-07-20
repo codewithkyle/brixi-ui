@@ -72,6 +72,8 @@ export default class Tabs extends Component<ITabs> {
                 detail: {
                     value: value,
                 },
+                bubbles: true,
+                cancelable: true,
             })
         );
     }
@@ -87,6 +89,8 @@ export default class Tabs extends Component<ITabs> {
                         detail: {
                             values: values,
                         },
+                        bubbles: true,
+                        cancelable: true,
                     })
                 );
             },
@@ -109,6 +113,8 @@ export default class Tabs extends Component<ITabs> {
                         label: label.trim(),
                         value: value,
                     },
+                    bubbles: true,
+                    cancelable: true,
                 })
             );
             const tab: ITab = {

@@ -48,6 +48,8 @@ export default class ToggleButton extends Component<IToggleButton> {
             detail: {
                 id: this.model.buttons[this.model.states[this.model.index]].id,
             },
+            bubbles: true,
+            cancelable: true,
         });
         const updated = this.get();
         updated.index++;

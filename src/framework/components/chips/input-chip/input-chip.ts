@@ -36,6 +36,8 @@ export default class InputChip extends Component<IInputChip> {
                 detail: {
                     value: this.model.value,
                 },
+                bubbles: true,
+                cancelable: true,
             })
         );
         this.remove();

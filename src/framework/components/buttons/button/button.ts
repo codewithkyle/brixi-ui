@@ -71,7 +71,7 @@ export default class Button extends Component<IButton> {
     }
 
     private dispatchClick() {
-        this.dispatchEvent(new CustomEvent("click"));
+        this.dispatchEvent(new CustomEvent("click", { bubbles: true, cancelable: true }));
     }
 
     private handleKeydown: EventListener = (e: KeyboardEvent) => {

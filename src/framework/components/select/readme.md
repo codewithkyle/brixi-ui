@@ -46,17 +46,3 @@ document.body.querySelector('select-component').addEventListener('change', (e) =
     const { name, value } = e.detail;
 });
 ```
-
-### Querying Form Inputs
-
-All form inputs can be queried using the `[form-input]` attribute.
-
-```typescript
-document.body.querySelectorAll("[form-input]").forEach(el => {
-    const name = el.getName();
-    const value = el.getValue();
-    const isValid = el.validate();
-    el.setError("Set a custom error message");
-    el.clearError();
-});
-```

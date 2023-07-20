@@ -104,6 +104,8 @@ export default class PhoneInput extends InputBase<IPhoneInput> {
                     value: formattedValue,
                     name: this.model.name,
                 },
+                bubbles: true,
+                cancelable: true,
             })
         );
     };
@@ -120,6 +122,8 @@ export default class PhoneInput extends InputBase<IPhoneInput> {
                     value: value,
                     name: this.model.name,
                 },
+                bubbles: true,
+                cancelable: true,
             })
         );
     };
@@ -140,6 +144,8 @@ export default class PhoneInput extends InputBase<IPhoneInput> {
                     value: input.value,
                     name: this.model.name,
                 },
+                bubbles: true,
+                cancelable: true,
             })
         );
     };

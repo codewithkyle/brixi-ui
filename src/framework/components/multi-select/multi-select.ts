@@ -235,6 +235,8 @@ export default class MultiSelect extends Component<IMultiSelect> {
                     name: this.model.name,
                     value: out,
                 },
+                bubbles: true,
+                cancelable: true,
             })
         );
     };
@@ -261,6 +263,8 @@ export default class MultiSelect extends Component<IMultiSelect> {
                     name: this.model.name,
                     value: out,
                 },
+                bubbles: true,
+                cancelable: true,
             })
         );
     };

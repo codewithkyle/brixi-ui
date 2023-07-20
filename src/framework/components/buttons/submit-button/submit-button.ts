@@ -52,6 +52,7 @@ export default class SubmitButton extends Component<ISubmitButton> {
             this.dispatchEvent(
                 new CustomEvent("submit", {
                     bubbles: true,
+                    cancelable: true,
                 })
             );
         }

@@ -49,6 +49,8 @@ export default class ColorInput extends InputBase<IColorInput> {
                     name: target.name,
                     value: value,
                 },
+                bubbles: true,
+                cancelable: true,
             })
         );
     };

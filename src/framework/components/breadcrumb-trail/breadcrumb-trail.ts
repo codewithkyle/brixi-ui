@@ -38,6 +38,8 @@ export default class BreadcrumbTrail extends Component<IBreadcrumbTrail> {
                 // @ts-ignore
                 id: e.currentTarget.dataset.id,
             },
+            bubbles: true,
+            cancelable: true,
         });
         this.dispatchEvent(event);
     };

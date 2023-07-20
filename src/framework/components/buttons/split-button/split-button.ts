@@ -53,6 +53,8 @@ export default class SplitButton extends Component<ISplitButton> {
                 detail: {
                     id: this.model.id,
                 },
+                bubbles: true,
+                cancelable: true,
             })
         );
     };
@@ -69,6 +71,8 @@ export default class SplitButton extends Component<ISplitButton> {
                         detail: {
                             id,
                         },
+                        bubbles: true,
+                        cancelable: true,
                     })
                 );
             },

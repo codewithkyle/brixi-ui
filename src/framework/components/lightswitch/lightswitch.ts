@@ -123,6 +123,8 @@ export default class Lightswitch extends Component<ILightswitch> {
                     value: this.model.value,
                     enabled: this.model.enabled,
                 },
+                bubbles: true,
+                cancelable: true,
             })
         );
     };
@@ -145,6 +147,8 @@ export default class Lightswitch extends Component<ILightswitch> {
                         value: this.model.value,
                         enabled: this.model.enabled,
                     },
+                    bubbles: true,
+                    cancelable: true,
                 })
             );
         }
