@@ -90,6 +90,8 @@ export default class CheckboxGroup extends Component<ICheckboxGroup> {
                     // @ts-ignore
                     value: e.currentTarget?.getValue(),
                 },
+                bubbles: true,
+                cancelable: true,
             })
         );
     };

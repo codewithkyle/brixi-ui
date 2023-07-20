@@ -79,7 +79,7 @@ export default class Alert extends Component<IAlert> {
     }
 
     private handleClose: EventListener = () => {
-        const event = new CustomEvent("close");
+        const event = new CustomEvent("close", { bubbles: true, cancelable: true });
         this.dispatchEvent(event);
         this.remove();
     };
@@ -90,6 +90,8 @@ export default class Alert extends Component<IAlert> {
                 // @ts-ignore
                 id: e.currentTarget.dataset.id ?? null,
             },
+            bubbles: true,
+            cancelable: true,
         });
         this.dispatchEvent(event);
     };

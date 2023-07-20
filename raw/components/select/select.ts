@@ -164,6 +164,8 @@ export default class Select extends Component<ISelect> {
                 value: value,
                 name: this.model.name,
             },
+            bubbles: true,
+            cancelable: true,
         });
         this.dispatchEvent(event);
     };

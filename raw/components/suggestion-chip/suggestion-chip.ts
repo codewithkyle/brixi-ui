@@ -36,6 +36,8 @@ export default class SuggestionChip extends Component<ISuggestionChip> {
                 detail: {
                     value: this.model.value,
                 },
+                bubbles: true,
+                cancelable: true,
             })
         );
     };

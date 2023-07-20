@@ -121,6 +121,8 @@ export default class DateInput extends InputBase<IDateInput> {
                             start: values[0].trim(),
                             end: values[1].trim(),
                         },
+                        bubbles: true,
+                        cancelable: true,
                     })
                 );
             }
@@ -133,6 +135,8 @@ export default class DateInput extends InputBase<IDateInput> {
                             .split(",")
                             .map((value) => value.trim()),
                     },
+                    bubbles: true,
+                    cancelable: true,
                 })
             );
         } else {
@@ -141,6 +145,8 @@ export default class DateInput extends InputBase<IDateInput> {
                     detail: {
                         value: this.model.value.toString(),
                     },
+                    bubbles: true,
+                    cancelable: true,
                 })
             );
         }

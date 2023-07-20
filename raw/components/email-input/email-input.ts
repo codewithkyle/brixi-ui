@@ -93,6 +93,8 @@ export default class EmailInput extends InputBase<IInput> {
                     value: input.value,
                     name: this.model.name,
                 },
+                bubbles: true,
+                cancelable: true,
             })
         );
     };
@@ -106,6 +108,8 @@ export default class EmailInput extends InputBase<IInput> {
                     value: this.model.value,
                     name: this.model.name,
                 },
+                bubbles: true,
+                cancelable: true,
             })
         );
     };
@@ -118,6 +122,8 @@ export default class EmailInput extends InputBase<IInput> {
                     value: this.model.value,
                     name: this.model.name,
                 },
+                bubbles: true,
+                cancelable: true,
             })
         );
     };

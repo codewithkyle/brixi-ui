@@ -59,6 +59,8 @@ export default class Pagination extends Component<IPagination> {
                 detail: {
                     page: updated.activePage,
                 },
+                bubbles: true,
+                cancelable: true,
             })
         );
     }

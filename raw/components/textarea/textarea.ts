@@ -148,6 +148,8 @@ export default class Textarea extends Component<ITextarea> {
                     value: this.model.value,
                     name: this.model.name,
                 },
+                bubbles: true,
+                cancelable: true,
             })
         );
     };
@@ -160,6 +162,8 @@ export default class Textarea extends Component<ITextarea> {
                     value: this.model.value,
                     name: this.model.name,
                 },
+                bubbles: true,
+                cancelable: true,
             })
         );
     };
@@ -177,6 +181,8 @@ export default class Textarea extends Component<ITextarea> {
                     value: input.value,
                     name: this.model.name,
                 },
+                bubbles: true,
+                cancelable: true,
             })
         );
     };

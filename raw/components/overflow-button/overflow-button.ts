@@ -58,6 +58,8 @@ export default class OverflowButton extends Component<IOverflowButton> {
                     detail: {
                         id: id,
                     },
+                    bubbles: true,
+                    cancelable: true,
                 });
                 this.dispatchEvent(event);
             },

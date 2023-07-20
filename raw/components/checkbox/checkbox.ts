@@ -67,7 +67,7 @@ export default class Checkbox extends Component<ICheckbox> {
         this.set({
             checked: isChecked,
         });
-        this.dispatchEvent(new CustomEvent("change", { detail: { checked: isChecked, name: this.model.name, value: this.model.value } }));
+        this.dispatchEvent(new CustomEvent("change", { detail: { checked: isChecked, name: this.model.name, value: this.model.value }, bubbles: true, cancelable: true }));
         if (isChecked) {
             soundscape.play("click");
         } else {
@@ -89,7 +89,7 @@ export default class Checkbox extends Component<ICheckbox> {
             this.set({
                 checked: isChecked,
             });
-            this.dispatchEvent(new CustomEvent("change", { detail: { checked: isChecked, name: target.name } }));
+            this.dispatchEvent(new CustomEvent("change", { detail: { checked: isChecked, name: target.name }, bubbles: true, cancelable: true }));
             if (isChecked) {
                 soundscape.play("click");
             } else {

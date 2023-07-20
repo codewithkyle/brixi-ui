@@ -113,6 +113,8 @@ export default class PasswordInput extends InputBase<IPasswordInput> {
                     value: input.value,
                     name: this.model.name,
                 },
+                bubbles: true,
+                cancelable: true,
             })
         );
     };
@@ -126,6 +128,8 @@ export default class PasswordInput extends InputBase<IPasswordInput> {
                     value: this.model.value,
                     name: this.model.name,
                 },
+                bubbles: true,
+                cancelable: true,
             })
         );
     };
@@ -138,6 +142,8 @@ export default class PasswordInput extends InputBase<IPasswordInput> {
                     value: this.model.value,
                     name: this.model.name,
                 },
+                bubbles: true,
+                cancelable: true,
             })
         );
     };

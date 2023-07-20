@@ -1,4 +1,4 @@
-import{html as r,render as s}from"./lit-html.js";import o from"./env.js";import{parseDataset as a}from"./general.js";import{unsafeHTML as d}from"./unsafe-html.js";import c from"./component.js";o.css(["breadcrumb-trail"]);class l extends c{constructor(){super();this.handleClick=e=>{const t=new CustomEvent("navigate",{detail:{id:e.currentTarget.dataset.id}});this.dispatchEvent(t)};this.model={links:[]}}static get observedAttributes(){return["data-links"]}async connected(){const e=a(this.dataset,this.model);this.set(e)}renderIcon(e){let t="";return e.length?t=r` <i class="icon">${d(decodeURI(e))}</i> `:t="",t}renderLink(e,t=!1){return!e?.label&&!e?.icon?"":r`
+import{html as r,render as s}from"./lit-html.js";import l from"./env.js";import{parseDataset as a}from"./general.js";import{unsafeHTML as d}from"./unsafe-html.js";import c from"./component.js";l.css(["breadcrumb-trail"]);class o extends c{constructor(){super();this.handleClick=e=>{const t=new CustomEvent("navigate",{detail:{id:e.currentTarget.dataset.id},bubbles:!0,cancelable:!0});this.dispatchEvent(t)};this.model={links:[]}}static get observedAttributes(){return["data-links"]}async connected(){const e=a(this.dataset,this.model);this.set(e)}renderIcon(e){let t="";return e.length?t=r` <i class="icon">${d(decodeURI(e))}</i> `:t="",t}renderLink(e,t=!1){return!e?.label&&!e?.icon?"":r`
             <button sfx="button" type="button" @click=${this.handleClick} data-id="${e.id}" aria-label="${e?.ariaLabel??""}">
                 ${this.renderIcon(e?.icon??"")} ${e?.label?.length?r` <span>${e.label}</span> `:""}
             </button>
@@ -56,4 +56,4 @@ import{html as r,render as s}from"./lit-html.js";import o from"./env.js";import{
                     <polyline points="9 6 15 12 9 18"></polyline>
                 </svg>
                 ${this.renderLink(this.model.links[this.model.links.length-1])}
-            `,s(e,this)}}o.bind("breadcrumb-trail",l);export{l as default};
+            `,s(e,this)}}l.bind("breadcrumb-trail",o);export{o as default};

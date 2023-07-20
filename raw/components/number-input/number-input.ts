@@ -95,6 +95,8 @@ export default class NumberInput extends InputBase<INumberInput> {
                     value: this.model.value,
                     name: this.model.name,
                 },
+                bubbles: true,
+                cancelable: true,
             })
         );
     };

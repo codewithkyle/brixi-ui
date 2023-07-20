@@ -55,6 +55,8 @@ export default class Steps extends Component<ISteps> {
                     detail: {
                         step: this.model.steps[index].name,
                     },
+                    bubbles: true,
+                    cancelable: true,
                 })
             );
         }

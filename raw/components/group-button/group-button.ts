@@ -43,6 +43,8 @@ export default class GroupButton extends Component<IGroupButton> {
             detail: {
                 id: target.dataset.id,
             },
+            bubbles: true,
+            cancelable: true,
         });
         this.dispatchEvent(event);
     };
