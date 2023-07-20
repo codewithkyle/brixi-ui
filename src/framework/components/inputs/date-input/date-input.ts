@@ -118,6 +118,7 @@ export default class DateInput extends InputBase<IDateInput> {
                 this.dispatchEvent(
                     new CustomEvent("change", {
                         detail: {
+                            name: this.model.name,
                             start: values[0].trim(),
                             end: values[1].trim(),
                         },
@@ -130,6 +131,7 @@ export default class DateInput extends InputBase<IDateInput> {
             this.dispatchEvent(
                 new CustomEvent("change", {
                     detail: {
+                        name: this.model.name,
                         values: this.model.value
                             .toString()
                             .split(",")
@@ -143,6 +145,7 @@ export default class DateInput extends InputBase<IDateInput> {
             this.dispatchEvent(
                 new CustomEvent("change", {
                     detail: {
+                        name: this.model.name,
                         value: this.model.value.toString(),
                     },
                     bubbles: true,
