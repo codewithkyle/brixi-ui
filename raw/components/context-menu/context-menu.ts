@@ -3,6 +3,8 @@ import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~brixi/controllers/env";
 import pos from "~brixi/controllers/pos";
 
+env.css(["context-menu"]);
+
 export interface ContextMenuItem {
     label: string;
     hotkey?: string;
@@ -26,12 +28,7 @@ export default class ContextMenu extends SuperComponent<IContextMenu> {
             x: 0,
             y: 0,
         };
-        env.css(["context-menu"]).then(() => {
-            if (!this.isConnected) {
-                document.body.appendChild(this);
-            }
-            this.set(settings);
-        });
+        this.set(settings);
     }
 
     override connected() {
@@ -64,7 +61,9 @@ export default class ContextMenu extends SuperComponent<IContextMenu> {
     private handleItemClick: EventListener = (e: Event) => {
         const target = e.currentTarget as HTMLElement;
         const index = parseInt(target.dataset.index);
-        this.model.items?.[index]?.callback();
+        if (this.model.items?.[index]?.callback && typeof this.model.items?.[index]?.callback === "function") {
+            this.model.items[index].callback();
+        }
     };
 
     private renderItem(item: ContextMenuItem, index: number): TemplateResult {
@@ -80,6 +79,9 @@ export default class ContextMenu extends SuperComponent<IContextMenu> {
     }
 
     override render() {
+        if (!this.isConnected) {
+            document.body.appendChild(this);
+        }
         const view = html` ${this.model.items?.map((item, index) => this.renderItem(item, index))} `;
         render(view, this);
         pos.positionElement(this, this.model.x, this.model.y);
