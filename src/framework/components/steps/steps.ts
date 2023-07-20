@@ -1,8 +1,10 @@
 import { html, render } from "lit-html";
-import SuperComponent from "@codewithkyle/supercomponent";
+import Component from "~brixi/component";
 import env from "~brixi/controllers/env";
-import { noop, parseDataset } from "~brixi/utils/general";
+import { parseDataset } from "~brixi/utils/general";
 import { calcPercent } from "~brixi/utils/numpy";
+
+env.css(["steps", "steps-vertical", "steps-horizontal"]);
 
 export interface Step {
     label: string;
@@ -11,51 +13,34 @@ export interface Step {
 }
 export interface ISteps {
     steps: Array<Step>;
-    callback: Function;
     activeStep: number;
     step: string;
     layout: "horizontal" | "vertical";
-    css: string;
-    class: string;
-    attributes: {
-        [name: string]: string | number;
-    };
 }
-export interface StepsSettings {
-    steps: Array<Step>;
-    callback?: Function;
-    step: string;
-    layout?: "horizontal" | "vertical";
-    css?: string;
-    class?: string;
-    attributes?: {
-        [name: string]: string | number;
-    };
-}
-export default class Steps extends SuperComponent<ISteps> {
-    constructor(settings: StepsSettings) {
+export default class Steps extends Component<ISteps> {
+    constructor() {
         super();
         this.model = {
-            callback: noop,
-            steps: settings?.steps ?? [],
+            steps: [],
             activeStep: 0,
-            step: settings?.step ?? null,
+            step: null,
             layout: "vertical",
-            css: "",
-            class: "",
-            attributes: {},
         };
-        this.model = parseDataset<ISteps>(this.dataset, this.model);
-        for (let i = 0; i < this.model.steps.length; i++) {
-            if (this.model.steps[i].name === this.model.step) {
-                this.model.activeStep = i;
+    }
+
+    static get observedAttributes() {
+        return ["data-steps", "data-step", "data-layout"];
+    }
+
+    override async connected() {
+        const settings = parseDataset(this.dataset, this.model);
+        for (let i = 0; i < settings.steps.length; i++) {
+            if (settings.steps[i].name === settings?.step ?? null) {
+                settings.activeStep = i;
                 break;
             }
         }
-        env.css(["steps", `steps-${settings?.layout ?? this.model.layout}`]).then(() => {
-            this.set(settings, true);
-            this.render();
-        });
+        this.set(settings);
     }
 
     private handleClick: EventListener = (e: Event) => {
@@ -65,12 +50,18 @@ export default class Steps extends SuperComponent<ISteps> {
             this.set({
                 activeStep: index,
             });
-            this.model.callback(target.dataset.name);
+            this.dispatchEvent(
+                new CustomEvent("step", {
+                    detail: {
+                        step: this.model.steps[index].name,
+                    },
+                })
+            );
         }
     };
 
     private renderVerticalStep(step: Step, index: number) {
-        let state;
+        let state: string;
         if (this.model.activeStep === index) {
             state = "active";
         } else if (this.model.activeStep > index) {
@@ -94,7 +85,7 @@ export default class Steps extends SuperComponent<ISteps> {
     }
 
     private renderHorizontalStep(step: Step, index: number) {
-        let state;
+        let state: string;
         if (this.model.activeStep === index) {
             state = "active";
         } else if (this.model.activeStep > index) {
@@ -124,14 +115,10 @@ export default class Steps extends SuperComponent<ISteps> {
                 }
             })}
         `;
-        this.className = `${this.model.layout} ${this.model.class}`;
-        this.style.cssText = this.model.css;
+        this.classList.add(this.model.layout);
         if (this.model.layout === "horizontal") {
             this.style.gridTemplateColumns = `repeat(${this.model.steps.length}, minmax(300px, ${Math.floor(calcPercent(1, this.model.steps.length))}%))`;
         }
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
         render(view, this);
     }
 }
