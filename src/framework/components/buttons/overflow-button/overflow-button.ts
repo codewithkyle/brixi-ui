@@ -47,8 +47,7 @@ export default class OverflowButton extends Component<IOverflowButton> {
         this.addEventListener("click", this.handleClick);
     }
 
-    private handleClick: EventListener = (e: Event) => {
-        e.stopImmediatePropagation();
+    private handleClick: EventListener = () => {
         const container = new OverflowMenu({
             uid: this.uid,
             items: this.model.items,
