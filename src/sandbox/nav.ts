@@ -145,7 +145,7 @@ export default class Nav extends SuperComponent<NavData> {
                             target="_blank"
                             rel="noopener"
                             tooltip="Project board"
-                            href="https://github.com/codewithkyle/brixi-components/projects/1"
+                            href="https://github.com/users/codewithkyle/projects/4"
                             class="bttn"
                             shape="round"
                             kind="text"
