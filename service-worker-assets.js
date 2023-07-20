@@ -1,6 +1,6 @@
 
 self.manifest = {
-    "version": "81a43150cd870db6a8e96d0b6451d8e5",
+    "version": "ae8cc24fdb81acad651f9a6945b3932d",
     "assets": [
 		"/js/accordion.js",
 		"/js/alert.js",
@@ -198,6 +198,7 @@ self.manifest = {
 		"/docs/components/spinner.md",
 		"/docs/components/split-button.md",
 		"/docs/components/status-badge.md",
+		"/docs/components/steps.md",
 		"/docs/components/submit-button.md",
 		"/docs/components/suggestion-chip.md",
 		"/docs/components/textarea.md",
@@ -448,6 +449,7 @@ self.manifest = {
 		"/raw/components/status-badge/status-badge.js",
 		"/raw/components/status-badge/status-badge.scss",
 		"/raw/components/status-badge/status-badge.ts",
+		"/raw/components/steps/readme.md",
 		"/raw/components/steps/steps.css",
 		"/raw/components/steps/steps.html",
 		"/raw/components/steps/steps.js",
