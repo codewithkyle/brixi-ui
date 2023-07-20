@@ -82,6 +82,7 @@ tabs-component {
             line-height: 1;
             height: 32px;
             padding: 0 0.75rem;
+            user-select: none;
 
             &::before {
                 transition: all 80ms var(--ease-in-out);
