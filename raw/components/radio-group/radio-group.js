@@ -1,7 +1,16 @@
-import{html as r,render as o}from"./lit-html.js";import n from"./supercomponent.js";import i from"./env.js";import a from"./radio.js";import{parseDataset as l}from"./general.js";import{unsafeHTML as d}from"./unsafe-html.js";import u from"./soundscape.js";class s extends n{constructor(t){super(),t.options.map(e=>{e.name=t.name,e.disabled=t?.disabled??!1}),this.model={label:"",instructions:"",disabled:!1,name:"",options:[],css:"",class:"",attributes:{},required:!1},this.model=l(this.dataset,this.model),i.css("radio-group").then(()=>{this.set(t,!0),this.render()})}getName(){return this.model.name}getValue(){let t=null;for(let e=0;e<this.model.options.length;e++)if(this.model.options[e].checked){t=this.model.options[e].value;break}return t}reset(){const t=this.get();for(let e=0;e<t.options.length;e++)t.options[e].checked=!1;t.options[0].checked=!0,this.set(t)}clearError(){this.state==="ERROR"&&this.trigger("RESET")}setError(t){t?.length&&(this.set({error:t}),this.trigger("ERROR"),u.play("error"))}validate(){let t=!0;if(this.model.required){t=!1;for(let e=0;e<this.model.options.length;e++)if(this.model.options[e].checked){t=!0;break}t||this.setError("This field is required")}return t}render(){this.className=`${this.model.class} ${this.model.disabled?"is-disabled":""}`,this.style.cssText=this.model.css,Object.keys(this.model.attributes).map(e=>{this.setAttribute(e,`${this.model.attributes[e]}`)}),this.setAttribute("form-input","");const t=r`
+import{html as i,render as s}from"./lit-html.js";import r from"./env.js";import"./radio.js";import{parseDataset as a}from"./general.js";import{unsafeHTML as d}from"./unsafe-html.js";import l from"./soundscape.js";import n from"./component.js";r.css(["radio-group","radio"]);class o extends n{constructor(){super(),this.model={label:"",instructions:"",disabled:!1,name:"",options:[],required:!1}}static get observedAttributes(){return["data-label","data-instructions","data-disabled","data-name","data-required","data-options"]}async connected(){const e=a(this.dataset,this.model);e.options.map(t=>{t.name=e.name,t.disabled=e?.disabled??!1}),this.set(e)}getName(){return this.model.name}getValue(){let e=null;for(let t=0;t<this.model.options.length;t++)if(this.model.options[t].checked){e=this.model.options[t].value;break}return e}reset(){const e=this.get();for(let t=0;t<e.options.length;t++)e.options[t].checked=!1;e.options[0].checked=!0,this.set(e)}clearError(){this.state==="ERROR"&&this.trigger("RESET")}setError(e){e?.length&&(this.set({error:e}),this.trigger("ERROR"),l.play("error"))}validate(){let e=!0;if(this.model.required){e=!1;for(let t=0;t<this.model.options.length;t++)if(this.model.options[t].checked){e=!0;break}e||this.setError("This field is required")}return e}render(){this.setAttribute("form-input","");const e=i`
             <p>
                 <strong>${this.model.label}</strong>
                 ${d(this.model.instructions)}
             </p>
-            ${this.model.options.map(e=>new a(e))}
-        `;o(t,this)}}i.bind("radio-group",s);export{s as default};
+            ${this.model.options.map(t=>i`
+                    <radio-component
+                        data-label="${t.label}"
+                        data-value="${t.value}"
+                        data-checked="${t.checked}"
+                        data-disabled="${t.disabled}"
+                        data-name="${t.name}"
+                        data-required="${t.required}"
+                    ></radio-component>
+                `)}
+        `;s(e,this)}}r.bind("radio-group",o);export{o as default};

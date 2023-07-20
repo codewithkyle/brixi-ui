@@ -1,6 +1,6 @@
 
 self.manifest = {
-    "version": "8f3491f020743127b366816e00d8ef24",
+    "version": "f5f6d0480dee5aa6882cff54d3fd012c",
     "assets": [
 		"/js/accordion.js",
 		"/js/alert.js",
@@ -189,6 +189,8 @@ self.manifest = {
 		"/docs/components/progress-indicator.md",
 		"/docs/components/progress-label.md",
 		"/docs/components/progress-toast.md",
+		"/docs/components/radio-group.md",
+		"/docs/components/radio.md",
 		"/docs/components/range-slider.md",
 		"/docs/components/select.md",
 		"/docs/components/snackbar.md",
@@ -398,11 +400,13 @@ self.manifest = {
 		"/raw/components/radio-group/radio-group.js",
 		"/raw/components/radio-group/radio-group.scss",
 		"/raw/components/radio-group/radio-group.ts",
+		"/raw/components/radio-group/readme.md",
 		"/raw/components/radio/radio.css",
 		"/raw/components/radio/radio.html",
 		"/raw/components/radio/radio.js",
 		"/raw/components/radio/radio.scss",
 		"/raw/components/radio/radio.ts",
+		"/raw/components/radio/readme.md",
 		"/raw/components/range-slider/range-slider.css",
 		"/raw/components/range-slider/range-slider.html",
 		"/raw/components/range-slider/range-slider.js",
