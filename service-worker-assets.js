@@ -1,6 +1,6 @@
 
 self.manifest = {
-    "version": "828ec8fc1e7048f73dcb1158d0e1bffd",
+    "version": "81a43150cd870db6a8e96d0b6451d8e5",
     "assets": [
 		"/js/accordion.js",
 		"/js/alert.js",
@@ -200,6 +200,7 @@ self.manifest = {
 		"/docs/components/status-badge.md",
 		"/docs/components/submit-button.md",
 		"/docs/components/suggestion-chip.md",
+		"/docs/components/textarea.md",
 		"/docs/components/toggle-button.md",
 		"/",
 		"/404",
@@ -469,6 +470,7 @@ self.manifest = {
 		"/raw/components/tabs/tabs.js",
 		"/raw/components/tabs/tabs.scss",
 		"/raw/components/tabs/tabs.ts",
+		"/raw/components/textarea/readme.md",
 		"/raw/components/textarea/textarea.css",
 		"/raw/components/textarea/textarea.html",
 		"/raw/components/textarea/textarea.js",
