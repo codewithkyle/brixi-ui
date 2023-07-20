@@ -1,6 +1,6 @@
 
 self.manifest = {
-    "version": "f95e7c8a3b61ceedd91ccfc0c697bd1a",
+    "version": "8f3491f020743127b366816e00d8ef24",
     "assets": [
 		"/js/accordion.js",
 		"/js/alert.js",
@@ -192,6 +192,7 @@ self.manifest = {
 		"/docs/components/range-slider.md",
 		"/docs/components/select.md",
 		"/docs/components/snackbar.md",
+		"/docs/components/spinner.md",
 		"/docs/components/split-button.md",
 		"/docs/components/status-badge.md",
 		"/docs/components/submit-button.md",
@@ -422,6 +423,7 @@ self.manifest = {
 		"/raw/components/snackbar/snackbar.html",
 		"/raw/components/snackbar/snackbar.js",
 		"/raw/components/snackbar/snackbar.scss",
+		"/raw/components/spinner/readme.md",
 		"/raw/components/spinner/spinner.css",
 		"/raw/components/spinner/spinner.html",
 		"/raw/components/spinner/spinner.js",
