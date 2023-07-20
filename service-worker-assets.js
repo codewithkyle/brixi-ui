@@ -1,6 +1,6 @@
 
 self.manifest = {
-    "version": "07b315021c26e367ac0d79d934ac07f7",
+    "version": "b26f400e53529e9544e0ad884a37df27",
     "assets": [
 		"/js/accordion.js",
 		"/js/alert.js",
@@ -180,6 +180,7 @@ self.manifest = {
 		"/docs/components/input-chip.md",
 		"/docs/components/input.md",
 		"/docs/components/lightswitch.md",
+		"/docs/components/modals.md",
 		"/docs/components/multi-select.md",
 		"/docs/components/notifications.md",
 		"/docs/components/number-input.md",
@@ -342,6 +343,7 @@ self.manifest = {
 		"/raw/components/modals/modals.html",
 		"/raw/components/modals/modals.js",
 		"/raw/components/modals/modals.scss",
+		"/raw/components/modals/readme.md",
 		"/raw/components/multi-select/multi-select.css",
 		"/raw/components/multi-select/multi-select.html",
 		"/raw/components/multi-select/multi-select.js",
