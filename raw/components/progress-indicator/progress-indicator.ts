@@ -1,53 +1,35 @@
 import { html, render } from "lit-html";
-import SuperComponent from "@codewithkyle/supercomponent";
+import Component from "~brixi/component";
 import env from "~brixi/controllers/env";
-import { noop, parseDataset } from "~brixi/utils/general";
+import { parseDataset } from "~brixi/utils/general";
 import { calcPercent } from "~brixi/utils/numpy";
 
+env.css(["progress-indicator"]);
+
 export interface IProgressIndicator {
-    css: string;
-    class: string;
-    attributes: {
-        [name: string]: string | number;
-    };
     size: number;
     tick: number;
     total: number;
-    tickCallback: Function;
-    finishedCallback: Function;
     color: "grey" | "primary" | "success" | "warning" | "danger" | "white";
 }
-export interface ProgressIndicatorSettings {
-    css?: string;
-    class?: string;
-    attributes?: {
-        [name: string]: string | number;
-    };
-    size?: number;
-    total: number;
-    tickCallback?: Function;
-    finishedCallback?: Function;
-    color?: "grey" | "primary" | "success" | "warning" | "danger" | "white";
-}
-export default class ProgressIndicator extends SuperComponent<IProgressIndicator> {
-    constructor(settings: ProgressIndicatorSettings) {
+export default class ProgressIndicator extends Component<IProgressIndicator> {
+    constructor() {
         super();
         this.model = {
-            css: "",
-            class: "",
-            attributes: {},
             size: 24,
             tick: 0,
             total: 1,
-            tickCallback: noop,
-            finishedCallback: noop,
             color: "grey",
         };
-        this.model = parseDataset<IProgressIndicator>(this.dataset, this.model);
-        env.css(["progress-indicator"]).then(() => {
-            this.set(settings, true);
-            this.render();
-        });
+    }
+
+    static get observedAttributes() {
+        return ["data-size", "data-tick", "data-total", "data-color"];
+    }
+
+    override async connected() {
+        const settings = parseDataset(this.dataset, this.model);
+        this.set(settings);
     }
 
     /**
@@ -66,9 +48,22 @@ export default class ProgressIndicator extends SuperComponent<IProgressIndicator
             this.set(updatedModel, true);
             this.render();
             if (updatedModel.tick >= updatedModel.total) {
-                this.model.finishedCallback();
+                this.dispatchEvent(
+                    new CustomEvent("finished", {
+                        bubbles: true,
+                        cancelable: true,
+                    })
+                );
             } else {
-                this.model.tickCallback(updatedModel.tick);
+                this.dispatchEvent(
+                    new CustomEvent("tick", {
+                        detail: {
+                            tick: updatedModel.tick,
+                        },
+                        bubbles: true,
+                        cancelable: true,
+                    })
+                );
             }
         }
     }
@@ -98,11 +93,6 @@ export default class ProgressIndicator extends SuperComponent<IProgressIndicator
     }
 
     override render() {
-        this.className = this.model.class;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
         this.style.width = `${this.model.size}px`;
         this.style.height = `${this.model.size}px`;
         this.setAttribute("tooltip", `${calcPercent(this.model.tick, this.model.total)}%`);

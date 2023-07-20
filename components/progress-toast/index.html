@@ -23,22 +23,19 @@
     <script type="module" src="/js/progress-toast.js"></script>
 </head>
 <body>
-    <script type="module">
-    import Component from "/js/progress-toast.js";
-    const example = new Component({
-        total: 1000,
-        title: "Downloading messages",
-        subtitle: "0 of 1000",
-        tickCallback: (num) => {
-            example.setProgress(`${num} of 1000`);
-        },
-        finishedCallback: () => {
-            alert("Finished downloading messages");
-        },
+    <progress-toast
+    data-title="Downloading messages"
+    data-subtitle="0 of 1000"
+    data-total="1000"
+></progress-toast>
+
+<script>
+    const example = document.querySelector("progress-toast");
+    example.addEventListener("tick", (e) => {
+        example.setProgress(`${e.detail.tick} of 1000`);
     });
-    document.body.appendChild(example);
     setInterval(() => {
-        example.tick();
+        example?.tick(10);
     }, 150);
 </script>
 

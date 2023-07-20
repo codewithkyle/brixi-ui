@@ -1,45 +1,31 @@
 import { html, render } from "lit-html";
-import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~brixi/controllers/env";
-import { noop, parseDataset } from "~brixi/utils/general";
 import "~brixi/components/buttons/button/button";
+import Component from "~brixi/component";
+import { parseDataset } from "~brixi/utils/general";
+
+env.css(["pagination", "button"]);
 
 export interface IPagination {
-    css: string;
-    class: string;
-    attributes: {
-        [name: string]: string | number;
-    };
     totalPages: number;
-    callback: (pageOffset: number) => void;
     activePage: number;
 }
-export interface PaginationSettings {
-    css?: string;
-    class?: string;
-    attributes?: {
-        [name: string]: string | number;
-    };
-    totalPages: number;
-    callback: (pageOffset: number) => void;
-    activePage?: number;
-}
-export default class Pagination extends SuperComponent<IPagination> {
-    constructor(settings: PaginationSettings) {
+export default class Pagination extends Component<IPagination> {
+    constructor() {
         super();
         this.model = {
-            css: "",
-            class: "",
-            attributes: {},
             totalPages: 0,
-            callback: noop,
             activePage: 1,
         };
-        this.model = parseDataset<IPagination>(this.dataset, this.model);
-        env.css(["pagination", "button"]).then(() => {
-            this.set(settings, true);
-            this.render();
-        });
+    }
+
+    static get observedAttributes() {
+        return ["data-total-pages", "data-active-page"];
+    }
+
+    override async connected() {
+        const settings = parseDataset(this.dataset, this.model);
+        this.set(settings);
     }
 
     public back(): void {
@@ -62,13 +48,19 @@ export default class Pagination extends SuperComponent<IPagination> {
     private processPageChange(nextPageNumber: number): void {
         const updated = this.get();
         updated.activePage = nextPageNumber;
-        if (updated.activePage < 0) {
-            updated.activePage = 0;
+        if (updated.activePage < 1) {
+            updated.activePage = 1;
         } else if (updated.activePage > updated.totalPages) {
             updated.activePage = updated.totalPages;
         }
         this.set(updated);
-        this.model.callback(updated.activePage);
+        this.dispatchEvent(
+            new CustomEvent("change", {
+                detail: {
+                    page: updated.activePage,
+                },
+            })
+        );
     }
 
     private calcVisiblePageNumbers(): number[] {
@@ -88,11 +80,6 @@ export default class Pagination extends SuperComponent<IPagination> {
     }
 
     override render() {
-        this.className = this.model.class;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
         const visiblePageNumbers: number[] = this.calcVisiblePageNumbers();
         const view = html`
             <button-component

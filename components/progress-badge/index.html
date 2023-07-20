@@ -23,19 +23,23 @@
     <script type="module" src="/js/progress-badge.js"></script>
 </head>
 <body>
-    <script type="module">
-    import Component from "/js/progress-badge.js";
-    const example = new Component({
-        total: 100,
-        label: "Saving",
-        finishedCallback: () => {
-            alert("Finished");
-            example.reset();
-        },
+    <progress-badge
+    data-total="100"
+    data-label="Saving"
+    data-color="primary"
+></progress-badge>
+
+<script>
+    const example = document.querySelector("progress-badge");
+    example.addEventListener("finished", (e) => {
+        alert("Finished");
+        e.currentTarget.reset();
     });
-    document.body.appendChild(example);
+    example.addEventListener("tick", (e) => {
+        console.log(e.detail.tick);
+    });
     setInterval(() => {
-        example.tick();
+        example?.tick();
     }, 150);
 </script>
 

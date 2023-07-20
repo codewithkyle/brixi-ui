@@ -32,7 +32,7 @@
 
     <script type="module">
         import modals from "/js/modals.js";
-        import Input from "/js/input.js";
+        import "/js/input.js";
         import { html } from "/js/lit-html.js";
 
         document.body.querySelector(".js-bttn-confirm-danger").addEventListener("click", ()=>{
@@ -93,15 +93,17 @@
             modals.form({
                 title: "New Project",
                 view: html`
-                    ${new Input({
-                        placeholder: "Project Name",
-                        name: "projectName",
-                        required: true,
-                    })}
+                    <input-component
+                        data-placeholder="Project Name"
+                        data-name="projectName"
+                        data-required="true"
+                    >
+                    </input-component>
                 `,
                 callbacks: {
-                    submit: (data, form, model)=>{
-                        console.log(data, form, model);
+                    submit: (data, form, modal)=>{
+                        console.log(data, form, modal);
+                        modal.remove();
                     },
                     cancel: ()=>{
                         console.log("Project not created");

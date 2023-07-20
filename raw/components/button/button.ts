@@ -102,7 +102,6 @@ export default class Button extends Component<IButton> {
     };
 
     override render() {
-        this.classList.add("bttn");
         const view = html` ${this.renderIcon()} ${this.renderLabel()} `;
         this.setAttribute("role", "button");
         this.tabIndex = 0;

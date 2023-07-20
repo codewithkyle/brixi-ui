@@ -49,7 +49,11 @@ export default class SubmitButton extends Component<ISubmitButton> {
 
     private handleClick = () => {
         if (this.state !== "SUBMITTING") {
-            this.dispatchEvent(new CustomEvent("submit"));
+            this.dispatchEvent(
+                new CustomEvent("submit", {
+                    bubbles: true,
+                })
+            );
         }
     };
 

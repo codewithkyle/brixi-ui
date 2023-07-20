@@ -13,8 +13,8 @@ import{html as n,render as p}from"./lit-html.js";import{unsafeHTML as o}from"./u
                             data-type="button"
                             data-color="grey"
                             data-kind="solid"
-                            @click=${()=>{"cancel"in t.callbacks&&typeof t.callbacks.cancel=="function"&&t.callbacks.cancel(),e.remove()}}
                             class="mr-0.5"
+                            @click=${()=>{console.log("cancel"),"cancel"in t.callbacks&&typeof t.callbacks.cancel=="function"&&t.callbacks.cancel(),e.remove()}}
                         ></button-component>
                         <submit-button data-label="${t.submit}"></submit-button>
                     </div>
@@ -87,7 +87,7 @@ import{html as n,render as p}from"./lit-html.js";import{unsafeHTML as o}from"./u
                     ></button-component>
                 </div>
             </div>
-        `;e=new s(l,t.width,"static-content"),document.body.appendChild(e)}}const f=new u;var M=f;class s extends HTMLElement{constructor(t,e,l){super();this.view=t,this.width=e,this.className=l,r.css(["modals"]).then(()=>this.render())}render(){this.tabIndex=0,this.focus();const t=n`
+        `;e=new s(l,t.width,"static-content"),document.body.appendChild(e)}}const f=new u;var M=f;class s extends HTMLElement{constructor(t,e,l){super();this.view=t,this.width=e,this.className=l,r.css(["modals","button"]).then(()=>this.render())}render(){this.tabIndex=0,this.focus();const t=n`
             <div class="backdrop"></div>
             <div class="modal" style="width:${this.width}px;">${this.view}</div>
         `;p(t,this)}}r.bind("modal-component",s);export{M as default};

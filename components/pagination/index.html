@@ -23,15 +23,14 @@
     <script type="module" src="/js/pagination.js"></script>
 </head>
 <body>
-    <script type="module">
-    import Component from "/js/pagination.js";
-    const example = new Component({
-        totalPages: 10,
-        callback: (p) => {
-            console.log("Showing page:", p);
-        }
+    <pagination-component
+    data-total-pages="10"
+></pagination-component>
+
+<script>
+    document.querySelector('pagination-component').addEventListener('change', (e) => {
+        console.log(e.detail);
     });
-    document.body.appendChild(example);
 </script>
 
 </body>

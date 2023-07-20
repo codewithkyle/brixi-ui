@@ -73,13 +73,16 @@ export default class DownloadButton extends Component<IDownloadButton> {
             const { type, data } = e.data;
             switch (type) {
                 case "tick":
+                    // @ts-ignore
                     this.indicator.tick(data);
                     break;
                 case "start":
-                    this.indicator = new ProgressIndicator({
+                    this.indicator = new ProgressIndicator();
+                    this.indicator.className = "mr-0.5";
+                    this.indicator.style.marginLeft = "-0.25rem";
+                    // @ts-ignore
+                    this.indicator.set({
                         total: data,
-                        class: "mr-0.5",
-                        css: "margin-left:-0.25rem;",
                         color: "grey",
                     });
                     this.insertBefore(this.indicator, this.childNodes[0]);

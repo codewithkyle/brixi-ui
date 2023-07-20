@@ -1,7 +1,5 @@
-import { html, render } from "lit-html";
 import env from "~brixi/controllers/env";
 import Component from "~brixi/component";
-import { unsafeHTML } from "lit-html/directives/unsafe-html";
 
 const FORM_INPUT_SELECTOR = "[form-input]";
 
@@ -11,6 +9,8 @@ export interface IForm {}
 export default class Form extends Component<IForm> {
     override connected(): void {
         this.render();
+        this.setAttribute("role", "form");
+        this.addEventListener("reset", this.handleReset);
     }
 
     public start() {
@@ -79,13 +79,5 @@ export default class Form extends Component<IForm> {
         e.preventDefault();
         this.reset();
     };
-
-    override render() {
-        this.setAttribute("role", "form");
-        const content = this.innerHTML;
-        this.innerHTML = "";
-        const view = html` <form @reset=${this.handleReset}>${unsafeHTML(content)}</form> `;
-        render(view, this);
-    }
 }
 env.bind("form-component", Form);

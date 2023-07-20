@@ -23,54 +23,36 @@
     <script type="module" src="/js/progress-indicator.js"></script>
 </head>
 <body>
-    <script type="module">
-    import Component from "/js/progress-indicator.js";
-    const example = new Component({
-        total: 100,
-        finishedCallback: () => {
-            example.reset();
-        },
-    });
-    document.body.appendChild(example);
-    const example2 = new Component({
-        total: 100,
-        color: "primary",
-        finishedCallback: () => {
-            example.reset();
-        },
-    });
-    document.body.appendChild(example2);
-    const example3 = new Component({
-        total: 100,
-        color: "success",
-        finishedCallback: () => {
-            example.reset();
-        },
-    });
-    document.body.appendChild(example3);
-    const example4 = new Component({
-        total: 100,
-        color: "warning",
-        finishedCallback: () => {
-            example.reset();
-        },
-    });
-    document.body.appendChild(example4);
-    const example5 = new Component({
-        total: 100,
-        color: "danger",
-        finishedCallback: () => {
-            example.reset();
-        },
-    });
-    document.body.appendChild(example5);
+    <progress-indicator
+    data-total="100"
+></progress-indicator>
 
+<progress-indicator
+    data-total="100"
+    data-color="primary"
+></progress-indicator>
+
+<progress-indicator
+    data-total="100"
+    data-color="success"
+></progress-indicator>
+
+<progress-indicator
+    data-total="100"
+    data-color="warning"
+></progress-indicator>
+
+<progress-indicator
+    data-total="100"
+    data-color="danger"
+></progress-indicator>
+    
+
+<script>
     setInterval(() => {
-        example.tick();
-        example2.tick();
-        example3.tick();
-        example4.tick();
-        example5.tick();
+        document.querySelectorAll('progress-indicator').forEach((element) => {
+            element.tick();
+        });
     }, 150);
 </script>
 
