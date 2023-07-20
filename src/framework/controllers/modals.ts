@@ -114,13 +114,14 @@ class ModalMaker {
                             data-type="button"
                             data-color="grey"
                             data-kind="solid"
+                            class="mr-0.5"
                             @click=${() => {
+                                console.log("cancel");
                                 if ("cancel" in data.callbacks && typeof data.callbacks.cancel === "function") {
                                     data.callbacks.cancel();
                                 }
                                 el.remove();
                             }}
-                            class="mr-0.5"
                         ></button-component>
                         <submit-button data-label="${data.submit}"></submit-button>
                     </div>
@@ -300,7 +301,7 @@ class ModalComponent extends HTMLElement {
         this.view = view;
         this.width = width;
         this.className = className;
-        env.css(["modals"]).then(() => this.render());
+        env.css(["modals", "button"]).then(() => this.render());
     }
 
     private render() {
