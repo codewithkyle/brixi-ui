@@ -34,7 +34,7 @@ export default class ProgressLabel extends Component<IProgressLabel> {
     }
 
     public tick(): void {
-        if (!this.indicator){
+        if (!this.indicator) {
             this.indicator = this.querySelector("progress-indicator");
         }
         // @ts-ignore
@@ -42,7 +42,7 @@ export default class ProgressLabel extends Component<IProgressLabel> {
     }
 
     public reset(): void {
-        if (!this.indicator){
+        if (!this.indicator) {
             this.indicator = this.querySelector("progress-indicator");
         }
         // @ts-ignore
@@ -58,9 +58,7 @@ export default class ProgressLabel extends Component<IProgressLabel> {
 
     override render() {
         const view = html`
-            <progress-indicator
-                data-total="${this.model.total}"
-            ></progress-indicator>
+            <progress-indicator data-total="${this.model.total}"></progress-indicator>
             <div class="ml-0.5" flex="column wrap">
                 <h2 class="block font-bold font-sm line-snug">${this.model.title}</h2>
                 <h3 class="${this.model.subtitle?.length ? "block" : "none"} font-xs font-grey-700 line-snug">${this.model.subtitle}</h3>

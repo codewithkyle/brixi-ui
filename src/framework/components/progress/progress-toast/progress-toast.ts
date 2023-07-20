@@ -56,17 +56,13 @@ export default class ProgressToast extends Component<IProgressToast> {
         el.innerText = subtitle;
     }
 
-    private finishedCallback:EventListener = () => {
+    private finishedCallback: EventListener = () => {
         this.remove();
-    }
+    };
 
     override render() {
         const view = html`
-            <progress-indicator
-                data-total="${this.model.total}"
-                data-color="white"
-                @finished=${this.finishedCallback}
-            ></progress-indicator>
+            <progress-indicator data-total="${this.model.total}" data-color="white" @finished=${this.finishedCallback}></progress-indicator>
             <div class="ml-0.75" flex="column wrap" style="flex:1;">
                 <h2 class="block font-medium font-base mb-0.5 font-white">${this.model.title}</h2>
                 <h3 class="${this.model.subtitle?.length ? "block" : "none"} font-xs font-grey-300">${this.model.subtitle}</h3>
