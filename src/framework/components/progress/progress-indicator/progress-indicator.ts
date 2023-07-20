@@ -48,18 +48,22 @@ export default class ProgressIndicator extends Component<IProgressIndicator> {
             this.set(updatedModel, true);
             this.render();
             if (updatedModel.tick >= updatedModel.total) {
-                this.dispatchEvent(new CustomEvent("finished", {
-                    bubbles: true,
-                    cancelable: true,
-                }));
+                this.dispatchEvent(
+                    new CustomEvent("finished", {
+                        bubbles: true,
+                        cancelable: true,
+                    })
+                );
             } else {
-                this.dispatchEvent(new CustomEvent("tick", {
-                    detail: {
-                        tick: updatedModel.tick,
-                    },
-                    bubbles: true,
-                    cancelable: true,
-                }));
+                this.dispatchEvent(
+                    new CustomEvent("tick", {
+                        detail: {
+                            tick: updatedModel.tick,
+                        },
+                        bubbles: true,
+                        cancelable: true,
+                    })
+                );
             }
         }
     }

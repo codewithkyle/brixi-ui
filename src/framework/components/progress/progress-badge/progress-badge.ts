@@ -52,12 +52,7 @@ export default class ProgressBadge extends Component<IProgressBadge> {
     override render() {
         this.setAttribute("color", this.model.color);
         const view = html`
-            <progress-indicator
-                data-size="18"
-                data-total="${this.model.total}"
-                data-color="${this.model.color}"
-            >
-            </progress-indicator>
+            <progress-indicator data-size="18" data-total="${this.model.total}" data-color="${this.model.color}"> </progress-indicator>
             <span>${this.model.label}</span>
         `;
         render(view, this);
