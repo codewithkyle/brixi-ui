@@ -1,60 +1,52 @@
 import { html, render } from "lit-html";
-import SuperComponent from "@codewithkyle/supercomponent";
+import Component from "~brixi/component";
 import env from "~brixi/controllers/env";
-import { noop, parseDataset } from "~brixi/utils/general";
-import ProgressIndicator from "../progress-indicator/progress-indicator";
+import { parseDataset } from "~brixi/utils/general";
+import "../progress-indicator/progress-indicator";
+
+env.css(["progress-toast"]);
 
 export interface IProgressToast {
-    css: string;
-    class: string;
-    attributes: {
-        [name: string]: string | number;
-    };
     title: string;
     subtitle: string;
-    tickCallback: Function;
-    finishedCallback: Function;
     total: number;
 }
-export interface ProgressToastSettings {
-    css?: string;
-    class?: string;
-    attributes?: {
-        [name: string]: string | number;
-    };
-    title: string;
-    subtitle?: string;
-    total: number;
-    tickCallback?: Function;
-    finishedCallback?: Function;
-}
-export default class ProgressToast extends SuperComponent<IProgressToast> {
-    constructor(settings: ProgressToastSettings) {
+export default class ProgressToast extends Component<IProgressToast> {
+    private indicator: HTMLElement;
+
+    constructor() {
         super();
+        this.indicator = null;
         this.model = {
-            css: "",
-            class: "",
-            attributes: {},
             total: 1,
             title: "",
             subtitle: "",
-            tickCallback: noop,
-            finishedCallback: noop,
         };
-        this.model = parseDataset<IProgressToast>(this.dataset, this.model);
-        env.css(["progress-toast"]).then(() => {
-            this.set(settings);
-        });
     }
 
-    public tick(): void {
-        const progressIndicator: ProgressIndicator = this.querySelector("progress-indicator");
-        progressIndicator.tick();
+    static get observedAttributes() {
+        return ["data-title", "data-subtitle", "data-total"];
+    }
+
+    override async connected() {
+        const settings = parseDataset(this.dataset, this.model);
+        this.set(settings);
+    }
+
+    public tick(amount = 1): void {
+        if (!this.indicator) {
+            this.indicator = this.querySelector("progress-indicator");
+        }
+        // @ts-ignore
+        this.indicator?.tick(amount);
     }
 
     public reset(): void {
-        const progressIndicator: ProgressIndicator = this.querySelector("progress-indicator");
-        progressIndicator.reset();
+        if (!this.indicator) {
+            this.indicator = this.querySelector("progress-indicator");
+        }
+        // @ts-ignore
+        this.indicator?.reset();
     }
 
     public setProgress(subtitle: string): void {
@@ -64,24 +56,17 @@ export default class ProgressToast extends SuperComponent<IProgressToast> {
         el.innerText = subtitle;
     }
 
-    private finishedCallback() {
-        this.model.finishedCallback();
+    private finishedCallback:EventListener = () => {
         this.remove();
     }
 
     override render() {
-        this.className = this.model.class;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
         const view = html`
-            ${new ProgressIndicator({
-                total: this.model.total,
-                tickCallback: this.model.tickCallback.bind(this),
-                finishedCallback: this.finishedCallback.bind(this),
-                color: "white",
-            })}
+            <progress-indicator
+                data-total="${this.model.total}"
+                data-color="white"
+                @finished=${this.finishedCallback}
+            ></progress-indicator>
             <div class="ml-0.75" flex="column wrap" style="flex:1;">
                 <h2 class="block font-medium font-base mb-0.5 font-white">${this.model.title}</h2>
                 <h3 class="${this.model.subtitle?.length ? "block" : "none"} font-xs font-grey-300">${this.model.subtitle}</h3>
