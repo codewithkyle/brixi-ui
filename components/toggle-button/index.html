@@ -30,10 +30,8 @@
     data-buttons='{"IDLING":{"label":"Delete","color":"grey","kind":"solid","id":"delete"},"CONFIRM":{"label":"Are you sure?","color":"danger","kind":"solid","id":"confirm"}}'
 ></toggle-button>
 
-<script type="module" src="/js/toggle-button.js"></script>
-
 <script>
-    document.body.querySelector('toggle-button').addEventListener('change', (e) => {
+    document.body.querySelector('toggle-button').addEventListener('action', (e) => {
         console.log(e.detail.id);
         if (e.detail.id === 'confirm') {
             e.currentTarget.remove();

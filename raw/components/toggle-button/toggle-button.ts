@@ -38,17 +38,22 @@ export default class ToggleButton extends Component<IToggleButton> {
     override async connected() {
         const settings = parseDataset(this.dataset, this.model);
         this.set(settings);
-        this.addEventListener("click", this.handleClick);
     }
 
+    private handleAction: EventListener = (e: CustomEvent) => {
+        e.stopImmediatePropagation();
+    };
+
     private handleClick: EventListener = () => {
-        const event = new CustomEvent("action", {
-            detail: {
-                id: this.model.buttons[this.model.states[this.model.index]].id,
-            },
-            bubbles: true,
-            cancelable: true,
-        });
+        this.dispatchEvent(
+            new CustomEvent("action", {
+                detail: {
+                    id: this.model.buttons[this.model.states[this.model.index]].id,
+                },
+                bubbles: true,
+                cancelable: true,
+            })
+        );
         const updated = this.get();
         updated.index++;
         if (updated.index >= updated.states.length) {
@@ -56,7 +61,6 @@ export default class ToggleButton extends Component<IToggleButton> {
         }
         updated.state = updated.states[updated.index];
         this.set(updated);
-        this.dispatchEvent(event);
     };
 
     private renderButton() {
@@ -70,6 +74,8 @@ export default class ToggleButton extends Component<IToggleButton> {
                 data-shape="${button?.shape ?? "default"}"
                 data-kind="${button?.kind ?? "solid"}"
                 data-icon-position="${button?.iconPosition ?? "left"}"
+                @click="${this.handleClick}"
+                @action=${this.handleAction}
             ></button-component>
         `;
     }
