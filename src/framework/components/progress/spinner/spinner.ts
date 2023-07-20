@@ -1,49 +1,33 @@
 import { html, render } from "lit-html";
-import SuperComponent from "@codewithkyle/supercomponent";
+import Component from "~brixi/component";
 import env from "~brixi/controllers/env";
 import { parseDataset } from "~brixi/utils/general";
+
+env.css(["spinner"]);
 
 export interface ISpinner {
     color: "primary" | "grey" | "white";
     size: number;
-    css: string;
-    class: string;
-    attributes: {
-        [name: string]: string | number;
-    };
 }
-export interface SpinnerSettings {
-    color?: "primary" | "grey" | "white";
-    size?: number;
-    css?: string;
-    class?: string;
-    attributes?: {
-        [name: string]: string | number;
-    };
-}
-export default class Spinner extends SuperComponent<ISpinner> {
-    constructor(settings: SpinnerSettings = {}) {
+export default class Spinner extends Component<ISpinner> {
+    constructor() {
         super();
         this.model = {
             color: "grey",
             size: 18,
-            css: "",
-            class: "",
-            attributes: {},
         };
-        this.model = parseDataset<ISpinner>(this.dataset, this.model);
-        env.css(["spinner"]).then(() => {
-            this.set(settings, true);
-            this.render();
-        });
+    }
+
+    static get observedAttributes() {
+        return ["data-color", "data-size"];
+    }
+
+    override async connected() {
+        const settings = parseDataset(this.dataset, this.model);
+        this.set(settings);
     }
 
     override render() {
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
-        this.style.cssText = `${this.model.css}`;
-        this.className = this.model.class;
         if (this.model.color !== "white") {
             this.style.color = `var(--${this.model.color}-700)`;
         } else {

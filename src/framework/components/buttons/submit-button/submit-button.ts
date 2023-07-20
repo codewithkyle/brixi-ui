@@ -2,7 +2,7 @@ import { html, render, TemplateResult } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import env from "~brixi/controllers/env";
 import { parseDataset } from "~brixi/utils/general";
-import Spinner from "~brixi/components/progress/spinner/spinner";
+import "~brixi/components/progress/spinner/spinner";
 import Component from "~brixi/component";
 import type { ButtonSize } from "../button/button";
 
@@ -57,13 +57,10 @@ export default class SubmitButton extends Component<ISubmitButton> {
         }
     };
 
-    private renderIcon(): string | TemplateResult | HTMLElement {
-        let icon: string | TemplateResult | HTMLElement = "";
+    private renderIcon(): string | TemplateResult {
+        let icon: string | TemplateResult = "";
         if (this.state === "SUBMITTING") {
-            icon = new Spinner({
-                size: 16,
-                class: "mr-0.5",
-            });
+            icon = html` <spinner-component data-size="16" class="mr-0.5"></spinner-component> `;
         } else if (this.model.icon?.length) {
             icon = html`${unsafeHTML(this.model.icon)}`;
         } else {
