@@ -35,6 +35,16 @@ type SelectOption = {
 }
 ```
 
+### Event Listeners
+
+The `change` event will fire when the user changes the selected option.
+
+```typescript
+document.body.querySelector('select-component').addEventListener('change', (e) => {
+    const { name, value } = e.detail;
+});
+```
+
 ### Querying Form Inputs
 
 All form inputs can be queried using the `[form-input]` attribute.

@@ -1,6 +1,6 @@
 
 self.manifest = {
-    "version": "f5f6d0480dee5aa6882cff54d3fd012c",
+    "version": "828ec8fc1e7048f73dcb1158d0e1bffd",
     "assets": [
 		"/js/accordion.js",
 		"/js/alert.js",
@@ -179,6 +179,7 @@ self.manifest = {
 		"/docs/components/input-chip.md",
 		"/docs/components/input.md",
 		"/docs/components/lightswitch.md",
+		"/docs/components/multi-select.md",
 		"/docs/components/notifications.md",
 		"/docs/components/number-input.md",
 		"/docs/components/overflow-button.md",
@@ -337,6 +338,7 @@ self.manifest = {
 		"/raw/components/multi-select/multi-select.js",
 		"/raw/components/multi-select/multi-select.scss",
 		"/raw/components/multi-select/multi-select.ts",
+		"/raw/components/multi-select/readme.md",
 		"/raw/components/notifications/notifications.css",
 		"/raw/components/notifications/notifications.html",
 		"/raw/components/notifications/notifications.js",
