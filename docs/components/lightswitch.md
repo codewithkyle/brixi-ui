@@ -9,6 +9,8 @@
 ></lightswitch-component>
 ```
 
+### Data Attributes
+
 | Data Attribute | Type | Required |
 | -------------- | ---- | -------- |
 | name | string | ✅ |

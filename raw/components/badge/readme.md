@@ -6,6 +6,8 @@
 ></badge-component>
 ```
 
+### Data Attributes
+
 | Data Attribute | Type | Required |
 | -------------- | ---- | -------- |
 | value | number | |

@@ -4,6 +4,8 @@
 ></accordion-component>
 ```
 
+### Data Attributes
+
 | Data Attribute | Type | Required |
 | -------------- | ---- | -------- |
 | sections | AccordionSection[] | ✅ |

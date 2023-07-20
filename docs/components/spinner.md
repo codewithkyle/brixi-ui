@@ -5,6 +5,8 @@
 ></spinner-component>
 ```
 
+### Data Attributes
+
 | Data Attribute | Type | Required |
 | -------------- | ---- | -------- |
 | size | number | |

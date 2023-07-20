@@ -6,6 +6,8 @@
 ></progress-badge>
 ```
 
+### Data Attributes
+
 | Data Attribute | Type | Required |
 | -------------- | ---- | -------- |
 | total | number | ✅ |

@@ -4,6 +4,8 @@
 ></generic-list>
 ```
 
+### Data Attributes
+
 | Data Attribute | Type | Required |
 | -------------- | ---- | -------- |
 | list | List | ✅ |

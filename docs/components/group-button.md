@@ -5,6 +5,8 @@
 ></group-button-component>
 ```
 
+### Data Attributes
+
 | Data Attribute | Type | Required |
 | -------------- | ---- | -------- |
 | active | string | |

@@ -8,6 +8,8 @@
 ></submit-button>
 ```
 
+### Data Attributes
+
 | Data Attribute | Type | Required |
 | -------------- | ---- | -------- |
 | label | string | |

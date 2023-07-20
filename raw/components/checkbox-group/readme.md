@@ -8,6 +8,8 @@
 ></checkbox-group>
 ```
 
+### Data Attributes
+
 | Data Attribute | Type | Required |
 | -------------- | ---- | -------- |
 | name | string | ✅ |

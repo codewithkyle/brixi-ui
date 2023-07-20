@@ -5,6 +5,9 @@
     data-mode="single"
 ></date-input-component>
 ```
+
+### Data Attributes
+
 | Data Attribute | Type | Required |
 | -------------- | ---- | -------- |
 | name | string | ✅ |

@@ -7,6 +7,8 @@
 ></download-button-component>
 ```
 
+### Data Attributes
+
 | Data Attribute | Type | Required |
 | -------------- | ---- | -------- |
 | label | string | |

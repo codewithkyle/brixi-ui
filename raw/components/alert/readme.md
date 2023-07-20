@@ -9,6 +9,8 @@
 ></alert-component>
 ```
 
+### Data Attributes
+
 | Data Attribute | Type | Required |
 | -------------- | ---- | -------- |
 | type | AlertType | ✅ |
