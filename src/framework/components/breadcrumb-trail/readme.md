@@ -4,6 +4,8 @@
 ></breadcrumb-trail>
 ```
 
+### Data Attributes
+
 | Data Attribute | Type | Required |
 | -------------- | ---- | -------- |
 | links | BreadcrumbLink[] | ✅ |

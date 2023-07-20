@@ -7,6 +7,8 @@
 ></status-badge>
 ```
 
+### Data Attributes
+
 | Data Attribute | Type | Required |
 | -------------- | ---- | -------- |
 | color | BadgeColor | ✅ |
