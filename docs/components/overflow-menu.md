@@ -1,6 +1,7 @@
 ```typescript
 import OverflowMenu from "~brixi/components/overflow-menu/overflow-menu";
-new OverflowMenu("test", [
+new OverflowMenu({
+    items: [
         {
             label: "Example",
             id: "example",
@@ -18,7 +19,11 @@ new OverflowMenu("test", [
             id: "example3",
         },
     ],
-);
+    target: this,
+    callback: (id) => {
+        console.log(id);
+    }
+});
 ```
 
 > **Note**: you can render `null` instead of a `ContextItem` to render a horizontal rule.

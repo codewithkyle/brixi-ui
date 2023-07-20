@@ -60,7 +60,7 @@ export default class SplitButton extends Component<ISplitButton> {
     };
 
     private openMenu = () => {
-        const menu = new OverflowMenu({
+        new OverflowMenu({
             target: this,
             uid: this.uid,
             items: this.model.buttons,
@@ -77,7 +77,6 @@ export default class SplitButton extends Component<ISplitButton> {
                 );
             },
         });
-        document.body.appendChild(menu);
     };
 
     private renderIcon(icon: string): string | TemplateResult {

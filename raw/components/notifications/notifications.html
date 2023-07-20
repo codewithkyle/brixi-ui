@@ -21,20 +21,17 @@
             notifications.success("Success!", "Your request has been process.");
         });
         document.body.querySelector(".js-bttn-progress").addEventListener("click", () => {
-            const example = new Component({
-                total: 1000,
-                title: "Downloading messages",
-                subtitle: "0 of 1000",
-                tickCallback: (num) => {
-                    example.setProgress(`${num} of 1000`);
-                },
+            const example = new Component();
+            example.dataset.total = 1000;
+            example.dataset.title = "Downloading messages";
+            example.dataset.subtitle = "0 of 1000";
+            example.addEventListener("tick", (e) => {
+                example.setProgress(`${e.detail.tick} of 1000`);
             });
-            setTimeout(() => {
-                notifications.append(example);
-                setInterval(() => {
-                    example.tick();
-                }, 150);
-            }, 90);
+            notifications.append(example);
+            setInterval(() => {
+                example?.tick();
+            }, 150);
         });
     </script>
 </div>
