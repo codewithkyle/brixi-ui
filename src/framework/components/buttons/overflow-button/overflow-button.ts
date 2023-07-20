@@ -48,7 +48,7 @@ export default class OverflowButton extends Component<IOverflowButton> {
     }
 
     private handleClick: EventListener = () => {
-        const container = new OverflowMenu({
+        new OverflowMenu({
             uid: this.uid,
             items: this.model.items,
             target: this,
@@ -63,7 +63,6 @@ export default class OverflowButton extends Component<IOverflowButton> {
                 this.dispatchEvent(event);
             },
         });
-        document.body.appendChild(container);
     };
 
     override render() {

@@ -79,6 +79,9 @@ export default class OverflowMenu extends Component<IOverflowMenu> {
     }
 
     override render() {
+        if (!this.isConnected) {
+            document.body.appendChild(this);
+        }
         this.setAttribute("overflow-menu-container-id", this.model.uid);
         const view = html`
             ${this.model.items.map((item) => {
