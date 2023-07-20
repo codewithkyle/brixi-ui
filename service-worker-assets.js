@@ -1,6 +1,6 @@
 
 self.manifest = {
-    "version": "0af38fdbdb98d94d4ee6ff9d4ef3a11c",
+    "version": "5b6b701ceb613273eb017173b6999487",
     "assets": [
 		"/js/accordion.js",
 		"/js/alert.js",
@@ -168,6 +168,7 @@ self.manifest = {
 		"/docs/components/checkbox-group.md",
 		"/docs/components/checkbox.md",
 		"/docs/components/color-input.md",
+		"/docs/components/context-menu.md",
 		"/docs/components/date-input.md",
 		"/docs/components/divider.md",
 		"/docs/components/download-button.md",
@@ -270,6 +271,7 @@ self.manifest = {
 		"/raw/components/context-menu/context-menu.js",
 		"/raw/components/context-menu/context-menu.scss",
 		"/raw/components/context-menu/context-menu.ts",
+		"/raw/components/context-menu/readme.md",
 		"/raw/components/date-input/date-input.html",
 		"/raw/components/date-input/date-input.js",
 		"/raw/components/date-input/date-input.ts",
