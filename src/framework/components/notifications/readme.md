@@ -1,7 +1,7 @@
-Toaster messages can be created by importing the static `notifications` class and calling one of the following functions.
+Notification messages can be created by importing the static `notifications` class and calling one of the following functions.
 
 ```typescript
-import notifications from "notifications";
+import notifications from "~brixi/controllers/alerts";
 
 notifications.alert("Something happened", "You did something that triggered this response.");
 
@@ -12,7 +12,7 @@ notifications.warn("Oh no", "Something is preventing us form processing your req
 notifications.error("Error", "Your request has failed with a status code of 0x0001");
 ```
 
-Toaster messages also accept an array of actions.
+Notification messages also accept an array of actions.
 
 ```typescript
 notifications.alert(

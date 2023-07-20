@@ -1,9 +1,11 @@
-<script type="module">
-    import Component from "/js/radio.js";
-    const example = new Component({
-        label: "Example",
-        name: "example",
-        checked: true,
+<radio-component
+    data-label="Example"
+    data-name="example"
+    data-value="example"
+></radio-component>
+
+<script>
+    document.querySelector('radio-component').addEventListener("change", e => {
+        console.log(e.detail);
     });
-    document.body.appendChild(example);
 </script>

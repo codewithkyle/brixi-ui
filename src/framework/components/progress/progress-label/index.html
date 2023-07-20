@@ -1,19 +1,19 @@
-<script type="module">
-    import Component from "/js/progress-label.js";
-    const example = new Component({
-        total: 100,
-        title: "Example label",
-        subtitle: "0 of 100",
-        tickCallback: (num) => {
-            example.setProgress(`${num} of 100`);
-        },
-        finishedCallback: () => {
-            alert("Finished");
-            example.reset();
-        },
+<progress-label
+    data-total="100"
+    data-title="Example label"
+    data-subtitle="0 of 100"
+></progress-label>
+
+<script>
+    const example = document.querySelector("progress-label");
+    example.addEventListener('tick', (e) => {
+        example.setProgress(`${e.detail.tick} of 100`);
     });
-    document.body.appendChild(example);
+    example.addEventListener('finished', (e) => {
+        alert("Finished");
+        example.reset();
+    });
     setInterval(() => {
-        example.tick();
+        example?.tick();
     }, 150);
 </script>

@@ -28,10 +28,10 @@ export interface ISelect {
     autofocus: boolean;
 }
 export default class Select extends Component<ISelect> {
-    override id: string;
+    private inputId: string;
     constructor() {
         super();
-        this.id = UUID();
+        this.inputId = UUID();
         this.state = this.dataset?.disabled ? "DISABLED" : "IDLING";
         this.stateMachine = {
             IDLING: {
@@ -162,6 +162,7 @@ export default class Select extends Component<ISelect> {
         const event = new CustomEvent("change", {
             detail: {
                 value: value,
+                name: this.model.name,
             },
         });
         this.dispatchEvent(event);
@@ -180,7 +181,7 @@ export default class Select extends Component<ISelect> {
     };
 
     public renderLabel(): string | TemplateResult {
-        return html`<label for="${this.id}">${unsafeHTML(this.model.label)}</label>`;
+        return html`<label for="${this.inputId}">${unsafeHTML(this.model.label)}</label>`;
     }
 
     render() {
@@ -198,7 +199,7 @@ export default class Select extends Component<ISelect> {
                 <select
                     @blur=${this.handleBlur}
                     @change=${this.handleChange}
-                    id="${this.id}"
+                    id="${this.inputId}"
                     name="${this.model.name}"
                     ?required=${this.model.required}
                     ?disabled=${this.model.disabled}

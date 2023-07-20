@@ -1,56 +1,17 @@
-<script type="module">
-    import Component from "/js/steps.js";
-    const example = new Component({
-        step: "profile",
-        steps: [
-            {
-                label: "Create account",
-                description: "Vitae sed mi luctus laoreet.",
-                name: "create",
-            },
-            {
-                label: "Profile information",
-                description: "Cursus semper viverra facilisis et et some more.",
-                name: "profile",
-            },
-            {
-                label: "Business information",
-                description: "Penatibus eu quis ante.",
-                name: "business",
-            },
-            {
-                label: "Review",
-                name: "review",
-            },
-        ],
-        callback: (step) => {
-            console.log(step);
-        },
+<steps-component
+    data-step="profile"
+    data-steps='[{"label":"Create account","description":"Vitae sed mi luctus laoreet.","name":"create"},{"label":"Profile information","description":"Cursus semper viverra facilisis et et some more.","name":"profile"},{"label":"Business information","description":"Penatibus eu quis ante.","name":"business"},{"label":"Review","name":"review"}]'
+></steps-component>
+
+<steps-component
+    class="mt-2"
+    data-step="business"
+    data-layout="horizontal"
+    data-steps='[{"label":"Create account","description":"Vitae sed mi luctus laoreet.","name":"create"},{"label":"Profile information","description":"Cursus semper viverra facilisis et et some more.","name":"profile"},{"label":"Business information","description":"Penatibus eu quis ante.","name":"business"},{"label":"Review","name":"review"}]'
+></steps-component>
+
+<script>
+    document.querySelector('steps-component').addEventListener('step', (e) => {
+        console.log(e.detail.step);
     });
-    document.body.appendChild(example);
-    const example2 = new Component({
-        step: "profile",
-        layout: "horizontal",
-        steps: [
-            {
-                label: "Create account",
-                description: "Vitae sed mi luctus laoreet.",
-                name: "create",
-            },
-            {
-                label: "Profile information",
-                description: "Cursus semper viverra facilisis et et some more.",
-                name: "profile",
-            },
-            {
-                label: "Review",
-                name: "review",
-            },
-        ],
-        callback: (step) => {
-            console.log(step);
-        },
-    });
-    example2.classList.add("mt-2");
-    document.body.appendChild(example2);
 </script>

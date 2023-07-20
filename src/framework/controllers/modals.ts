@@ -1,8 +1,8 @@
 import { html, render, TemplateResult } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
-import Button from "~brixi/components/buttons/button/button";
-import SubmitButton from "~brixi/components/buttons/submit-button/submit-button";
-import Form from "~brixi/components/form/form";
+import "~brixi/components/buttons/button/button";
+import "~brixi/components/buttons/submit-button/submit-button";
+import "~brixi/components/form/form";
 import { noop } from "~brixi/utils/general";
 import env from "./env";
 
@@ -46,7 +46,7 @@ interface FormSettings {
     width?: number;
     view: TemplateResult;
     callbacks?: {
-        submit?: (data: { [key: string]: any }, form: Form, modal: HTMLElement) => void;
+        submit?: (data: { [key: string]: any }, form: HTMLElement, modal: HTMLElement) => void;
         cancel?: () => void;
     };
     cancel?: string;
@@ -90,42 +90,43 @@ class ModalMaker {
         );
         let el: HTMLElement;
         const view = html`
-            ${new Form({
-                class: "w-full",
-                view: html`
-                    <div class="block w-full py-1.5 px-2">
-                        ${data.title?.length ? html`<h2>${data.title}</h2>` : ""} ${data.message?.length ? html`<p class="mb-1.5">${unsafeHTML(data.message)}</p>` : ""}
-                        ${data.view}
-                    </div>
-                    <div class="w-full px-0.5 pb-0.5">
-                        <div class="w-full p-0.5 bg-grey-100 radius-0.5" flex="row nowrap items-center justify-end">
-                            ${new Button({
-                                label: data.cancel,
-                                type: "button",
-                                color: "grey",
-                                kind: "solid",
-                                callback: () => {
-                                    if ("cancel" in data.callbacks && typeof data.callbacks.cancel === "function") {
-                                        data.callbacks.cancel();
-                                    }
-                                    el.remove();
-                                },
-                                class: "mr-0.5",
-                            })}
-                            ${new SubmitButton({
-                                label: data.submit,
-                            })}
-                        </div>
-                    </div>
-                `,
-                onSubmit: (form: any) => {
+            <form-component
+                class="w-full"
+                @submit=${(e: Event) => {
+                    e.preventDefault();
+                    const form = e.currentTarget as HTMLElement;
+                    // @ts-ignore
                     const valid = form.checkValidity();
                     if (valid) {
+                        // @ts-ignore
                         const formData = form.serialize();
                         data.callbacks.submit(formData, form, el);
                     }
-                },
-            })}
+                }}
+            >
+                <div class="block w-full py-1.5 px-2">
+                    ${data.title?.length ? html`<h2>${data.title}</h2>` : ""} ${data.message?.length ? html`<p class="mb-1.5">${unsafeHTML(data.message)}</p>` : ""} ${data.view}
+                </div>
+                <div class="w-full px-0.5 pb-0.5">
+                    <div class="w-full p-0.5 bg-grey-100 radius-0.5" flex="row nowrap items-center justify-end">
+                        <button-component
+                            data-label="${data.cancel}"
+                            data-type="button"
+                            data-color="grey"
+                            data-kind="solid"
+                            class="mr-0.5"
+                            @click=${() => {
+                                console.log("cancel");
+                                if ("cancel" in data.callbacks && typeof data.callbacks.cancel === "function") {
+                                    data.callbacks.cancel();
+                                }
+                                el.remove();
+                            }}
+                        ></button-component>
+                        <submit-button data-label="${data.submit}"></submit-button>
+                    </div>
+                </div>
+            </form-component>
         `;
         el = new ModalComponent(view, data.width, "static-content");
         document.body.appendChild(el);
@@ -155,20 +156,21 @@ class ModalMaker {
             <div class="w-full px-0.5 pb-0.5">
                 <div class="w-full p-0.5 bg-grey-100 radius-0.5" flex="row nowrap items-center justify-end">
                     ${data.actions.map(
-                        (action) =>
-                            new Button({
-                                label: action.label,
-                                type: "button",
-                                color: "grey",
-                                kind: "solid",
-                                callback: () => {
+                        (action) => html`
+                            <button-component
+                                data-label="${action.label}"
+                                data-type="button"
+                                data-color="grey"
+                                data-kind="solid"
+                                @click=${() => {
                                     if (typeof action?.callback === "function") {
                                         action.callback();
                                     }
                                     el.remove();
-                                },
-                                class: "ml-0.5",
-                            })
+                                }}
+                                class="mr-0.5"
+                            ></button-component>
+                        `
                     )}
                 </div>
             </div>
@@ -200,31 +202,31 @@ class ModalMaker {
             </div>
             <div class="w-full px-0.5 pb-0.5">
                 <div class="w-full p-0.5 bg-grey-100 radius-0.5" flex="row nowrap items-center justify-end">
-                    ${new Button({
-                        label: data.cancel,
-                        type: "button",
-                        color: "grey",
-                        kind: "solid",
-                        callback: () => {
+                    <button-component
+                        data-label="${data.cancel}"
+                        data-type="button"
+                        data-color="grey"
+                        data-kind="solid"
+                        @click=${() => {
                             if ("cancel" in data.callbacks && typeof data.callbacks.cancel === "function") {
                                 data.callbacks.cancel();
                             }
                             el.remove();
-                        },
-                        class: "mr-0.5",
-                    })}
-                    ${new Button({
-                        label: data.confirm,
-                        type: "button",
-                        color: "primary",
-                        kind: "solid",
-                        callback: () => {
+                        }}
+                        class="mr-0.5"
+                    ></button-component>
+                    <button-component
+                        data-label="${data.confirm}"
+                        data-type="button"
+                        data-color="primary"
+                        data-kind="solid"
+                        @click=${() => {
                             if ("confirm" in data.callbacks && typeof data.callbacks.confirm === "function") {
                                 data.callbacks.confirm();
                             }
                             el.remove();
-                        },
-                    })}
+                        }}
+                    ></button-component>
                 </div>
             </div>
         `;
@@ -255,31 +257,31 @@ class ModalMaker {
             </div>
             <div class="w-full px-0.5 pb-0.5">
                 <div class="w-full p-0.5 bg-grey-100 radius-0.5" flex="row nowrap items-center justify-end">
-                    ${new Button({
-                        label: data.cancel,
-                        type: "button",
-                        color: "grey",
-                        kind: "solid",
-                        callback: () => {
+                    <button-component
+                        data-label="${data.cancel}"
+                        data-type="button"
+                        data-color="grey"
+                        data-kind="solid"
+                        @click=${() => {
                             if ("cancel" in data.callbacks && typeof data.callbacks.cancel === "function") {
                                 data.callbacks.cancel();
                             }
                             el.remove();
-                        },
-                        class: "mr-0.5",
-                    })}
-                    ${new Button({
-                        label: data.confirm,
-                        type: "button",
-                        color: "danger",
-                        kind: "solid",
-                        callback: () => {
+                        }}
+                        class="mr-0.5"
+                    ></button-component>
+                    <button-component
+                        data-label="${data.confirm}"
+                        data-type="button"
+                        data-color="danger"
+                        data-kind="solid"
+                        @click=${() => {
                             if ("confirm" in data.callbacks && typeof data.callbacks.confirm === "function") {
                                 data.callbacks.confirm();
                             }
                             el.remove();
-                        },
-                    })}
+                        }}
+                    ></button-component>
                 </div>
             </div>
         `;
@@ -299,7 +301,7 @@ class ModalComponent extends HTMLElement {
         this.view = view;
         this.width = width;
         this.className = className;
-        env.css(["modals"]).then(() => this.render());
+        env.css(["modals", "button"]).then(() => this.render());
     }
 
     private render() {

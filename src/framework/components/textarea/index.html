@@ -1,13 +1,24 @@
-<script type="module">
-    import Input from "/js/textarea.js";
-    const test = new Input({
-        label: "Example",
-        required: true,
-        instructions: 'This is an <a class="link" href="https://example.com" target="_blank">example</a> input.',
-        placeholder: "Send a message to our support team...",
-        rows: 3,
-        maxlength: 250,
-    });
-    document.body.appendChild(test);
-</script>
+<textarea-component
+    data-label="Example"
+    data-required="true"
+    data-name="example"
+    data-instructions="This is an <a class='link' href='https://example.com' target='_blank'>example</a> input."
+    data-placeholder="Send a message to our support team..."
+    data-rows="3"
+    data-maxlength="250"
+></textarea-component>
+
 <link href="/css/link.css" rel="stylesheet" />
+
+<script>
+    const textarea = document.querySelector("textarea-component");
+    textarea.addEventListener("input", (e) => {
+        console.log("input", e.detail);
+    });
+    textarea.addEventListener("focus", (e) => {
+        console.log("focus", e.detail);
+    });
+    textarea.addEventListener("blur", (e) => {
+        console.log("blur", e.detail);
+    });
+</script>

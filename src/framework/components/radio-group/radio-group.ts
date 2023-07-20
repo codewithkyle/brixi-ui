@@ -1,60 +1,46 @@
 import { html, render } from "lit-html";
-import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~brixi/controllers/env";
-import Radio, { RadioSettings } from "~brixi/components/radio/radio";
+import "~brixi/components/radio/radio";
 import { parseDataset } from "~brixi/utils/general";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import soundscape from "~brixi/controllers/soundscape";
+import Component from "~brixi/component";
+import type { IRadio } from "~brixi/components/radio/radio";
+
+env.css(["radio-group", "radio"]);
 
 export interface IRadioGroup {
-    options: Array<RadioSettings>;
+    options: Array<IRadio>;
     instructions: string;
     disabled: boolean;
     label: string;
     name: string;
-    css: string;
-    class: string;
-    attributes: {
-        [name: string]: string | number;
-    };
     required: boolean;
 }
-export interface RadioGroupSettings {
-    label: string;
-    instructions?: string;
-    options: Array<RadioSettings>;
-    disabled?: boolean;
-    name: string;
-    css?: string;
-    class?: string;
-    attributes?: {
-        [name: string]: string | number;
-    };
-    required?: boolean;
-}
-export default class RadioGroup extends SuperComponent<IRadioGroup> {
-    constructor(settings: RadioGroupSettings) {
+export default class RadioGroup extends Component<IRadioGroup> {
+    constructor() {
         super();
-        settings.options.map((option) => {
-            option.name = settings.name;
-            option.disabled = settings?.disabled ?? false;
-        });
         this.model = {
             label: "",
             instructions: "",
             disabled: false,
             name: "",
             options: [],
-            css: "",
-            class: "",
-            attributes: {},
             required: false,
         };
-        this.model = parseDataset<IRadioGroup>(this.dataset, this.model);
-        env.css("radio-group").then(() => {
-            this.set(settings, true);
-            this.render();
+    }
+
+    static get observedAttributes() {
+        return ["data-label", "data-instructions", "data-disabled", "data-name", "data-required", "data-options"];
+    }
+
+    override async connected() {
+        const settings = parseDataset(this.dataset, this.model);
+        settings.options.map((option) => {
+            option.name = settings.name;
+            option.disabled = settings?.disabled ?? false;
         });
+        this.set(settings);
     }
 
     public getName(): string {
@@ -116,19 +102,23 @@ export default class RadioGroup extends SuperComponent<IRadioGroup> {
     }
 
     override render() {
-        this.className = `${this.model.class} ${this.model.disabled ? "is-disabled" : ""}`;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
         this.setAttribute("form-input", "");
         const view = html`
             <p>
                 <strong>${this.model.label}</strong>
                 ${unsafeHTML(this.model.instructions)}
             </p>
-            ${this.model.options.map((option) => {
-                return new Radio(option);
+            ${this.model.options.map((option: IRadio) => {
+                return html`
+                    <radio-component
+                        data-label="${option.label}"
+                        data-value="${option.value}"
+                        data-checked="${option.checked}"
+                        data-disabled="${option.disabled}"
+                        data-name="${option.name}"
+                        data-required="${option.required}"
+                    ></radio-component>
+                `;
             })}
         `;
         render(view, this);

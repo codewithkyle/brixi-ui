@@ -1,54 +1,43 @@
 import { html, render } from "lit-html";
-import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~brixi/controllers/env";
-import { noop, parseDataset } from "~brixi/utils/general";
+import { parseDataset } from "~brixi/utils/general";
+import Component from "~brixi/component";
+
+env.css(["input-chip"]);
 
 export interface IInputChip {
-    css: string;
-    class: string;
-    attributes: {
-        [name: string]: string | number;
-    };
     label: string;
     value: string | number;
-    callback: Function;
 }
-export interface InputChipSettings {
-    css?: string;
-    class?: string;
-    attributes?: {
-        [name: string]: string | number;
-    };
-    label: string;
-    value: string | number;
-    callback: Function;
-}
-export default class InputChip extends SuperComponent<IInputChip> {
-    constructor(settings: InputChipSettings) {
+export default class InputChip extends Component<IInputChip> {
+    constructor() {
         super();
         this.model = {
-            css: "",
-            class: "",
-            attributes: {},
-            label: null,
+            label: "",
             value: null,
-            callback: noop,
         };
-        this.model = parseDataset<IInputChip>(this.dataset, this.model);
-        env.css(["input-chip"]).then(() => {
-            this.set(settings, true);
-            this.render();
-        });
+    }
+
+    static get observedAttributes() {
+        return ["data-label", "data-value"];
     }
 
     override connected(): void {
+        const settings = parseDataset(this.dataset, this.model);
+        this.set(settings);
         this.addEventListener("click", this.handleClick);
         this.addEventListener("keyup", this.handleKeyup);
         this.addEventListener("keydown", this.handleKeydown);
     }
 
     private handleClick = () => {
-        this.model.callback(this.model.value);
+        this.dispatchEvent(
+            new CustomEvent("remove", {
+                detail: {
+                    value: this.model.value,
+                },
+            })
+        );
         this.remove();
     };
 
@@ -61,19 +50,14 @@ export default class InputChip extends SuperComponent<IInputChip> {
     private handleKeyup = (e: KeyboardEvent) => {
         if (e.key === " ") {
             this.classList.remove("is-active");
-            this.model.callback(this.model.value);
-            this.remove();
+            this.click();
         }
     };
 
     override render() {
-        this.className = this.model.class;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
         this.tabIndex = 0;
         this.setAttribute("role", "button");
+        this.setAttribute("sfx", "button");
         const view = html`
             <span>${this.model.label}</span>
             <svg

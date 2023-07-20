@@ -1,12 +1,7 @@
-import SuperComponent from "@codewithkyle/supercomponent";
 import { parseDataset } from "~brixi/utils/general";
 import soundscape from "~brixi/controllers/soundscape";
+import Component from "~brixi/component";
 
-export interface IInputEvents {
-    onInput?: Function;
-    onFocus?: Function;
-    onBlur?: Function;
-}
 export interface IInputBase {
     name: string;
     error: string;
@@ -14,16 +9,9 @@ export interface IInputBase {
     value: any;
     disabled: boolean;
 }
-export interface IInputBaseSettings {
-    name: string;
-    required?: boolean;
-    value?: any;
-    disabled?: boolean;
-}
-export class InputBase<T> extends SuperComponent<T> {
-    constructor(settings: IInputBaseSettings) {
+export class InputBase<T> extends Component<T> {
+    constructor() {
         super();
-        this.state = settings?.disabled ? "DISABLED" : "IDLING";
         this.stateMachine = {
             IDLING: {
                 ERROR: "ERROR",
@@ -46,9 +34,13 @@ export class InputBase<T> extends SuperComponent<T> {
             disabled: false,
         };
         this.setAttribute("form-input", "");
-        this.model = parseDataset<T>(this.dataset, this.model);
+    }
+
+    override async connected() {
+        const settings = parseDataset(this.dataset, this.model);
         // @ts-ignore
-        this.set(settings, true);
+        this.state = settings?.disabled ? "DISABLED" : "IDLING";
+        this.set(settings);
     }
 
     public reset(): void {

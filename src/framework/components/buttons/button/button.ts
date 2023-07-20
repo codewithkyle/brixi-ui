@@ -62,7 +62,7 @@ export default class Button extends Component<IButton> {
 
     private renderLabel(): string | TemplateResult {
         let label: string | TemplateResult = "";
-        if (this.model.label.length) {
+        if (this.model.label != null) {
             label = html`<span>${this.model.label}</span>`;
         } else {
             label = "";
@@ -102,7 +102,6 @@ export default class Button extends Component<IButton> {
     };
 
     override render() {
-        this.classList.add("bttn");
         const view = html` ${this.renderIcon()} ${this.renderLabel()} `;
         this.setAttribute("role", "button");
         this.tabIndex = 0;

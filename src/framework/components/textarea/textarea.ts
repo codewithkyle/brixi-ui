@@ -1,9 +1,12 @@
 import { html, render, TemplateResult } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
-import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~brixi/controllers/env";
-import { noop, parseDataset } from "~brixi/utils/general";
+import { parseDataset } from "~brixi/utils/general";
 import soundscape from "~brixi/controllers/soundscape";
+import Component from "~brixi/component";
+import { UUID } from "@codewithkyle/uuid";
+
+env.css("textarea");
 
 export interface ITextarea {
     label: string;
@@ -19,47 +22,14 @@ export interface ITextarea {
     disabled: boolean;
     readOnly: boolean;
     rows: number;
-    callbacks: {
-        onInput: Function;
-        onBlur: Function;
-        onFocus: Function;
-    };
-    css: string;
-    class: string;
-    attributes: {
-        [name: string]: string | number;
-    };
     autofocus: boolean;
 }
-export interface TextareaSettings {
-    label?: string;
-    name: string;
-    required?: boolean;
-    instructions?: string;
-    autocomplete?: string;
-    placeholder?: string;
-    value?: string;
-    maxlength?: number;
-    minlength?: number;
-    disabled?: boolean;
-    readOnly?: boolean;
-    rows?: number;
-    callback?: {
-        onInput?: Function;
-        onBlur?: Function;
-        onFocus?: Function;
-    };
-    css?: string;
-    class?: string;
-    attributes?: {
-        [name: string]: string | number;
-    };
-    autofocus?: boolean;
-}
-export default class Textarea extends SuperComponent<ITextarea> {
-    constructor(settings: TextareaSettings) {
+export default class Textarea extends Component<ITextarea> {
+    private inputId: string;
+
+    constructor() {
         super();
-        this.state = settings?.disabled ? "DISABLED" : "IDLING";
+        this.inputId = UUID();
         this.stateMachine = {
             IDLING: {
                 ERROR: "ERROR",
@@ -81,27 +51,38 @@ export default class Textarea extends SuperComponent<ITextarea> {
             required: false,
             autocomplete: "off",
             placeholder: "",
-            value: null,
+            value: "",
             maxlength: Infinity,
             minlength: 0,
             disabled: false,
             readOnly: false,
             rows: 5,
-            callbacks: {
-                onInput: noop,
-                onBlur: noop,
-                onFocus: noop,
-            },
-            css: "",
-            class: "",
-            attributes: {},
             autofocus: false,
         };
-        this.model = parseDataset<ITextarea>(this.dataset, this.model);
-        env.css("textarea").then(() => {
-            this.set(settings, true);
-            this.render();
-        });
+    }
+
+    static get observedAttributes() {
+        return [
+            "data-label",
+            "data-name",
+            "data-instructions",
+            "data-required",
+            "data-autocomplete",
+            "data-placeholder",
+            "data-value",
+            "data-maxlength",
+            "data-minlength",
+            "data-disabled",
+            "data-read-only",
+            "data-rows",
+            "data-autofocus",
+        ];
+    }
+
+    override async connected() {
+        const settings = parseDataset(this.dataset, this.model);
+        this.state = settings?.disabled ? "DISABLED" : "IDLING";
+        this.set(settings);
     }
 
     public clearError() {
@@ -158,28 +139,46 @@ export default class Textarea extends SuperComponent<ITextarea> {
         return this.model.value;
     }
 
-    public handleBlur: EventListener = () => {
+    public handleBlur: EventListener = (e: Event) => {
+        e.stopImmediatePropagation();
         this.validate();
-        if (this.model.callbacks?.onBlur && typeof this.model.callbacks?.onBlur === "function") {
-            this.model.callbacks?.onBlur(this.model.value);
-        }
+        this.dispatchEvent(
+            new CustomEvent("blur", {
+                detail: {
+                    value: this.model.value,
+                    name: this.model.name,
+                },
+            })
+        );
     };
 
-    public handleFocus: EventListener = () => {
-        if (this.model.callbacks?.onFocus && typeof this.model.callbacks?.onFocus === "function") {
-            this.model.callbacks?.onFocus(this.model.value);
-        }
+    public handleFocus: EventListener = (e: Event) => {
+        e.stopImmediatePropagation();
+        this.dispatchEvent(
+            new CustomEvent("focus", {
+                detail: {
+                    value: this.model.value,
+                    name: this.model.name,
+                },
+            })
+        );
     };
 
     public handleInput: EventListener = (e: Event) => {
+        e.stopImmediatePropagation();
         const input = e.currentTarget as HTMLInputElement;
         this.set({
             value: input.value,
         });
         this.validate();
-        if (this.model.callbacks?.onInput && typeof this.model.callbacks?.onInput === "function") {
-            this.model.callbacks?.onInput(input.value);
-        }
+        this.dispatchEvent(
+            new CustomEvent("input", {
+                detail: {
+                    value: input.value,
+                    name: this.model.name,
+                },
+            })
+        );
     };
 
     public renderCopy(): string | TemplateResult {
@@ -194,10 +193,10 @@ export default class Textarea extends SuperComponent<ITextarea> {
         return output;
     }
 
-    public renderLabel(id: string): string | TemplateResult {
+    public renderLabel(): string | TemplateResult {
         let output: string | TemplateResult;
         if (this.model.label?.length) {
-            output = html`<label for="${id}">${unsafeHTML(this.model.label)}</label>`;
+            output = html`<label for="${this.inputId}">${unsafeHTML(this.model.label)}</label>`;
         } else {
             output = "";
         }
@@ -215,16 +214,10 @@ export default class Textarea extends SuperComponent<ITextarea> {
     }
 
     render() {
-        const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${this.model.name}`;
         this.setAttribute("state", this.state);
         this.setAttribute("form-input", "");
-        this.className = `textarea ${this.model.class}`;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
         const view = html`
-            ${this.renderLabel(id)} ${this.renderCopy()}
+            ${this.renderLabel()} ${this.renderCopy()}
             <textarea
                 @input=${this.handleInput}
                 @blur=${this.handleBlur}
@@ -235,7 +228,7 @@ export default class Textarea extends SuperComponent<ITextarea> {
                 maxlength="${this.model.maxlength !== Infinity ? this.model.maxlength : 9999}"
                 minlength="${this.model.minlength}"
                 name="${this.model.name}"
-                id="${id}"
+                id="${this.inputId}"
                 ?readonly=${this.model.readOnly}
                 ?required=${this.model.required}
                 ?disabled=${this.model.disabled}

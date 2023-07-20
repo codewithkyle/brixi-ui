@@ -1,13 +1,15 @@
-import { html, render } from "lit-html";
+import { html, render, TemplateResult } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
-import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~brixi/controllers/env";
-import { noop, parseDataset } from "~brixi/utils/general";
+import { parseDataset } from "~brixi/utils/general";
 import soundscape from "~brixi/controllers/soundscape";
-import Checkbox from "~brixi/components/checkbox/checkbox";
+import "~brixi/components/checkbox/checkbox";
 import { UUID } from "@codewithkyle/uuid";
 import Fuse from "fuse.js";
 import pos from "~brixi/controllers/pos";
+import Component from "~brixi/component";
+
+env.css("multi-select");
 
 export type MultiSelectOption = {
     label: string;
@@ -18,46 +20,24 @@ export type MultiSelectOption = {
 
 export interface IMultiSelect {
     label: string;
-    icon: string | HTMLElement;
+    icon: string;
     instructions: string;
     options: Array<MultiSelectOption>;
     required: boolean;
     name: string;
     error: string;
     disabled: boolean;
-    callback: Function;
-    css: string;
-    class: string;
-    attributes: {
-        [name: string]: string | number;
-    };
     query: string;
     placeholder: string;
     search: "fuzzy" | "strict" | null;
     separator: string;
 }
-export interface MultiSelectOptions {
-    label?: string;
-    name: string;
-    options: Array<MultiSelectOption>;
-    icon?: string | HTMLElement;
-    instructions?: string;
-    required?: boolean;
-    disabled?: boolean;
-    callback?: Function;
-    css?: string;
-    class?: string;
-    attributes?: {
-        [name: string]: string | number;
-    };
-    placeholder?: string;
-    search?: "fuzzy" | "strict" | null;
-    separator?: string;
-}
-export default class MultiSelect extends SuperComponent<IMultiSelect> {
-    constructor(settings: MultiSelectOptions) {
+export default class MultiSelect extends Component<IMultiSelect> {
+    private inputId: string;
+
+    constructor() {
         super();
-        this.state = settings?.disabled ? "DISABLED" : "IDLING";
+        this.inputId = UUID();
         this.stateMachine = {
             IDLING: {
                 ERROR: "ERROR",
@@ -76,31 +56,43 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
             name: "",
             icon: "",
             instructions: "",
-            options: settings?.options ?? [],
+            options: [],
             required: false,
             error: null,
             disabled: false,
-            callback: noop,
-            css: "",
-            class: "",
-            attributes: {},
             query: "",
             placeholder: "",
             search: null,
             separator: null,
         };
-        this.model = parseDataset<IMultiSelect>(this.dataset, this.model);
-        for (let i = 0; i < this.model.options.length; i++) {
-            if (!this.model.options[i]?.checked) {
-                this.model.options[i].checked = false;
+    }
+
+    static get observedAttributes() {
+        return [
+            "data-label",
+            "data-icon",
+            "data-instructions",
+            "data-options",
+            "data-required",
+            "data-name",
+            "data-disabled",
+            "data-query",
+            "data-placeholder",
+            "data-search",
+            "data-separator",
+        ];
+    }
+
+    override async connected() {
+        const settings = parseDataset(this.dataset, this.model);
+        for (let i = 0; i < settings.options.length; i++) {
+            if (!settings.options[i]?.checked) {
+                settings.options[i].checked = false;
             }
-            this.model.options[i].uid = UUID();
+            settings.options[i].uid = UUID();
         }
-        delete settings?.options;
-        env.css("multi-select").then(() => {
-            this.set(settings, true);
-            this.render();
-        });
+        this.state = settings?.disabled ? "DISABLED" : "IDLING";
+        this.set(settings);
     }
 
     public clearError() {
@@ -204,7 +196,7 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
         return options;
     }
 
-    private updateQuery(value) {
+    private updateQuery(value: string) {
         this.set({
             query: value,
         });
@@ -216,46 +208,43 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
         this.debounceFilterInput(value);
     };
 
-    private checkAllCallback(value, name) {
-        const updatedModel = { ...this.model };
-        const id = `${this.model.name}-${this.model.label.replace(/\s+/g, "-").trim()}`;
-        for (let j = 0; j < updatedModel.options.length; j++) {
-            updatedModel.options[j].checked = false;
-        }
+    private checkAllCallback: EventListener = (e: CustomEvent) => {
+        e.stopImmediatePropagation();
+        e.preventDefault();
+        const { name, checked, value } = e.detail;
+        const updatedModel = this.get();
         const out = [];
-        const checkboxes: Array<Checkbox> = Array.from(this.querySelectorAll(".options checkbox-component"));
-        for (let i = 0; i < checkboxes.length; i++) {
-            checkboxes[i].set({
-                checked: value,
-            });
-            const name = checkboxes[i].getName().replace(`${id}-`, "");
+        this.querySelectorAll(".options checkbox-component").forEach((checkbox) => {
             for (let j = 0; j < updatedModel.options.length; j++) {
-                if (updatedModel.options[j].value == name) {
-                    updatedModel.options[j].checked = value;
-                    if (value) {
-                        out.push(updatedModel.options[j].value);
-                    }
+                // @ts-ignore
+                if (updatedModel.options[j].uid === checkbox.getName()) {
+                    updatedModel.options[j].checked = checked;
                     break;
                 }
             }
+        });
+        for (let i = 0; i < updatedModel.options.length; i++) {
+            if (updatedModel.options[i].checked) {
+                out.push(updatedModel.options[i].value);
+            }
         }
-        const label = this.querySelector(".select");
-        if (out.length === updatedModel.options.length) {
-            label.innerHTML = "All options selected";
-        } else if (out.length === 0) {
-            label.innerHTML = this.model.placeholder || "Select options";
-        } else {
-            label.innerHTML = `${out.length} selected`;
-        }
-        this.set(updatedModel, true);
-        this.model.callback(out);
-    }
+        this.set(updatedModel);
+        this.dispatchEvent(
+            new CustomEvent("change", {
+                detail: {
+                    name: this.model.name,
+                    value: out,
+                },
+            })
+        );
+    };
 
-    private checkboxCallback(value, name) {
+    private checkboxCallback: EventListener = (e: CustomEvent) => {
+        const { value, name, checked } = e.detail;
         const updatedModel = this.get();
         for (let i = 0; i < updatedModel.options.length; i++) {
             if (updatedModel.options[i].uid === name) {
-                updatedModel.options[i].checked = value;
+                updatedModel.options[i].checked = checked;
                 break;
             }
         }
@@ -265,78 +254,56 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
                 out.push(updatedModel.options[j].value);
             }
         }
-        const masterCheckbox: Checkbox = this.querySelector(".js-master-checkbox");
-        if (masterCheckbox) {
-            if (out.length) {
-                masterCheckbox.set({
-                    checked: true,
-                });
-            } else {
-                masterCheckbox.set({
-                    checked: false,
-                });
-            }
-        }
-        const label = this.querySelector(".select");
-        if (out.length === updatedModel.options.length) {
-            label.innerHTML = "All options selected";
-        } else if (out.length === 0) {
-            label.innerHTML = this.model.placeholder || "Select options";
-        } else {
-            label.innerHTML = `${out.length} selected`;
-        }
-        this.set(updatedModel, true);
-        this.model.callback(out);
-    }
+        this.set(updatedModel);
+        this.dispatchEvent(
+            new CustomEvent("change", {
+                detail: {
+                    name: this.model.name,
+                    value: out,
+                },
+            })
+        );
+    };
 
     public renderCopy() {
-        let output;
+        let output: string | TemplateResult = "";
         if (this.state === "IDLING" && this.model.instructions) {
             output = html`<p>${unsafeHTML(this.model.instructions)}</p>`;
         } else if (this.state === "ERROR" && this.model.error) {
             output = html`<p class="font-danger-700">${this.model.error}</p>`;
-        } else {
-            output = "";
         }
         return output;
     }
 
     public renderIcon() {
-        let output;
-        if (this.model.icon instanceof HTMLElement) {
-            output = html` <i class="icon"> ${this.model.icon} </i> `;
-        } else if (typeof this.model.icon === "string" && this.model.icon.length) {
+        let output: string | TemplateResult = "";
+        if (this.model.icon?.length) {
             output = html` <i class="icon"> ${unsafeHTML(this.model.icon)} </i> `;
-        } else {
-            output = "";
         }
         return output;
     }
 
-    public renderLabel(id: string) {
-        let output;
+    public renderLabel() {
+        let output: string | TemplateResult = "";
         if (this.model.label?.length) {
-            output = html`<label for="${id}">${this.model.label}</label>`;
-        } else {
-            output = "";
+            output = html`<label for="${this.inputId}">${this.model.label}</label>`;
         }
         return output;
     }
 
     private renderSearch() {
-        let out;
+        let out: string | TemplateResult = "";
         if (this.model.search !== null) {
             out = html`
                 <div class="search">
-                    ${new Checkbox({
-                        name: `multiselect-checkall`,
-                        checked: this.hasOneCheck(),
-                        callback: this.checkAllCallback.bind(this),
-                        type: "line",
-                        class: "inline-flex mr-0.5 js-master-checkbox",
-                        css: "width:24px;height:24px;",
-                        value: "all",
-                    })}
+                    <checkbox-component
+                        data-checked="${this.hasOneCheck()}"
+                        data-type="line"
+                        class="inline-flex mr-0.5 js-master-checkbox"
+                        style="width:24px;height:24px;"
+                        data-value="all"
+                        @change=${this.checkAllCallback}
+                    ></checkbox-component>
                     <i>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path
@@ -346,32 +313,39 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
                             />
                         </svg>
                     </i>
-                    <input @input=${this.handleFilterInput} type="text" placeholder="Search..." .value=${this.model.query} />
+                    <input
+                        @change=${(e) => {
+                            e.stopImmediatePropagation();
+                        }}
+                        @input=${this.handleFilterInput}
+                        type="text"
+                        placeholder="Search..."
+                        .value=${this.model.query}
+                    />
                 </div>
             `;
-        } else {
-            out = "";
         }
         return out;
     }
 
     render() {
-        const id = `${this.model.name}-${this.model.label.replace(/\s+/g, "-").trim()}`;
-        this.id = id;
         this.setAttribute("state", this.state);
-        this.className = `multi-select js-input ${this.model.class}`;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
         const selected = this.calcSelected();
         const options = this.filterOptions();
         this.tabIndex = 0;
+        let label: string;
+        if (selected === this.model.options.length) {
+            label = "All options selected";
+        } else if (selected === 0) {
+            label = this.model.placeholder || "Select options";
+        } else {
+            label = `${selected} selected`;
+        }
         const view = html`
-            ${this.renderLabel(id)} ${this.renderCopy()}
+            ${this.renderLabel()} ${this.renderCopy()}
             <multiselect-container>
                 ${this.renderIcon()}
-                <span class="select">${!selected ? this.model.placeholder || "Select options" : html`${this.calcSelected()} selected`}</span>
+                <span class="select">${label}</span>
                 <i class="selector">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
@@ -382,25 +356,31 @@ export default class MultiSelect extends SuperComponent<IMultiSelect> {
                 ${this.renderSearch()}
                 <div class="options">
                     ${options.map((option) => {
-                        return html`${new Checkbox({
-                            name: option.uid,
-                            label: option.label,
-                            checked: option.checked,
-                            callback: this.checkboxCallback.bind(this),
-                            value: option.value,
-                        })}`;
+                        return html`
+                            <checkbox-component
+                                data-name="${option.uid}"
+                                data-checked="${option.checked}"
+                                data-label="${option.label}"
+                                data-value="${option.value}"
+                                @change=${this.checkboxCallback}
+                            ></checkbox-component>
+                        `;
                     })}
                 </div>
             </multiselect-options>
         `;
-        setTimeout(() => {
-            render(view, this);
-            const options = this.querySelector("multiselect-options") as HTMLElement;
-            if (options) {
-                options.style.width = `${this.scrollWidth}px`;
-                pos.positionElementToElement(options, this, 8);
-            }
-        }, 80);
+        render(view, this);
+        const optionsEl = this.querySelector("multiselect-options") as HTMLElement;
+        if (optionsEl) {
+            optionsEl.style.width = `${this.scrollWidth}px`;
+            pos.positionElementToElement(optionsEl, this, 8);
+        }
+        // Workaround for native checkbox getting out of sync with our state
+        // This is an annoying side effect of using native checkboxes
+        if (selected > 0) {
+            // @ts-ignore
+            this.querySelector(".js-master-checkbox").set({ checked: true });
+        }
     }
 }
 env.bind("multi-select-component", MultiSelect);

@@ -1,78 +1,58 @@
 import { html, render } from "lit-html";
-import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~brixi/controllers/env";
-import { noop, parseDataset } from "~brixi/utils/general";
-import ProgressIndicator from "~brixi/components/progress/progress-indicator/progress-indicator";
+import { parseDataset } from "~brixi/utils/general";
+import "~brixi/components/progress/progress-indicator/progress-indicator";
+import Component from "~brixi/component";
+
+env.css(["progress-badge"]);
 
 export interface IProgressBadge {
-    css: string;
-    class: string;
-    attributes: {
-        [name: string]: string | number;
-    };
     label: string;
     total: number;
-    tickCallback: Function;
-    finishedCallback: Function;
     color: "grey" | "primary" | "success" | "warning" | "danger";
 }
-export interface ProgressBadgeSettings {
-    css?: string;
-    class?: string;
-    attributes?: {
-        [name: string]: string | number;
-    };
-    label: string;
-    total: number;
-    tickCallback?: Function;
-    finishedCallback?: Function;
-    color?: "grey" | "primary" | "success" | "warning" | "danger";
-}
-export default class ProgressBadge extends SuperComponent<IProgressBadge> {
-    constructor(settings: ProgressBadgeSettings) {
+export default class ProgressBadge extends Component<IProgressBadge> {
+    private indicator: HTMLElement;
+
+    constructor() {
         super();
+        this.indicator = null;
         this.model = {
-            css: "",
-            class: "",
-            attributes: {},
             label: "",
             total: 1,
-            tickCallback: noop,
-            finishedCallback: noop,
             color: "grey",
         };
-        this.model = parseDataset<IProgressBadge>(this.dataset, this.model);
-        env.css(["progress-badge"]).then(() => {
-            this.set(settings, true);
-            this.render();
-        });
+    }
+
+    static get observedAttributes() {
+        return ["data-label", "data-total", "data-color"];
+    }
+
+    override async connected() {
+        const settings = parseDataset(this.dataset, this.model);
+        this.set(settings);
     }
 
     public tick(): void {
-        const progressIndicator: ProgressIndicator = this.querySelector("progress-indicator");
-        progressIndicator.tick();
+        if (!this.indicator) {
+            this.indicator = this.querySelector("progress-indicator");
+        }
+        // @ts-ignore
+        this.indicator?.tick();
     }
 
     public reset(): void {
-        const progressIndicator: ProgressIndicator = this.querySelector("progress-indicator");
-        progressIndicator.reset();
+        if (!this.indicator) {
+            this.indicator = this.querySelector("progress-indicator");
+        }
+        // @ts-ignore
+        this.indicator?.reset();
     }
 
     override render() {
-        this.className = this.model.class;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
         this.setAttribute("color", this.model.color);
         const view = html`
-            ${new ProgressIndicator({
-                size: 18,
-                total: this.model.total,
-                tickCallback: this.model.tickCallback.bind(this),
-                finishedCallback: this.model.finishedCallback.bind(this),
-                color: this.model.color,
-            })}
+            <progress-indicator data-size="18" data-total="${this.model.total}" data-color="${this.model.color}"> </progress-indicator>
             <span>${this.model.label}</span>
         `;
         render(view, this);

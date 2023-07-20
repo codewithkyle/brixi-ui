@@ -1,50 +1,32 @@
-import SuperComponent from "@codewithkyle/supercomponent";
-import { html, render, TemplateResult } from "lit-html";
+import { UUID } from "@codewithkyle/uuid";
+import { html, render } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
+import Component from "~brixi/component";
 import env from "~brixi/controllers/env";
 import soundscape from "~brixi/controllers/soundscape";
-import { noop, parseDataset } from "~brixi/utils/general";
+import { parseDataset } from "~brixi/utils/general";
+
+env.css("lightswitch");
 
 export type LightswitchColor = "primary" | "success" | "warning" | "danger" | "info";
 export interface ILightswitch {
     label: string;
     instructions: string;
-    enabledLabel: string | HTMLElement;
-    disabledLabel: string | HTMLElement;
+    enabledLabel: string;
+    disabledLabel: string;
     enabled: boolean;
     name: string;
     disabled: boolean;
-    callback: Function;
     color: LightswitchColor;
-    css: string;
-    class: string;
-    attributes: {
-        [name: string]: string | number;
-    };
     value: string | number;
     required: boolean;
 }
-export interface LightswitchSettings {
-    name?: string;
-    label?: string;
-    instructions?: string;
-    enabledLabel?: string | HTMLElement;
-    disabledLabel?: string | HTMLElement;
-    enabled?: boolean;
-    disabled?: boolean;
-    callback?: Function;
-    color?: LightswitchColor;
-    css?: string;
-    class?: string;
-    attributes?: {
-        [name: string]: string | number;
-    };
-    value: string | number;
-    required?: boolean;
-}
-export default class Lightswitch extends SuperComponent<ILightswitch> {
-    constructor(settings: LightswitchSettings) {
+export default class Lightswitch extends Component<ILightswitch> {
+    private inputId: string;
+
+    constructor() {
         super();
+        this.inputId = UUID();
         this.model = {
             name: "",
             label: "",
@@ -53,19 +35,30 @@ export default class Lightswitch extends SuperComponent<ILightswitch> {
             disabledLabel: null,
             enabled: false,
             disabled: false,
-            callback: noop,
             color: "success",
-            css: "",
-            class: "",
-            attributes: {},
             value: null,
             required: false,
         };
-        this.model = parseDataset<ILightswitch>(this.dataset, this.model);
-        env.css("lightswitch").then(() => {
-            this.set(settings, true);
-            this.render();
-        });
+    }
+
+    static get observedAttributes() {
+        return [
+            "data-label",
+            "data-instructions",
+            "data-enabled-label",
+            "data-disabled-label",
+            "data-enabled",
+            "data-disabled",
+            "data-color",
+            "data-value",
+            "data-required",
+            "data-name",
+        ];
+    }
+
+    override async connected() {
+        const settings = parseDataset(this.dataset, this.model);
+        this.set(settings);
     }
 
     public getName(): string {
@@ -113,16 +106,25 @@ export default class Lightswitch extends SuperComponent<ILightswitch> {
     }
 
     private handleChange: EventListener = (e: Event) => {
+        e.stopImmediatePropagation();
         const target = e.currentTarget as HTMLInputElement;
         this.set({
             enabled: target.checked,
         });
-        this.model.callback(target.checked);
         if (target.checked) {
             soundscape.play("activate");
         } else {
             soundscape.play("deactivate");
         }
+        this.dispatchEvent(
+            new CustomEvent("change", {
+                detail: {
+                    name: this.model.name,
+                    value: this.model.value,
+                    enabled: this.model.enabled,
+                },
+            })
+        );
     };
 
     private handleKeyup: EventListener = (e: KeyboardEvent) => {
@@ -131,12 +133,20 @@ export default class Lightswitch extends SuperComponent<ILightswitch> {
             input.checked = !input.checked;
             this.classList.remove("is-active");
             this.set({ enabled: input.checked });
-            this.model.callback(input.checked);
             if (input.checked) {
                 soundscape.play("activate");
             } else {
                 soundscape.play("deactivate");
             }
+            this.dispatchEvent(
+                new CustomEvent("change", {
+                    detail: {
+                        name: this.model.name,
+                        value: this.model.value,
+                        enabled: this.model.enabled,
+                    },
+                })
+            );
         }
     };
 
@@ -167,27 +177,21 @@ export default class Lightswitch extends SuperComponent<ILightswitch> {
     override render() {
         this.setAttribute("color", this.model.color);
         this.setAttribute("form-input", "");
-        this.className = this.model.class;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
-        const id = `${this.model.name}-${this.model.label.replace(/\s+/g, "-").trim()}`;
         const view = html`
             <input
                 @change=${this.handleChange}
                 type="checkbox"
                 name="${this.model.name}"
-                id="${id}"
+                id="${this.inputId}"
                 ?disabled=${this.model.disabled}
-                .checked=${this.model.enabled}
-                .value=${this.model.value ?? ""}
+                ?checked=${this.model.enabled}
+                value=${this.model.value ?? ""}
             />
-            <label for="${id}">
+            <label for="${this.inputId}">
                 <light-switch tabindex="0" @keyup=${this.handleKeyup} @keydown=${this.handleKeydown} aria-label="${this.model.enabled ? "enabled" : "disabled"}">
-                    <span>${this.model.enabledLabel instanceof HTMLElement ? this.model.enabledLabel : unsafeHTML(this.model.enabledLabel)}</span>
+                    <span>${unsafeHTML(this.model.enabledLabel)}</span>
                     <i></i>
-                    <span>${this.model.disabledLabel instanceof HTMLElement ? this.model.disabledLabel : unsafeHTML(this.model.disabledLabel)}</span>
+                    <span>${unsafeHTML(this.model.disabledLabel)}</span>
                 </light-switch>
                 <div class="ml-0.75" flex="column wrap">
                     <span class="block line-snug font-sm font-medium font-grey-700">${this.model.label}</span>
@@ -196,7 +200,7 @@ export default class Lightswitch extends SuperComponent<ILightswitch> {
             </label>
         `;
         render(view, this);
-        setTimeout(this.resize.bind(this), 80);
+        this.resize();
     }
 }
 env.bind("lightswitch-component", Lightswitch);

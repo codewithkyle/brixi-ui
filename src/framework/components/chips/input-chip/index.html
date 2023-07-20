@@ -1,11 +1,12 @@
-<script type="module">
-    import Component from "/js/input-chip.js";
-    const example = new Component({
-        label: "Example",
-        value: "example",
-        callback: (value) => {
-            console.log(value, "was removed");
-        }
+<input-chip
+    data-label="Example"
+    data-value="example"
+></input-chip>
+
+<script type="module" src="/js/input-chip.js"></script>
+<script>
+    const inputChip = document.querySelector('input-chip');
+    inputChip.addEventListener('remove', (event) => {
+        console.log(event.detail.value);
     });
-    document.body.appendChild(example);
 </script>

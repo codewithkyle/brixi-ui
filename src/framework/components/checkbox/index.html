@@ -1,8 +1,12 @@
-<script type="module">
-    import Component from "/js/checkbox.js";
-    const example = new Component({
-        label: "Example",
-        name: "example",
+<checkbox-component
+    data-label="Example"
+    data-name="example"
+></checkbox-component>
+
+<script type="module" src="/js/checkbox.js"></script>
+
+<script>
+    document.body.querySelector('checkbox-component').addEventListener('change', (e) => {
+        console.log(e.detail);
     });
-    document.body.appendChild(example);
 </script>
