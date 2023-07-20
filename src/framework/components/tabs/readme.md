@@ -6,6 +6,8 @@
 ></tabs-component>
 ```
 
+### Data Attributes
+
 | Data Attribute | Type | Required |
 | -------------- | ---- | -------- |
 | tabs | Tab[] | ✅ |

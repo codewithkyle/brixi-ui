@@ -42,6 +42,8 @@ new ContextMenu({
 
 > **Note**: you can render `null` instead of a `ContextItem` to render a horizontal rule.
 
+### Data Attributes
+
 | Key | Type | Required |
 | --- | ---- | -------- |
 | items | ContextItem[] | ✅ |

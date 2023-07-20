@@ -8,6 +8,8 @@
 ></password-input-component>
 ```
 
+### Data Attributes
+
 | Data Attribute | Type | Required |
 | -------------- | ---- | -------- |
 | name | string | ✅ |

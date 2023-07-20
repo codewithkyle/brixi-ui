@@ -5,13 +5,8 @@
 ></steps-component>
 ```
 
-export interface 
-export interface ISteps {
-    steps: Array<Step>;
-    activeStep: number;
-    step: string;
-    layout: "horizontal" | "vertical";
-}
+### Data Attributes
+
 
 | Data Attribute | Type | Required |
 | -------------- | ---- | -------- |

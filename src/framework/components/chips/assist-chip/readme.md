@@ -5,6 +5,8 @@
 ></assist-chip>
 ```
 
+### Data Attributes
+
 | Data Attribute | Type | Required |
 | -------------- | ---- | -------- |
 | label | string | ✅ |

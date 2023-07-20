@@ -7,6 +7,8 @@
 ></toggle-button>
 ```
 
+### Data Attributes
+
 | Data Attribute | Type | Required |
 | -------------- | ---- | -------- |
 | state | string | ✅ |

@@ -6,6 +6,8 @@
 ></progress-indicator>
 ```
 
+### Data Attributes
+
 | Data Attribute | Type | Required |
 | -------------- | ---- | -------- |
 | total | number | ✅ |

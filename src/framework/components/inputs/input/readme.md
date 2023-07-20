@@ -9,6 +9,9 @@
     data-maxlength="5"
 ></input-component>
 ```
+
+### Data Attributes
+
 | Data Attribute | Type | Required |
 | -------------- | ---- | -------- |
 | name | string | ✅ |
