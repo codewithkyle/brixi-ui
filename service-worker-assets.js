@@ -1,6 +1,6 @@
 
 self.manifest = {
-    "version": "ae8cc24fdb81acad651f9a6945b3932d",
+    "version": "daf9a7403ce013c262d81e873970b5ce",
     "assets": [
 		"/js/accordion.js",
 		"/js/alert.js",
@@ -201,6 +201,7 @@ self.manifest = {
 		"/docs/components/steps.md",
 		"/docs/components/submit-button.md",
 		"/docs/components/suggestion-chip.md",
+		"/docs/components/tabs.md",
 		"/docs/components/textarea.md",
 		"/docs/components/toggle-button.md",
 		"/",
@@ -467,6 +468,7 @@ self.manifest = {
 		"/raw/components/suggestion-chip/suggestion-chip.js",
 		"/raw/components/suggestion-chip/suggestion-chip.scss",
 		"/raw/components/suggestion-chip/suggestion-chip.ts",
+		"/raw/components/tabs/readme.md",
 		"/raw/components/tabs/tabs.css",
 		"/raw/components/tabs/tabs.html",
 		"/raw/components/tabs/tabs.js",
