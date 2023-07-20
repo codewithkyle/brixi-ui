@@ -1,21 +1,12 @@
-<script type="module">
-    import Component from "/js/radio-group.js";
-    const example = new Component({
-        label: "Example",
-        name: "example",
-        instructions: "Lorem ipsum and wat knot...",
-        options: [
-            {
-                label: "Example 1",
-            },
-            {
-                label: "Example 2",
-            },
-            {
-                label: "Example 3",
-                checked: true,
-            },
-        ],
+<radio-group
+    data-label="Example"
+    data-name="example"
+    data-instructions="Lorem ipsum and wat knot..."
+    data-options='[{"label": "Example 1","value":"example1"},{"label":"Example 2","value":"example2"},{"label":"Example 3","checked": true,"value":"example3"}]'
+></radio-group>
+
+<script>
+    document.querySelector('radio-group').addEventListener("change", e => {
+        console.log(e.detail);
     });
-    document.body.appendChild(example);
 </script>

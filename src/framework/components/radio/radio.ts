@@ -1,8 +1,11 @@
 import { html, render } from "lit-html";
-import SuperComponent from "@codewithkyle/supercomponent";
 import env from "~brixi/controllers/env";
-import { noop, parseDataset } from "~brixi/utils/general";
+import { parseDataset } from "~brixi/utils/general";
 import soundscape from "~brixi/controllers/soundscape";
+import Component from "~brixi/component";
+import { UUID } from "@codewithkyle/uuid";
+
+env.css("radio");
 
 export interface IRadio {
     label: string;
@@ -10,48 +13,31 @@ export interface IRadio {
     name: string;
     checked: boolean;
     disabled: boolean;
-    callback: Function;
-    class: string;
-    css: string;
-    attributes: {
-        [name: string]: string | number;
-    };
     value: string | number;
 }
-export interface RadioSettings {
-    label: string;
-    name?: string;
-    required?: boolean;
-    checked?: boolean;
-    disabled?: boolean;
-    callback?: Function;
-    class?: string;
-    css?: string;
-    attributes?: {
-        [name: string]: string | number;
-    };
-    value: string | number;
-}
-export default class Radio extends SuperComponent<IRadio> {
-    constructor(settings: RadioSettings) {
+export default class Radio extends Component<IRadio> {
+    private inputId: string;
+
+    constructor() {
         super();
+        this.inputId = UUID();
         this.model = {
             label: "",
             required: false,
             name: "",
             checked: false,
             disabled: false,
-            callback: noop,
-            css: "",
-            class: "",
-            attributes: {},
             value: null,
         };
-        this.model = parseDataset<IRadio>(this.dataset, this.model);
-        env.css("radio").then(() => {
-            this.set(settings, true);
-            this.render();
-        });
+    }
+
+    static get observedAttributes() {
+        return ["data-label", "data-required", "data-name", "data-checked", "data-disabled", "data-value"];
+    }
+
+    override async connected() {
+        const settings = parseDataset(this.dataset, this.model);
+        this.set(settings);
     }
 
     public getName(): string {
@@ -99,8 +85,18 @@ export default class Radio extends SuperComponent<IRadio> {
     }
 
     private handleChange: EventListener = (e: Event) => {
+        e.stopImmediatePropagation();
         const target = e.currentTarget as HTMLInputElement;
-        this.model.callback(target.checked);
+        this.dispatchEvent(
+            new CustomEvent("change", {
+                detail: {
+                    name: this.model.name,
+                    value: target.value,
+                },
+                bubbles: true,
+                cancelable: true,
+            })
+        );
     };
 
     private handleKeydown: EventListener = (e: KeyboardEvent) => {
@@ -115,31 +111,34 @@ export default class Radio extends SuperComponent<IRadio> {
             const input = this.querySelector("input") as HTMLInputElement;
             input.checked = !input.checked;
             this.set({ checked: input.checked });
-            this.model.callback(true);
+            this.dispatchEvent(
+                new CustomEvent("change", {
+                    detail: {
+                        name: this.model.name,
+                        value: this.model.value,
+                    },
+                    bubbles: true,
+                    cancelable: true,
+                })
+            );
         }
     };
 
     render() {
         this.setAttribute("state", this.state);
-        this.className = `radio js-input ${this.model.class}`;
-        this.style.cssText = this.model.css;
-        Object.keys(this.model.attributes).map((key) => {
-            this.setAttribute(key, `${this.model.attributes[key]}`);
-        });
         this.setAttribute("form-input", "");
-        const id = `${this.model.label.replace(/\s+/g, "-").trim()}-${this.model.name}`;
         const view = html`
             <div class="inline-block mr-auto">
                 <input
                     @change=${this.handleChange}
                     type="radio"
                     name="${this.model.name}"
-                    id="${id}"
+                    id="${this.inputId}"
                     .checked=${this.model.checked}
                     ?disabled=${this.model.disabled}
                     .value=${this.model.value ?? ""}
                 />
-                <label sfx="button" for="${id}">
+                <label sfx="button" for="${this.inputId}">
                     <i
                         @keydown=${this.handleKeydown}
                         @keyup=${this.handleKeyup}
