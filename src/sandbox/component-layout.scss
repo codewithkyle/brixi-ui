@@ -5,4 +5,9 @@ body {
     overflow-x: hidden;
     overflow-y: auto;
     padding: 1rem;
+
+    @media (prefers-color-scheme: dark) {
+        background-color: var(--grey-900);
+        color: var(--grey-300);
+    }
 }

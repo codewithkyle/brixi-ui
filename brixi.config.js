@@ -129,4 +129,10 @@ module.exports = {
             `,
         },
     },
+    prefixes: {
+        dark: {
+            features: ["backgrounds", "fonts", "borders", "shadows"],
+            rule: "prefers-color-scheme: dark",
+        },
+    },
 };

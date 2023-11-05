@@ -57,6 +57,9 @@
         <script type="module" src="/js/tooltipper.js"></script>
         <script type="module" src="/js/soundscape.js"></script>
 
+        <link rel="stylesheet" href="/css/group-button.css">
+        <script type="module" src="/js/group-button.js"></script>
+
         <meta property="og:url" content="https://ui.brixi.dev/" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Brixi UI" />
@@ -73,6 +76,123 @@
         <meta name="twitter:image" content="https://ui.brixi.dev/brixi-ui-card.png" />
     </head>
     <body>
+        <header>
+            <div flex="row nowrap items-center">
+                <a sfx="button" href="/" class="mr-0.5" flex="row nowrap items-center">
+                    <img src="/static/logo.png" width="32" class="mr-0.25" />
+                    <h1 class="font-xl font-bold">Brixi UI</h1>
+                </a>
+                <a
+                    sfx="button"
+                    target="_blank"
+                    rel="noopener"
+                    tooltip="Github"
+                    href="https://github.com/codewithkyle/brixi-components"
+                    class="bttn"
+                    shape="round"
+                    kind="text"
+                    color="grey"
+                    icon="center"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="icon icon-tabler icon-tabler-brand-github"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                        stroke="currentColor"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path
+                            d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"
+                        ></path>
+                    </svg>
+                </a>
+                <a
+                    sfx="button"
+                    target="_blank"
+                    rel="noopener"
+                    tooltip="Project board"
+                    href="https://github.com/users/codewithkyle/projects/4"
+                    class="bttn"
+                    shape="round"
+                    kind="text"
+                    color="grey"
+                    icon="center"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="icon icon-tabler icon-tabler-brand-trello"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                        stroke="currentColor"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path>
+                        <path d="M7 7h3v10h-3z"></path>
+                        <path d="M14 7h3v6h-3z"></path>
+                    </svg>
+                </a>
+                <a
+                    sfx="button"
+                    target="_blank"
+                    rel="noopener"
+                    tooltip="Download"
+                    href="/static/brixi-ui.zip"
+                    class="bttn"
+                    shape="round"
+                    kind="text"
+                    color="grey"
+                    icon="center"
+                    download="brixi-ui.zip"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                        stroke="currentColor"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M19 18a3.5 3.5 0 0 0 0 -7h-1a5 4.5 0 0 0 -11 -2a4.6 4.4 0 0 0 -2.1 8.4"></path>
+                        <line x1="12" y1="13" x2="12" y2="22"></line>
+                        <polyline points="9 19 12 22 15 19"></polyline>
+                    </svg>
+                </a>
+            </div>
+            <div flex="row nowrap items-center">
+                <group-button-component
+                    data-buttons='[{"label":"SPA","id":"spa"},{"label":"MPA","id":"mpa"}]'
+                    data-active="spa"
+                ></group-button-component>
+                <script>
+                    const switcher = document.body.querySelector('group-button-component');
+                    if (location.pathname.indexOf('mpa') !== -1) {
+                        switcher.setAttribute('data-active', 'mpa');
+                    }
+                    switcher.addEventListener('change', (e) => {
+                        if (e.detail.id === 'spa') {
+                            location.href = `/${location.pathname.replace(/.*\//, "")}`;
+                        } else {
+                            location.href = `/mpa/${location.pathname.replace(/.*\//, "")}`;
+                        }
+                    });
+                </script>
+            </div>
+        </header>
         <nav-component></nav-component>
         <component-viewer></component-viewer>
     </body>

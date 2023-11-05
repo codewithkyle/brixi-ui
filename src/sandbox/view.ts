@@ -94,33 +94,33 @@ export default class View extends SuperComponent<ViewData> {
 
     render() {
         let view = html`
-            <div class="block w-full h-screen scroll-y-auto px-1">
+            <div class="block w-full h-screen scroll-y-auto px-1 pb-4">
                 <div class="w-full max-w-768 mx-auto block py-4">
-                    <h1 class="block font-grey-700 font-3xl font-bold mb-0.5 line-normal">Howdy stranger!</h1>
-                    <p class=" mb-0.5 font-grey-700 font-sm line-normal">
+                    <h1 class="block font-3xl font-bold mb-0.5 line-normal">Howdy stranger!</h1>
+                    <p class=" mb-0.5 font-sm line-normal">
                         Brixi UI is a sleek & slender design system built on the
                         <a class="link" href="https://brixi.dev/" target="_blank" rel="noopener">Brixi CSS framework</a>. The goal of Brixi UI is to provide me with a lightweight
                         accessibility-conscious design system built on web standards such as ES Modules and Web Components.
                     </p>
-                    <p class=" mb-0.5 font-grey-700 font-sm line-normal">
+                    <p class=" mb-0.5 font-sm line-normal">
                         Brixi UI is built on two primary NPM packages:
                         <a class="link" href="https://lit.dev/docs/libraries/standalone-templates/" target="_blank" rel="noopener">lit-html</a>
                         and
                         <a class="link" href="https://github.com/codewithkyle/supercomponent" target="_blank" rel="noopener">SuperComponents</a>.
                     </p>
-                    <p class=" mb-0.5 font-grey-700 font-sm line-normal">
+                    <p class=" mb-0.5 font-sm line-normal">
                         The lit-html library renders HTML templates in JavaScript using template literals with embedded JavaScript expressions. lit-html identifies the static and
                         dynamic HTML to efficiently update just the changed portions without using a virtual DOM. lit-html is not tied to any component model, it focuses only on
                         creating and updating DOM.
                     </p>
-                    <p class=" mb-0.5 font-grey-700 font-sm line-normal">
+                    <p class=" mb-0.5 font-sm line-normal">
                         The SuperComponent library gives your Web Components modern-day superpowers like creating stateful Web Components (similar to
                         <a href="https://reactjs.org/" class="link" target="_blank" rel="noopener">React</a>
                         components) along with the ability to manage your components state with an
                         <a href="https://xstate.js.org/" class="link" target="_blank" rel="noopener">xstate</a>
                         inspired state machine.
                     </p>
-                    <p class=" mb-0.5 font-grey-700 font-sm line-normal">
+                    <p class=" mb-0.5 font-sm line-normal">
                         If you're interested in learning more about lit-html or xstate you can watch the videos below where the authors of each library provide insights and a deep
                         dive into the inner workings of their projects.
                     </p>
@@ -143,18 +143,18 @@ export default class View extends SuperComponent<ViewData> {
                         ></iframe>
                     </div>
 
-                    <h2 class="block font-grey-700 font-lg font-bold mb-0.5 line-normal">How Brixi UI works.</h2>
-                    <p class=" mb-0.5 font-grey-700 font-sm line-normal">
+                    <h2 class="block font-lg font-bold mb-0.5 line-normal">How Brixi UI works.</h2>
+                    <p class=" mb-0.5 font-sm line-normal">
                         There are two ways to use Brixi UI. All the UI components can be installed into a project via NPM using the command
-                        <code class="inline-block font-xs font-warning-700 bg-warning-100 px-0.25 radius-0.25">npm i -D brixi-ui</code>
+                        <code class="inline-block font-xs font-warning-700 dark:font-warning-300 bg-warning-100 dark:bg-warning-100/15 px-0.25 radius-0.25">npm i -D brixi-ui</code>
                         You can also browse the source code of individual components using the menu on the left. Each component is contained in separate JavaScript files that
                         define a custom HTML element as a Web Component.
                     </p>
-                    <p class=" mb-4 font-grey-700 font-sm line-normal">
+                    <p class=" mb-4 font-sm line-normal">
                         The benifit of downloading the UI package instead of cherry-picking individual components is all the extra utility classes that the library provides.
                     </p>
 
-                    <h2 class="block font-grey-700 font-lg font-bold mb-0.5 line-normal">What does Brixi UI provide?</h2>
+                    <h2 class="block font-lg font-bold mb-0.5 line-normal">What does Brixi UI provide?</h2>
                     <ul class="font-sm line-normal mb-4 list">
                         <li>Dozens of Web Components that can be rendered/configured in JavaScript or via SSR (server-side rendering).</li>
                         <li>
@@ -171,21 +171,21 @@ export default class View extends SuperComponent<ViewData> {
                         <li>A window component that can be reposition anywhere within the browser along with resizing, maximizing, and minimizing.</li>
                     </ul>
 
-                    <h2 class="block font-grey-700 font-lg font-bold mb-0.5 line-normal">What doesn't Brixi UI provide?</h2>
+                    <h2 class="block font-lg font-bold mb-0.5 line-normal">What doesn't Brixi UI provide?</h2>
                     <ul class="font-sm line-normal mb-4 list">
                         <li>Tools for compiling/bundling your JavaScript or CSS.</li>
                         <li>A built in web server for developing or demoing your project.</li>
                         <li>A Web Component based router.</li>
                     </ul>
 
-                    <h2 class="block font-grey-700 font-lg font-bold mb-0.5 line-normal">Who should use Brixi UI?</h2>
-                    <p class=" mb-4 font-grey-700 font-sm line-normal">
+                    <h2 class="block font-lg font-bold mb-0.5 line-normal">Who should use Brixi UI?</h2>
+                    <p class=" mb-4 font-sm line-normal">
                         Everybody, or maybe nobody. The Brixi UI design system is a tool I created for myself to build web applications faster. All of the components are licensed
                         under MIT. Feel free to download and use any component for any commercial/non-commercial project.
                     </p>
 
-                    <h2 class="block font-grey-700 font-lg font-bold mb-0.5 line-normal">Why create a custom CSS framework?</h2>
-                    <p class=" mb-0.5 font-grey-700 font-sm line-normal">
+                    <h2 class="block font-lg font-bold mb-0.5 line-normal">Why create a custom CSS framework?</h2>
+                    <p class=" mb-0.5 font-sm line-normal">
                         Like most framework authors I wanted something that solved my specific problem. I noticed while using
                         <a class="link" href="https://tailwindcss.com/" target="_blank" rel="noopener">Tailwind CSS</a>
                         that I often only used a handful of classes, such as font, text, border, background, margin, and padding. At the time I was working on a server-side
@@ -193,7 +193,7 @@ export default class View extends SuperComponent<ViewData> {
                         <a class="link" href="https://purgecss.com/" target="_blank" rel="noopener">Purge CSS</a>
                         with my templating system.
                     </p>
-                    <p class=" mb-0.5 font-grey-700 font-sm line-normal">
+                    <p class=" mb-0.5 font-sm line-normal">
                         After building the CSS framework I created
                         <a class="link" href="https://github.com/codewithkyle/supercomponent" target="_blank" rel="noopener">SuperComponents</a>. I wanted something that used Web
                         Components while providing similar functionality to
@@ -201,46 +201,46 @@ export default class View extends SuperComponent<ViewData> {
                         without the overhead of the virtual DOM. Super Components separate the components state and model allowing developers to define and trigger state
                         transitions without touching the components data model.
                     </p>
-                    <p class=" mb-4 font-grey-700 font-sm line-normal">
+                    <p class=" mb-4 font-sm line-normal">
                         I also didn't want to limit myself to JavaScript based UI frameworks. Using a tool like
                         <a class="link" href="https://github.com/codewithkyle/lazy-loader" target="_blank" rel="noopener">Lazy Loader</a>
                         I can create Super Components that will automatically load and mount on server-side rendered projects.
                     </p>
 
-                    <h2 class="block font-grey-700 font-lg font-bold mb-0.5 line-normal">Why Web Components?</h2>
-                    <p class=" mb-4 font-grey-700 font-sm line-normal">
+                    <h2 class="block font-lg font-bold mb-0.5 line-normal">Why Web Components?</h2>
+                    <p class=" mb-4 font-sm line-normal">
                         Web Components are (and have been) supported in
                         <a class="link" href="https://caniuse.com/custom-elementsv1" target="_blank" rel="noopener">every major browser</a>
                         for a while. They provide native component mount/unmount functionality and with the way Web Components bind to the DOM nodes they can be queried and their
                         functions can be immediately invoked from the element(s) returned from the query. This means you don't need to provide state/prop callbacks between
                         components, just
-                        <code class="inline-block font-xs font-warning-700 bg-warning-100 px-0.25 radius-0.25">querySelector</code>
+                        <code class="inline-block font-xs font-warning-700 dark:font-warning-300 bg-warning-100 dark:bg-warning-100/15 px-0.25 radius-0.25">querySelector</code>
                         your component's custom element name to gain access to any of it's public methods.
                     </p>
 
-                    <h2 class="block font-grey-700 font-lg font-bold mb-0.5 line-normal">What if I don't want to use your framework/libraries?</h2>
-                    <p class=" mb-4 font-grey-700 font-sm line-normal">
+                    <h2 class="block font-lg font-bold mb-0.5 line-normal">What if I don't want to use your framework/libraries?</h2>
+                    <p class=" mb-4 font-sm line-normal">
                         That's fine. You can use the menu on the left to pick-and-choose what component you like and you can use the Source view to copy the SCSS and TypeScript
                         source code. Each component can (somewhat) easily be converted to use Vue, React, or any other JavaScript based UI framework.
                     </p>
 
-                    <h2 class="block font-grey-700 font-lg font-bold mb-0.5 line-normal">What if I use server-side rendering in a non-JavaScript framework?</h2>
-                    <p class=" mb-4 font-grey-700 font-sm line-normal">
+                    <h2 class="block font-lg font-bold mb-0.5 line-normal">What if I use server-side rendering in a non-JavaScript framework?</h2>
+                    <p class=" mb-4 font-sm line-normal">
                         That works too. Every component is configured using
                         <a class="link" href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes" target="_blank" rel="noopener">data attributes</a>. On
                         the server all you need to do is render the empty custom element with the data attributes corresponding to the model object keys. Using a
-                        <code class="inline-block font-xs font-warning-700 bg-warning-100 px-0.25 radius-0.25">script</code> tag to load a components JavaScript file will bind the
-                        component to the custom element to be automatically mounted and rendered.
+                        <code class="inline-block font-xs font-warning-700 dark:font-warning-300 bg-warning-100 dark:bg-warning-100/15 px-0.25 radius-0.25">script</code> tag to
+                        load a components JavaScript file will bind the component to the custom element to be automatically mounted and rendered.
                     </p>
 
-                    <h2 class="block font-grey-700 font-lg font-bold mb-0.5 line-normal">Contributing to Brixi UI.</h2>
-                    <p class=" mb-4 font-grey-700 font-sm line-normal">
+                    <h2 class="block font-lg font-bold mb-0.5 line-normal">Contributing to Brixi UI.</h2>
+                    <p class=" mb-4 font-sm line-normal">
                         Contributions are welcome, however, this is my personal design system. Any contributions are likely to be subject to scrutiny and multiple revisions until I
                         feel like the component fits the look and feel of the overall design system.
                     </p>
 
-                    <h2 class="block font-grey-700 font-lg font-bold mb-0.5 line-normal">Attribution and Inspiration.</h2>
-                    <p class=" mb-1 font-grey-700 font-sm line-normal">Brixi UI was built on the shoulders of giants like:</p>
+                    <h2 class="block font-lg font-bold mb-0.5 line-normal">Attribution and Inspiration.</h2>
+                    <p class=" mb-1 font-sm line-normal">Brixi UI was built on the shoulders of giants like:</p>
                     <ul class="font-sm line-normal list">
                         <li style="list-style-type:'\\1F517';">
                             <a class="link" href="https://tailwindui.com/" target="_blank" rel="noopener">Tailwind UI</a>
@@ -275,7 +275,7 @@ export default class View extends SuperComponent<ViewData> {
         `;
         if (this.model.component) {
             view = html`
-                <div class="head mb-0.5 text-capitalize scroll-x-auto" flex="row nowrap justify-between items-center">
+                <div class="head mb-1 text-capitalize scroll-x-auto" flex="row nowrap justify-between items-center">
                     <h1 class="font-md font-bold mr-1">${this.model.component.replace(/.*\//, "").trim().replace(/\-/g, " ")}</h1>
                     <view-switcher>
                         <button sfx="button" @click=${this.switchView} data-view="demo" class="${this.model.view === "demo" ? "is-selected" : ""}">
@@ -315,7 +315,7 @@ export default class View extends SuperComponent<ViewData> {
                         </button>
                     </view-switcher>
                 </div>
-                <div class="w-full" style="height:calc(100vh - 40px - 1.5rem);display:block;overflow:hidden;">${this.renderContent()}</div>
+                <div class="w-full" style="height:calc(100vh - 52px - 3rem - 40px);display:block;overflow:hidden;">${this.renderContent()}</div>
             `;
         }
         render(view, this);
