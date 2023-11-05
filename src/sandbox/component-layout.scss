@@ -5,6 +5,7 @@ body {
     overflow-x: hidden;
     overflow-y: auto;
     padding: 1rem;
+    background-color: var(--white);
 
     @media (prefers-color-scheme: dark) {
         background-color: var(--grey-900);
