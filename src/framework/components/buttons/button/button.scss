@@ -39,6 +39,16 @@ button-component {
         color: var(--grey-400) !important;
         cursor: not-allowed !important;
         box-shadow: none !important;
+        opacity: 0.6;
+
+        &::before {
+            background: transparent !important;
+        }
+
+        &[kind="text"] {
+            border-color: transparent !important;
+            background-color: transparent !important;
+        }
     }
 
     &:focus-visible {
@@ -154,7 +164,50 @@ button-component {
     }
 
     &[kind="solid"] {
-        &[color="primary"] {
+        &[dull] {
+            border-color: var(--grey-200);
+            background-color: var(--white);
+            color: var(--grey-700);
+            box-shadow: var(--button-shadow);
+
+            &[color="primary"] {
+                &:hover,
+                &:focus-visible {
+                    border-color: var(--primary-200);
+                    color: var(--primary-700);
+                    box-shadow: var(--button-shadow), 0 0 0 8px hsl(var(--primary-500-hsl) / 0.05);
+                }
+            }
+
+            &[color="danger"] {
+                &:hover,
+                &:focus-visible {
+                    border-color: var(--danger-200);
+                    color: var(--danger-700);
+                    box-shadow: var(--button-shadow), 0 0 0 8px hsl(var(--danger-500-hsl) / 0.05);
+                }
+            }
+
+            &[color="warning"] {
+                &:hover,
+                &:focus-visible {
+                    border-color: var(--warning-200);
+                    color: var(--warning-700);
+                    box-shadow: var(--button-shadow), 0 0 0 8px hsl(var(--warning-500-hsl) / 0.05);
+                }
+            }
+
+            &[color="success"] {
+                &:hover,
+                &:focus-visible {
+                    border-color: var(--success-200);
+                    color: var(--success-700);
+                    box-shadow: var(--button-shadow), 0 0 0 8px hsl(var(--success-500-hsl) / 0.05);
+                }
+            }
+        }
+
+        &[color="primary"]:not([dull]) {
             border-color: var(--primary-200);
             background-color: var(--white);
             color: var(--primary-700);
@@ -165,7 +218,7 @@ button-component {
             }
         }
 
-        &[color="danger"] {
+        &[color="danger"]:not([dull]) {
             border-color: var(--danger-200);
             background-color: var(--white);
             color: var(--danger-700);
@@ -188,18 +241,18 @@ button-component {
             }
         }
 
-        &[color="warning"] {
+        &[color="warning"]:not([dull]) {
             border-color: var(--warning-200);
             background-color: var(--white);
             color: var(--warning-700);
             box-shadow: var(--button-shadow);
 
             &:hover {
-                box-shadow: var(--button-shadow), 0 0 0 8px hsl(var(--warning-500-hsv) / 0.05);
+                box-shadow: var(--button-shadow), 0 0 0 8px hsl(var(--warning-500-hsl) / 0.05);
             }
         }
 
-        &[color="success"] {
+        &[color="success"]:not([dull]) {
             border-color: var(--success-200);
             background-color: var(--white);
             color: var(--success-700);
@@ -207,17 +260,6 @@ button-component {
 
             &:hover {
                 box-shadow: var(--button-shadow), 0 0 0 8px hsl(var(--success-500-hsl) / 0.05);
-            }
-        }
-
-        &[color="info"] {
-            border-color: var(--info-200);
-            background-color: var(--white);
-            color: var(--info-700);
-            box-shadow: var(--button-shadow);
-
-            &:hover {
-                box-shadow: var(--button-shadow), 0 0 0 8px hsl(var(--info-500-hsl) / 0.05);
             }
         }
 
@@ -233,6 +275,62 @@ button-component {
 
         &::before {
             opacity: 0;
+        }
+
+        &[dull] {
+            color: var(--grey-700);
+
+            &::before {
+                background-color: var(--grey-500);
+            }
+
+            &[icon="center"] {
+                color: var(--grey-400);
+            }
+
+            &[color="primary"] {
+                &:hover,
+                &:focus-visible {
+                    color: var(--primary-700);
+
+                    &::before {
+                        background-color: var(--primary-500);
+                    }
+                }
+            }
+
+            &[color="danger"] {
+                &:hover,
+                &:focus-visible {
+                    color: var(--danger-700);
+
+                    &::before {
+                        background-color: var(--danger-500);
+                    }
+                }
+            }
+
+            &[color="warning"] {
+                &:hover,
+                &:focus-visible {
+                    color: var(--warning-700);
+
+                    &::before {
+                        background-color: var(--warning-500);
+                    }
+                }
+            }
+
+            &[color="success"] {
+                &:hover,
+                &:focus-visible {
+                    color: var(--success-700);
+
+                    &::before {
+                        background-color: var(--success-500);
+                    }
+                }
+            }
         }
 
         &[color="white"] {
@@ -266,7 +364,7 @@ button-component {
             }
         }
 
-        &[color="primary"] {
+        &[color="primary"]:not([dull]) {
             color: var(--primary-700);
 
             &::before {
@@ -285,7 +383,7 @@ button-component {
             }
         }
 
-        &[color="danger"] {
+        &[color="danger"]:not([dull]) {
             color: var(--danger-700);
 
             &::before {
@@ -304,7 +402,7 @@ button-component {
             }
         }
 
-        &[color="success"] {
+        &[color="success"]:not([dull]) {
             color: var(--success-700);
 
             &::before {
@@ -323,7 +421,7 @@ button-component {
             }
         }
 
-        &[color="warning"] {
+        &[color="warning"]:not([dull]) {
             color: var(--warning-700);
 
             &::before {
@@ -338,25 +436,6 @@ button-component {
                 &:active,
                 &.is-active {
                     color: var(--warning-700);
-                }
-            }
-        }
-
-        &[color="info"] {
-            color: var(--info-700);
-
-            &::before {
-                background-color: var(--info-500);
-            }
-
-            &[icon="center"] {
-                color: var(--info-400);
-
-                &:hover,
-                &:focus-visible,
-                &:active,
-                &.is-active {
-                    color: var(--info-700);
                 }
             }
         }
@@ -386,6 +465,59 @@ button-component {
             opacity: 0;
         }
 
+        &[dull] {
+            color: var(--grey-700);
+            border-color: var(--grey-200);
+
+            &[color="primary"] {
+                &::before {
+                    background-color: var(--primary-500);
+                }
+
+                &:hover,
+                &:focus-visible {
+                    color: var(--primary-700);
+                    border-color: var(--primary-200);
+                }
+            }
+
+            &[color="danger"] {
+                &::before {
+                    background-color: var(--danger-500);
+                }
+
+                &:hover,
+                &:focus-visible {
+                    color: var(--danger-700);
+                    border-color: var(--danger-200);
+                }
+            }
+
+            &[color="warning"] {
+                &::before {
+                    background-color: var(--warning-500);
+                }
+
+                &:hover,
+                &:focus-visible {
+                    color: var(--warning-700);
+                    border-color: var(--warning-200);
+                }
+            }
+
+            &[color="success"] {
+                &::before {
+                    background-color: var(--success-500);
+                }
+
+                &:hover,
+                &:focus-visible {
+                    color: var(--success-700);
+                    border-color: var(--success-200);
+                }
+            }
+        }
+
         &[color="white"] {
             color: var(--white);
             border-color: var(--grey-200);
@@ -404,7 +536,7 @@ button-component {
             }
         }
 
-        &[color="primary"] {
+        &[color="primary"]:not([dull]) {
             color: var(--primary-700);
             border-color: var(--primary-200);
 
@@ -413,7 +545,7 @@ button-component {
             }
         }
 
-        &[color="danger"] {
+        &[color="danger"]:not([dull]) {
             color: var(--danger-700);
             border-color: var(--danger-200);
 
@@ -422,7 +554,7 @@ button-component {
             }
         }
 
-        &[color="success"] {
+        &[color="success"]:not([dull]) {
             color: var(--success-700);
             border-color: var(--success-200);
 
@@ -431,21 +563,12 @@ button-component {
             }
         }
 
-        &[color="warning"] {
+        &[color="warning"]:not([dull]) {
             color: var(--warning-700);
             border-color: var(--warning-200);
 
             &::before {
                 background-color: var(--warning-500);
-            }
-        }
-
-        &[color="info"] {
-            color: var(--info-700);
-            border-color: var(--info-200);
-
-            &::before {
-                background-color: var(--info-500);
             }
         }
 

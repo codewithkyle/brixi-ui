@@ -72,8 +72,8 @@ class Soundscape {
     };
 
     private mouseover: EventListener = (e: Event) => {
-        const target = e.target as HTMLElement;
-        if (target instanceof HTMLElement && e instanceof MouseEvent && target.getAttribute("sfx") === "button" && target.dataset.isMouseOver !== "1") {
+        const target = e.target as any;
+        if (e instanceof MouseEvent && target.getAttribute("sfx") === "button" && target.dataset.isMouseOver !== "1" && !target?.disabled) {
             target.dataset.isMouseOver = "1";
             this.play("hover");
         }
@@ -83,8 +83,8 @@ class Soundscape {
         if (this.hasPointer || this.hasTouched) {
             return;
         }
-        const target = e.target as HTMLElement;
-        if (target instanceof HTMLElement && target.getAttribute("sfx") === "button") {
+        const target = e.target as any;
+        if (target.getAttribute("sfx") === "button" && !target?.disabled) {
             if (target.dataset.isMouseOver === "0" || !target.dataset.isMouseOver) {
                 this.play("hover");
             }
