@@ -289,7 +289,7 @@ component-viewer {
         transition: all 80ms var(--ease-in-out);
 
         @media (prefers-color-scheme: dark) {
-            background-color: var(--grey-800);
+            background-color: var(--grey-900);
         }
 
         button {
@@ -373,7 +373,7 @@ component-viewer {
                 }
 
                 &.is-selected {
-                    background-color: var(--grey-900);
+                    background-color: var(--grey-800);
                     border-color: var(--grey-700);
                     color: var(--white);
 
