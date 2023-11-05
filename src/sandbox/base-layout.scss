@@ -39,9 +39,12 @@ header {
     padding: 0.5rem;
     overflow: hidden;
     border-radius: 1.5rem;
+    background-color: var(--white);
+    border: 1px solid var(--grey-300);
 
     @media (prefers-color-scheme: dark) {
         background-color: var(--grey-900);
+        border: none;
     }
 
     a {
@@ -61,9 +64,12 @@ nav-component {
     grid-area: nav;
     border-radius: 1rem;
     padding: 0.75rem 1rem;
+    background-color: var(--white);
+    border: 1px solid var(--grey-300);
 
     @media (prefers-color-scheme: dark) {
         background-color: var(--grey-900);
+        border: none;
     }
 
     .menu {
