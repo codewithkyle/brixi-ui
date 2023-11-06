@@ -93,6 +93,25 @@ accordion-component {
                 background-color: var(--grey-100);
             }
 
+            @media (prefers-color-scheme: dark) {
+                border-color: var(--grey-600);
+
+                &:hover,
+                &:focus-visible {
+                    background-color: hsl(var(--grey-400-hsl) / 0.05);
+
+                    i {
+                        svg {
+                            color: var(--grey-500);
+                        }
+                    }
+                }
+
+                &:active {
+                    background-color: hsl(var(--grey-400-hsl) / 0.1);
+                }
+            }
+
             span {
                 display: inline-block;
                 font-size: var(--font-md);
@@ -129,6 +148,11 @@ accordion-component {
             border-style: solid;
             border-color: var(--grey-300);
             border-width: 0 1px 1px 1px;
+
+            @media (prefers-color-scheme: dark) {
+                border-color: var(--grey-600);
+                color: var(--grey-300);
+            }
         }
     }
 }

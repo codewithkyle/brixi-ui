@@ -1,1 +1,1 @@
-body{width:100vw;position:relative;display:block;overflow-x:hidden;overflow-y:auto;padding:1rem}
+body{width:100vw;position:relative;display:block;overflow-x:hidden;overflow-y:auto;padding:1rem;background-color:var(--white)}@media (prefers-color-scheme:dark){body{background-color:var(--grey-900);color:var(--grey-300)}}

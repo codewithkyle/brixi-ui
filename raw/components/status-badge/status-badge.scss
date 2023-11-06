@@ -8,9 +8,14 @@ status-badge {
     padding: 0 0.75rem;
     font-size: var(--font-xs);
     font-weight: var(--font-medium);
-    background-color: var(--grey-100);
+    background-color: hsl(var(--grey-500-hsl) / 0.1);
     color: var(--grey-700);
     border-radius: 0.75rem;
+
+    @media (prefers-color-scheme: dark) {
+        background-color: hsl(var(--grey-300-hsl) / 0.05);
+        color: var(--grey-300);
+    }
 
     &[color="grey"] {
         background-color: hsl(var(--grey-500-hsl) / 0.1);
@@ -19,6 +24,17 @@ status-badge {
         &[dot] {
             &::before {
                 background-color: var(--grey-400);
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            background-color: hsl(var(--grey-300-hsl) / 0.05);
+            color: var(--grey-400);
+
+            &[dot] {
+                &::before {
+                    background-color: var(--grey-400);
+                }
             }
         }
     }
@@ -32,15 +48,15 @@ status-badge {
                 background-color: var(--primary-400);
             }
         }
-    }
 
-    &[color="info"] {
-        background-color: var(--info-50);
-        color: var(--info-700);
+        @media (prefers-color-scheme: dark) {
+            background-color: hsl(var(--primary-300-hsl) / 0.05);
+            color: var(--primary-400);
 
-        &[dot] {
-            &::before {
-                background-color: var(--info-500);
+            &[dot] {
+                &::before {
+                    background-color: var(--primary-400);
+                }
             }
         }
     }
@@ -54,6 +70,17 @@ status-badge {
                 background-color: var(--danger-400);
             }
         }
+
+        @media (prefers-color-scheme: dark) {
+            background-color: hsl(var(--danger-300-hsl) / 0.05);
+            color: var(--danger-400);
+
+            &[dot] {
+                &::before {
+                    background-color: var(--danger-400);
+                }
+            }
+        }
     }
 
     &[color="warning"] {
@@ -65,6 +92,17 @@ status-badge {
                 background-color: var(--warning-400);
             }
         }
+
+        @media (prefers-color-scheme: dark) {
+            background-color: hsl(var(--warning-300-hsl) / 0.05);
+            color: var(--warning-400);
+
+            &[dot] {
+                &::before {
+                    background-color: var(--warning-400);
+                }
+            }
+        }
     }
 
     &[color="success"] {
@@ -74,6 +112,17 @@ status-badge {
         &[dot] {
             &::before {
                 background-color: var(--success-400);
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            background-color: hsl(var(--success-300-hsl) / 0.05);
+            color: var(--success-400);
+
+            &[dot] {
+                &::before {
+                    background-color: var(--success-400);
+                }
             }
         }
     }
