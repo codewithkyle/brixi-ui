@@ -169,12 +169,12 @@ export default class Lightswitch extends Component<ILightswitch> {
             label.style.width = `${span1.scrollWidth + 32}px`;
             span1.style.transform = `translateX(6px)`;
             span2.style.transform = `translateX(6px)`;
-            i.style.transform = `translate(6px, 2px)`;
+            i.style.transform = `translate(6px, 3px)`;
         } else {
             label.style.width = `${span2.scrollWidth + 32}px`;
             span1.style.transform = `translateX(-${span1.scrollWidth}px)`;
             span2.style.transform = `translateX(-${span1.scrollWidth}px)`;
-            i.style.transform = `translate(-${span1.scrollWidth}px, 2px)`;
+            i.style.transform = `translate(-${span1.scrollWidth}px, 3px)`;
         }
     }
 
@@ -198,8 +198,8 @@ export default class Lightswitch extends Component<ILightswitch> {
                     <span>${unsafeHTML(this.model.disabledLabel)}</span>
                 </light-switch>
                 <div class="ml-0.75" flex="column wrap">
-                    <span class="block line-snug font-sm font-medium font-grey-700">${this.model.label}</span>
-                    <span class="block line-snug font-xs font-grey-500">${this.model.instructions}</span>
+                    <span class="block line-snug font-sm font-medium font-grey-700 dark:font-grey-300">${this.model.label}</span>
+                    <span class="block line-snug font-xs font-grey-500 dark:font-grey-300">${this.model.instructions}</span>
                 </div>
             </label>
         `;
