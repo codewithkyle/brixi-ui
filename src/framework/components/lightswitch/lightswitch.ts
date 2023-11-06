@@ -58,6 +58,7 @@ export default class Lightswitch extends Component<ILightswitch> {
 
     override async connected() {
         const settings = parseDataset(this.dataset, this.model);
+        this.state = settings.disabled ? "DISABLED" : "IDLING";
         this.set(settings);
     }
 
@@ -179,6 +180,7 @@ export default class Lightswitch extends Component<ILightswitch> {
     }
 
     override render() {
+        this.setAttribute("state", this.state);
         this.setAttribute("color", this.model.color);
         this.setAttribute("form-input", "");
         const view = html`

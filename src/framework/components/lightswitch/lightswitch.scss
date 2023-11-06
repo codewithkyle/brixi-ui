@@ -3,6 +3,21 @@ lightswitch-component {
     width: 100%;
     position: relative;
 
+    &[state="DISABLED"] {
+        cursor: not-allowed !important;
+        opacity: 0.6;
+
+        label {
+            light-switch {
+                cursor: not-allowed !important;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            opacity: 0.3;
+        }
+    }
+
     &[color="primary"] {
         span:first-of-type {
             color: var(--primary-600);

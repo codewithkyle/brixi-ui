@@ -6,10 +6,19 @@ select-component,
 
     &[state="DISABLED"] {
         cursor: not-allowed !important;
+        opacity: 0.6;
+
+        @media (prefers-color-scheme: dark) {
+            opacity: 0.3;
+        }
 
         label,
         p {
             color: var(--grey-400) !important;
+
+            @media (prefers-color-scheme: dark) {
+                color: var(--grey-300) !important;
+            }
         }
         select-container {
             background-color: var(--grey-50) !important;
@@ -20,9 +29,18 @@ select-component,
                 box-shadow: none !important;
             }
 
+            @media (prefers-color-scheme: dark) {
+                background-color: transparent !important;
+                border-color: var(--grey-700) !important;
+            }
+
             select {
                 cursor: not-allowed !important;
                 background-color: var(--grey-50) !important;
+
+                @media (prefers-color-scheme: dark) {
+                    background-color: hsl(var(--white-hsl) / 0.05) !important;
+                }
             }
         }
     }

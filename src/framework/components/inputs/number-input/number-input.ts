@@ -170,7 +170,7 @@ export default class NumberInput extends InputBase<INumberInput> {
                     placeholder=${this.model.placeholder}
                     name=${this.model.name}
                     ?required=${this.model.required}
-                    ?disalbed=${this.model.disabled}
+                    ?disabled=${this.model.disabled}
                     ?autofocus=${this.model.autofocus}
                 />
             </input-container>

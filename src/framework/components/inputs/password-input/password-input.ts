@@ -213,7 +213,7 @@ export default class PasswordInput extends InputBase<IPasswordInput> {
                     name=${this.model.name}
                     autocomplete="${this.model.autocomplete}"
                     ?required=${this.model.required}
-                    ?disalbed=${this.model.disabled}
+                    ?disabled=${this.model.disabled}
                     ?autofocus=${this.model.autofocus}
                     style="padding-right:36px;"
                 />
