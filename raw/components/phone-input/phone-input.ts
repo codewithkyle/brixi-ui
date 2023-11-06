@@ -12,7 +12,6 @@ interface IPhoneInput extends IInputBase {
     autocomplete: string;
     icon: string;
     placeholder: string;
-    readOnly: boolean;
     datalist: string[];
     autofocus: boolean;
     value: string;
@@ -26,7 +25,6 @@ export default class PhoneInput extends InputBase<IPhoneInput> {
         this.model = {
             label: "",
             instructions: null,
-            readOnly: false,
             error: null,
             name: "",
             required: false,
@@ -41,19 +39,7 @@ export default class PhoneInput extends InputBase<IPhoneInput> {
     }
 
     static get observedAttributes() {
-        return [
-            "data-label",
-            "data-instructions",
-            "data-name",
-            "data-required",
-            "data-icon",
-            "data-placeholder",
-            "data-value",
-            "data-disabled",
-            "data-datalist",
-            "data-autofocus",
-            "data-read-only",
-        ];
+        return ["data-label", "data-instructions", "data-name", "data-required", "data-icon", "data-placeholder", "data-value", "data-disabled", "data-datalist", "data-autofocus"];
     }
 
     override validate(): boolean {

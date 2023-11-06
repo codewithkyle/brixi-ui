@@ -11,7 +11,6 @@ interface INumberInput extends IInputBase {
     instructions: string;
     icon: string;
     placeholder: string;
-    readOnly: boolean;
     autofocus: boolean;
     value: number | null;
     min: number;
@@ -27,7 +26,6 @@ export default class NumberInput extends InputBase<INumberInput> {
         this.model = {
             label: "",
             instructions: null,
-            readOnly: false,
             error: null,
             name: "",
             required: false,
@@ -56,7 +54,6 @@ export default class NumberInput extends InputBase<INumberInput> {
             "data-autofocus",
             "data-name",
             "data-required",
-            "data-read-only",
         ];
     }
 

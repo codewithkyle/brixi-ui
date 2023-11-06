@@ -20,7 +20,6 @@
 | placeholder | string | |
 | value | number | |
 | disabled | boolean | |
-| readOnly | boolean | |
 | autofocus | boolean | |
 | maxlength | number | |
 | minlength | number | |
