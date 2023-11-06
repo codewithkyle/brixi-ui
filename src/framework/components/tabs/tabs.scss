@@ -84,6 +84,10 @@ tabs-component {
             padding: 0 0.75rem;
             user-select: none;
 
+            @media (prefers-color-scheme: dark) {
+                color: var(--grey-300);
+            }
+
             &::before {
                 transition: all 80ms var(--ease-in-out);
                 content: "";
@@ -96,6 +100,10 @@ tabs-component {
                 border-radius: 0.5rem;
                 opacity: 0;
                 background-color: var(--grey-500);
+
+                @media (prefers-color-scheme: dark) {
+                    background-color: var(--grey-400);
+                }
             }
 
             i {
@@ -104,6 +112,10 @@ tabs-component {
                 justify-content: center;
                 align-items: center;
                 color: var(--grey-400);
+
+                @media (prefers-color-scheme: dark) {
+                    color: var(--grey-500);
+                }
 
                 svg {
                     width: 16px;
@@ -124,6 +136,10 @@ tabs-component {
             border-radius: 3px 3px 0 0;
             transform: translate(0, 4px);
             background-color: var(--primary-500);
+
+            @media (prefers-color-scheme: dark) {
+                background-color: var(--primary-400);
+            }
         }
     }
 }
