@@ -3,7 +3,8 @@ name: Deployment
 on:
     push:
         branches:
-            - "wip-0.10"
+            - master
+    workflow_dispatch:
 
 jobs:
     deploy:
