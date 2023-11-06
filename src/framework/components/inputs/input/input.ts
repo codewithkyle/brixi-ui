@@ -3,8 +3,9 @@ import { html, render, TemplateResult } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import env from "~brixi/controllers/env";
 import { InputBase, IInputBase } from "../input-base";
+import alerts from "~brixi/controllers/alerts";
 
-env.css("input");
+env.css(["input", "button", "toast"]);
 
 export interface IInput extends IInputBase {
     label: string;
@@ -15,7 +16,7 @@ export interface IInput extends IInputBase {
     placeholder: string;
     maxlength: number;
     minlength: number;
-    readOnly: boolean;
+    readOnly?: boolean;
     datalist: string[];
     autofocus: boolean;
     value: string;
@@ -137,6 +138,13 @@ export default class Input extends InputBase<IInput> {
         );
     };
 
+    private handleCopyClick: EventListener = (e: Event) => {
+        e.stopImmediatePropagation();
+        window.navigator.clipboard.writeText(this.model.value).then(() => {
+            alerts.toast("Copied to clipboard");
+        });
+    };
+
     private renderCopy(): string | TemplateResult {
         let output: string | TemplateResult = "";
         if (this.state === "IDLING" && this.model.instructions) {
@@ -151,6 +159,32 @@ export default class Input extends InputBase<IInput> {
         let output: string | TemplateResult = "";
         if (this.model.icon?.length) {
             output = html`<i>${unsafeHTML(this.model.icon)}</i>`;
+        }
+        return output;
+    }
+
+    private renderReadOnlyIcon(): string | TemplateResult {
+        let output: string | TemplateResult = "";
+        if (this.model.readOnly) {
+            output = html`
+                <button class="bttn absolute r-0 b-0" kind="text" color="primary" size="slim" icon="center" dull @click=${this.handleCopyClick} type="button">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                        stroke="currentColor"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M8 8m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z"></path>
+                        <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"></path>
+                    </svg>
+                </button>
+            `;
         }
         return output;
     }
@@ -180,6 +214,9 @@ export default class Input extends InputBase<IInput> {
     render() {
         this.setAttribute("state", this.state);
         this.classList.add("input");
+        if (this.model.readOnly) {
+            this.setAttribute("readonly", `${this.model.readOnly}`);
+        }
         const view = html`
             ${this.renderLabel()} ${this.renderCopy()}
             <input-container>
@@ -201,7 +238,9 @@ export default class Input extends InputBase<IInput> {
                     ?disabled=${this.model.disabled}
                     list="${this.model.datalist.length ? `${this.inputId}-datalist` : ""}"
                     ?autofocus=${this.model.autofocus}
+                    ?readonly=${this.model.readOnly}
                 />
+                ${this.renderReadOnlyIcon()}
             </input-container>
             ${this.renderDatalist()}
         `;

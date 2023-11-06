@@ -205,7 +205,6 @@ button-component {
     & > svg {
         width: 20px;
         height: 20px;
-        transform: translateY(-1px);
     }
 
     &[kind="solid"] {
@@ -940,5 +939,12 @@ button-component {
                 opacity: 0.1;
             }
         }
+    }
+
+    span {
+        display: inline-block;
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 }

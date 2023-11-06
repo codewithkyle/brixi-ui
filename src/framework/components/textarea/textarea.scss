@@ -3,6 +3,13 @@ textarea-component {
     width: 100%;
     position: relative;
 
+    &[readonly] {
+        textarea {
+            padding-right: 2.5rem;
+            padding-bottom: 0.25rem;
+        }
+    }
+
     &[state="DISABLED"] {
         cursor: not-allowed !important;
 
@@ -95,13 +102,6 @@ textarea-component {
             outline: var(--focus-ring);
             outline-offset: 5px;
             transition: outline-offset 80ms var(--ease-in-out);
-
-            @media (prefers-color-scheme: dark) {
-                border-color: var(--primary-400);
-                outline: none;
-                box-shadow: 0 0 0 5px hsl(var(--primary-400-hsl) / 0.1);
-                background-color: hsl(var(--white-hsl) / 0);
-            }
         }
 
         @media (prefers-color-scheme: dark) {
@@ -113,6 +113,16 @@ textarea-component {
 
             &::placeholder {
                 color: var(--grey-500);
+            }
+
+            &:focus {
+                border-color: var(--primary-400);
+                outline: none;
+                box-shadow: 0 0 0 5px hsl(var(--primary-400-hsl) / 0.1);
+            }
+
+            &:focus:not(:read-only) {
+                background-color: hsl(var(--white-hsl) / 0);
             }
         }
     }

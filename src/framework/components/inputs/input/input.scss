@@ -3,6 +3,14 @@
     width: 100%;
     position: relative;
 
+    &[readonly] {
+        input-container {
+            input {
+                padding-right: 2.5rem;
+            }
+        }
+    }
+
     &[state="DISABLED"] {
         cursor: not-allowed !important;
 
@@ -91,7 +99,7 @@
             color: var(--grey-300);
             background-color: hsl(var(--white-hsl) / 0.05);
 
-            &:focus {
+            &:focus:not(:read-only) {
                 background-color: hsl(var(--white-hsl) / 0);
             }
 
@@ -123,7 +131,7 @@
         border: var(--input-border);
         background-color: var(--white);
         transition: all 80ms var(--ease-in-out);
-        box-shadow: 0 1px 0 hsl(0deg 0% 0% / 0.1);
+        box-shadow: 0 1px 1px hsl(var(--black-hsl) / 0.1);
         outline-offset: 0;
 
         &:focus-within {

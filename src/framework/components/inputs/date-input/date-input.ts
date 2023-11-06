@@ -14,7 +14,6 @@ export interface IDateInput extends IInputBase {
     autocapitalize: "off" | "on";
     icon: string;
     placeholder: string;
-    readOnly: boolean;
     autofocus: boolean;
     value: string;
     dateFormat: string;
@@ -49,7 +48,6 @@ export default class DateInput extends InputBase<IDateInput> {
             },
         };
         this.model = {
-            readOnly: false,
             label: "",
             instructions: null,
             error: null,
@@ -76,7 +74,6 @@ export default class DateInput extends InputBase<IDateInput> {
 
     static get observedAttributes() {
         return [
-            "data-read-only",
             "data-label",
             "data-instructions",
             "data-name",

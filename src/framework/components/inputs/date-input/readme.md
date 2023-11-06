@@ -17,7 +17,6 @@
 | autocapitalize | "on" or "off" | |
 | icon | string | |
 | placeholder | string | |
-| readOnly | boolean | |
 | autofocus | boolean | |
 | value | string | |
 | dateFormat | string | |

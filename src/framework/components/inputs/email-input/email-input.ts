@@ -16,7 +16,6 @@ export default class EmailInput extends InputBase<IInput> {
         this.model = {
             label: "",
             instructions: null,
-            readOnly: false,
             error: null,
             name: "",
             required: false,
@@ -47,7 +46,6 @@ export default class EmailInput extends InputBase<IInput> {
             "data-maxlength",
             "data-minlength",
             "data-disabled",
-            "data-read-only",
             "data-datalist",
             "data-autofocus",
         ];

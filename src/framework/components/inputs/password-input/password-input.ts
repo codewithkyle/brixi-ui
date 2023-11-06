@@ -14,7 +14,6 @@ interface IPasswordInput extends IInputBase {
     placeholder: string;
     maxlength: number;
     minlength: number;
-    readOnly: boolean;
     autofocus: boolean;
     value: string;
     type: "text" | "password";
@@ -28,7 +27,6 @@ export default class PasswordInput extends InputBase<IPasswordInput> {
         this.model = {
             label: "",
             instructions: null,
-            readOnly: false,
             error: null,
             name: "",
             required: false,
@@ -58,7 +56,6 @@ export default class PasswordInput extends InputBase<IPasswordInput> {
             "data-maxlength",
             "data-minlength",
             "data-autofocus",
-            "data-read-only",
         ];
     }
 
