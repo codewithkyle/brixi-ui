@@ -1,8 +1,8 @@
 progress-toast {
-    background-color: var(--grey-800);
+    background-color: var(--white);
     padding: 1rem;
     border-radius: 0.5rem;
-    box-shadow: var(--shadow-grey-md);
+    box-shadow: var(--shadow-black-md);
     display: flex;
     flex-flow: row nowrap;
     width: 300px;
@@ -14,6 +14,12 @@ progress-toast {
     transform: translateX(100%);
     opacity: 0;
     animation: grow 300ms forwards var(--ease-in);
+    border: 2px solid var(--grey-300);
+
+    @media (prefers-color-scheme: dark) {
+        background-color: var(--grey-900);
+        border-color: var(--grey-400);
+    }
 }
 @keyframes grow {
     from {

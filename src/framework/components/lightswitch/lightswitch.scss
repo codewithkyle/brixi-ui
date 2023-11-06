@@ -3,27 +3,42 @@ lightswitch-component {
     width: 100%;
     position: relative;
 
-    &[color="primary"] {
-        input:checked + label light-switch {
-            background-color: var(--primary-100);
-            border-color: var(--primary-300);
+    &[state="DISABLED"] {
+        cursor: not-allowed !important;
+        opacity: 0.6;
 
+        label {
+            light-switch {
+                cursor: not-allowed !important;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            opacity: 0.3;
+        }
+    }
+
+    &[color="primary"] {
+        span:first-of-type {
+            color: var(--primary-600);
+
+            svg {
+                color: var(--primary-500);
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
             span:first-of-type {
-                color: var(--primary-600);
+                color: var(--primary-400);
 
                 svg {
-                    color: var(--primary-500);
+                    color: var(--primary-400);
                 }
             }
         }
     }
 
     &[color="danger"] {
-        input:checked + label light-switch {
-            background-color: var(--danger-100);
-            border-color: var(--danger-300);
-        }
-
         span:first-of-type {
             color: var(--danger-600);
 
@@ -31,14 +46,19 @@ lightswitch-component {
                 color: var(--danger-500);
             }
         }
+
+        @media (prefers-color-scheme: dark) {
+            span:first-of-type {
+                color: var(--danger-400);
+
+                svg {
+                    color: var(--danger-400);
+                }
+            }
+        }
     }
 
     &[color="warning"] {
-        input:checked + label light-switch {
-            background-color: var(--warning-100);
-            border-color: var(--warning-300);
-        }
-
         span:first-of-type {
             color: var(--warning-600);
 
@@ -46,19 +66,14 @@ lightswitch-component {
                 color: var(--warning-500);
             }
         }
-    }
 
-    &[color="info"] {
-        input:checked + label light-switch {
-            background-color: var(--info-100);
-            border-color: var(--info-300);
-        }
+        @media (prefers-color-scheme: dark) {
+            span:first-of-type {
+                color: var(--warning-400);
 
-        span:first-of-type {
-            color: var(--info-600);
-
-            svg {
-                color: var(--info-500);
+                svg {
+                    color: var(--warning-400);
+                }
             }
         }
     }
@@ -86,8 +101,13 @@ lightswitch-component {
         &:checked {
             & + label {
                 light-switch {
-                    background-color: var(--success-100);
-                    border-color: var(--success-300);
+                    background-color: var(--grey-50);
+                    border-color: var(--grey-300);
+
+                    @media (prefers-color-scheme: dark) {
+                        background-color: hsl(var(--grey-950-hsl) / 0.6);
+                        border-color: hsl(var(--grey-950-hsl) / 0.6);
+                    }
                 }
             }
         }
@@ -127,6 +147,19 @@ lightswitch-component {
                 transition: outline-offset 80ms var(--ease-in-out);
             }
 
+            @media (prefers-color-scheme: dark) {
+                background-color: hsl(var(--grey-950-hsl) / 0.6);
+                border-color: hsl(var(--grey-950-hsl) / 0.6);
+
+                &:hover {
+                    background-color: hsl(var(--grey-950-hsl) / 0.6);
+                }
+
+                &:active {
+                    background-color: hsl(var(--grey-950-hsl) / 0.6);
+                }
+            }
+
             i {
                 display: inline-block;
                 width: 16px;
@@ -137,7 +170,12 @@ lightswitch-component {
                 border: 1px solid var(--grey-200);
                 box-shadow: var(--bevel);
                 transition: all 150ms var(--ease-in-out);
-                transform: translate(0, 2px);
+                transform: translate(0, 3px);
+
+                @media (prefers-color-scheme: dark) {
+                    background-color: var(--grey-700);
+                    border-color: var(--grey-700);
+                }
             }
 
             span {
@@ -154,11 +192,23 @@ lightswitch-component {
                 height: 24px;
                 min-width: 18px;
 
+                @media (prefers-color-scheme: dark) {
+                    color: var(--grey-300);
+                }
+
                 &:first-of-type {
                     color: var(--success-600);
 
                     svg {
                         color: var(--success-500);
+                    }
+
+                    @media (prefers-color-scheme: dark) {
+                        color: var(--success-400);
+
+                        svg {
+                            color: var(--success-400);
+                        }
                     }
                 }
 
@@ -169,6 +219,10 @@ lightswitch-component {
                     vertical-align: middle;
                     color: var(--grey-600);
                     transform: translateY(-1px);
+
+                    @media (prefers-color-scheme: dark) {
+                        color: var(--grey-300);
+                    }
                 }
             }
         }

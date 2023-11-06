@@ -18,7 +18,6 @@
 | placeholder | string | |
 | value | string | |
 | disabled | boolean | |
-| readOnly | boolean | |
 | datalist | string[] | |
 | autofocus | boolean | |
 

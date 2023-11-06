@@ -5,8 +5,9 @@ import { parseDataset } from "~brixi/utils/general";
 import soundscape from "~brixi/controllers/soundscape";
 import Component from "~brixi/component";
 import { UUID } from "@codewithkyle/uuid";
+import alerts from "~brixi/controllers/alerts";
 
-env.css("textarea");
+env.css(["textarea", "button", "toast"]);
 
 export interface ITextarea {
     label: string;
@@ -187,6 +188,13 @@ export default class Textarea extends Component<ITextarea> {
         );
     };
 
+    private handleCopyClick: EventListener = (e: Event) => {
+        e.stopImmediatePropagation();
+        window.navigator.clipboard.writeText(this.model.value).then(() => {
+            alerts.toast("Copied to clipboard");
+        });
+    };
+
     public renderCopy(): string | TemplateResult {
         let output: string | TemplateResult;
         if (this.state === "IDLING" && this.model.instructions) {
@@ -209,9 +217,35 @@ export default class Textarea extends Component<ITextarea> {
         return output;
     }
 
+    private renderReadOnlyIcon(): string | TemplateResult {
+        let output: string | TemplateResult = "";
+        if (this.model.readOnly) {
+            output = html`
+                <button class="bttn absolute r-0 b-0" kind="text" color="primary" size="slim" shape="round" icon="center" dull @click=${this.handleCopyClick} type="button">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="22"
+                        height="22"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                        stroke="currentColor"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M8 8m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z"></path>
+                        <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"></path>
+                    </svg>
+                </button>
+            `;
+        }
+        return output;
+    }
+
     public renderCounter(): string | TemplateResult {
         let out: string | TemplateResult;
-        if (this.model.maxlength === Infinity) {
+        if (this.model.maxlength === Infinity || this.model.readOnly) {
             out = "";
         } else {
             out = html` <span class="counter"> ${this.model.value?.length ?? 0}/${this.model.maxlength} </span> `;
@@ -222,6 +256,9 @@ export default class Textarea extends Component<ITextarea> {
     render() {
         this.setAttribute("state", this.state);
         this.setAttribute("form-input", "");
+        if (this.model.readOnly) {
+            this.setAttribute("readonly", "");
+        }
         const view = html`
             ${this.renderLabel()} ${this.renderCopy()}
             <textarea
@@ -242,7 +279,7 @@ export default class Textarea extends Component<ITextarea> {
             >
 ${this.model.value ?? ""}</textarea
             >
-            ${this.renderCounter()}
+            ${this.renderCounter()} ${this.renderReadOnlyIcon()}
         `;
         render(view, this);
     }

@@ -25,6 +25,16 @@ steps-component {
                 p {
                     color: var(--grey-700);
                 }
+
+                @media (prefers-color-scheme: dark) {
+                    h3 {
+                        color: var(--grey-500);
+                    }
+
+                    p {
+                        color: var(--grey-500);
+                    }
+                }
             }
 
             &[state="active"] {
@@ -44,6 +54,20 @@ steps-component {
                         visibility: visible;
                     }
                 }
+
+                @media (prefers-color-scheme: dark) {
+                    h3 {
+                        color: var(--primary-300);
+                    }
+
+                    p {
+                        color: var(--grey-300);
+                    }
+
+                    i {
+                        border-color: var(--primary-400);
+                    }
+                }
             }
 
             &[state="completed"] {
@@ -51,6 +75,10 @@ steps-component {
 
                 &::before {
                     background-color: var(--primary-600);
+
+                    @media (prefers-color-scheme: dark) {
+                        background-color: var(--primary-400);
+                    }
                 }
 
                 h3 {
@@ -87,6 +115,38 @@ steps-component {
                         }
                     }
                 }
+
+                @media (prefers-color-scheme: dark) {
+                    h3 {
+                        color: var(--grey-500);
+                    }
+
+                    p {
+                        color: var(--grey-500);
+                    }
+
+                    i {
+                        background-color: var(--primary-400);
+                        border-color: var(--primary-400);
+                    }
+
+                    &:hover,
+                    &:focus-visible {
+                        .copy {
+                            &::before {
+                                background-color: hsl(var(--grey-400-hsl) / 0.05);
+                            }
+                        }
+                    }
+
+                    &:active {
+                        .copy {
+                            &::before {
+                                background-color: hsl(var(--grey-400-hsl) / 0.1);
+                            }
+                        }
+                    }
+                }
             }
 
             &::before {
@@ -100,6 +160,10 @@ steps-component {
                 background-color: var(--grey-200);
                 border-radius: 1px;
                 transition: all 80ms var(--ease-in-out);
+
+                @media (prefers-color-scheme: dark) {
+                    background-color: var(--grey-700);
+                }
             }
 
             .copy {
@@ -138,6 +202,11 @@ steps-component {
                 background-color: var(--white);
                 transition: all 80ms var(--ease-in-out);
 
+                @media (prefers-color-scheme: dark) {
+                    background-color: transparent;
+                    border-color: var(--grey-700);
+                }
+
                 svg {
                     width: 24px;
                     height: 24px;
@@ -157,6 +226,10 @@ steps-component {
                     opacity: 0;
                     visibility: hidden;
                     transition: all 80ms var(--ease-in-out);
+
+                    @media (prefers-color-scheme: dark) {
+                        background-color: var(--primary-400);
+                    }
                 }
             }
         }

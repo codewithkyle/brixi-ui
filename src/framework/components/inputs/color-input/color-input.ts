@@ -56,6 +56,7 @@ export default class ColorInput extends InputBase<IColorInput> {
     };
 
     override render() {
+        this.setAttribute("state", this.state);
         const view = html`
             <input
                 name="${this.model.name}"

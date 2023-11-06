@@ -207,6 +207,8 @@ export default class RangeSlider extends InputBase<IRangeSlider> {
                     max=${this.model.max}
                     step=${this.model.step}
                     .value=${this.model.value}
+                    ?readonly=${this.model.readOnly}
+                    ?disabled=${this.model.disabled}
                 />
             `;
         }
@@ -257,8 +259,9 @@ export default class RangeSlider extends InputBase<IRangeSlider> {
                     .value=${this.model.value ?? this.model.min}
                     name=${this.model.name}
                     ?required=${this.model.required}
-                    ?disalbed=${this.model.disabled}
+                    ?disabled=${this.model.disabled}
                     ?autofocus=${this.model.autofocus}
+                    ?readonly=${this.model.readOnly}
                 />
                 ${this.renderManualInput()}
             </input-container>

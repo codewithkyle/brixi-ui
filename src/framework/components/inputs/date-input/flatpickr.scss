@@ -1,3 +1,61 @@
+@media (prefers-color-scheme: dark) {
+    .flatpickr-calendar {
+        background-color: var(--grey-950) !important;
+        color: var(--grey-300) !important;
+        box-shadow: var(--shadow-black-md) !important;
+
+        &::before,
+        &::after {
+            border-bottom-color: var(--grey-950) !important;
+        }
+
+        .flatpickr-months {
+            .flatpickr-month .flatpickr-current-month {
+                color: var(--grey-300) !important;
+            }
+
+            .flatpickr-prev-month,
+            .flatpickr-next-month {
+                fill: var(--grey-300) !important;
+            }
+        }
+
+        .flatpickr-weekdays {
+            .flatpickr-weekday {
+                color: var(--grey-300) !important;
+            }
+        }
+
+        .flatpickr-days {
+            .flatpickr-day {
+                color: var(--grey-300) !important;
+
+                &.prevMonthDay {
+                    color: var(--grey-500) !important;
+                }
+
+                &.today {
+                    border-color: var(--grey-800) !important;
+                }
+
+                &.selected {
+                    background-color: hsl(var(--primary-400-hsl) / 0.05) !important;
+                    border-color: var(--primary-200) !important;
+                    color: var(--primary-300) !important;
+                }
+
+                &:hover,
+                &:focus-visible {
+                    background-color: hsl(var(--white-hsl) / 0.05) !important;
+                    color: var(--white) !important;
+                    border-color: var(--grey-800) !important;
+                }
+            }
+        }
+    }
+}
+
+/* Static flatpickr CSS */
 .flatpickr-calendar {
     background: transparent;
     opacity: 0;

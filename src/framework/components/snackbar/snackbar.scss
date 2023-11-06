@@ -4,8 +4,8 @@ snackbar-component {
     justify-content: space-between;
     flex-flow: column wrap;
     border-radius: 0.5rem;
-    background-color: var(--grey-800);
-    box-shadow: var(--shadow-grey-md);
+    background-color: var(--grey-950);
+    box-shadow: var(--shadow-black-md);
     color: var(--white);
     max-width: calc(100vw - 2rem);
     width: 100vw;
@@ -17,6 +17,11 @@ snackbar-component {
     transform-origin: left top;
     position: fixed;
     bottom: 1rem;
+    border: 1px solid var(--grey-900);
+
+    @media (prefers-color-scheme: dark) {
+        background-color: hsl(var(--grey-950-hsl) / 0.6);
+    }
 
     @media (min-width: 411px) {
         flex-flow: row nowrap;

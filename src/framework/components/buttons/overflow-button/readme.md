@@ -31,7 +31,7 @@ Not sure what Data Attributes are? Learn about [Data Attributes on MDN](https://
 ```typescript
 type ButtonPositions = "left" | "right" | "center";
 type ButtonKind = "solid" | "outline" | "text";
-type ButtonColor = "primary" | "danger" | "grey" | "success" | "warning" | "info" | "white";
+type ButtonColor = "primary" | "danger" | "grey" | "success" | "warning" | "white";
 type ButtonShape = "pill" | "round" | "sharp" | "default";
 type ButtonSize = "default" | "slim" | "large";
 type ButtonType = "submit" | "button" | "reset";

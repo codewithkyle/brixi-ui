@@ -26,7 +26,6 @@
 | max | number | |
 | step | number | |
 | disabled | boolean | |
-| readOnly | boolean | |
 | autofocus | boolean | |
 
 Not sure what Data Attributes are? Learn about [Data Attributes on MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/data-*).

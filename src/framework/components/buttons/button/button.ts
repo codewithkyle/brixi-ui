@@ -7,7 +7,7 @@ import { parseDataset } from "~brixi/utils/general";
 env.css(["button"]);
 
 export type ButtonKind = "solid" | "outline" | "text";
-export type ButtonColor = "primary" | "danger" | "grey" | "success" | "warning" | "info" | "white";
+export type ButtonColor = "primary" | "danger" | "grey" | "success" | "warning" | "white";
 export type ButtonShape = "pill" | "round" | "sharp" | "default";
 export type ButtonSize = "default" | "slim" | "large";
 export type ButtonType = "submit" | "button" | "reset";

@@ -54,18 +54,7 @@ module.exports = {
             700: "#3F3F46",
             800: "#27272A",
             900: "#18181B",
-        },
-        neutral: {
-            50: "#FAFAFA",
-            100: "#F5F5F5",
-            200: "#E5E5E5",
-            300: "#D4D4D4",
-            400: "#A3A3A3",
-            500: "#737373",
-            600: "#525252",
-            700: "#404040",
-            800: "#262626",
-            900: "#171717",
+            950: "#09090b",
         },
         primary: {
             50: "#EFF6FF",
@@ -78,18 +67,7 @@ module.exports = {
             700: "#1D4ED8",
             800: "#1E40AF",
             900: "#1E3A8A",
-        },
-        info: {
-            50: "#EFF6FF",
-            100: "#DBEAFE",
-            200: "#BFDBFE",
-            300: "#93C5FD",
-            400: "#60A5FA",
-            500: "#3B82F6",
-            600: "#2563EB",
-            700: "#1D4ED8",
-            800: "#1E40AF",
-            900: "#1E3A8A",
+            950: "#172554",
         },
         success: {
             50: "#ECFDF5",
@@ -102,6 +80,7 @@ module.exports = {
             700: "#047857",
             800: "#065F46",
             900: "#064E3B",
+            950: "#022c22",
         },
         danger: {
             50: "#FFF1F2",
@@ -114,6 +93,7 @@ module.exports = {
             700: "#BE123C",
             800: "#9F1239",
             900: "#881337",
+            950: "#4c0519",
         },
         warning: {
             50: "#FFFBEB",
@@ -126,6 +106,7 @@ module.exports = {
             700: "#B45309",
             800: "#92400E",
             900: "#78350F",
+            950: "#451a03",
         },
     },
     borders: {
@@ -137,15 +118,13 @@ module.exports = {
     variables: {
         "focus-ring": "1px auto var(--primary-500)",
         "focus-ring-offset": "5px",
-        "bevel": "0 1px 0 hsl(0deg 0% 0% / 0.1), inset 0 -2px 0 hsl(0deg 0% 0% / 0.05)",
-        "primary-opaque-hover": "rgba(14,165,233,0.05)",
-        "primary-opaque-active": "rgba(14,165,233,0.1)",
+        "bevel": "0 1px 0 hsl(0deg 0% 0% / 0.1)",
         "input-border": "1px solid var(--grey-300)",
-        "button-shadow": "0px 1px 2px -1px rgba(0, 0, 0, 0.09), 0px 7px 14px -5px rgba(0, 0, 0, 0.06), 0px 3px 7px -2px rgba(0, 0, 0, 0.04), inset 0px -1px 0px 1px rgba(0, 0, 0, 0.06)",
+        "button-shadow": "0px 1px 2px -1px rgba(0, 0, 0, 0.09), inset 0px -1px 0px 1px rgba(0, 0, 0, 0.06)",
     },
     shadows: {
         colors: {
-            grey: "0deg 0% 0%",
+            black: "var(--black-hsl)",
         },
         sizes: {
             sm: `
@@ -172,6 +151,12 @@ module.exports = {
                 0px 48px 48px hsl(var(--shadow-color) / 0.1),
                 0px 64px 64px hsl(var(--shadow-color) / 0.1)
             `,
+        },
+    },
+    prefixes: {
+        dark: {
+            features: ["backgrounds", "fonts", "borders", "shadows"],
+            rule: "prefers-color-scheme: dark",
         },
     },
 };

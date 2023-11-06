@@ -11,7 +11,6 @@ progress-indicator {
         &[color="white"] {
             .inner {
                 color: var(--white);
-                opacity: 0.15;
             }
             .outter {
                 color: var(--white);
@@ -20,42 +19,80 @@ progress-indicator {
 
         &[color="primary"] {
             .inner {
-                color: var(--primary-200);
+                color: var(--primary-500);
+
+                @media (prefers-color-scheme: dark) {
+                    color: var(--primary-300);
+                }
             }
             .outter {
                 color: var(--primary-500);
+
+                @media (prefers-color-scheme: dark) {
+                    color: var(--primary-400);
+                }
             }
         }
 
         &[color="success"] {
             .inner {
-                color: var(--success-200);
+                color: var(--success-500);
+
+                @media (prefers-color-scheme: dark) {
+                    color: var(--success-300);
+                }
             }
             .outter {
                 color: var(--success-500);
+
+                @media (prefers-color-scheme: dark) {
+                    color: var(--success-400);
+                }
             }
         }
 
         &[color="warning"] {
             .inner {
-                color: var(--warning-200);
+                color: var(--warning-500);
+
+                @media (prefers-color-scheme: dark) {
+                    color: var(--warning-300);
+                }
             }
             .outter {
-                color: var(--warning-500);
+                color: var(--warning-400);
+
+                @media (prefers-color-scheme: dark) {
+                    color: var(--warning-400);
+                }
             }
         }
 
         &[color="danger"] {
             .inner {
-                color: var(--danger-200);
+                color: var(--danger-500);
+
+                @media (prefers-color-scheme: dark) {
+                    color: var(--danger-300);
+                }
             }
             .outter {
                 color: var(--danger-500);
+
+                @media (prefers-color-scheme: dark) {
+                    color: var(--danger-400);
+                }
             }
         }
 
         .inner {
-            color: var(--grey-200);
+            color: var(--grey-500);
+            opacity: 0.3;
+
+            @media (prefers-color-scheme: dark) {
+                opacity: 0.15;
+                color: var(--grey-400);
+            }
         }
 
         .outter {
@@ -63,6 +100,10 @@ progress-indicator {
             stroke-dasharray: 70;
             color: var(--grey-500);
             transition: all 150ms var(--ease-in-out);
+
+            @media (prefers-color-scheme: dark) {
+                color: var(--grey-400);
+            }
         }
     }
 }

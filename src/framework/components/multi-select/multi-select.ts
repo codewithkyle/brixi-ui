@@ -229,6 +229,7 @@ export default class MultiSelect extends Component<IMultiSelect> {
             }
         }
         this.set(updatedModel);
+        this.validate();
         this.dispatchEvent(
             new CustomEvent("change", {
                 detail: {
@@ -257,6 +258,7 @@ export default class MultiSelect extends Component<IMultiSelect> {
             }
         }
         this.set(updatedModel);
+        this.validate();
         this.dispatchEvent(
             new CustomEvent("change", {
                 detail: {

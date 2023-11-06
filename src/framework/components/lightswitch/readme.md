@@ -29,7 +29,7 @@ Not sure what Data Attributes are? Learn about [Data Attributes on MDN](https://
 ### Types
 
 ```typescript
-type Color = "primary" | "success" | "warning" | "danger" | "info";
+type Color = "primary" | "success" | "warning" | "danger";
 ```
 
 ### Event Listeners

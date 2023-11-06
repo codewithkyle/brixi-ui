@@ -11,24 +11,6 @@
         <script type="module">
             if (location.origin.indexOf("localhost") === -1 && "serviceWorker" in navigator) {
                 navigator.serviceWorker.register("/service-worker.js", { scope: "/" });
-                navigator.serviceWorker.addEventListener("message", (e) => {
-                    localStorage.setItem("version", e.data);
-                });
-                navigator.serviceWorker.ready.then(async (registration) => {
-                    try {
-                        await import("/service-worker-assets.js?t=" + Date.now());
-                        if (self.manifest.version !== localStorage.getItem("version")) {
-                            localStorage.removeItem("version");
-                        } else {
-                            delete self.manifest.assets;
-                        }
-                        registration.active.postMessage(self.manifest);
-                    } catch (e) {
-                        registration.active.postMessage({
-                            version: localStorage.getItem("version") || "init",
-                        });
-                    }
-                });
             }
         </script>
         <script>
@@ -53,9 +35,13 @@
         <link rel="stylesheet" href="/css/link.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/github-dark-dimmed.min.css" />
         <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js"></script>
+        <script defer src="https://unpkg.com/alpinejs@3.13.2/dist/cdn.min.js"></script>
         <script type="module" src="/js/bootstrap.js"></script>
         <script type="module" src="/js/tooltipper.js"></script>
         <script type="module" src="/js/soundscape.js"></script>
+
+        <link rel="stylesheet" href="/css/group-button.css">
+        <script type="module" src="/js/group-button.js"></script>
 
         <meta property="og:url" content="https://ui.brixi.dev/" />
         <meta property="og:type" content="website" />
@@ -73,7 +59,143 @@
         <meta name="twitter:image" content="https://ui.brixi.dev/brixi-ui-card.png" />
     </head>
     <body>
+        <header>
+            <div flex="row nowrap items-center">
+                <a sfx="button" href="/" class="mr-0.5" flex="row nowrap items-center">
+                    <img src="/static/logo.png" width="32" class="mr-0.25" />
+                    <h1 class="font-xl font-bold">Brixi UI</h1>
+                </a>
+                <a
+                    sfx="button"
+                    target="_blank"
+                    rel="noopener"
+                    tooltip="Github"
+                    href="https://github.com/codewithkyle/brixi-components"
+                    class="bttn"
+                    shape="round"
+                    kind="text"
+                    color="grey"
+                    icon="center"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="icon icon-tabler icon-tabler-brand-github"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                        stroke="currentColor"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path
+                            d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"
+                        ></path>
+                    </svg>
+                </a>
+                <a
+                    sfx="button"
+                    target="_blank"
+                    rel="noopener"
+                    tooltip="Project board"
+                    href="https://github.com/users/codewithkyle/projects/4"
+                    class="bttn"
+                    shape="round"
+                    kind="text"
+                    color="grey"
+                    icon="center"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="icon icon-tabler icon-tabler-brand-trello"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                        stroke="currentColor"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path>
+                        <path d="M7 7h3v10h-3z"></path>
+                        <path d="M14 7h3v6h-3z"></path>
+                    </svg>
+                </a>
+                <a
+                    sfx="button"
+                    target="_blank"
+                    rel="noopener"
+                    tooltip="Download"
+                    href="/static/brixi-ui.zip"
+                    class="bttn"
+                    shape="round"
+                    kind="text"
+                    color="grey"
+                    icon="center"
+                    download="brixi-ui.zip"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                        stroke="currentColor"
+                        fill="none"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M19 18a3.5 3.5 0 0 0 0 -7h-1a5 4.5 0 0 0 -11 -2a4.6 4.4 0 0 0 -2.1 8.4"></path>
+                        <line x1="12" y1="13" x2="12" y2="22"></line>
+                        <polyline points="9 19 12 22 15 19"></polyline>
+                    </svg>
+                </a>
+            </div>
+            <div flex="row nowrap items-center">
+                <group-button-component
+                    data-buttons='[{"label":"SPA","id":"spa"},{"label":"MPA","id":"mpa"}]'
+                    data-active="spa"
+                ></group-button-component>
+                <script>
+                    const switcher = document.body.querySelector('group-button-component');
+                    if (location.pathname.indexOf('mpa') !== -1) {
+                        switcher.setAttribute('data-active', 'mpa');
+                    }
+                    switcher.addEventListener('change', (e) => {
+                        if (e.detail.id === 'spa') {
+                            location.href = `/spa/${location.pathname.replace(/.*\//, "")}`;
+                        } else {
+                            location.href = `/mpa/${location.pathname.replace(/.*\//, "")}`;
+                        }
+                    });
+                </script>
+            </div>
+        </header>
         <nav-component></nav-component>
         <component-viewer></component-viewer>
+        <div 
+            style="z-index:9999;max-width:calc(100vw - 3.5rem);" 
+            class="shadow-black-lg fixed w-768 b-0 r-0 mr-2.5 mb-1 bg-white dark:bg-grey-800 p-2 radius-0.5 border-solid border-1 border-grey-300 dark:border-grey-800 font-grey-700 dark:font-white"
+            x-data="{ show: sessionStorage.getItem('seen-experimental-warning') == null }"
+            x-show="show"
+        >
+            <button 
+                class="absolute t-0 r-0 mt-1 mr-1 font-grey-600 dark:font-white"
+                x-on:click="sessionStorage.setItem('seen-experimental-warning', 'true'); show = false;"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M18 6l-12 12"></path>
+                    <path d="M6 6l12 12"></path>
+                </svg>
+            </button>
+            <h1 class="font-xl mb-1 font-bold font-warning-500">Experimental Warning</h1>
+            <p class="line-snug">This website is currently showcasing an experimental build of Brixi UI for MPAs (multi-page apps). All of the MPA componets are experimental and will change without notice.</p>
+        </div>
     </body>
 </html>

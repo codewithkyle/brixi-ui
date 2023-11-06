@@ -8,6 +8,23 @@ group-button-component {
         transform: none !important;
         box-shadow: none !important;
 
+        @media (prefers-color-scheme: dark) {
+            border: none !important;
+            background-color: hsl(var(--grey-950-hsl) / 0.6) !important;
+
+            &:hover,
+            &:focus-visible {
+                &::before {
+                    opacity: 0.1 !important;
+                }
+            }
+            &:active {
+                &::before {
+                    opacity: 0.15 !important;
+                }
+            }
+        }
+
         &:first-of-type:not(:only-child) {
             border-radius: 18px 0 0 18px !important;
             border-width: 1px 0 1px 1px !important;
@@ -33,6 +50,10 @@ group-button-component {
                 border-radius: 1px;
                 background-color: var(--grey-200);
                 transform: translateY(-50%);
+
+                @media (prefers-color-scheme: dark) {
+                    background-color: var(--grey-800);
+                }
             }
         }
 
@@ -67,6 +88,13 @@ group-button-component {
             &::before {
                 background-color: var(--primary-500) !important;
                 opacity: 0.05 !important;
+            }
+
+            @media (prefers-color-scheme: dark) {
+                color: var(--primary-300) !important;
+                &::before {
+                    opacity: 0 !important;
+                }
             }
         }
     }

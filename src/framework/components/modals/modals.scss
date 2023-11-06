@@ -18,17 +18,27 @@ modal-component {
         height: 100%;
         background-color: hsl(var(--grey-700-hsl) / 0.6);
         backdrop-filter: blur(8px);
+
+        @media (prefers-color-scheme: dark) {
+            background-color: hsl(var(--grey-950-hsl) / 0.6);
+        }
     }
 
     .modal {
         position: relative;
         border: 1px solid var(--grey-300);
-        box-shadow: var(--shadow-grey-lg);
+        box-shadow: var(--shadow-black-lg);
         background-color: var(--white);
         border-radius: 1rem;
         max-width: calc(100vw - 2rem);
         max-height: calc(100vh - 2rem);
         overflow-y: auto;
+
+        @media (prefers-color-scheme: dark) {
+            border-color: var(--grey-800);
+            box-shadow: var(--shadow-black-lg);
+            background-color: var(--grey-900);
+        }
     }
 
     &.static-content {
@@ -40,6 +50,10 @@ modal-component {
                 line-height: 1.375;
                 margin-bottom: 1rem;
                 display: block;
+
+                @media (prefers-color-scheme: dark) {
+                    color: var(--grey-300);
+                }
             }
 
             p {
@@ -47,6 +61,10 @@ modal-component {
                 font-size: var(--font-sm);
                 line-height: 1.618;
                 display: block;
+
+                @media (prefers-color-scheme: dark) {
+                    color: var(--grey-300);
+                }
             }
         }
     }

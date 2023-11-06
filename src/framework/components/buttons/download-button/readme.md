@@ -31,7 +31,7 @@ Not sure what `RequestInit` is? Learn about [Requests on MDN](https://developer.
 
 ```typescript
 type ButtonKind = "solid" | "outline" | "text";
-type ButtonColor = "primary" | "danger" | "grey" | "success" | "warning" | "info" | "white";
+type ButtonColor = "primary" | "danger" | "grey" | "success" | "warning" | "white";
 type ButtonShape = "pill" | "round" | "sharp" | "default";
 type ButtonSize = "default" | "slim" | "large";
 ```

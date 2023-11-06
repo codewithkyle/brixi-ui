@@ -14,7 +14,6 @@ export interface IDateInput extends IInputBase {
     autocapitalize: "off" | "on";
     icon: string;
     placeholder: string;
-    readOnly: boolean;
     autofocus: boolean;
     value: string;
     dateFormat: string;
@@ -49,7 +48,6 @@ export default class DateInput extends InputBase<IDateInput> {
             },
         };
         this.model = {
-            readOnly: false,
             label: "",
             instructions: null,
             error: null,
@@ -76,7 +74,6 @@ export default class DateInput extends InputBase<IDateInput> {
 
     static get observedAttributes() {
         return [
-            "data-read-only",
             "data-label",
             "data-instructions",
             "data-name",
@@ -202,25 +199,27 @@ export default class DateInput extends InputBase<IDateInput> {
                     autocapitalize=${this.model.autocapitalize}
                     autocomplete="${this.model.autocomplete}"
                     ?required=${this.model.required}
-                    ?disalbed=${this.model.disabled}
+                    ?disabled=${this.model.disabled}
                     ?autofocus=${this.model.autofocus}
                 />
             </input-container>
         `;
         render(view, this);
 
-        const input = this.querySelector("input");
-        flatpickr(input, {
-            dateFormat: this.model.dateFormat,
-            enableTime: this.model.enableTime,
-            altFormat: this.model.displayFormat,
-            altInput: true,
-            minDate: this.model.minDate,
-            maxDate: this.model.maxDate,
-            mode: this.model.mode,
-            noCalendar: this.model.disableCalendar,
-            time_24hr: this.model.timeFormat === "24",
-        });
+        if (this.state !== "DISABLED") {
+            const input = this.querySelector("input");
+            flatpickr(input, {
+                dateFormat: this.model.dateFormat,
+                enableTime: this.model.enableTime,
+                altFormat: this.model.displayFormat,
+                altInput: true,
+                minDate: this.model.minDate,
+                maxDate: this.model.maxDate,
+                mode: this.model.mode,
+                noCalendar: this.model.disableCalendar,
+                time_24hr: this.model.timeFormat === "24",
+            });
+        }
         this.firstRender = false;
     }
 }
