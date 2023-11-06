@@ -8,7 +8,7 @@ import { parseDataset } from "~brixi/utils/general";
 
 env.css("lightswitch");
 
-export type LightswitchColor = "primary" | "success" | "warning" | "danger" | "info";
+export type LightswitchColor = "primary" | "success" | "warning" | "danger";
 export interface ILightswitch {
     label: string;
     instructions: string;

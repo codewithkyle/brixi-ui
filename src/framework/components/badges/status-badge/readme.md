@@ -21,7 +21,7 @@ Not sure what Data Attributes are? Learn about [Data Attributes on MDN](https://
 ### Badge Color
 
 ```typescript
-type BadgeColor = "grey" | "primary" | "success" | "warning" | "danger" | "info";
+type BadgeColor = "grey" | "primary" | "success" | "warning" | "danger";
 ```
 
 ### Badge Dot

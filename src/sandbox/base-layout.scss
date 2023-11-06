@@ -189,7 +189,7 @@ nav-component {
             &::before {
                 background-color: var(--white);
                 opacity: 1;
-                box-shadow: var(--shadow-grey-sm);
+                box-shadow: var(--shadow-black-sm);
                 border-color: var(--grey-300);
             }
         }
@@ -344,7 +344,7 @@ component-viewer {
 
             &.is-selected {
                 background-color: var(--white);
-                box-shadow: var(--shadow-grey-sm);
+                box-shadow: var(--shadow-black-sm);
                 border-color: var(--grey-300);
                 color: var(--grey-900);
 

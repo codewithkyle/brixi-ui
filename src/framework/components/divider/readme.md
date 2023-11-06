@@ -20,7 +20,7 @@ Not sure what Data Attributes are? Learn about [Data Attributes on MDN](https://
 ### Types
 
 ```typescript
-type DividerColor = "primary" | "success" | "warning" | "danger" | "black" | "grey" | "info";
+type DividerColor = "primary" | "success" | "warning" | "danger" | "black" | "grey";
 type DividerType = "solid" | "dashed" | "dotted";
 type DividerLayout = "horizontal" | "vertical";
 ```
