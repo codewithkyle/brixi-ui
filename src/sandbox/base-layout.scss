@@ -511,6 +511,11 @@ component-viewer {
                 line-height: 1.618;
                 font-size: var(--font-sm);
 
+                @media (prefers-color-scheme: dark) {
+                    box-shadow: none !important;
+                    background-color: var(--grey-950) !important;
+                }
+
                 * {
                     font-size: var(--font-sm);
                     line-height: 1.618;
@@ -894,6 +899,11 @@ component-viewer {
                     overflow-y: auto;
                     overscroll-behavior: contain;
                     height: calc(100vh - 9.5rem);
+
+                    @media (prefers-color-scheme: dark) {
+                        box-shadow: none !important;
+                        background-color: var(--grey-950) !important;
+                    }
 
                     * {
                         font-size: var(--font-sm);
