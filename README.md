@@ -124,7 +124,7 @@ module.exports = {
     },
     shadows: {
         colors: {
-            grey: "var(--black-hsl)",
+            black: "var(--black-hsl)",
         },
         sizes: {
             sm: `
@@ -151,6 +151,12 @@ module.exports = {
                 0px 48px 48px hsl(var(--shadow-color) / 0.1),
                 0px 64px 64px hsl(var(--shadow-color) / 0.1)
             `,
+        },
+    },
+    prefixes: {
+        dark: {
+            features: ["backgrounds", "fonts", "borders", "shadows"],
+            rule: "prefers-color-scheme: dark",
         },
     },
 };
