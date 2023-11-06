@@ -47,6 +47,9 @@ export default class View extends SuperComponent<ViewData> {
     }
 
     private async load(component: string) {
+        if (component === "mpa/" || component === "spa/" || component === "/") {
+            return;
+        }
         this.set({
             component: component,
             view: "demo",
