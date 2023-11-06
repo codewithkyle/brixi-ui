@@ -11,24 +11,6 @@
         <script type="module">
             if (location.origin.indexOf("localhost") === -1 && "serviceWorker" in navigator) {
                 navigator.serviceWorker.register("/service-worker.js", { scope: "/" });
-                navigator.serviceWorker.addEventListener("message", (e) => {
-                    localStorage.setItem("version", e.data);
-                });
-                navigator.serviceWorker.ready.then(async (registration) => {
-                    try {
-                        await import("/service-worker-assets.js?t=" + Date.now());
-                        if (self.manifest.version !== localStorage.getItem("version")) {
-                            localStorage.removeItem("version");
-                        } else {
-                            delete self.manifest.assets;
-                        }
-                        registration.active.postMessage(self.manifest);
-                    } catch (e) {
-                        registration.active.postMessage({
-                            version: localStorage.getItem("version") || "init",
-                        });
-                    }
-                });
             }
         </script>
         <script>
