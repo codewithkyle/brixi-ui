@@ -40,6 +40,7 @@ export default class RadioGroup extends Component<IRadioGroup> {
             option.name = settings.name;
             option.disabled = settings?.disabled ?? false;
         });
+        this.state = settings.disabled ? "DISABLED" : "IDLING";
         this.set(settings);
     }
 
@@ -102,6 +103,7 @@ export default class RadioGroup extends Component<IRadioGroup> {
     }
 
     override render() {
+        this.setAttribute("state", this.state);
         this.setAttribute("form-input", "");
         const view = html`
             <p>

@@ -37,6 +37,7 @@ export default class CheckboxGroup extends Component<ICheckboxGroup> {
         settings.options.map((option) => {
             option.disabled = settings?.disabled ?? false;
         });
+        this.state = settings.disabled ? "DISABLED" : "IDLING";
         this.set(settings);
     }
 
@@ -82,6 +83,7 @@ export default class CheckboxGroup extends Component<ICheckboxGroup> {
     }
 
     override render() {
+        this.setAttribute("state", this.state);
         this.setAttribute("form-input", "");
         const view = html`
             <p>

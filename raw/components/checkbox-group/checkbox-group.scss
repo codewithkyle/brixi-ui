@@ -3,8 +3,9 @@ checkbox-group {
     width: 100%;
     position: relative;
 
-    &.is-disabled {
+    &[state="DISABLED"] {
         p {
+            opacity: 0.6;
             color: var(--grey-400) !important;
 
             strong {
@@ -14,10 +15,11 @@ checkbox-group {
 
         @media (prefers-color-scheme: dark) {
             p {
-                color: var(--grey-500) !important;
+                color: var(--grey-300) !important;
+                opacity: 0.3;
 
                 strong {
-                    color: var(--grey-500) !important;
+                    color: var(--grey-300) !important;
                 }
             }
         }

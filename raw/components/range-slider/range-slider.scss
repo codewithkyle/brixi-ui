@@ -3,6 +3,15 @@ range-slider {
     width: 100%;
     position: relative;
 
+    &[state="DISABLED"] {
+        opacity: 0.6;
+        cursor: not-allowed !important;
+
+        @media (prefers-color-scheme: dark) {
+            opacity: 0.3;
+        }
+    }
+
     label {
         display: block;
         width: 100%;

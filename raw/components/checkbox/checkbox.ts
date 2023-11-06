@@ -63,6 +63,7 @@ export default class Checkbox extends Component<ICheckbox> {
 
     private handleChange: EventListener = (e: Event) => {
         e.stopImmediatePropagation();
+        if (this.model.disabled) return;
         const isChecked = !this.model.checked;
         this.set({
             checked: isChecked,

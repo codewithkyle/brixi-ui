@@ -181,7 +181,7 @@ export default class PhoneInput extends InputBase<IPhoneInput> {
                     name=${this.model.name}
                     autocomplete="${this.model.autocomplete}"
                     ?required=${this.model.required}
-                    ?disalbed=${this.model.disabled}
+                    ?disabled=${this.model.disabled}
                     ?autofocus=${this.model.autofocus}
                 />
             </input-container>

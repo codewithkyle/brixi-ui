@@ -3,14 +3,26 @@ radio-group {
     width: 100%;
     position: relative;
 
-    &.is-disabled {
-        opacity: 0.6;
+    &[state="DISABLED"] {
+        cursor: not-allowed !important;
 
         p {
+            opacity: 0.6;
             color: var(--grey-400) !important;
 
             strong {
                 color: var(--grey-400) !important;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            p {
+                opacity: 0.3;
+                color: var(--grey-300) !important;
+
+                strong {
+                    color: var(--grey-300) !important;
+                }
             }
         }
     }

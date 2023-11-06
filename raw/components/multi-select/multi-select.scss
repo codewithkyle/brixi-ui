@@ -6,6 +6,7 @@ multi-select-component {
 
     &[state="DISABLED"] {
         cursor: not-allowed !important;
+        opacity: 0.6;
 
         label,
         p {
@@ -23,6 +24,19 @@ multi-select-component {
             select {
                 cursor: not-allowed !important;
                 background-color: var(--grey-50) !important;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            opacity: 0.3;
+
+            label,
+            p {
+                color: var(--grey-300) !important;
+            }
+            select-container {
+                background-color: hsl(var(--white-hsl) / 0.05);
+                border-color: var(--grey-700) !important;
             }
         }
     }
@@ -74,8 +88,8 @@ multi-select-component {
         }
     }
 
-    &:focus-within,
-    &:focus {
+    &:focus-within:not([state="DISABLED"]),
+    &:focus:not([state="DISABLED"]) {
         multiselect-options {
             opacity: 1;
             visibility: visible;

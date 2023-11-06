@@ -14,7 +14,7 @@ import{UUID as o}from"./uuid.js";import{html as a,render as u}from"./lit-html.js
                     name=${this.model.name}
                     autocomplete="${this.model.autocomplete}"
                     ?required=${this.model.required}
-                    ?disalbed=${this.model.disabled}
+                    ?disabled=${this.model.disabled}
                     ?autofocus=${this.model.autofocus}
                 />
             </input-container>

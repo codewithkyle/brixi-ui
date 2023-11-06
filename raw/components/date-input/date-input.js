@@ -13,8 +13,8 @@ import{html as t,render as r}from"./lit-html.js";import{unsafeHTML as l}from"./u
                     autocapitalize=${this.model.autocapitalize}
                     autocomplete="${this.model.autocomplete}"
                     ?required=${this.model.required}
-                    ?disalbed=${this.model.disabled}
+                    ?disabled=${this.model.disabled}
                     ?autofocus=${this.model.autofocus}
                 />
             </input-container>
-        `;r(e,this);const i=this.querySelector("input");o(i,{dateFormat:this.model.dateFormat,enableTime:this.model.enableTime,altFormat:this.model.displayFormat,altInput:!0,minDate:this.model.minDate,maxDate:this.model.maxDate,mode:this.model.mode,noCalendar:this.model.disableCalendar,time_24hr:this.model.timeFormat==="24"}),this.firstRender=!1}}s.bind("date-input-component",n);export{n as default};
+        `;if(r(e,this),this.state!=="DISABLED"){const i=this.querySelector("input");o(i,{dateFormat:this.model.dateFormat,enableTime:this.model.enableTime,altFormat:this.model.displayFormat,altInput:!0,minDate:this.model.minDate,maxDate:this.model.maxDate,mode:this.model.mode,noCalendar:this.model.disableCalendar,time_24hr:this.model.timeFormat==="24"})}this.firstRender=!1}}s.bind("date-input-component",n);export{n as default};

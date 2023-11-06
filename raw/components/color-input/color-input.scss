@@ -5,6 +5,15 @@ color-input {
     width: 100%;
     height: 36px;
 
+    &[state="DISABLED"] {
+        opacity: 0.6;
+        cursor: not-allowed !important;
+
+        @media (prefers-color-scheme: dark) {
+            opacity: 0.3;
+        }
+    }
+
     input[type="color"] {
         opacity: 0;
         visibility: hidden;
@@ -15,10 +24,6 @@ color-input {
         &:disabled {
             & + label {
                 cursor: not-allowed !important;
-
-                color-preview {
-                    background-color: var(--grey-300) !important;
-                }
 
                 span {
                     color: var(--grey-400) !important;

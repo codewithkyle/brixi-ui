@@ -15,7 +15,7 @@ import{UUID as r}from"./uuid.js";import{html as t,render as n}from"./lit-html.js
                     autocapitalize=${this.model.autocapitalize}
                     autocomplete="${this.model.autocomplete}"
                     ?required=${this.model.required}
-                    ?disalbed=${this.model.disabled}
+                    ?disabled=${this.model.disabled}
                     ?autofocus=${this.model.autofocus}
                 />
             </input-container>

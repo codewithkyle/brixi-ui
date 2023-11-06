@@ -16,7 +16,7 @@ import{UUID as n}from"./uuid.js";import{html as t,render as r}from"./lit-html.js
                     placeholder=${this.model.placeholder}
                     name=${this.model.name}
                     ?required=${this.model.required}
-                    ?disalbed=${this.model.disabled}
+                    ?disabled=${this.model.disabled}
                     ?autofocus=${this.model.autofocus}
                 />
             </input-container>
