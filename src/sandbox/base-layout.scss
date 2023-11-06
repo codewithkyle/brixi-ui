@@ -426,6 +426,11 @@ component-viewer {
         border-color: var(--grey-300);
         background-color: var(--white);
 
+        @media (prefers-color-scheme: dark) {
+            background-color: var(--grey-800);
+            border: none;
+        }
+
         h1,
         h2,
         h3,
@@ -437,6 +442,10 @@ component-viewer {
             font-weight: var(--font-medium);
             color: var(--grey-800);
             margin-bottom: 1rem;
+
+            @media (prefers-color-scheme: dark) {
+                color: var(--grey-300);
+            }
 
             &:not(:first-child) {
                 margin-top: 3rem;
@@ -474,6 +483,10 @@ component-viewer {
             color: var(--grey-700);
             line-height: 1.618;
 
+            @media (prefers-color-scheme: dark) {
+                color: var(--grey-300);
+            }
+
             code {
                 height: 24px;
                 padding: 0.125rem 0.25rem;
@@ -481,6 +494,11 @@ component-viewer {
                 background-color: hsl(var(--warning-100-hsl) / 0.15);
                 color: var(--warning-700);
                 font-size: var(--font-sm);
+
+                @media (prefers-color-scheme: dark) {
+                    background-color: hsl(var(--warning-300-hsl) / 0.15);
+                    color: var(--warning-400);
+                }
             }
         }
 
@@ -514,6 +532,19 @@ component-viewer {
             &:active {
                 color: var(--primary-700);
             }
+
+            @media (prefers-color-scheme: dark) {
+                color: var(--primary-400);
+
+                &:hover,
+                &:focus-visible {
+                    color: var(--primary-500);
+                }
+
+                &:active {
+                    color: var(--primary-400);
+                }
+            }
         }
 
         table {
@@ -525,11 +556,21 @@ component-viewer {
             margin-bottom: 1.5rem;
             overflow: hidden;
 
+            @media (prefers-color-scheme: dark) {
+                background-color: transparent;
+                border-color: var(--grey-600);
+            }
+
             thead {
                 background-color: var(--grey-100);
                 border-bottom: 1px solid var(--grey-300);
                 display: block;
                 width: 100%;
+
+                @media (prefers-color-scheme: dark) {
+                    background-color: transparent;
+                    border-color: var(--grey-600);
+                }
 
                 tr {
                     display: flex;
@@ -542,6 +583,10 @@ component-viewer {
                         padding: 1rem;
                         text-align: left;
                         color: var(--grey-800);
+
+                        @media (prefers-color-scheme: dark) {
+                            color: var(--grey-300);
+                        }
                     }
                 }
             }
@@ -558,10 +603,18 @@ component-viewer {
 
                     &:not(:last-of-type) {
                         border-bottom: 1px solid var(--grey-300);
+
+                        @media (prefers-color-scheme: dark) {
+                            border-bottom: 1px solid var(--grey-600);
+                        }
                     }
 
                     &:hover {
                         background-color: var(--grey-100);
+
+                        @media (prefers-color-scheme: dark) {
+                            background-color: transparent;
+                        }
                     }
 
                     td {
@@ -572,6 +625,10 @@ component-viewer {
                         color: var(--grey-700);
                         font-size: var(--font-sm);
 
+                        @media (prefers-color-scheme: dark) {
+                            color: var(--grey-300);
+                        }
+
                         code {
                             height: 24px;
                             padding: 0.125rem 0.25rem;
@@ -579,6 +636,11 @@ component-viewer {
                             background-color: var(--warning-100);
                             color: var(--warning-700);
                             font-size: var(--font-sm);
+
+                            @media (prefers-color-scheme: dark) {
+                                background-color: hsl(var(--warning-300) / 0.15);
+                                color: var(--warning-400);
+                            }
                         }
                     }
                 }
@@ -687,6 +749,11 @@ component-viewer {
         border-color: var(--grey-300);
         background-color: var(--white);
 
+        @media (prefers-color-scheme: dark) {
+            background-color: var(--grey-800);
+            border: none;
+        }
+
         code-tabs {
             display: block;
 
@@ -741,6 +808,20 @@ component-viewer {
                     opacity: 0;
                     transition: all 80ms var(--ease-in-out);
                 }
+
+                @media (prefers-color-scheme: dark) {
+                    color: var(--grey-300);
+
+                    &:hover,
+                    &:focus-visible,
+                    &.is-active {
+                        color: var(--grey-100);
+                    }
+
+                    &::before {
+                        background-color: var(--white);
+                    }
+                }
             }
         }
 
@@ -764,6 +845,11 @@ component-viewer {
                 border: 1px solid lighten(#22272e, 10);
                 transition: all 80ms var(--ease-in-out);
                 cursor: pointer;
+
+                @media (prefers-color-scheme: dark) {
+                    background-color: var(--grey-950);
+                    border: none;
+                }
 
                 &:hover,
                 &:focus-visible {
