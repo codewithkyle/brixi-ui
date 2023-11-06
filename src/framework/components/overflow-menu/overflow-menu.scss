@@ -2,13 +2,18 @@ overflow-menu {
     border-radius: 0.25rem;
     background-color: var(--white);
     border: 1px solid var(--grey-300);
-    box-shadow: var(--shadow-grey-sm);
+    box-shadow: var(--shadow-black-sm);
     padding: 0.25rem 0;
     display: inline-block;
     position: fixed;
     z-index: 1000;
     top: 0;
     left: 0;
+
+    @media (prefers-color-scheme: dark) {
+        background-color: var(--grey-900);
+        border-color: var(--grey-800);
+    }
 
     &.is-visible {
         pointer-events: all;
@@ -30,6 +35,10 @@ overflow-menu {
         line-height: 1;
         white-space: nowrap;
         outline-offset: 0;
+
+        @media (prefers-color-scheme: dark) {
+            color: var(--grey-400);
+        }
 
         &:focus-visible {
             outline: var(--focus-ring);
@@ -63,6 +72,10 @@ overflow-menu {
             opacity: 0;
             background-color: var(--grey-500);
             transition: all 80ms var(--ease-in-out);
+
+            @media (prefers-color-scheme: dark) {
+                background-color: var(--grey-300);
+            }
         }
 
         &.danger {
@@ -75,6 +88,20 @@ overflow-menu {
             i {
                 svg {
                     color: var(--danger-700);
+                }
+            }
+
+            @media (prefers-color-scheme: dark) {
+                color: var(--danger-400);
+
+                &::before {
+                    background-color: var(--danger-400);
+                }
+
+                i {
+                    svg {
+                        color: var(--danger-400);
+                    }
                 }
             }
         }
@@ -92,6 +119,10 @@ overflow-menu {
                 width: 18px;
                 height: 18px;
                 color: var(--grey-600);
+
+                @media (prefers-color-scheme: dark) {
+                    color: var(--grey-400);
+                }
             }
         }
     }
@@ -101,5 +132,9 @@ overflow-menu {
         width: 100%;
         margin: 0.25rem 0;
         border-bottom: 1px solid var(--grey-300);
+
+        @media (prefers-color-scheme: dark) {
+            border-bottom-color: var(--grey-800);
+        }
     }
 }
