@@ -1,5 +1,5 @@
-import i from"./supercomponent.js";import{message as a}from"./messaging.js";import{html as n,render as s}from"./lit-html.js";class o extends i{constructor(){super();this.navigate=t=>{const r=t.currentTarget.dataset.slug;this.set({active:r}),window.history.replaceState(null,null,`/${r}`),a({recipient:"view",data:r})};this.toggleGroup=t=>{t.currentTarget.classList.toggle("is-open")};this.handleMenuClick=t=>{document.body.classList.toggle("is-open")};this.state="LOADING",this.stateMachine={LOADING:{SUCCESS:"IDLING"}},this.model={navigation:[],active:null},this.render()}async fetchNavigation(){const e=await(await fetch("/navigation.json",{method:"GET",headers:new Headers({Accept:"application/json"})})).json();this.set({navigation:e}),this.trigger("SUCCESS")}renderLink(t){return n`
-            <button sfx="button" class="${t.slug===this.model.active?"is-active":""}" @click=${this.navigate} data-slug="${t.slug}">
+import a from"./supercomponent.js";import{message as i}from"./messaging.js";import{html as n,render as s}from"./lit-html.js";class o extends a{constructor(){super();this.navigate=t=>{const e=t.currentTarget,r=e.dataset.slug.replace(/.*\//,"").trim();this.set({active:r}),window.history.replaceState(null,null,`/${e.dataset.slug}`),i({recipient:"view",data:e.dataset.slug})};this.toggleGroup=t=>{t.currentTarget.classList.toggle("is-open")};this.handleMenuClick=t=>{document.body.classList.toggle("is-open")};this.state="LOADING",this.stateMachine={LOADING:{SUCCESS:"IDLING"}},this.model={navigation:[],active:null},this.render()}async fetchNavigation(){const e=await(await fetch("/navigation.json",{method:"GET",headers:new Headers({Accept:"application/json"})})).json();this.set({navigation:e}),this.trigger("SUCCESS")}renderLink(t){let e=location.pathname.includes("/mpa/")?"mpa":"spa";return n`
+            <button sfx="button" class="${t.slug===this.model.active?"is-active":""}" @click=${this.navigate} data-slug="${e}/${t.slug}">
                 <span>${t.name.replace(/\-/g," ")}</span>
             </button>
         `}renderLinkWithChildren(t){return n`
@@ -29,4 +29,4 @@ import i from"./supercomponent.js";import{message as a}from"./messaging.js";impo
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
                         </svg>
                     </button>
-                `;break}s(t,this)}connected(){this.fetchNavigation();const t=location.pathname.replace(/^\//,"").trim();this.set({active:t})}}export{o as default};
+                `;break}s(t,this)}connected(){this.fetchNavigation();const t=location.pathname.replace(/.*\//,"").trim();this.set({active:t})}}export{o as default};

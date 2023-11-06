@@ -167,7 +167,7 @@
                     }
                     switcher.addEventListener('change', (e) => {
                         if (e.detail.id === 'spa') {
-                            location.href = `/${location.pathname.replace(/.*\//, "")}`;
+                            location.href = `/spa/${location.pathname.replace(/.*\//, "")}`;
                         } else {
                             location.href = `/mpa/${location.pathname.replace(/.*\//, "")}`;
                         }
