@@ -107,8 +107,8 @@ class ModalMaker {
                 <div class="block w-full py-1.5 px-2">
                     ${data.title?.length ? html`<h2>${data.title}</h2>` : ""} ${data.message?.length ? html`<p class="mb-1.5">${unsafeHTML(data.message)}</p>` : ""} ${data.view}
                 </div>
-                <div class="w-full px-0.5 pb-0.5">
-                    <div class="w-full p-0.5 bg-grey-100 radius-0.5" flex="row nowrap items-center justify-end">
+                <div class="w-full px-1 pb-1">
+                    <div class="w-full py-0.75 px-1 bg-grey-50 dark:bg-grey-950/60 radius-0.5" flex="row nowrap items-center justify-end">
                         <button-component
                             data-label="${data.cancel}"
                             data-type="button"
@@ -153,8 +153,8 @@ class ModalMaker {
                 <h2>${data.title}</h2>
                 <p>${unsafeHTML(data.message)}</p>
             </div>
-            <div class="w-full px-0.5 pb-0.5">
-                <div class="w-full p-0.5 bg-grey-100 radius-0.5" flex="row nowrap items-center justify-end">
+            <div class="w-full px-1 pb-1">
+                <div class="w-full py-0.75 px-1 bg-grey-50 dark:bg-grey-950/60 radius-0.5" flex="row nowrap items-center justify-end">
                     ${data.actions.map(
                         (action) => html`
                             <button-component
@@ -168,7 +168,7 @@ class ModalMaker {
                                     }
                                     el.remove();
                                 }}
-                                class="mr-0.5"
+                                class="ml-0.5"
                             ></button-component>
                         `
                     )}
@@ -200,8 +200,8 @@ class ModalMaker {
                 <h2>${data.title}</h2>
                 <p>${unsafeHTML(data.message)}</p>
             </div>
-            <div class="w-full px-0.5 pb-0.5">
-                <div class="w-full p-0.5 bg-grey-100 radius-0.5" flex="row nowrap items-center justify-end">
+            <div class="w-full px-1 pb-1">
+                <div class="w-full py-0.75 px-1 bg-grey-50 dark:bg-grey-950/60 radius-0.5" flex="row nowrap items-center justify-end">
                     <button-component
                         data-label="${data.cancel}"
                         data-type="button"
@@ -255,8 +255,8 @@ class ModalMaker {
                 <h2>${data.title}</h2>
                 <p>${unsafeHTML(data.message)}</p>
             </div>
-            <div class="w-full px-0.5 pb-0.5">
-                <div class="w-full p-0.5 bg-grey-100 radius-0.5" flex="row nowrap items-center justify-end">
+            <div class="w-full px-1 pb-1">
+                <div class="w-full py-0.75 px-1 bg-grey-150 dark:bg-grey-950/60 radius-0.5" flex="row nowrap items-center justify-end">
                     <button-component
                         data-label="${data.cancel}"
                         data-type="button"
