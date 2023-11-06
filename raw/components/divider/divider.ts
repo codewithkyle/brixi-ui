@@ -6,7 +6,7 @@ import Component from "~brixi/component";
 
 env.css(["divider"]);
 
-export type DividerColor = "primary" | "success" | "warning" | "danger" | "black" | "grey" | "info";
+export type DividerColor = "primary" | "success" | "warning" | "danger" | "black" | "grey";
 export interface IDivider {
     label: string;
     color: DividerColor;

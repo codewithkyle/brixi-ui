@@ -29,15 +29,10 @@ divider-component {
         }
         span {
             color: var(--primary-700);
-        }
-    }
 
-    &[color="info"] {
-        div {
-            border-color: var(--info-400);
-        }
-        span {
-            color: var(--info-700);
+            @media (prefers-color-scheme: dark) {
+                color: var(--primary-300);
+            }
         }
     }
 
@@ -47,6 +42,10 @@ divider-component {
         }
         span {
             color: var(--grey-700);
+
+            @media (prefers-color-scheme: dark) {
+                color: var(--grey-300);
+            }
         }
     }
 
@@ -56,6 +55,10 @@ divider-component {
         }
         span {
             color: var(--success-700);
+
+            @media (prefers-color-scheme: dark) {
+                color: var(--success-300);
+            }
         }
     }
 
@@ -65,6 +68,10 @@ divider-component {
         }
         span {
             color: var(--warning-700);
+
+            @media (prefers-color-scheme: dark) {
+                color: var(--warning-300);
+            }
         }
     }
 
@@ -74,6 +81,10 @@ divider-component {
         }
         span {
             color: var(--danger-700);
+
+            @media (prefers-color-scheme: dark) {
+                color: var(--danger-300);
+            }
         }
     }
 
@@ -83,6 +94,10 @@ divider-component {
         }
         span {
             color: var(--grey-900);
+
+            @media (prefers-color-scheme: dark) {
+                color: var(--grey-300);
+            }
         }
     }
 

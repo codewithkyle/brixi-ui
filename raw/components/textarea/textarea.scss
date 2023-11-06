@@ -26,6 +26,19 @@ textarea-component {
         textarea {
             border-color: var(--danger-400) !important;
         }
+
+        @media (prefers-color-scheme: dark) {
+            p {
+                color: var(--danger-400) !important;
+            }
+            textarea {
+                background-color: hsl(var(--danger-300-hsl) / 0.05) !important;
+
+                &:focus {
+                    box-shadow: 0 0 0 5px hsl(var(--danger-400-hsl) / 0.1) !important;
+                }
+            }
+        }
     }
 
     label {
@@ -36,6 +49,10 @@ textarea-component {
         color: var(--grey-700);
         margin-bottom: 0.5rem;
         transition: all 80ms var(--ease-in-out);
+
+        @media (prefers-color-scheme: dark) {
+            color: var(--grey-300);
+        }
     }
 
     .counter {
@@ -78,9 +95,27 @@ textarea-component {
             outline: var(--focus-ring);
             outline-offset: 5px;
             transition: outline-offset 80ms var(--ease-in-out);
+
+            @media (prefers-color-scheme: dark) {
+                border-color: var(--primary-400);
+                outline: none;
+                box-shadow: 0 0 0 5px hsl(var(--primary-400-hsl) / 0.1);
+                background-color: hsl(var(--white-hsl) / 0);
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            border-color: var(--grey-700);
+            box-shadow: none;
+            background-color: transparent;
+            color: var(--grey-300);
+            background-color: hsl(var(--white-hsl) / 0.05);
+
+            &::placeholder {
+                color: var(--grey-500);
+            }
         }
     }
-
     p {
         display: block;
         margin-bottom: 0.5rem;
@@ -88,5 +123,9 @@ textarea-component {
         color: var(--grey-500);
         line-height: 1.375;
         transition: all 80ms var(--ease-in-out);
+
+        @media (prefers-color-scheme: dark) {
+            color: var(--grey-300);
+        }
     }
 }

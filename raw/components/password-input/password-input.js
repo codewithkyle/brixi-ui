@@ -30,6 +30,7 @@ import{UUID as r}from"./uuid.js";import{html as t,render as n}from"./lit-html.js
                     ?required=${this.model.required}
                     ?disalbed=${this.model.disabled}
                     ?autofocus=${this.model.autofocus}
+                    style="padding-right:36px;"
                 />
                 <button type="button" @click=${this.toggleVisibility} class="eye">${this.renderEyeIcon()}</button>
             </input-container>

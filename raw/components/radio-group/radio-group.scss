@@ -4,6 +4,8 @@ radio-group {
     position: relative;
 
     &.is-disabled {
+        opacity: 0.6;
+
         p {
             color: var(--grey-400) !important;
 
@@ -21,6 +23,10 @@ radio-group {
         line-height: 1.375;
         transition: all 80ms var(--ease-in-out);
 
+        @media (prefers-color-scheme: dark) {
+            color: var(--grey-300);
+        }
+
         strong {
             display: block;
             width: 100%;
@@ -28,6 +34,10 @@ radio-group {
             font-weight: var(--font-medium);
             color: var(--grey-800);
             margin-bottom: 0.5rem;
+
+            @media (prefers-color-scheme: dark) {
+                color: var(--grey-300);
+            }
         }
     }
 }

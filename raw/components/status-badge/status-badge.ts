@@ -7,7 +7,7 @@ import Component from "~brixi/component";
 env.css(["status-badge"]);
 
 export interface IStatusBadge {
-    color: "grey" | "primary" | "success" | "warning" | "danger" | "info";
+    color: "grey" | "primary" | "success" | "warning" | "danger";
     label: string;
     dot: "right" | "left" | null;
     icon: string;

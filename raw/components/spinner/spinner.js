@@ -1,5 +1,5 @@
-import{html as s,render as o}from"./lit-html.js";import i from"./component.js";import t from"./env.js";import{parseDataset as a}from"./general.js";t.css(["spinner"]);class r extends i{constructor(){super(),this.model={color:"grey",size:18}}static get observedAttributes(){return["data-color","data-size"]}async connected(){const e=a(this.dataset,this.model);this.set(e)}render(){this.model.color!=="white"?this.style.color=`var(--${this.model.color}-700)`:this.style.color="var(--white)",this.style.width="",this.style.height=`${this.model.size}px`;const e=s`
-            <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+import{html as s,render as o}from"./lit-html.js";import i from"./component.js";import r from"./env.js";import{parseDataset as a}from"./general.js";r.css(["spinner"]);class t extends i{constructor(){super(),this.model={color:"grey",size:18}}static get observedAttributes(){return["data-color","data-size"]}async connected(){const e=a(this.dataset,this.model);this.set(e)}render(){this.style.width="",this.style.height=`${this.model.size}px`;const e=s`
+            <svg color="${this.model.color}" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                 <g class="fa-group">
                     <path
                         class="fa-secondary"
@@ -14,4 +14,4 @@ import{html as s,render as o}from"./lit-html.js";import i from"./component.js";i
                     ></path>
                 </g>
             </svg>
-        `;o(e,this)}}t.bind("spinner-component",r);export{r as default};
+        `;o(e,this)}}r.bind("spinner-component",t);export{t as default};

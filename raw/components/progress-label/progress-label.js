@@ -2,6 +2,6 @@ import{html as r,render as o}from"./lit-html.js";import l from"./component.js";i
             <progress-indicator data-total="${this.model.total}"></progress-indicator>
             <div class="ml-0.5" flex="column wrap">
                 <h2 class="block font-bold font-sm line-snug">${this.model.title}</h2>
-                <h3 class="${this.model.subtitle?.length?"block":"none"} font-xs font-grey-700 line-snug">${this.model.subtitle}</h3>
+                <h3 class="${this.model.subtitle?.length?"block":"none"} font-xs dark:font-grey-300 line-snug">${this.model.subtitle}</h3>
             </div>
         `;o(t,this)}}i.bind("progress-label",s);export{s as default};

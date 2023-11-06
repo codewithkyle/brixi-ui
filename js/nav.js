@@ -21,7 +21,7 @@ import i from"./supercomponent.js";import{message as a}from"./messaging.js";impo
                     ${Array.from(Array(8)).map(()=>n` <nav-skel></nav-skel> `)}
                 `;break;default:t=n`
                     ${this.model.navigation.map(e=>n` ${e.children.length?this.renderLinkWithChildren(e):this.renderLink(e)} `)}
-                    <button @click=${this.handleMenuClick} style="position:fixed;top:1rem;left:275px;" class="bttn menu" kind="outline" color="grey" icon="center">
+                    <button @click=${this.handleMenuClick} style="position:fixed;top:1.5rem;left:295px;" class="bttn menu" kind="text" color="grey" icon="center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="open" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>

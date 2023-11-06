@@ -6,7 +6,7 @@ import { parseDataset } from "~brixi/utils/general";
 env.css(["spinner"]);
 
 export interface ISpinner {
-    color: "primary" | "grey" | "white";
+    color: "primary" | "grey";
     size: number;
 }
 export default class Spinner extends Component<ISpinner> {
@@ -28,15 +28,10 @@ export default class Spinner extends Component<ISpinner> {
     }
 
     override render() {
-        if (this.model.color !== "white") {
-            this.style.color = `var(--${this.model.color}-700)`;
-        } else {
-            this.style.color = `var(--white)`;
-        }
         this.style.width = ``;
         this.style.height = `${this.model.size}px`;
         const view = html`
-            <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <svg color="${this.model.color}" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                 <g class="fa-group">
                     <path
                         class="fa-secondary"
