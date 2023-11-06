@@ -4,10 +4,15 @@ context-menu {
     top: 0;
     left: 0;
     background-color: var(--grey-800);
-    box-shadow: var(--shadow-grey-sm);
+    box-shadow: var(--shadow-black-sm);
     border: 1px solid var(--grey-600);
     padding: 0.5rem 0;
     min-width: 200px;
+
+    @media (prefers-color-scheme: dark) {
+        border-color: var(--grey-800);
+        background-color: var(--grey-950);
+    }
 
     button {
         white-space: nowrap;
@@ -37,5 +42,9 @@ context-menu {
         height: 1px;
         background-color: var(--grey-600);
         margin: 0.5rem 0;
+
+        @media (prefers-color-scheme: dark) {
+            background-color: var(--grey-800);
+        }
     }
 }
