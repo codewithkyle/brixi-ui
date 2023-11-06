@@ -49,6 +49,10 @@ steps-component {
             &[state="pending"] {
                 &::after {
                     background-color: var(--grey-300);
+
+                    @media (prefers-color-scheme: dark) {
+                        background-color: var(--grey-700);
+                    }
                 }
             }
 
@@ -56,6 +60,10 @@ steps-component {
                 &::after {
                     background-color: var(--primary-500);
                     transform: translateY(0px);
+
+                    @media (prefers-color-scheme: dark) {
+                        background-color: var(--primary-400);
+                    }
                 }
                 &::before {
                     opacity: 0.05;
@@ -67,6 +75,10 @@ steps-component {
 
                 &::after {
                     background-color: var(--primary-500);
+
+                    @media (prefers-color-scheme: dark) {
+                        background-color: var(--primary-400);
+                    }
                 }
 
                 &:hover,
