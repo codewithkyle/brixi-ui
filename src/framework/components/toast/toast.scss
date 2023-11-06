@@ -12,8 +12,8 @@ toaster-component {
     pointer-events: none;
 }
 toaster-component output {
-    background-color: var(--grey-800);
-    box-shadow: var(--shadow-grey-md);
+    background-color: var(--grey-950);
+    box-shadow: var(--shadow-black-sm);
     color: var(--white);
     max-inline-size: min(25ch, 90vw);
     padding: 0.75rem 1rem;
@@ -25,11 +25,16 @@ toaster-component output {
     pointer-events: all;
     transition: all 150ms var(--ease-in-out);
     cursor: pointer;
+    border: 1px solid var(--grey-900);
+
+    @media (prefers-color-scheme: dark) {
+        background-color: hsl(var(--grey-950-hsl) / 0.6);
+    }
 
     &:active {
         transform: scale(0.95);
-        background-color: var(--grey-900);
         box-shadow: none;
+        opacity: 0.6;
     }
 }
 @keyframes fade-in {

@@ -14,4 +14,10 @@ tool-tip {
     display: inline-block;
     user-select: none;
     border: 1px solid var(--grey-300);
+
+    @media (prefers-color-scheme: dark) {
+        background-color: hsl(var(--grey-950-hsl) / 0.6);
+        color: var(--white);
+        border: 1px solid var(--grey-900);
+    }
 }
