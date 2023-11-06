@@ -44,14 +44,14 @@ export default class Nav extends SuperComponent<NavData> {
 
     private navigate: EventListener = (e: Event) => {
         const target = e.currentTarget as HTMLElement;
-        const slug = target.dataset.slug;
+        const slug = target.dataset.slug.replace(/.*\//, "").trim();
         this.set({
             active: slug,
         });
-        window.history.replaceState(null, null, `/${slug}`);
+        window.history.replaceState(null, null, `/${target.dataset.slug}`);
         message({
             recipient: "view",
-            data: slug,
+            data: target.dataset.slug,
         });
     };
 
@@ -65,8 +65,9 @@ export default class Nav extends SuperComponent<NavData> {
     };
 
     private renderLink(link) {
+        let type = location.pathname.includes("/mpa/") ? "mpa" : "spa";
         return html`
-            <button sfx="button" class="${link.slug === this.model.active ? "is-active" : ""}" @click=${this.navigate} data-slug="${link.slug}">
+            <button sfx="button" class="${link.slug === this.model.active ? "is-active" : ""}" @click=${this.navigate} data-slug="${type}/${link.slug}">
                 <span>${link.name.replace(/\-/g, " ")}</span>
             </button>
         `;
@@ -124,7 +125,7 @@ export default class Nav extends SuperComponent<NavData> {
 
     connected() {
         this.fetchNavigation();
-        const slug = location.pathname.replace(/^\//, "").trim();
+        const slug = location.pathname.replace(/.*\//, "").trim();
         this.set({
             active: slug,
         });

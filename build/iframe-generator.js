@@ -19,21 +19,32 @@ const componentsDir = path.join(cwd, "src", "framework", "components");
             .replace(/.*[\\\/]/, "")
             .toLowerCase()
             .trim();
-        const p = component
+        const spaHtml = await renderComponent(name, component);
+        const spaDir = path.join(publicDir, "spa", name);
+        if (!fs.existsSync(spaDir)) {
+            await fs.promises.mkdir(spaDir, { recursive: true });
+        }
+        await fs.promises.writeFile(path.join(spaDir, "index.html"), spaHtml);
+    }
+    const mpaComponents = glob.sync(`${componentsDir}/**/static.html`);
+    for (const component of mpaComponents) {
+        const name = component
             .match(/.*[\\\/]/, "")[0]
+            .replace(/[\\\/]$/, "")
+            .replace(/.*[\\\/]/, "")
             .toLowerCase()
             .trim();
-        const html = await renderComponent(name, p);
-        const pDir = path.join(publicDir, name);
-        if (!fs.existsSync(pDir)) {
-            await fs.promises.mkdir(pDir);
+        const mpaHtml = await renderComponent(name, component);
+        const mpaDir = path.join(publicDir, "mpa", name);
+        if (!fs.existsSync(mpaDir)) {
+            await fs.promises.mkdir(mpaDir, { recursive: true });
         }
-        await fs.promises.writeFile(path.join(pDir, "index.html"), html);
+        await fs.promises.writeFile(path.join(mpaDir, "index.html"), mpaHtml);
     }
 })();
 
 async function renderComponent(name, p) {
-    const content = await fs.promises.readFile(path.join(p, "index.html"), { encoding: "utf-8" });
+    const content = await fs.promises.readFile(p, { encoding: "utf-8" });
     return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,7 +70,7 @@ async function renderComponent(name, p) {
     <script type="module" src="/js/${name}.js"></script>
 </head>
 <body>
-    ${content}
+    ${content.trim().length ? content : '<p>Coming soon.</p>'}
 </body>
 </html>
 `;
