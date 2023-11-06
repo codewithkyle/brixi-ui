@@ -218,6 +218,7 @@ export default class PasswordInput extends InputBase<IPasswordInput> {
                     ?required=${this.model.required}
                     ?disalbed=${this.model.disabled}
                     ?autofocus=${this.model.autofocus}
+                    style="padding-right:36px;"
                 />
                 <button type="button" @click=${this.toggleVisibility} class="eye">${this.renderEyeIcon()}</button>
             </input-container>
