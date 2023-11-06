@@ -108,7 +108,7 @@ export default class Nav extends SuperComponent<NavData> {
                     ${this.model.navigation.map((link) => {
                         return html` ${link.children.length ? this.renderLinkWithChildren(link) : this.renderLink(link)} `;
                     })}
-                    <button @click=${this.handleMenuClick} style="position:fixed;top:1rem;left:275px;" class="bttn menu" kind="outline" color="grey" icon="center">
+                    <button @click=${this.handleMenuClick} style="position:fixed;top:1.5rem;left:295px;" class="bttn menu" kind="text" color="grey" icon="center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="open" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
