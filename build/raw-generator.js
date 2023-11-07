@@ -13,7 +13,7 @@ const jsDir = path.join(cwd, "public", "js");
         await fs.promises.rm(publicDir, { recursive: true });
     }
     await fs.promises.mkdir(publicDir, { recursive: true });
-    const components = glob.sync(`${componentsDir}/**/*.html`);
+    const components = glob.sync(`${componentsDir}/**/index.html`);
     for (const file of components) {
         const name = file
             .match(/.*[\\\/]/, "")[0]
