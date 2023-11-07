@@ -14,7 +14,7 @@ export default class CodeViewer extends SuperComponent<CodeViewerData> {
     private component: string;
     constructor(component: string) {
         super();
-        this.component = component;
+        this.component = component.replace(/(mpa)|(spa)\//g, "");
         this.state = "LOADING";
         this.stateMachine = {
             LOADING: {
@@ -35,7 +35,7 @@ export default class CodeViewer extends SuperComponent<CodeViewerData> {
         const update = { ...this.model };
         for (let i = 0; i < files.length; i++) {
             new Promise(async (resolve) => {
-                const fileRequest = await fetch(`/raw/components/${files[i]}`);
+                const fileRequest = await fetch(`/raw/components/${location.pathname.replace(/\/.*/, "")}/${this.component}/${files[i]}`);
                 if (fileRequest.ok) {
                     const raw = await fileRequest.text();
                     update.sourceCode.push({
