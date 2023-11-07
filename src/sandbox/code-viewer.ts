@@ -14,7 +14,7 @@ export default class CodeViewer extends SuperComponent<CodeViewerData> {
     private component: string;
     constructor(component: string) {
         super();
-        this.component = component.replace(/(mpa)|(spa)\//g, "");
+        this.component = component.replace(/^\/((mpa)|(spa))\//g, "");
         this.state = "LOADING";
         this.stateMachine = {
             LOADING: {
