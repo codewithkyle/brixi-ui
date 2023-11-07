@@ -47,7 +47,7 @@ export default class CodeViewer extends SuperComponent<CodeViewerData> {
                 }
                 // @ts-ignore
                 resolve();
-            }).then(() => {
+            }).finally(() => {
                 requestsCompleted++;
                 if (files.length === requestsCompleted) {
                     update.activeExt = update.sourceCode[0].ext;
