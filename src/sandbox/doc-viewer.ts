@@ -33,7 +33,7 @@ export default class DocViewer extends SuperComponent<DocViewerData> {
             });
         } else {
             this.set({
-                html: `<p class="font-danger-700 absolute center">This component is missing documentation.</p>`,
+                html: `<p class="font-danger-700 dark:font-danger-400 absolute center">This component is missing documentation.</p>`,
             });
         }
         this.trigger("SUCCESS");
