@@ -1,6 +1,5 @@
 import SuperComponent from "@codewithkyle/supercomponent";
 import { html, render } from "lit-html";
-import snackbar from "@codewithkyle/notifyjs/dist/snackbar";
 
 type SourceCode = {
     ext: string;
@@ -15,7 +14,7 @@ export default class CodeViewer extends SuperComponent<CodeViewerData> {
     private component: string;
     constructor(component: string) {
         super();
-        this.component = component;
+        this.component = component.replace(/(mpa|spa)|[/]/g, "");
         this.state = "LOADING";
         this.stateMachine = {
             LOADING: {

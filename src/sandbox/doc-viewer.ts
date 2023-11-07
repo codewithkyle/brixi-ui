@@ -24,7 +24,7 @@ export default class DocViewer extends SuperComponent<DocViewerData> {
     }
 
     private async fetchDoc() {
-        const request = await fetch(`/docs/components/${this.component}.md`);
+        const request = await fetch(`/docs/components/${this.component.replace(/(mpa|spa)|[/]/g, "")}.md`);
         if (request.ok) {
             const markdown = await request.text();
             const html = await renderMarkdown(markdown);
