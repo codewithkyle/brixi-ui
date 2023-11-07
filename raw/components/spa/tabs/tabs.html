@@ -1,0 +1,26 @@
+<div class="w-full block mb-2 border-b-solid border-b-grey-200 dark:border-b-grey-700 border-b-1" id="example1">
+    <tabs-component
+        data-tabs='[{"label":"List","value":"list"},{"label":"Board","value":"board"},{"label":"Calendar","value":"calendar","icon":"%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20class=%22h-6%20w-6%22%20fill=%22none%22%20viewBox=%220%200%2024%2024%22%20stroke=%22currentColor%22%3E%3Cpath%20stroke-linecap=%22round%22%20stroke-linejoin=%22round%22%20stroke-width=%222%22%20d=%22M8%207V3m8%204V3m-9%208h10M5%2021h14a2%202%200%20002-2V7a2%202%200%2000-2-2H5a2%202%200%2000-2%202v12a2%202%200%20002%202z%22%20/%3E%3C/svg%3E"},{"label":"Files","value":"files"}]'
+    ></tabs-component>
+</div>
+<div class="w-full block mb-2 border-b-solid border-b-grey-200 dark:border-b-grey-700 border-b-1" id="example2">
+    <tabs-component
+        class="js-tabs"
+        data-sortable="true"
+        data-expandable="true"
+        data-tabs='[{"label":"List","value":"list"},{"label":"Board","value":"board"},{"label":"Calendar","value":"calendar","icon":"%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20class=%22h-6%20w-6%22%20fill=%22none%22%20viewBox=%220%200%2024%2024%22%20stroke=%22currentColor%22%3E%3Cpath%20stroke-linecap=%22round%22%20stroke-linejoin=%22round%22%20stroke-width=%222%22%20d=%22M8%207V3m8%204V3m-9%208h10M5%2021h14a2%202%200%20002-2V7a2%202%200%2000-2-2H5a2%202%200%2000-2%202v12a2%202%200%20002%202z%22%20/%3E%3C/svg%3E"},{"label":"Files","value":"files"}]'
+    ></tabs-component>
+</div>
+
+<script>
+    const tabs = document.querySelector(".js-tabs");
+    tabs.addEventListener("change", (e) => {
+        console.log("change", e.detail);
+    });
+    tabs.addEventListener("add", (e) => {
+        console.log("add",e.detail);
+    });
+    tabs.addEventListener("sort", (e) => {
+        console.log("sort",e.detail);
+    });
+</script>

@@ -1,0 +1,11 @@
+<overflow-button
+    data-items='[{"label":"Example","id":"example"},{"label":"Example","icon":"%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20class=%22h-6%20w-6%22%20fill=%22none%22%20viewBox=%220%200%2024%2024%22%20stroke=%22currentColor%22%3E%3Cpath%20stroke-linecap=%22round%22%20stroke-linejoin=%22round%22%20stroke-width=%222%22%20d=%22M5%208h14M5%208a2%202%200%20110-4h14a2%202%200%20110%204M5%208v10a2%202%200%20002%202h10a2%202%200%20002-2V8m-9%204h4%22%20/%3E%3C/svg%3E","id":"example2"},null,{"danger":true,"label":"Example","icon":"%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20class=%22h-6%20w-6%22%20fill=%22none%22%20viewBox=%220%200%2024%2024%22%20stroke=%22currentColor%22%3E%3Cpath%20stroke-linecap=%22round%22%20stroke-linejoin=%22round%22%20stroke-width=%222%22%20d=%22M19%207l-.867%2012.142A2%202%200%200116.138%2021H7.862a2%202%200%2001-1.995-1.858L5%207m5%204v6m4-6v6m1-10V4a1%201%200%2000-1-1h-4a1%201%200%2000-1%201v3M4%207h16%22%20/%3E%3C/svg%3E","id":"example3"}]'
+></overflow-button>
+
+<script type="module" src="/js/overflow-button.js"></script>
+
+<script>
+    document.body.querySelector("overflow-button").addEventListener("action", (e) => {
+        console.log(e.detail.id);
+    });
+</script>

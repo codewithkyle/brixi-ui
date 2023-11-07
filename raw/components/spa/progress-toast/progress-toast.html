@@ -1,0 +1,15 @@
+<progress-toast
+    data-title="Downloading messages"
+    data-subtitle="0 of 1000"
+    data-total="1000"
+></progress-toast>
+
+<script>
+    const example = document.querySelector("progress-toast");
+    example.addEventListener("tick", (e) => {
+        example.setProgress(`${e.detail.tick} of 1000`);
+    });
+    setInterval(() => {
+        example?.tick(10);
+    }, 150);
+</script>

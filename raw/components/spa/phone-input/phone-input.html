@@ -1,0 +1,17 @@
+<phone-input-component
+    data-label="Phone Number"
+    data-name="phone"
+></phone-input-component>
+
+<script>
+    const inputComponent = document.querySelector('phone-input-component');
+    inputComponent.addEventListener('input', (event) => {
+        console.log(event.detail)
+    });
+    inputComponent.addEventListener('focus', (event) => {
+        console.log(event.detail);
+    });
+    inputComponent.addEventListener('blur', (event) => {
+        console.log(event.detail);
+    });
+</script>

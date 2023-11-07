@@ -1,0 +1,12 @@
+<input-chip
+    data-label="Example"
+    data-value="example"
+></input-chip>
+
+<script type="module" src="/js/input-chip.js"></script>
+<script>
+    const inputChip = document.querySelector('input-chip');
+    inputChip.addEventListener('remove', (event) => {
+        console.log(event.detail.value);
+    });
+</script>

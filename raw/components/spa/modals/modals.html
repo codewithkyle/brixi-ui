@@ -1,0 +1,104 @@
+<div class="w-full text-center">
+    <button sfx="button" kind="solid" color="grey" class="m-0.5 bttn js-bttn-passive">Passive</button>
+    <button sfx="button" kind="solid" color="grey" class="m-0.5 bttn js-bttn-confirm">Confirm</button>
+    <button sfx="button" kind="solid" color="grey" class="m-0.5 bttn js-bttn-confirm-danger">Confirm Danger</button>
+    <button sfx="button" kind="solid" color="grey" class="m-0.5 bttn js-bttn-form">Form</button>
+    <button sfx="button" kind="solid" color="grey" class="m-0.5 bttn js-bttn-raw">Raw</button>
+
+    <script type="module">
+        import modals from "/js/modals.js";
+        import "/js/input.js";
+        import { html } from "/js/lit-html.js";
+
+        document.body.querySelector(".js-bttn-confirm-danger").addEventListener("click", ()=>{
+            modals.dangerous({
+                title: "Delete Account",
+                message: "Are you sure you want to delete your account? All of your data will be permanently removed. This action cannot be undone.",
+                confirm: "Delete Account",
+                callbacks: {
+                    confirm: ()=>{
+                        console.log("Account deleted");
+                    },
+                    cancel: ()=>{
+                        console.log("Account not deleted");
+                    },
+                },
+            });
+        });
+
+        document.body.querySelector(".js-bttn-confirm").addEventListener("click", ()=>{
+            modals.confirm({
+                title: "Submit Order",
+                message: "Once your order is submitted production will begin automatically. This action cannot be undone.",
+                callbacks: {
+                    confirm: ()=>{
+                        console.log("Order submitted");
+                    },
+                    cancel: ()=>{
+                        console.log("Order not submitted");
+                    },
+                },
+            });
+        });
+
+        document.body.querySelector(".js-bttn-passive").addEventListener("click", ()=>{
+            modals.passive({
+                title: "Unable to connect your account",
+                message: `
+                    Your changes were saved, but we could not connect your account due to a technical issue on our end. Please try reconnecting again. If the issue keeps happening, contact <a class="link" href="#">Customer Support</a>.
+                `,
+                actions: [
+                    {
+                        label: "Cancel",
+                        callback: ()=>{
+                            console.log("Canceling");
+                        },
+                    },
+                    {
+                        label: "Try Again",
+                        callback: ()=>{
+                            console.log("Trying again");
+                        },
+                    },
+                ],
+            });
+        });
+
+        document.body.querySelector(".js-bttn-form").addEventListener("click", ()=>{
+            modals.form({
+                title: "New Project",
+                view: html`
+                    <input-component
+                        data-placeholder="Project Name"
+                        data-name="projectName"
+                        data-required="true"
+                    >
+                    </input-component>
+                `,
+                callbacks: {
+                    submit: (data, form, modal)=>{
+                        console.log(data, form, modal);
+                        modal.remove();
+                    },
+                    cancel: ()=>{
+                        console.log("Project not created");
+                    },
+                },
+            });
+        });
+
+        document.body.querySelector(".js-bttn-raw").addEventListener("click", ()=>{
+            const modal = modals.raw({
+                view: html`
+                    <div class="p-2">
+                        <iframe style="width:100%;aspect-ratio: 16/9;" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> 
+                    </div>
+                `,
+                width: 768,
+            });
+            console.log(modal);
+        });
+    </script>
+</div>
+<link href="/css/button.css" rel="stylesheet" />
+<link href="/css/link.css" rel="stylesheet" />

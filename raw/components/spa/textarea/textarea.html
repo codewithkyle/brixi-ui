@@ -1,0 +1,46 @@
+<textarea-component
+    data-label="Example"
+    data-required="true"
+    data-name="example"
+    data-instructions="This is an <a class='link' href='https://example.com' target='_blank'>example</a> input."
+    data-placeholder="Send a message to our support team..."
+    data-rows="3"
+    data-maxlength="250"
+    class="mb-2"
+></textarea-component>
+
+<textarea-component
+    data-label="Example"
+    data-required="true"
+    data-name="example"
+    data-instructions="This is an <a class='link' href='https://example.com' target='_blank'>example</a> input."
+    data-placeholder="Send a message to our support team..."
+    data-rows="3"
+    data-maxlength="250"
+    data-read-only="true"
+    data-value="This is a read-only input."
+    class="mb-2"
+></textarea-component>
+
+<textarea-component
+    data-label="Example"
+    data-required="true"
+    data-name="example"
+    data-rows="3"
+    data-disabled="true"
+></textarea-component>
+
+<link href="/css/link.css" rel="stylesheet" />
+
+<script>
+    const textarea = document.querySelector("textarea-component");
+    textarea.addEventListener("input", (e) => {
+        console.log("input", e.detail);
+    });
+    textarea.addEventListener("focus", (e) => {
+        console.log("focus", e.detail);
+    });
+    textarea.addEventListener("blur", (e) => {
+        console.log("blur", e.detail);
+    });
+</script>

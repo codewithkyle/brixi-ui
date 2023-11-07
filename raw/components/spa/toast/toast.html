@@ -1,0 +1,12 @@
+<div class="w-full text-center">
+    <button sfx="button" kind="solid" color="grey" class="m-0.5 bttn js-bttn-general">Trigger toast</button>
+    <script type="module">
+        import notifications from "/js/alerts.js";
+        let count = 0;
+        document.body.querySelector(".js-bttn-general").addEventListener("click", () => {
+            notifications.toast(`Toast message ${count++}`);
+        });
+    </script>
+</div>
+<link href="/css/button.css" rel="stylesheet" />
+<link href="/css/toast.css" rel="stylesheet" />

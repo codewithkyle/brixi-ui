@@ -1,0 +1,19 @@
+<radio-component
+    data-label="Example"
+    data-name="example"
+    data-value="example"
+></radio-component>
+
+<radio-component
+    class="mt-2"
+    data-label="Example"
+    data-name="example"
+    data-value="example"
+    data-disabled="true"
+></radio-component>
+
+<script>
+    document.querySelector('radio-component').addEventListener("change", e => {
+        console.log(e.detail);
+    });
+</script>

@@ -1,0 +1,21 @@
+<radio-group
+    data-label="Example"
+    data-name="example"
+    data-instructions="Lorem ipsum and wat knot..."
+    data-options='[{"label": "Example 1","value":"example1"},{"label":"Example 2","value":"example2"},{"label":"Example 3","checked": true,"value":"example3"}]'
+></radio-group>
+
+<radio-group
+    class="mt-2"
+    data-label="Example"
+    data-name="example"
+    data-instructions="Lorem ipsum and wat knot..."
+    data-options='[{"label": "Example 1","value":"example1"},{"label":"Example 2","value":"example2"},{"label":"Example 3","checked": true,"value":"example3"}]'
+    data-disabled="true"
+></radio-group>
+
+<script>
+    document.querySelector('radio-group').addEventListener("change", e => {
+        console.log(e.detail);
+    });
+</script>

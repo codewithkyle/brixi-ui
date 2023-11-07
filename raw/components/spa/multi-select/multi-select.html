@@ -1,0 +1,48 @@
+<multi-select-component
+    data-label="Fruit"
+    data-name="fruit"
+    data-search="fuzzy"
+    data-required="true"
+    data-options='[
+        {
+            "label": "Apples",
+            "value": "apples"
+        },
+        {
+            "label": "Pears",
+            "value": "pears"
+        },
+        {
+            "label": "Bananas",
+            "value": "bananas"
+        }
+    ]'
+></multi-select-component>
+
+<multi-select-component
+    class="mt-2"
+    data-label="Fruit"
+    data-name="fruit"
+    data-search="fuzzy"
+    data-disabled="true"
+    data-options='[
+        {
+            "label": "Apples",
+            "value": "apples"
+        },
+        {
+            "label": "Pears",
+            "value": "pears"
+        },
+        {
+            "label": "Bananas",
+            "value": "bananas"
+        }
+    ]'
+></multi-select-component>
+
+<script>
+    document.querySelector('multi-select-component').addEventListener('change', (e) => {
+        console.log(e.detail);
+    });
+</script>

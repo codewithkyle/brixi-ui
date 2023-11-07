@@ -1,0 +1,23 @@
+<number-input-component
+    data-label="Example"
+    data-required="true"
+    data-instructions="This is an example input."
+    data-step="5"
+    data-min="-50"
+    data-max="50"
+    data-value="5"
+    data-name="example"
+></number-input-component>
+
+<script>
+    const inputComponent = document.querySelector('number-input-component');
+    inputComponent.addEventListener('input', (event) => {
+        console.log(event.detail)
+    });
+    inputComponent.addEventListener('focus', (event) => {
+        console.log(event.detail);
+    });
+    inputComponent.addEventListener('blur', (event) => {
+        console.log(event.detail);
+    });
+</script>

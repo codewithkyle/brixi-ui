@@ -1,0 +1,11 @@
+<suggestion-chip
+    data-label="Example"
+    data-value="example"
+></suggestion-chip>
+
+<script type="module" src="/js/suggestion-chip.js"></script>
+<script>
+    document.querySelector('suggestion-chip').addEventListener('suggest', (event) => {
+        console.log(event.detail.value);
+    });
+</script>

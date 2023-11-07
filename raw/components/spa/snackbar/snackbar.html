@@ -1,0 +1,11 @@
+<div class="w-full text-center">
+    <button sfx="button" kind="solid" color="grey" class="m-0.5 bttn js-bttn-general">Trigger snackbar</button>
+    <script type="module">
+        import notifications from "/js/alerts.js";
+        document.body.querySelector(".js-bttn-general").addEventListener("click", () => {
+            notifications.snackbar("You did something that triggered this response.");
+        });
+    </script>
+</div>
+<link href="/css/button.css" rel="stylesheet" />
+<link href="/css/snackbar.css" rel="stylesheet" />

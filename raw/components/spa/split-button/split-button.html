@@ -1,0 +1,11 @@
+<split-button
+    data-label="Demo Button"
+    data-buttons='[{"label":"Example 1","id":"example-1"},null,{"label":"Example 2","icon":"%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20stroke-width=%222%22%20stroke=%22currentColor%22%20fill=%22none%22%20stroke-linecap=%22round%22%20stroke-linejoin=%22round%22%3E%3Cpath%20stroke=%22none%22%20d=%22M0%200h24v24H0z%22%20fill=%22none%22%3E%3C/path%3E%3Cline%20x1=%224%22%20y1=%227%22%20x2=%2220%22%20y2=%227%22%3E%3C/line%3E%3Cline%20x1=%2210%22%20y1=%2211%22%20x2=%2210%22%20y2=%2217%22%3E%3C/line%3E%3Cline%20x1=%2214%22%20y1=%2211%22%20x2=%2214%22%20y2=%2217%22%3E%3C/line%3E%3Cpath%20d=%22M5%207l1%2012a2%202%200%200%200%202%202h8a2%202%200%200%200%202%20-2l1%20-12%22%3E%3C/path%3E%3Cpath%20d=%22M9%207v-3a1%201%200%200%201%201%20-1h4a1%201%200%200%201%201%201v3%22%3E%3C/path%3E%3C/svg%3E","danger":true,"id":"example-2"}]'
+    data-id="demo-button"
+></split-button>
+
+<script>
+    document.body.querySelector('split-button').addEventListener('action', (e) => {
+        console.log(e.detail.id);
+    });
+</script

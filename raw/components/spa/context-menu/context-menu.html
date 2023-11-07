@@ -1,0 +1,41 @@
+<script type="module">
+    import Component from "/js/context-menu.js";
+    new Component({
+        items: [
+            {
+                label: "Back",
+                callback: () => {
+                    console.log("Back");
+                },
+            },
+            {
+                label: "Forward",
+                callback: () => {
+                    console.log("Forward");
+                },
+            },
+            {
+                label: "Reload",
+                hotkey: "Ctrl+R",
+                callback: () => {
+                    location.reload();
+                },
+            },
+            null,
+            {
+                label: "Action 1",
+                callback: () => {
+                    console.log("Action 1");
+                },
+            },
+            {
+                label: "Action 2",
+                callback: () => {
+                    console.log("Action 2");
+                },
+            },
+        ],
+        x: 24,
+        y: 24,
+    });
+</script>

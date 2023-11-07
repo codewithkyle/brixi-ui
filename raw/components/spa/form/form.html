@@ -1,0 +1,29 @@
+<form-component class="p-1.5 border-1 border-solid border-grey-300 dark:border-grey-700 radius-0.5">
+    <select-component
+        data-name="example"
+        data-label="Example"
+        data-options='[{"label":"Option 1","value":"option1"},{"label":"Option 2","value":"option2"}]' 
+        data-value="option1"
+        class="mb-1.5"
+    ></select-component>
+    <submit-button></submit-button>
+</form-component>
+
+<script type="module" src="/js/form.js"></script>
+<script type="module" src="/js/submit-button.js"></script>
+<script type="module" src="/js/select.js"></script>
+
+<script>
+    const form = document.querySelector('form-component');
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const form = e.currentTarget;
+        if (form.checkValidity()){
+            console.log(form.serialize());
+            setTimeout(() => {
+                form.reset();
+                form.stop();
+            }, 1000);
+        }
+    });
+</script>

@@ -1,0 +1,32 @@
+<progress-indicator
+    data-total="100"
+></progress-indicator>
+
+<progress-indicator
+    data-total="100"
+    data-color="primary"
+></progress-indicator>
+
+<progress-indicator
+    data-total="100"
+    data-color="success"
+></progress-indicator>
+
+<progress-indicator
+    data-total="100"
+    data-color="warning"
+></progress-indicator>
+
+<progress-indicator
+    data-total="100"
+    data-color="danger"
+></progress-indicator>
+    
+
+<script>
+    setInterval(() => {
+        document.querySelectorAll('progress-indicator').forEach((element) => {
+            element.tick();
+        });
+    }, 150);
+</script>

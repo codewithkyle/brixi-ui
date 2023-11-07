@@ -1,0 +1,19 @@
+<checkbox-component
+    data-label="Example"
+    data-name="example"
+></checkbox-component>
+
+<checkbox-component
+    class="mt-1"
+    data-label="Example"
+    data-name="example"
+    data-disabled="true"
+></checkbox-component>
+
+<script type="module" src="/js/checkbox.js"></script>
+
+<script>
+    document.body.querySelector('checkbox-component').addEventListener('change', (e) => {
+        console.log(e.detail);
+    });
+</script>

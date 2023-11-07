@@ -1,0 +1,22 @@
+<checkbox-group
+    data-label="Example"
+    data-name="example"
+    data-instructions="Lorem ipsum and wat knot..."
+    data-options='[{"label": "Example 1","value":"example1"},{"label": "Example 2","value":"example2"},{"label": "Example 3","checked": true,"value":"example3"}]'
+></checkbox-group>
+
+<checkbox-group
+    class="mt-2"
+    data-label="Example"
+    data-name="example"
+    data-instructions="Lorem ipsum and wat knot..."
+    data-options='[{"label": "Example 1","value":"example1"},{"label": "Example 2","value":"example2"},{"label": "Example 3","checked": true,"value":"example3"}]'
+    data-disabled="true"
+></checkbox-group>
+
+<script type="module" src="/js/checkbox-group.js"></script>
+<script>
+    document.querySelector('checkbox-group').addEventListener('change', (event) => {
+        console.log(event.detail);
+    });
+</script>
