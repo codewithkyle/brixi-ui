@@ -11,7 +11,7 @@ env.css("select");
 
 export type SelectOption = {
     label: string;
-    value: string | number;
+    value: string;
 };
 
 export interface ISelect {
@@ -20,7 +20,7 @@ export interface ISelect {
     instructions: string;
     options: Array<SelectOption>;
     required: boolean;
-    selected: number;
+    selected: string;
     name: string;
     error: string;
     value: any;
@@ -69,16 +69,6 @@ export default class Select extends Component<ISelect> {
 
     override async connected() {
         const settings = parseDataset(this.dataset, this.model);
-        if (settings?.value) {
-            for (let i = 0; i < settings.options.length; i++) {
-                if (settings.options[i].value === settings.value) {
-                    settings.selected = i;
-                }
-            }
-        } else {
-            settings.value = settings.options[0].value;
-            settings.selected = 0;
-        }
         if (settings?.error) {
             this.state = "ERROR";
         }
@@ -125,8 +115,7 @@ export default class Select extends Component<ISelect> {
 
     public reset(): void {
         this.set({
-            selected: 0,
-            value: null,
+            value: "",
         });
     }
 
@@ -152,17 +141,14 @@ export default class Select extends Component<ISelect> {
     private handleChange: EventListener = (e: Event) => {
         e.stopImmediatePropagation();
         const target = e.currentTarget as HTMLSelectElement;
-        const index = parseInt(target.value);
-        const value = this.model.options[index].value;
         this.set({
-            selected: index,
-            value: value,
+            value: target.value,
         });
         this.validate();
         this.dispatchEvent(
             new CustomEvent("change", {
                 detail: {
-                    value: value,
+                    value: target.value,
                     name: this.model.name,
                 },
                 bubbles: true,
@@ -233,9 +219,10 @@ export default class Select extends Component<ISelect> {
                     ?required=${this.model.required}
                     ?disabled=${this.model.disabled}
                     ?autofocus=${this.model.autofocus}
+                    ?value=${this.model.value}
                 >
-                    ${this.model.options.map((option, index) => {
-                        return html`<option value="${index}" ?selected=${this.model.selected === index}>${option.label}</option>`;
+                    ${this.model.options.map((option) => {
+                        return html`<option value="${option.value}" ?selected=${this.model.selected === option.value}>${option.label}</option>`;
                     })}
                 </select>
                 <i class="selector">

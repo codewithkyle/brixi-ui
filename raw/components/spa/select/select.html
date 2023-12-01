@@ -16,3 +16,10 @@
 ></select-component>
 
 <script type="module" src="/js/select.js"></script>
+
+<script>
+    const select = document.querySelector('select-component');
+    select.addEventListener('change', (e) => {
+        console.log(e.detail);
+    });
+</script>
