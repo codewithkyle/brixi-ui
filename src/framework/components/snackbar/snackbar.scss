@@ -20,7 +20,9 @@ snackbar-component {
     border: 1px solid var(--grey-900);
 
     @media (prefers-color-scheme: dark) {
-        background-color: hsl(var(--grey-950-hsl) / 0.6);
+        backdrop-filter: blur(8px);
+        background-color: hsl(var(--grey-900-hsl) / 0.87);
+        border-color: var(--grey-800);
     }
 
     @media (min-width: 411px) {
