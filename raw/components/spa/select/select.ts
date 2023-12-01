@@ -20,7 +20,6 @@ export interface ISelect {
     instructions: string;
     options: Array<SelectOption>;
     required: boolean;
-    selected: string;
     name: string;
     error: string;
     value: any;
@@ -49,7 +48,6 @@ export default class Select extends Component<ISelect> {
             },
         };
         this.model = {
-            selected: null,
             label: "",
             name: "",
             icon: "",
@@ -222,7 +220,7 @@ export default class Select extends Component<ISelect> {
                     ?value=${this.model.value}
                 >
                     ${this.model.options.map((option) => {
-                        return html`<option value="${option.value}" ?selected=${this.model.selected === option.value}>${option.label}</option>`;
+                        return html`<option value="${option.value}" ?selected=${this.model.value === option.value}>${option.label}</option>`;
                     })}
                 </select>
                 <i class="selector">
