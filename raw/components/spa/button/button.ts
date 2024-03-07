@@ -27,7 +27,7 @@ export default class Button extends Component<IButton> {
     constructor() {
         super();
         this.model = {
-            label: "",
+            label: null,
             kind: "solid",
             color: "grey",
             shape: "default",

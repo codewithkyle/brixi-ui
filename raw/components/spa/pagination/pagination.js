@@ -13,6 +13,7 @@ import{html as i,render as n}from"./lit-html.js";import o from"./env.js";import"
                     <button-component
                         data-kind="text"
                         data-color="grey"
+                        data-icon-position="center"
                         data-label="${a}"
                         class="${a===this.model.activePage?"is-active":""}"
                         style="min-width: 36px;"

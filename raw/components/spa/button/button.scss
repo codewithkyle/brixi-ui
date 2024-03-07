@@ -19,6 +19,7 @@ button-component {
     border-radius: 0.25rem;
     line-height: 1;
     outline-offset: 0;
+    text-align: center;
 
     &::before {
         content: "";

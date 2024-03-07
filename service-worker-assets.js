@@ -1,6 +1,6 @@
 
 self.manifest = {
-    "version": "819084078bb9d5e31338f5aadc60c798",
+    "version": "5516584b275793ca73fb25cc7260b1db",
     "assets": [
 		"/js/accordion.js",
 		"/js/alert.js",
@@ -20,7 +20,7 @@ self.manifest = {
 		"/js/context-menu.js",
 		"/js/date-input.js",
 		"/js/dayjs.js",
-		"/js/directive-d639fc45.js",
+		"/js/directive-d1e4c9ba.js",
 		"/js/divider.js",
 		"/js/doc-viewer.js",
 		"/js/download-button.js",
