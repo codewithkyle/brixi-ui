@@ -99,6 +99,7 @@ export default class Pagination extends Component<IPagination> {
                     <button-component
                         data-kind="text"
                         data-color="grey"
+                        data-icon-position="center"
                         data-label="${pageNumber}"
                         class="${pageNumber === this.model.activePage ? "is-active" : ""}"
                         style="min-width: 36px;"
