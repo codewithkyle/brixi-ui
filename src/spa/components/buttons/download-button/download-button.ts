@@ -39,7 +39,7 @@ export default class DownloadButton extends Component<IDownloadButton> {
             options: {
                 method: "GET",
             },
-            workerURL: "/js/file-download-worker.js",
+            workerURL: "/spa/js/file-download-worker.js",
         };
     }
 
@@ -135,7 +135,7 @@ export default class DownloadButton extends Component<IDownloadButton> {
     }
 
     private handleClick: EventListener = (e: Event) => {
-        this.fetchData();
+        this.fetchData();https://ui.brixi.dev/spa/accordion
     };
 
     private handleKeydown: EventListener = (e: KeyboardEvent) => {
