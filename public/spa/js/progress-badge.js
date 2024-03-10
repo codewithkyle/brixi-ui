@@ -1,4 +1,0 @@
-import{html as o,render as i}from"./lit-html.js";import r from"./env.js";import{parseDataset as s}from"./general.js";import"./progress-indicator.js";import a from"./component.js";r.css(["progress-badge"]);class e extends a{constructor(){super(),this.indicator=null,this.model={label:"",total:1,color:"grey"}}static get observedAttributes(){return["data-label","data-total","data-color"]}async connected(){const t=s(this.dataset,this.model);this.set(t)}tick(){this.indicator||(this.indicator=this.querySelector("progress-indicator")),this.indicator?.tick()}reset(){this.indicator||(this.indicator=this.querySelector("progress-indicator")),this.indicator?.reset()}render(){this.setAttribute("color",this.model.color);const t=o`
-            <progress-indicator data-size="18" data-total="${this.model.total}" data-color="${this.model.color}"> </progress-indicator>
-            <span>${this.model.label}</span>
-        `;i(t,this)}}r.bind("progress-badge",e);export{e as default};

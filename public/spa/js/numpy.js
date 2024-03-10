@@ -1,1 +1,0 @@
-function e(r,n){return Math.round(Math.random()*(n-r)+r)}function o(r,n,t=2){return parseFloat((Math.random()*(n-r)+r).toFixed(t))}function u(r,n){const t=r/n*100;return Math.round(t)}export{u as calcPercent,o as randomFloat,e as randomInt};

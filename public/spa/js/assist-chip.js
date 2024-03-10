@@ -1,4 +1,0 @@
-import{html as i,render as n}from"./lit-html.js";import e from"./env.js";import{parseDataset as r}from"./general.js";import{unsafeHTML as o}from"./unsafe-html.js";import a from"./component.js";e.css(["assist-chip"]);class s extends a{constructor(){super();this.handleKeydown=t=>{t.key===" "&&this.classList.add("is-active")};this.handleKeyup=t=>{t.key===" "&&(this.classList.remove("is-active"),this.click())};this.model={label:"",icon:""}}static get observedAttributes(){return["data-label","data-icon"]}connected(){const t=r(this.dataset,this.model);this.set(t),this.addEventListener("keyup",this.handleKeyup),this.addEventListener("keydown",this.handleKeydown)}renderIcon(){let t="";return this.model.icon?.length&&(t=o(this.model.icon)),t}render(){this.tabIndex=0,this.setAttribute("role","button");const t=i`
-            ${this.renderIcon()}
-            <span>${this.model.label}</span>
-        `;n(t,this)}}e.bind("assist-chip",s);export{s as default};
