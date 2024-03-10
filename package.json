@@ -18,7 +18,7 @@
     "engines": {
         "node": ">=14.5.0"
     },
-    "types": "./dist/framework/types",
+    "types": "./dist/spa/types",
     "scripts": {
         "create": "node ./build/generator.js",
         "preview": "serve ./public",
@@ -38,8 +38,8 @@
         "watch": "run-p watch:*",
         "watch:src": "npm-watch",
         "watch:server": "npm run preview",
-        "prerelease": "rm -rf ./dist && mkdir ./dist && mkdir ./dist/framework && npm run lint && run-s make:* && rm -rf ./dist/framework/lib && rm ./dist/framework/stylesheets/brixi.css",
-        "make:src": "cp -r ./src/framework/* ./dist/framework",
+        "prerelease": "rm -rf ./dist && mkdir ./dist && mkdir ./dist/spa && npm run lint && run-s make:* && rm -rf ./dist/spa/lib && rm ./dist/spa/stylesheets/brixi.css",
+        "make:src": "cp -r ./src/spa/* ./dist/spa",
         "make:audio": "cp -r ./audio ./dist/audio",
         "deploy": "run-s deploy:*",
         "deploy:bundle": "npm run bundle",
