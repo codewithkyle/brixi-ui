@@ -114,4 +114,4 @@ export default class ProgressIndicator extends Component<IProgressIndicator> {
         render(view, this);
     }
 }
-env.bind("progress-indicator", ProgressIndicator);
+env.bind("progress-indicator-component", ProgressIndicator);

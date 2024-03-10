@@ -183,4 +183,4 @@ export default class DownloadButton extends Component<IDownloadButton> {
         render(view, this);
     }
 }
-env.bind("download-button-component", DownloadButton);
+env.bind("download-button", DownloadButton);
