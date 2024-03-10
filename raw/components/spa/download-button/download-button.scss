@@ -1,4 +1,13 @@
-download-button {
+download-button-component {
     display: inline-flex;
     position: relative;
+
+    i {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 0.5rem;
+    }
 }

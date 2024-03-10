@@ -1,6 +1,6 @@
 
 self.manifest = {
-    "version": "4131a8a261a2596a565e5a2ca62b281b",
+    "version": "5961364da8388133dc1cb1d38f6c38a6",
     "assets": [
 		"/spa/js/accordion.js",
 		"/spa/js/alert.js",
@@ -84,6 +84,9 @@ self.manifest = {
 		"/spa/js/unsafe-html.js",
 		"/spa/js/uuid.js",
 		"/spa/js/view.js",
+		"/mpa/js/download-button-component.js",
+		"/mpa/js/input-component.js",
+		"/mpa/js/progress-indicator-component.js",
 		"/css/accordion.css",
 		"/css/alert.css",
 		"/css/assist-chip.css",

@@ -39,7 +39,7 @@ export default class DownloadButton extends Component<IDownloadButton> {
             options: {
                 method: "GET",
             },
-            workerURL: "/js/file-download-worker.js",
+            workerURL: "/spa/js/file-download-worker.js",
         };
     }
 
