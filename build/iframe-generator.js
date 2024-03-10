@@ -93,9 +93,6 @@ async function renderMPAComponent(name, p) {
     <link rel="stylesheet" href="/css/core.css">
     <link rel="stylesheet" href="/css/brixi.css">
     <link rel="stylesheet" href="/css/component-layout.css">
-    <link rel="stylesheet" href="/css/tooltip.css">
-    <link rel="stylesheet" href="/css/toast.css">
-    <link rel="stylesheet" href="/css/snackbar.css">
     <script type="module" src="/spa/js/tooltipper.js"></script>
     <link rel="stylesheet" href="/css/${name}.css">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
