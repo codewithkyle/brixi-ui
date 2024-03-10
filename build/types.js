@@ -6,7 +6,7 @@ const glob = require("glob");
 const tempDir = path.join(cwd, "_types");
 const files = glob.sync(`${tempDir}/**/*.d.ts`);
 
-const outDir = path.join(cwd, "dist", "framework", "types");
+const outDir = path.join(cwd, "dist", "spa", "types");
 if (fs.existsSync(outDir)) {
     fs.rmdirSync(outDir, { recursive: true });
 }

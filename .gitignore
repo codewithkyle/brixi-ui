@@ -4,7 +4,8 @@ dist
 brixi/
 _types
 public/service-worker-assets.js
-public/js
+public/spa
+public/mpa
 public/css
 public/audio
 public/components
@@ -12,3 +13,4 @@ public/docs
 public/raw
 public/navigation.json
 src/framework/lib
+temp_js_files

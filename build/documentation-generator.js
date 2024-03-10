@@ -4,7 +4,9 @@ const cwd = process.cwd();
 const glob = require("glob");
 
 const publicDir = path.join(cwd, "public", "docs", "components", "spa");
-const componentsDir = path.join(cwd, "src", "framework", "components");
+const componentsDir = path.join(cwd, "src", "spa", "components");
+
+// TODO: mpa documentation
 
 (async () => {
     if (fs.existsSync(publicDir)) {

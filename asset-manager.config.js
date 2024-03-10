@@ -23,8 +23,8 @@ for (const file of components) {
 module.exports = {
     src: [
         {
-            files: "./public/js/*.js",
-            publicDir: "/js",
+            files: "./public/spa/js/*.js",
+            publicDir: "/spa/js",
         },
         {
             files: "./public/css/*.css",
