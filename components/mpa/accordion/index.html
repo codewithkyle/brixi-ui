@@ -12,18 +12,63 @@
     <link rel="stylesheet" href="/css/core.css">
     <link rel="stylesheet" href="/css/brixi.css">
     <link rel="stylesheet" href="/css/component-layout.css">
-    <link rel="stylesheet" href="/css/tooltip.css">
-    <link rel="stylesheet" href="/css/snackbar.css">
-    <script type="module">
-        import soundscape from "/js/soundscape.js";
-        soundscape.load();
-    </script>
-    <script type="module" src="/js/tooltipper.js"></script>
+    <script type="module" src="/spa/js/tooltipper.js"></script>
     <link rel="stylesheet" href="/css/accordion.css">
-    <script type="module" src="/js/accordion.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
+    <script type="module">
+        import { configure, update, mount, css } from "https://cdn.jsdelivr.net/npm/@codewithkyle/lazy-loader@1/lazy-loader.min.mjs";
+        configure({
+            jsDir: "/mpa/js",
+            cssDir: "/css",
+            default: "eager"
+        });
+    </script>
+    <script type="module">
+        import notifications from "../../spa/js/alerts.js";
+        window.addEventListener("alert:toast", (e) => {
+            notifications.toast(e.detail)
+        });
+    </script>
 </head>
 <body>
-    <p>Coming soon.</p>
+    <accordion-component>
+    <accordion-section>
+        <input type="checkbox" name="7756eea6-4103-4e5d-bacd-9200f3ea05a2" id="7756eea6-4103-4e5d-bacd-9200f3ea05a2">
+        <label sfx="button" role="button" tabindex="0" for="7756eea6-4103-4e5d-bacd-9200f3ea05a2" data-is-mouse-over="0">
+            <span>Example</span>
+            <i>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </i>
+        </label>
+        <accordion-content>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</accordion-content>
+    </accordion-section>
+    <accordion-section>
+        <input type="checkbox" name="4d056e05-30b5-4f12-811d-0d139efce722" id="4d056e05-30b5-4f12-811d-0d139efce722">
+        <label sfx="button" role="button" tabindex="0" for="4d056e05-30b5-4f12-811d-0d139efce722">
+            <span>Example 2</span>
+            <i>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </i>
+        </label>
+        <accordion-content>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</accordion-content>
+    </accordion-section>
+    <accordion-section>
+        <input type="checkbox" name="0869d523-8072-49c4-b2ba-5865bbd0d7be" id="0869d523-8072-49c4-b2ba-5865bbd0d7be">
+        <label sfx="button" role="button" tabindex="0" for="0869d523-8072-49c4-b2ba-5865bbd0d7be" data-is-mouse-over="0">
+            <span>Example 3</span>
+            <i>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </i>
+        </label>
+        <accordion-content>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</accordion-content>
+    </accordion-section>
+</accordion-component>
 
 </body>
 </html>

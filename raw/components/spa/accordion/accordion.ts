@@ -34,7 +34,7 @@ export default class Accordion extends Component<IAccordion> {
     private renderSection(section: AccordionSection) {
         const name = UUID();
         return html`
-            <div class="section">
+            <accordion-section>
                 <input type="checkbox" name="${name}" id="${name}" />
                 <label sfx="button" role="button" tabindex="0" for="${name}">
                     <span>${section.label}</span>
@@ -44,8 +44,8 @@ export default class Accordion extends Component<IAccordion> {
                         </svg>
                     </i>
                 </label>
-                <div class="content">${unsafeHTML(decodeURI(section.content))}</div>
-            </div>
+                <accordion-content>${unsafeHTML(decodeURI(section.content))}</accordion-content>
+            </accordion-section>
         `;
     }
 

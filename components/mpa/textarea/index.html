@@ -12,17 +12,26 @@
     <link rel="stylesheet" href="/css/core.css">
     <link rel="stylesheet" href="/css/brixi.css">
     <link rel="stylesheet" href="/css/component-layout.css">
-    <link rel="stylesheet" href="/css/tooltip.css">
-    <link rel="stylesheet" href="/css/snackbar.css">
-    <script type="module">
-        import soundscape from "/js/soundscape.js";
-        soundscape.load();
-    </script>
-    <script type="module" src="/js/tooltipper.js"></script>
+    <script type="module" src="/spa/js/tooltipper.js"></script>
     <link rel="stylesheet" href="/css/textarea.css">
-    <script type="module" src="/js/textarea.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
+    <script type="module">
+        import { configure, update, mount, css } from "https://cdn.jsdelivr.net/npm/@codewithkyle/lazy-loader@1/lazy-loader.min.mjs";
+        configure({
+            jsDir: "/mpa/js",
+            cssDir: "/css",
+            default: "eager"
+        });
+    </script>
+    <script type="module">
+        import notifications from "../../spa/js/alerts.js";
+        window.addEventListener("alert:toast", (e) => {
+            notifications.toast(e.detail)
+        });
+    </script>
 </head>
 <body>
-    <p>Coming soon.</p>
+    <p>Coming soon</p>
+
 </body>
 </html>

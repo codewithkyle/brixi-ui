@@ -12,17 +12,36 @@
     <link rel="stylesheet" href="/css/core.css">
     <link rel="stylesheet" href="/css/brixi.css">
     <link rel="stylesheet" href="/css/component-layout.css">
-    <link rel="stylesheet" href="/css/tooltip.css">
-    <link rel="stylesheet" href="/css/snackbar.css">
-    <script type="module">
-        import soundscape from "/js/soundscape.js";
-        soundscape.load();
-    </script>
-    <script type="module" src="/js/tooltipper.js"></script>
+    <script type="module" src="/spa/js/tooltipper.js"></script>
     <link rel="stylesheet" href="/css/status-badge.css">
-    <script type="module" src="/js/status-badge.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
+    <script type="module">
+        import { configure, update, mount, css } from "https://cdn.jsdelivr.net/npm/@codewithkyle/lazy-loader@1/lazy-loader.min.mjs";
+        configure({
+            jsDir: "/mpa/js",
+            cssDir: "/css",
+            default: "eager"
+        });
+    </script>
+    <script type="module">
+        import notifications from "../../spa/js/alerts.js";
+        window.addEventListener("alert:toast", (e) => {
+            notifications.toast(e.detail)
+        });
+    </script>
 </head>
 <body>
-    <p>Coming soon.</p>
+    <div class="w-full" flex="row wrap">
+    <status-badge class="m-0.5" color="grey">Pending</status-badge>
+    <status-badge class="m-0.5" color="primary" dot="left">Shipped</status-badge>
+    <status-badge class="m-0.5" color="success">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+        Delivered
+    </status-badge>
+    <status-badge class="m-0.5" color="warning" dot="right">Arriving late</status-badge>
+    <status-badge class="m-0.5" color="danger">Canceled</status-badge>
+</div>
+
+
 </body>
 </html>
