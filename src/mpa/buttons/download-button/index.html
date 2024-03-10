@@ -1,4 +1,27 @@
-<download-button-component css="button" web-component data-url="/static/example.zip" class="bttn" role="button" tabindex="0" color="primary" size="default" kind="solid" shape="default" icon="left">
+<download-button
+    css="button" 
+    web-component 
+    data-file-url="/static/example.zip" 
+    data-worker-url="/spa/js/file-download-worker.js"
+    class="bttn" 
+    role="button" 
+    tabindex="0" 
+    color="primary" 
+    size="default" 
+    kind="solid" 
+    shape="default" 
+    icon="left"
+>
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+    <progress-indicator
+        css="tooltip progress-indicator" 
+        web-component 
+        style="display:none; width: 24px; height: 24px; margin-right: 0.5rem; margin-left: -0.25rem;"
+    >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" stroke="currentColor" color="black">
+            <circle class="inner" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" cx="16" cy="16" r="11.05"></circle>
+            <circle class="outter" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" cx="16" cy="16" r="11.05" style="stroke-dashoffset: 2;"></circle>
+        </svg>
+    </progress-indicator>
     <span>Download file</span>
-</download-button-component>
+</download-button>
