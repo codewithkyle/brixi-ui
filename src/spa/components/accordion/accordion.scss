@@ -3,7 +3,7 @@ accordion-component {
     position: relative;
     width: 100%;
 
-    .section {
+    accordion-section {
         display: block;
         width: 100%;
         position: relative;
@@ -20,7 +20,7 @@ accordion-component {
                 border-radius: 0 0 0.5rem 0.5rem;
             }
 
-            .content {
+            accordion-content {
                 border-radius: 0 0 0.5rem 0.5rem;
             }
 
@@ -34,7 +34,7 @@ accordion-component {
                 border-radius: 0.5rem;
             }
 
-            .content {
+            accordion-content {
                 border-radius: 0 0 0.5rem 0.5rem;
             }
 
@@ -59,7 +59,7 @@ accordion-component {
                     }
                 }
 
-                & ~ .content {
+                & ~ accordion-content {
                     display: block;
                 }
             }
@@ -138,7 +138,7 @@ accordion-component {
             }
         }
 
-        .content {
+        accordion-content {
             font-size: var(--font-sm);
             display: none;
             width: 100%;
