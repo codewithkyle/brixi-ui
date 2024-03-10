@@ -135,7 +135,7 @@ export default class DownloadButton extends Component<IDownloadButton> {
     }
 
     private handleClick: EventListener = (e: Event) => {
-        this.fetchData();https://ui.brixi.dev/spa/accordion
+        this.fetchData();
     };
 
     private handleKeydown: EventListener = (e: KeyboardEvent) => {
