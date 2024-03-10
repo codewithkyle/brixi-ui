@@ -24,7 +24,7 @@
         "preview": "serve ./public",
         "test": "npm run build && npm run preview",
         "bundle": "node ./build/bundle.js",
-        "brixi": "brixi && mv ./brixi/brixi.css ./src/framework/stylesheets/brixi.css && rmdir ./brixi",
+        "brixi": "brixi && mv ./brixi/brixi.css ./src/spa/stylesheets/brixi.css && rmdir ./brixi",
         "lint": "run-s lint:*",
         "lint:prettier": "prettier --write \"./src/**/*.ts\" && prettier --write \"./src/**/*.scss\"",
         "lint:tsc": "tsc",
