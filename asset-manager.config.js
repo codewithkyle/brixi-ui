@@ -27,6 +27,10 @@ module.exports = {
             publicDir: "/spa/js",
         },
         {
+            files: "./public/mpa/js/*.js",
+            publicDir: "/mpa/js",
+        },
+        {
             files: "./public/css/*.css",
             publicDir: "/css",
         },
