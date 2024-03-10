@@ -12,4 +12,4 @@ import{html as r,render as o}from"./lit-html.js";import c from"./component.js";i
                     r="11.05"
                 />
             </svg>
-        `;o(e,this)}}s.bind("progress-indicator",i);export{i as default};
+        `;o(e,this)}}s.bind("progress-indicator-component",i);export{i as default};

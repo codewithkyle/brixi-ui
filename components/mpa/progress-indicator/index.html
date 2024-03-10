@@ -31,12 +31,21 @@
     </script>
 </head>
 <body>
-    <progress-indicator-component web-component css="tooltip" data-total="100" style="width: 24px; height: 24px;" tooltip="100%">
+    <progress-indicator web-component css="tooltip" style="width: 24px; height: 24px;">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" stroke="currentColor" color="grey">
         <circle class="inner" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" cx="16" cy="16" r="11.05"></circle>
         <circle class="outter" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" cx="16" cy="16" r="11.05" style="stroke-dashoffset: 2;"></circle>
     </svg>
-</progress-indicator-component>
+</progress-indicator>
+<script>
+    setTimeout(() => {
+        const progressEl = document.querySelector("progress-indicator");
+        progressEl.setTotal(1000);
+        setInterval(() => {
+            progressEl.progress();
+        }, 100);
+    }, 1000);
+</script>
 
 
 </body>
