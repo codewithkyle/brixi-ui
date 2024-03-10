@@ -4,7 +4,7 @@ const cwd = process.cwd();
 const glob = require("glob");
 
 const outFile = path.join(cwd, "public", "navigation.json");
-const frameworkDir = path.join(cwd, "src", "framework");
+const frameworkDir = path.join(cwd, "src", "spa");
 
 (async () => {
     if (fs.existsSync(outFile)) {

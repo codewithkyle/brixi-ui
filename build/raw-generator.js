@@ -4,9 +4,9 @@ const cwd = process.cwd();
 const glob = require("glob");
 
 const publicDir = path.join(cwd, "public", "raw", "components", "spa");
-const componentsDir = path.join(cwd, "src", "framework", "components");
-const cssDir = path.join(cwd, "public", "css");
-const jsDir = path.join(cwd, "public", "js");
+const componentsDir = path.join(cwd, "src", "spa", "components");
+const cssDir = path.join(cwd, "public", "spa", "css");
+const jsDir = path.join(cwd, "public", "spa", "js");
 
 (async () => {
     if (fs.existsSync(publicDir)) {

@@ -1,0 +1,47 @@
+<input-component css="input" class="mb-2 input" state="IDLING" web-component>
+    <label for="demo1">Example</label>
+    <p>This is an example input.</p>
+    <input-container>
+        <i>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path></svg>
+        </i>
+        <input minlength="5" maxlength="10" type="text" id="demo1" name="demo1" autocapitalize="none" autocomplete="off" required>
+    </input-container>
+</input-component>
+<input-component 
+    css="input button" 
+    class="mb-2 input" 
+    state="IDLING" 
+    web-component
+    x-data=""
+>
+    <label for="demo2">Read Only Example</label>
+    <input-container>
+        <i>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path></svg>
+        </i>
+        <input x-ref="demo2" readonly type="text" id="demo2" name="demo2" value="Click to copy this text">
+        <button 
+            class="bttn absolute r-0 b-0" 
+            kind="text" 
+            color="primary" 
+            size="slim" 
+            icon="center" 
+            dull="" 
+            type="button"
+            x-on:click="window.navigator.clipboard.writeText($refs.demo2.value).then(()=>{ $dispatch('alert:toast', 'Copied to clpboard') });"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M8 8m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z"></path>
+                <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"></path>
+            </svg>
+        </button>
+    </input-container>
+</input-component>
+<input-component css="input" class="mb-2 input" state="DISABLED" web-component>
+    <label for="demo3">Example</label>
+    <input-container>
+        <input type="text" id="demo3" name="demo3" disabled>
+    </input-container>
+</input-component>

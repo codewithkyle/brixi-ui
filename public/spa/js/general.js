@@ -1,0 +1,1 @@
+function u(){}const i=(o,e)=>{let n=null;return(...t)=>{window.clearTimeout(n),n=window.setTimeout(()=>{o.apply(null,t)},e)}};function c(o,e){let n={...e};return Object.keys(o).map(t=>{if(t in n)try{n[t]=JSON.parse(o[t])}catch{n[t]=o[t]}}),n}export{i as debounce,u as noop,c as parseDataset};
