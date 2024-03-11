@@ -157,12 +157,12 @@
                 </a>
             </div>
             <div flex="row nowrap items-center">
-                <group-button-component
+                <group-button
                     data-buttons='[{"label":"SPA","id":"spa"},{"label":"MPA","id":"mpa"}]'
                     data-active="spa"
-                ></group-button-component>
+                ></group-button>
                 <script>
-                    const switcher = document.body.querySelector('group-button-component');
+                    const switcher = document.body.querySelector('group-button');
                     if (location.pathname.indexOf('mpa') !== -1) {
                         switcher.setAttribute('data-active', 'mpa');
                     }
