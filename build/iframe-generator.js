@@ -105,7 +105,7 @@ async function renderMPAComponent(name, p) {
         });
     </script>
     <script type="module">
-        import notifications from "../../spa/js/alerts.js";
+        import notifications from "/spa/js/alerts.js";
         window.addEventListener("alert:toast", (e) => {
             notifications.toast(e.detail)
         });
