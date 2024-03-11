@@ -83,6 +83,9 @@ export default class OverflowMenu extends Component<IOverflowMenu> {
             document.body.appendChild(this);
         }
         this.setAttribute("overflow-menu-container-id", this.model.uid);
+        this.style.visibility = "visible";
+        this.style.opacity = "1";
+        this.style.pointerEvents = "all";
         const view = html`
             ${this.model.items.map((item) => {
                 return this.renderItem(item);
