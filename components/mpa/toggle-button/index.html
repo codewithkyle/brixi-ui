@@ -31,7 +31,26 @@
     </script>
 </head>
 <body>
-    <p>Coming soon</p>
+    <toggle-button
+    css="button"
+    x-data="{ step: 1 }" 
+>
+    <p>Delete your account?</p>
+    <button 
+        class="bttn"
+        kind="solid"
+        color="grey"
+        x-show="step == 1"
+        x-on:click="step = 2"
+    >Delete</button>
+    <button 
+        class="bttn"
+        kind="solid"
+        color="danger"
+        x-show="step == 2"
+        x-on:click="step = 3"
+    >Are you sure?</button>
+</toggle-button>
 
 </body>
 </html>

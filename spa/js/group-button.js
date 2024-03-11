@@ -12,4 +12,4 @@ import{html as n,render as o}from"./lit-html.js";import r from"./env.js";import{
                             ${this.renderIcon(t?.icon??"")} ${this.renderLabel(t.label)}
                         </button>
                     `)}
-            `:e="",e}render(){const e=n` ${this.renderButtons()} `;o(e,this)}}r.bind("group-button-component",s);export{s as default};
+            `:e="",e}render(){const e=n` ${this.renderButtons()} `;o(e,this)}}r.bind("group-button",s);export{s as default};

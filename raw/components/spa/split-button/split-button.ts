@@ -101,7 +101,9 @@ export default class SplitButton extends Component<ISplitButton> {
 
     private renderPrimaryButton() {
         return html`
-            <button sfx="button" type=${this.model.type} @click=${this.handlePrimaryClick}>${this.renderIcon(this.model.icon)} ${this.renderLabel(this.model.label)}</button>
+            <button class="base" sfx="button" type=${this.model.type} @click=${this.handlePrimaryClick}>
+                ${this.renderIcon(this.model.icon)} ${this.renderLabel(this.model.label)}
+            </button>
         `;
     }
 

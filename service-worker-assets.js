@@ -1,6 +1,6 @@
 
 self.manifest = {
-    "version": "ba83ff564caf4aad372cf115cb0591ee",
+    "version": "2be0ec136cf1b73acfe37650bf808b32",
     "assets": [
 		"/spa/js/accordion.js",
 		"/spa/js/alert.js",
@@ -86,6 +86,7 @@ self.manifest = {
 		"/spa/js/view.js",
 		"/mpa/js/download-button.js",
 		"/mpa/js/input-component.js",
+		"/mpa/js/overflow-menu.js",
 		"/mpa/js/progress-indicator.js",
 		"/css/accordion.css",
 		"/css/alert.css",

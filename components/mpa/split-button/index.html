@@ -31,7 +31,44 @@
     </script>
 </head>
 <body>
-    <p>Coming soon</p>
+    <split-button
+    x-data="{ open: false }"
+>
+    <button class="base" type="button">
+        <span>Demo Button</span>
+    </button>
+    <button 
+        class="split" 
+        aria-label="Open button menu" type="button"
+        x-on:click="open = !open; $refs.overflowMenu.positionToElement($el, 4);"
+        x-on:click.outside="open = false"
+    >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </button>
+    <overflow-menu
+        css="overflow-menu"
+        web-component
+        x-ref="overflowMenu"
+        :class="{ 'is-visible': open }"
+    >
+        <button type="button">
+            <span>Example</span>
+        </button>
+        <button type="button">
+            <i>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
+            </i> 
+            <span>Example</span>
+        </button>
+        <hr>
+        <button type="button" class="danger">
+            <i>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+            </i> 
+            <span>Example</span>
+        </button>
+    </overflow-menu>
+</split-button>
 
 </body>
 </html>

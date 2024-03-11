@@ -100,4 +100,4 @@ export default class GroupButton extends Component<IGroupButton> {
         render(view, this);
     }
 }
-env.bind("group-button-component", GroupButton);
+env.bind("group-button", GroupButton);
