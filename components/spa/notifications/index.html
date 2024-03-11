@@ -30,8 +30,8 @@
     <button sfx="button" kind="solid" color="grey" class="m-0.5 bttn js-bttn-success">Success</button>
     <button sfx="button" kind="solid" color="grey" class="m-0.5 bttn js-bttn-progress">Progress</button>
     <script type="module">
-        import notifications from "/js/alerts.js";
-        import Component from "/js/progress-toast.js";
+        import notifications from "/spa/js/alerts.js";
+        import Component from "/spa/js/progress-toast.js";
 
         document.body.querySelector(".js-bttn-general").addEventListener("click", () => {
             notifications.alert("Something happened", "You did something that triggered this response.");
