@@ -50,4 +50,4 @@ export default class Divider extends Component<IDivider> {
         render(view, this);
     }
 }
-env.bind("divider-component", Divider);
+env.bind("brixi-divider", Divider);
