@@ -1,6 +1,6 @@
 
 self.manifest = {
-    "version": "efcd6c8524d77e6825e7954850dd914b",
+    "version": "a879f1aefa9a0ea5b7ed78623e8ab3de",
     "assets": [
 		"/spa/js/accordion.js",
 		"/spa/js/alert.js",
@@ -84,9 +84,9 @@ self.manifest = {
 		"/spa/js/unsafe-html.js",
 		"/spa/js/uuid.js",
 		"/spa/js/view.js",
+		"/mpa/js/brixi-overflow-menu.js",
 		"/mpa/js/download-button.js",
 		"/mpa/js/input-component.js",
-		"/mpa/js/overflow-menu.js",
 		"/mpa/js/progress-indicator.js",
 		"/css/accordion.css",
 		"/css/alert.css",

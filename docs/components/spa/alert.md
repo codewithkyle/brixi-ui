@@ -1,12 +1,12 @@
 ```html
-<alert-component 
+<brixi-alert
     data-type="warning"
     data-heading="Attention needed"
     data-description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
     data-list='["Lorem ipsum dolor sit amet.", "Consectetur adipiscing elit.", "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."]'
     data-closeable="true"
     data-actions='[{"label": "View status", "id": "view" }, {"label": "Details", "id": "details" }]'
-></alert-component>
+></brixi-alert>
 ```
 
 ### Data Attributes
@@ -43,9 +43,9 @@ You can render HTML content within a section by using the `encodeURI()` function
 
 ```javascript
 html`
-    <alert-component 
+    <brixi-alert
         data-description="${encodeURI('<a href='#'>Learn more on MDN.</a>')"
         data-list="[${encodeURI('<a href='#'>Learn more on MDN.</a>')]"
-    ></alert-component>
+    ></brixi-alert>
 `
 ```

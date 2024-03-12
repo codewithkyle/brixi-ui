@@ -1,4 +1,4 @@
-import{html as s,render as l}from"./lit-html.js";import t from"./env.js";import{parseDataset as o}from"./general.js";import a from"./component.js";import{UUID as r}from"./uuid.js";t.css(["filter-chip"]);class i extends a{constructor(){super();this.handleClick=()=>{const e=!this.model.checked;this.set({checked:e}),this.dispatchEvent(new CustomEvent("change",{detail:{checked:e,value:this.model.value}}))};this.handleKeydown=e=>{e.key===" "&&this.classList.add("is-active")};this.handleKeyup=e=>{e.key===" "&&(this.classList.remove("is-active"),this.click())};this.id=r(),this.model={label:"",value:null,checked:!1}}static get observedAttributes(){return["data-label","data-value","data-checked"]}async connected(){const e=o(this.dataset,this.model);this.set(e)}render(){this.setAttribute("role","button"),this.setAttribute("sfx","button");const e=s`
+import{html as s,render as l}from"./lit-html.js";import t from"./env.js";import{parseDataset as o}from"./general.js";import r from"./component.js";import{UUID as a}from"./uuid.js";t.css(["filter-chip"]);class i extends r{constructor(){super();this.handleClick=()=>{const e=!this.model.checked;this.set({checked:e}),this.dispatchEvent(new CustomEvent("change",{detail:{checked:e,value:this.model.value}}))};this.handleKeydown=e=>{e.key===" "&&this.classList.add("is-active")};this.handleKeyup=e=>{e.key===" "&&(this.classList.remove("is-active"),this.click())};this.id=a(),this.model={label:"",value:null,checked:!1}}static get observedAttributes(){return["data-label","data-value","data-checked"]}async connected(){const e=o(this.dataset,this.model);this.set(e)}render(){this.setAttribute("role","button"),this.setAttribute("sfx","button");const e=s`
             <input type="checkbox" ?checked="${this.model.checked}" .value=${this.model.value||""} id="${this.id}" />
             <label for="${this.id}" tabindex="0" @click=${this.handleClick} @keyup=${this.handleKeyup} @keydown=${this.handleKeydown}>
                 <svg
@@ -17,4 +17,4 @@ import{html as s,render as l}from"./lit-html.js";import t from"./env.js";import{
                 </svg>
                 <span>${this.model.label}</span>
             </label>
-        `;l(e,this)}}t.bind("filter-chip",i);export{i as default};
+        `;l(e,this)}}t.bind("brixi-filter-chip",i);export{i as default};

@@ -23,22 +23,20 @@
     <script type="module" src="/spa/js/checkbox.js"></script>
 </head>
 <body>
-    <checkbox-component
+    <brixi-checkbox
     data-label="Example"
     data-name="example"
-></checkbox-component>
+></brixi-checkbox>
 
-<checkbox-component
+<brixi-checkbox
     class="mt-1"
     data-label="Example"
     data-name="example"
     data-disabled="true"
-></checkbox-component>
-
-<script type="module" src="/js/checkbox.js"></script>
+></brixi-checkbox>
 
 <script>
-    document.body.querySelector('checkbox-component').addEventListener('change', (e) => {
+    document.body.querySelector('brixi-checkbox').addEventListener('change', (e) => {
         console.log(e.detail);
     });
 </script>

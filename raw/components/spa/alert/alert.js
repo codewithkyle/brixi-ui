@@ -50,4 +50,4 @@ import{html as t,render as r}from"./lit-html.js";import i from"./env.js";import"
                 ${this.model.heading?t`<h3>${this.model.heading}</h3>`:""} ${this.model.description?t`<p>${l(decodeURI(this.model.description))}</p>`:""}
                 ${this.renderList()} ${this.renderActions()}
             </div>
-        `;this.setAttribute("kind",this.model.type),!this.model.heading&&!this.model.list.length&&this.setAttribute("flex","items-center"),r(e,this)}}i.bind("alert-component",n);export{n as default};
+        `;this.setAttribute("kind",this.model.type),!this.model.heading&&!this.model.list.length&&this.setAttribute("flex","items-center"),r(e,this)}}i.bind("brixi-alert",n);export{n as default};

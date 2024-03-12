@@ -54,4 +54,4 @@ export default class Accordion extends Component<IAccordion> {
         render(view, this);
     }
 }
-env.bind("accordion-component", Accordion);
+env.bind("brixi-accordion", Accordion);

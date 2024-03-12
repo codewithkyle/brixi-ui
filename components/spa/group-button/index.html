@@ -23,12 +23,12 @@
     <script type="module" src="/spa/js/group-button.js"></script>
 </head>
 <body>
-    <group-button
+    <brixi-group-button
     data-buttons='[{"label":"Example 1","id":"example-1"},{"label":"Example 2","id":"example-2"},{"label":"Example 3","id":"example-3"}]'
-></group-button>
+></brixi-group-button>
 
 <script>
-    document.querySelector('group-button').addEventListener('change', (e) => {
+    document.querySelector('brixi-group-button').addEventListener('change', (e) => {
         console.log(e.detail.id);
     });
 </script>

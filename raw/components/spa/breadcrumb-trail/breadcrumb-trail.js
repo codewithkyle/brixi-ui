@@ -1,8 +1,8 @@
-import{html as r,render as s}from"./lit-html.js";import l from"./env.js";import{parseDataset as a}from"./general.js";import{unsafeHTML as d}from"./unsafe-html.js";import c from"./component.js";l.css(["breadcrumb-trail"]);class o extends c{constructor(){super();this.handleClick=e=>{const t=new CustomEvent("navigate",{detail:{id:e.currentTarget.dataset.id},bubbles:!0,cancelable:!0});this.dispatchEvent(t)};this.model={links:[]}}static get observedAttributes(){return["data-links"]}async connected(){const e=a(this.dataset,this.model);this.set(e)}renderIcon(e){let t="";return e.length?t=r` <i class="icon">${d(decodeURI(e))}</i> `:t="",t}renderLink(e,t=!1){return!e?.label&&!e?.icon?"":r`
+import{html as t,render as s}from"./lit-html.js";import l from"./env.js";import{parseDataset as a}from"./general.js";import{unsafeHTML as d}from"./unsafe-html.js";import c from"./component.js";l.css(["breadcrumb-trail"]);class o extends c{constructor(){super();this.handleClick=e=>{const r=new CustomEvent("navigate",{detail:{id:e.currentTarget.dataset.id},bubbles:!0,cancelable:!0});this.dispatchEvent(r)};this.model={links:[]}}static get observedAttributes(){return["data-links"]}async connected(){const e=a(this.dataset,this.model);this.set(e)}renderIcon(e){let r="";return e.length?r=t` <i class="icon">${d(decodeURI(e))}</i> `:r="",r}renderLink(e,r=!1){return!e?.label&&!e?.icon?"":t`
             <button sfx="button" type="button" @click=${this.handleClick} data-id="${e.id}" aria-label="${e?.ariaLabel??""}">
-                ${this.renderIcon(e?.icon??"")} ${e?.label?.length?r` <span>${e.label}</span> `:""}
+                ${this.renderIcon(e?.icon??"")} ${e?.label?.length?t` <span>${e.label}</span> `:""}
             </button>
-            ${t?r`
+            ${r?t`
                       <svg
                           class="arrow"
                           xmlns="http://www.w3.org/2000/svg"
@@ -17,9 +17,9 @@ import{html as r,render as s}from"./lit-html.js";import l from"./env.js";import{
                           <polyline points="9 6 15 12 9 18"></polyline>
                       </svg>
                   `:""}
-        `}render(){let e;this.model.links.length<=3?e=r`
-                ${this.model.links.map((t,n)=>{let i=!0;return n===this.model.links.length-1&&(i=!1),this.renderLink(t,i)})}
-            `:e=r`
+        `}render(){let e;this.model.links.length<=3?e=t`
+                ${this.model.links.map((r,n)=>{let i=!0;return n===this.model.links.length-1&&(i=!1),this.renderLink(r,i)})}
+            `:e=t`
                 ${this.renderLink(this.model.links[0],!0)}
                 <breadcrumb-overflow-menu>
                     <button aria-label="Open hidden link menu" sfx="button">
@@ -39,7 +39,7 @@ import{html as r,render as s}from"./lit-html.js";import l from"./env.js";import{
                         </svg>
                     </button>
                     <breadcrumb-menu>
-                        ${this.model.links.map((t,n)=>{if(n!==0&&n!==this.model.links.length-1)return this.renderLink(t)})}
+                        ${this.model.links.map((r,n)=>{if(n!==0&&n!==this.model.links.length-1)return this.renderLink(r)})}
                     </breadcrumb-menu>
                 </breadcrumb-overflow-menu>
                 <svg
@@ -56,4 +56,4 @@ import{html as r,render as s}from"./lit-html.js";import l from"./env.js";import{
                     <polyline points="9 6 15 12 9 18"></polyline>
                 </svg>
                 ${this.renderLink(this.model.links[this.model.links.length-1])}
-            `,s(e,this)}}l.bind("breadcrumb-trail",o);export{o as default};
+            `,s(e,this)}}l.bind("brixi-breadcrumb-trail",o);export{o as default};

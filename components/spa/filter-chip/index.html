@@ -24,26 +24,25 @@
 </head>
 <body>
     <div id="container" flex="row nowrap items-center">
-    <filter-chip
+    <brixi-filter-chip
         data-label="Tacos"
         data-value="Tacos"
         class="mr-0.5"
-    ></filter-chip>
-    <filter-chip
+    ></brixi-filter-chip>
+    <brixi-filter-chip
         data-label="Burritos"
         data-value="Burritos"
         class="mr-0.5"
-    ></filter-chip>
-    <filter-chip
+    ></brixi-filter-chip>
+    <brixi-filter-chip
         data-label="Quesadillas"
         data-value="Quesadillas"
         class="mr-0.5"
-    ></filter-chip>
+    ></brixi-filter-chip>
 </div>
 
-<script type="module" src="/js/filter-chip.js"></script>
 <script>
-    const filterChips = document.querySelectorAll('filter-chip');
+    const filterChips = document.querySelectorAll('brixi-filter-chip');
     filterChips.forEach(filterChip => {
         filterChip.addEventListener('change', (e) => {
             console.log(e.detail);

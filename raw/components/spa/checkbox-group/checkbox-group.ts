@@ -105,4 +105,4 @@ export default class CheckboxGroup extends Component<ICheckboxGroup> {
         render(view, this);
     }
 }
-env.bind("checkbox-group", CheckboxGroup);
+env.bind("brixi-checkbox-group", CheckboxGroup);

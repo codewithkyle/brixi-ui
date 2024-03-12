@@ -12,4 +12,4 @@ import{html as e,render as n}from"./lit-html.js";import{unsafeHTML as l}from"./u
             >
                 ${this.renderIcon()} ${this.renderLabel()}
             </button>
-        `;n(t,this)}}s.bind("submit-button",i);export{i as default};
+        `;n(t,this)}}s.bind("brixi-submit-button",i);export{i as default};

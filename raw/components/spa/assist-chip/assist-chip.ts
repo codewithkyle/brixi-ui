@@ -61,4 +61,4 @@ export default class AssistChip extends Component<IAssistChip> {
         render(view, this);
     }
 }
-env.bind("assist-chip", AssistChip);
+env.bind("brixi-assist-chip", AssistChip);

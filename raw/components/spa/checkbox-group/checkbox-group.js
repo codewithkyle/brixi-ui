@@ -12,4 +12,4 @@ import{html as o,render as a}from"./lit-html.js";import r from"./env.js";import"
                         data-name="${this.model.name}"
                     ></checkbox-component>
                 `)}
-        `;a(e,this)}}r.bind("checkbox-group",i);export{i as default};
+        `;a(e,this)}}r.bind("brixi-checkbox-group",i);export{i as default};

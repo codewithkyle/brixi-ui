@@ -81,4 +81,4 @@ export default class InputChip extends Component<IInputChip> {
         render(view, this);
     }
 }
-env.bind("input-chip", InputChip);
+env.bind("brixi-input-chip", InputChip);

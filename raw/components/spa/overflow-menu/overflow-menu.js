@@ -5,4 +5,4 @@ import{html as t,render as o}from"./lit-html.js";import{unsafeHTML as s}from"./u
             </button>
         `}render(){this.isConnected||document.body.appendChild(this),this.setAttribute("overflow-menu-container-id",this.model.uid),this.style.visibility="visible",this.style.opacity="1",this.style.pointerEvents="all";const e=t`
             ${this.model.items.map(n=>this.renderItem(n))}
-        `;o(e,this),a.positionElementToElement(this,this.model.target,this.model.offset)}}r.bind("overflow-menu",i);export{i as default};
+        `;o(e,this),a.positionElementToElement(this,this.model.target,this.model.offset)}}r.bind("brixi-overflow-menu",i);export{i as default};

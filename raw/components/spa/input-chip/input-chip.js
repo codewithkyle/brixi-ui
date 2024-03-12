@@ -15,4 +15,4 @@ import{html as s,render as n}from"./lit-html.js";import e from"./env.js";import{
                 <path d="M18 6l-12 12"></path>
                 <path d="M6 6l12 12"></path>
             </svg>
-        `;n(t,this)}}e.bind("input-chip",i);export{i as default};
+        `;n(t,this)}}e.bind("brixi-input-chip",i);export{i as default};

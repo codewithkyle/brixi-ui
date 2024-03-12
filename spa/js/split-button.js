@@ -9,4 +9,4 @@ import{html as n,render as s}from"./lit-html.js";import i from"./env.js";import{
                         <polyline points="6 9 12 15 18 9"></polyline>
                     </svg>
                 </button>
-            `:t="",t}render(){const t=n` ${this.renderPrimaryButton()} ${this.renderMenuButtons()} `;s(t,this)}}i.bind("split-button",r);export{r as default};
+            `:t="",t}render(){const t=n` ${this.renderPrimaryButton()} ${this.renderMenuButtons()} `;s(t,this)}}i.bind("brixi-split-button",r);export{r as default};

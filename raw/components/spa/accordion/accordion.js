@@ -11,4 +11,4 @@ import{UUID as i}from"./uuid.js";import{html as e,render as c}from"./lit-html.js
                 </label>
                 <accordion-content>${s(decodeURI(o.content))}</accordion-content>
             </accordion-section>
-        `}render(){const o=e` ${this.model.sections.map(this.renderSection)} `;c(o,this)}}n.bind("accordion-component",r);export{r as default};
+        `}render(){const o=e` ${this.model.sections.map(this.renderSection)} `;c(o,this)}}n.bind("brixi-accordion",r);export{r as default};

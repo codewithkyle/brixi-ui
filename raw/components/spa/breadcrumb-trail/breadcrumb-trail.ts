@@ -141,4 +141,4 @@ export default class BreadcrumbTrail extends Component<IBreadcrumbTrail> {
         render(view, this);
     }
 }
-env.bind("breadcrumb-trail", BreadcrumbTrail);
+env.bind("brixi-breadcrumb-trail", BreadcrumbTrail);

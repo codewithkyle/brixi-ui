@@ -1,9 +1,9 @@
 ```html
-<badge-component
+<brixi-badge
     data-value="5"
     data-offsetX="-5"
     data-offsetY="-5"
-></badge-component>
+></brixi-badge>
 ```
 
 ### Data Attributes

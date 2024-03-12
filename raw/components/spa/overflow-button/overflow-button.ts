@@ -79,4 +79,4 @@ export default class OverflowButton extends Component<IOverflowButton> {
         render(view, this);
     }
 }
-env.bind("overflow-button", OverflowButton);
+env.bind("brixi-overflow-button", OverflowButton);

@@ -41,4 +41,4 @@ export default class StatusBadge extends Component<IStatusBadge> {
         render(view, this);
     }
 }
-env.bind("status-badge", StatusBadge);
+env.bind("brixi-status-badge", StatusBadge);

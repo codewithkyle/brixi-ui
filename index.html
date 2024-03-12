@@ -157,12 +157,12 @@
                 </a>
             </div>
             <div flex="row nowrap items-center">
-                <group-button
+                <brixi-group-button
                     data-buttons='[{"label":"SPA","id":"spa"},{"label":"MPA","id":"mpa"}]'
                     data-active="spa"
-                ></group-button>
+                ></brixi-group-button>
                 <script>
-                    const switcher = document.body.querySelector('group-button');
+                    const switcher = document.body.querySelector('brixi-group-button');
                     if (location.pathname.indexOf('mpa') !== -1) {
                         switcher.setAttribute('data-active', 'mpa');
                     }

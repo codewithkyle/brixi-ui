@@ -183,4 +183,4 @@ export default class DownloadButton extends Component<IDownloadButton> {
         render(view, this);
     }
 }
-env.bind("download-button", DownloadButton);
+env.bind("brixi-download-button", DownloadButton);

@@ -1,5 +1,5 @@
 ```html
-<checkbox-component
+<brixi-checkbox
     data-label="Example"
     data-name="example"
     data-required="false"
@@ -7,7 +7,7 @@
     data-disabled="false"
     data-value="example"
     data-type="check"
-></checkbox-component>
+></brixi-checkbox>
 ```
 
 ### Data Attributes
@@ -29,7 +29,7 @@ Not sure what Data Attributes are? Learn about [Data Attributes on MDN](https://
 The `change` event will fire when the checkbox value changes.
 
 ```typescript
-document.body.querySelector('checkbox-component').addEventListener('change', (e) => {
+document.body.querySelector('brixi-checkbox').addEventListener('change', (e) => {
     const { checked, name } = e.detail;
 });
 ```

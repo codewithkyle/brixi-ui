@@ -1,8 +1,8 @@
 ```html
-<suggestion-chip
+<brixi-suggestion-chip
     data-label="Example"
     data-value="example"
-></suggestion-chip>
+></brixi-suggestion-chip>
 ```
 
 ### Data Attributes
@@ -19,7 +19,7 @@ Not sure what Data Attributes are? Learn about [Data Attributes on MDN](https://
 The `suggest` event will fire when the user clicks the chip.
 
 ```typescript
-document.querySelector('suggestion-chip').addEventListener('suggest', (event) => {
+document.querySelector('brixi-suggestion-chip').addEventListener('suggest', (event) => {
     console.log(event.detail.value);
 });
 ```
