@@ -1,8 +1,8 @@
 ```html
-<input-chip
+<brixi-input-chip
     data-label="Example"
     data-value="example"
-></input-chip>
+></brixi-input-chip>
 ```
 
 ### Data Attributes
@@ -19,7 +19,7 @@ Not sure what Data Attributes are? Learn about [Data Attributes on MDN](https://
 The `remove` event will fire when the user clicks to remove the chip.
 
 ```typescript
-document.querySelector('input-chip').addEventListener('remove', (event) => {
+document.querySelector('brixi-input-chip').addEventListener('remove', (event) => {
     console.log(event.detail.value);
 });
 ```

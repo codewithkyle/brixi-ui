@@ -159,7 +159,6 @@ export default class Checkbox extends Component<ICheckbox> {
     render() {
         this.setAttribute("state", this.state);
         this.setAttribute("form-input", "");
-        this.classList.add("checkbox");
         const view = html`
             <div class="inline-block mr-auto">
                 <input
@@ -188,4 +187,4 @@ export default class Checkbox extends Component<ICheckbox> {
         render(view, this);
     }
 }
-env.bind("checkbox-component", Checkbox);
+env.bind("brixi-checkbox", Checkbox);

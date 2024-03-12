@@ -63,4 +63,4 @@ export default class SuggestionChip extends Component<ISuggestionChip> {
         render(view, this);
     }
 }
-env.bind("suggestion-chip", SuggestionChip);
+env.bind("brixi-suggestion-chip", SuggestionChip);

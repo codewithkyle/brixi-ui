@@ -102,4 +102,4 @@ export default class SubmitButton extends Component<ISubmitButton> {
         render(view, this);
     }
 }
-env.bind("submit-button", SubmitButton);
+env.bind("brixi-submit-button", SubmitButton);

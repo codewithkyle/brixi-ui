@@ -45,4 +45,4 @@ export default class Badge extends Component<IBadge> {
         render(view, this);
     }
 }
-env.bind("badge-component", Badge);
+env.bind("brixi-badge", Badge);
