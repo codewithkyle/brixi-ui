@@ -1,9 +1,9 @@
 ```html
-<divider-component
+<brixi-divider
     data-label="Dashed Divider"
     data-color="grey"
     data-type="dashed"
-></divider-component>
+></brixi-divider>
 ```
 
 ### Data Attributes

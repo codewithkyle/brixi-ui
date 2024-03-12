@@ -1,5 +1,5 @@
 ```html
-<form-component>
+<brixi-form>
     <select-component
         data-name="example"
         data-label="Example"
@@ -7,8 +7,8 @@
         data-value="option1"
     ></select-component>
     <!-- ...snip... -->
-    <submit-button></submit-button>
-</form-component>
+    <brixi-submit-button></brixi-submit-button>
+</brixi-form>
 ```
 
 ### Event Listeners
@@ -16,7 +16,7 @@
 The `submit` event will fire when the form is submitted.
 
 ```typescript
-document.querySelector('form-component').addEventListener('submit', (event) => {
+document.querySelector('brixi-form').addEventListener('submit', (event) => {
     e.preventDefault();
     const form = e.currentTarget;
     if (form.checkValidity()){
@@ -32,7 +32,7 @@ document.querySelector('form-component').addEventListener('submit', (event) => {
 The `reset` event will fire when the form is reset.
 
 ```typescript
-document.querySelector('form-component').addEventListener('reset', (event) => {
+document.querySelector('brixi-form').addEventListener('reset', (event) => {
     // TODO: react to reset
 });
 ```

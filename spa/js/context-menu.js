@@ -3,4 +3,4 @@ import{html as r,render as o}from"./lit-html.js";import a from"./supercomponent.
                 <span>${e.label}</span>
                 ${e.hotkey?r`<span class="font-grey-400">${e.hotkey}</span>`:""}
             </button>
-        `}render(){this.isConnected||document.body.appendChild(this);const e=r` ${this.model.items?.map((t,n)=>this.renderItem(t,n))} `;o(e,this),m.positionElement(this,this.model.x,this.model.y)}}i.bind("context-menu",s);export{s as default};
+        `}render(){this.isConnected||document.body.appendChild(this);const e=r` ${this.model.items?.map((t,n)=>this.renderItem(t,n))} `;o(e,this),m.positionElement(this,this.model.x,this.model.y)}}i.bind("brixi-context-menu",s);export{s as default};

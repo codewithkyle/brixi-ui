@@ -80,4 +80,4 @@ export default class GenericList extends Component<IGenericList> {
         render(view, this);
     }
 }
-env.bind("generic-list", GenericList);
+env.bind("brixi-generic-list", GenericList);

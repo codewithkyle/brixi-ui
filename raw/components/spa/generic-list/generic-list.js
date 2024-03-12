@@ -6,4 +6,4 @@ import{html as r,render as c}from"./lit-html.js";import s from"./env.js";import{
                     <ul class="list">
                         ${e.items.map(t=>this.renderItem(t,e?.style,e?.icon))} ${e?.sub?this.renderList(e.sub):""}
                     </ul>
-                `}}render(){const e=r` ${this.renderList(this.model.list)} `;c(e,this)}}s.bind("generic-list",i);export{i as default};
+                `}}render(){const e=r` ${this.renderList(this.model.list)} `;c(e,this)}}s.bind("brixi-generic-list",i);export{i as default};

@@ -23,7 +23,7 @@
     <script type="module" src="/spa/js/form.js"></script>
 </head>
 <body>
-    <form-component class="p-1.5 border-1 border-solid border-grey-300 dark:border-grey-700 radius-0.5">
+    <brixi-form class="p-1.5 border-1 border-solid border-grey-300 dark:border-grey-700 radius-0.5">
     <select-component
         data-name="example"
         data-label="Example"
@@ -31,15 +31,14 @@
         data-value="option1"
         class="mb-1.5"
     ></select-component>
-    <submit-button></submit-button>
-</form-component>
+    <brixi-submit-button></brixi-submit-button>
+</brixi-form>
 
-<script type="module" src="/js/form.js"></script>
-<script type="module" src="/js/submit-button.js"></script>
-<script type="module" src="/js/select.js"></script>
+<script type="module" src="/spa/js/submit-button.js"></script>
+<script type="module" src="/spa/js/select.js"></script>
 
 <script>
-    const form = document.querySelector('form-component');
+    const form = document.querySelector('brixi-form');
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         const form = e.currentTarget;

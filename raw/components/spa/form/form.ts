@@ -80,4 +80,4 @@ export default class Form extends Component<IForm> {
         this.reset();
     };
 }
-env.bind("form-component", Form);
+env.bind("brixi-form", Form);
