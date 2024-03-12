@@ -1,17 +1,17 @@
-<checkbox-component
+<brixi-checkbox
     data-label="Example"
     data-name="example"
-></checkbox-component>
+></brixi-checkbox>
 
-<checkbox-component
+<brixi-checkbox
     class="mt-1"
     data-label="Example"
     data-name="example"
     data-disabled="true"
-></checkbox-component>
+></brixi-checkbox>
 
 <script>
-    document.body.querySelector('checkbox-component').addEventListener('change', (e) => {
+    document.body.querySelector('brixi-checkbox').addEventListener('change', (e) => {
         console.log(e.detail);
     });
 </script>

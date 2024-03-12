@@ -187,4 +187,4 @@ export default class Checkbox extends Component<ICheckbox> {
         render(view, this);
     }
 }
-env.bind("checkbox-component", Checkbox);
+env.bind("brixi-checkbox", Checkbox);

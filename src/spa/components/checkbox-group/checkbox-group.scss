@@ -1,4 +1,4 @@
-checkbox-group {
+brixi-checkbox-group {
     display: block;
     width: 100%;
     position: relative;
@@ -27,7 +27,7 @@ checkbox-group {
             }
         }
 
-        checkbox-component {
+        brixi-checkbox {
             cursor: not-allowed !important;
             opacity: 1 !important;
 
@@ -74,7 +74,7 @@ checkbox-group {
             }
         }
 
-        checkbox-component {
+        brixi-checkbox {
             check-box {
                 i {
                     background-color: hsl(var(--danger-300-hsl) / 0.05) !important;

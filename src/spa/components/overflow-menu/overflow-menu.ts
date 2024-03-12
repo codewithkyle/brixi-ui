@@ -95,4 +95,4 @@ export default class OverflowMenu extends Component<IOverflowMenu> {
         pos.positionElementToElement(this, this.model.target, this.model.offset);
     }
 }
-env.bind("overflow-menu", OverflowMenu);
+env.bind("brixi-overflow-menu", OverflowMenu);

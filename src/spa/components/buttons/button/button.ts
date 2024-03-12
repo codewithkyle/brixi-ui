@@ -130,4 +130,4 @@ export default class Button extends Component<IButton> {
         render(view, this);
     }
 }
-env.bind("button-component", Button);
+env.bind("brixi-button", Button);

@@ -1,11 +1,11 @@
 ```html
-<checkbox-group
+<brixi-checkbox-group
     data-label="Example"
     data-name="example"
     data-instructions="Lorem ipsum and wat knot..."
     data-options='[{"label": "Example 1","value":"example1"},{"label": "Example 2","value":"example2"},{"label": "Example 3","checked": true,"value":"example3"}]'
     data-disabled="false"
-></checkbox-group>
+></brixi-checkbox-group>
 ```
 
 ### Data Attributes
@@ -36,7 +36,7 @@ type Checkbox = {
 The `change` event will fire when the checkbox value changes.
 
 ```typescript
-document.body.querySelector('checkbox-group').addEventListener('change', (e) => {
+document.body.querySelector('brixi-checkbox-group').addEventListener('change', (e) => {
     const { checked, name, value } = e.detail;
 });
 ```

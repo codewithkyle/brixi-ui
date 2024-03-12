@@ -1,10 +1,10 @@
 ```html
-<download-button-component
+<brixi-download-button
     data-color="primary",
     data-label="Download file",
     data-icon='<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>'
     data-url="/static/example.zip"
-></download-button-component>
+></brixi-download-button>
 ```
 
 ### Data Attributes
@@ -43,7 +43,7 @@ type ButtonSize = "default" | "slim" | "large";
 The `download` event will fire after the file has been downloaded and the [Blob](https://developer.mozilla.org/en-US/docs/Web/API/Blob) is ready to be used.
 
 ```typescript
-document.body.querySelector('download-button-component').addEventListener('download', (e) => {
+document.body.querySelector('brixi-download-button').addEventListener('download', (e) => {
     const url = URL.createObjectURL(e.detail.blob);
     const a = document.createElement("a");
     a.download = "example.zip";
@@ -59,7 +59,7 @@ document.body.querySelector('download-button-component').addEventListener('downl
 The `error` event will fire when the file fails to download.
 
 ```typescript
-document.body.querySelector('download-button-component').addEventListener('error', (e) => {
+document.body.querySelector('brixi-download-button').addEventListener('error', (e) => {
     console.error(e.detail.error);
 });
 ```

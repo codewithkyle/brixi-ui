@@ -167,4 +167,4 @@ export default class Alert extends Component<IAlert> {
         render(view, this);
     }
 }
-env.bind("alert-component", Alert);
+env.bind("brixi-alert", Alert);

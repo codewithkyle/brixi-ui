@@ -127,4 +127,4 @@ export default class SplitButton extends Component<ISplitButton> {
         render(view, this);
     }
 }
-env.bind("split-button", SplitButton);
+env.bind("brixi-split-button", SplitButton);

@@ -95,4 +95,4 @@ export default class ToggleButton extends Component<IToggleButton> {
         render(view, this);
     }
 }
-env.bind("toggle-button", ToggleButton);
+env.bind("brixi-toggle-button", ToggleButton);

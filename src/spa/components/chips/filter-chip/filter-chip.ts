@@ -83,4 +83,4 @@ export default class FilterChip extends Component<IFilterChip> {
         render(view, this);
     }
 }
-env.bind("filter-chip", FilterChip);
+env.bind("brixi-filter-chip", FilterChip);

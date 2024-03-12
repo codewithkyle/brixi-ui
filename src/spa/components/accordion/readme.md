@@ -1,7 +1,7 @@
 ```html
-<accordion-component 
+<brixi-accordion
     data-sections='[{"label":"Example","content":"Example 1 content."}]'
-></accordion-component>
+></brixi-accordion>
 ```
 
 ### Data Attributes
@@ -27,8 +27,8 @@ You can render HTML content within a section by using the `encodeURI()` function
 
 ```javascript
 html`
-    <accordion-component 
+    <brixi-accordion
         data-sections='[{"label":"Example","content":"${encodeURI('<a href="#">Learn more on MDN.</a>')}"}]'
-    ></accordion-component>
+    ></brixi-accordion>
 `
 ```

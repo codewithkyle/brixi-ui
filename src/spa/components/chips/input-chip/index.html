@@ -1,11 +1,10 @@
-<input-chip
+<brixi-input-chip
     data-label="Example"
     data-value="example"
-></input-chip>
+></brixi-input-chip>
 
-<script type="module" src="/js/input-chip.js"></script>
 <script>
-    const inputChip = document.querySelector('input-chip');
+    const inputChip = document.querySelector('brixi-input-chip');
     inputChip.addEventListener('remove', (event) => {
         console.log(event.detail.value);
     });
