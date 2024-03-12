@@ -1,1 +1,59 @@
-<p>Coming soon</p>
+<div flex="row nowrap items-center">
+    <filter-chip 
+        class="mr-0.5" 
+        role="button"
+        x-data="{ selected: false }"
+    >
+        <input 
+            type="checkbox" 
+            value="Tacos" 
+            id="demo1"
+            x-on:change="selected = !selected"
+        >
+        <label tabindex="0" for="demo1">
+            <svg x-show="selected" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M5 12l5 5l10 -10"></path>
+            </svg>
+            <span>Tacos</span>
+        </label>
+    </filter-chip>
+    <filter-chip 
+        class="mr-0.5" 
+        role="button"
+        x-data="{ selected: false }"
+    >
+        <input 
+            type="checkbox" 
+            value="Burritos" 
+            id="demo2"
+            x-on:change="selected = !selected"
+        >
+        <label tabindex="0" for="demo2">
+            <svg x-show="selected" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M5 12l5 5l10 -10"></path>
+            </svg>
+            <span>Burritos</span>
+        </label>
+    </filter-chip>
+    <filter-chip 
+        class="mr-0.5" 
+        role="button"
+        x-data="{ selected: false }"
+    >
+        <input 
+            type="checkbox" 
+            value="Quesadillas" 
+            id="demo3"
+            x-on:change="selected = !selected"
+        >
+        <label tabindex="0" for="demo3">
+            <svg x-show="selected" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M5 12l5 5l10 -10"></path>
+            </svg>
+            <span>Quesadillas</span>
+        </label>
+    </filter-chip>
+</div>
