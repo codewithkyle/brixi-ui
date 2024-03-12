@@ -87,4 +87,4 @@ export default class ContextMenu extends SuperComponent<IContextMenu> {
         pos.positionElement(this, this.model.x, this.model.y);
     }
 }
-env.bind("context-menu", ContextMenu);
+env.bind("brixi-context-menu", ContextMenu);
