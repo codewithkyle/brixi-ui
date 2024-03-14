@@ -75,4 +75,4 @@ export default class ColorInput extends InputBase<IColorInput> {
         render(view, this);
     }
 }
-env.bind("color-input", ColorInput);
+env.bind("brixi-color-input", ColorInput);
