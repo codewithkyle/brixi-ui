@@ -1,5 +1,5 @@
 ```html
-<input-component
+<brixi-input
     data-label="Example"
     data-required="true"
     data-instructions="This is an example input."
@@ -7,7 +7,7 @@
     data-type="text"
     data-minlength="2"
     data-maxlength="5"
-></input-component>
+></brixi-input>
 ```
 
 ### Data Attributes
@@ -39,7 +39,7 @@ Not sure what `autocomplete` values you can use? Learn about the [autocomplete a
 The `input` event will fire while the user types.
 
 ```typescript
-document.body.querySelector('input-component').addEventListener('input', (e) => {
+document.body.querySelector('brixi-input').addEventListener('input', (e) => {
     const { name, value } = e.detail;
 });
 ```
@@ -47,7 +47,7 @@ document.body.querySelector('input-component').addEventListener('input', (e) => 
 The `focus` event will fire when the user focuses the input.
 
 ```typescript
-document.body.querySelector('input-component').addEventListener('focus', (e) => {
+document.body.querySelector('brixi-input').addEventListener('focus', (e) => {
     const { name, value } = e.detail;
 });
 ```
@@ -55,7 +55,7 @@ document.body.querySelector('input-component').addEventListener('focus', (e) => 
 The `blur` event will fire when the user blurs the input.
 
 ```typescript
-document.body.querySelector('input-component').addEventListener('blur', (e) => {
+document.body.querySelector('brixi-input').addEventListener('blur', (e) => {
     const { name, value } = e.detail;
 });
 ```
