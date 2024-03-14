@@ -1,4 +1,4 @@
-export class InputComponent extends HTMLElement{
+export class BrixiInputComponent extends HTMLElement{
 
     constructor(){
         super();

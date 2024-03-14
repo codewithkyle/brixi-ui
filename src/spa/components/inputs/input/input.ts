@@ -247,4 +247,4 @@ export default class Input extends InputBase<IInput> {
         render(view, this);
     }
 }
-env.bind("input-component", Input);
+env.bind("brixi-input", Input);

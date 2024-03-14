@@ -1,4 +1,4 @@
-range-slider {
+brixi-range-slider {
     display: inline-block;
     width: 100%;
     position: relative;
@@ -85,7 +85,6 @@ range-slider {
         appearance: none;
         inline-size: 100%;
         outline-offset: 5px;
-        //background: linear-gradient(to right, transparent var(--track-fill), var(--grey-100) 0%), var(--primary-400) fixed;
         background: transparent;
         border-radius: 3px;
         height: 6px;
@@ -100,7 +99,7 @@ range-slider {
                     box-shadow: 0 0 0 5px hsl(var(--primary-400-hsl) / 0.1);
                 }
             }
-            &::-moz-slider-thumb {
+            &::-moz-range-thumb {
                 box-shadow: 0 0 0 5px hsl(var(--primary-500-hsl) / 0.05);
                 background: var(--primary-400) fixed;
 
@@ -120,7 +119,7 @@ range-slider {
                     background: var(--primary-300) fixed;
                 }
             }
-            &::-moz-slider-thumb {
+            &::-moz-range-thumb {
                 box-shadow: 0 0 0 8px hsl(var(--primary-500-hsl) / 0.05);
                 background: var(--primary-600) fixed;
 
@@ -135,13 +134,13 @@ range-slider {
             &::-webkit-slider-runnable-track {
                 box-shadow: var(--focus-ring);
             }
-            &::-moz-slider-runnable-track {
+            &::-moz-range-track {
                 box-shadow: var(--focus-ring);
             }
             &::-webkit-slider-thumb {
                 box-shadow: var(--focus-ring);
             }
-            &::-moz-slider-thumb {
+            &::-moz-range-thumb {
                 box-shadow: var(--focus-ring);
             }
         }
@@ -156,7 +155,7 @@ range-slider {
                 background: linear-gradient(to right, transparent var(--track-fill), hsl(var(--grey-950-hsl) / 0.6) 0%), var(--primary-400) fixed;
             }
         }
-        &::-moz-slider-runnable-track {
+        &::-moz-range-track {
             appearance: none;
             block-size: 6px;
             border-radius: 3px;
@@ -182,7 +181,7 @@ range-slider {
                 background: var(--grey-800) fixed;
             }
         }
-        &::-moz-slider-thumb {
+        &::-moz-range-thumb {
             appearance: none;
             cursor: ew-resize;
             border: 3px solid var(--white);

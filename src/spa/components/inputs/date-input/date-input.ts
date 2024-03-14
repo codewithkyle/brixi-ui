@@ -223,4 +223,4 @@ export default class DateInput extends InputBase<IDateInput> {
         this.firstRender = false;
     }
 }
-env.bind("date-input-component", DateInput);
+env.bind("brixi-date-input", DateInput);
