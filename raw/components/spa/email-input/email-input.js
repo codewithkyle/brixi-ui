@@ -19,4 +19,4 @@ import{UUID as r}from"./uuid.js";import{html as t,render as n}from"./lit-html.js
                     ?autofocus=${this.model.autofocus}
                 />
             </input-container>
-        `;n(e,this)}}l.bind("email-input-component",s);export{s as default};
+        `;n(e,this)}}l.bind("brixi-email-input",s);export{s as default};

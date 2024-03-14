@@ -35,4 +35,4 @@ import{html as i,render as r}from"./lit-html.js";import{unsafeHTML as n}from"./u
                 />
                 ${this.renderManualInput()}
             </input-container>
-        `;r(e,this)}}a.bind("range-slider",s);export{s as default};
+        `;r(e,this)}}a.bind("brixi-range-slider",s);export{s as default};

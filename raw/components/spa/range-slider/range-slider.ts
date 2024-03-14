@@ -269,4 +269,4 @@ export default class RangeSlider extends InputBase<IRangeSlider> {
         render(view, this);
     }
 }
-env.bind("range-slider", RangeSlider);
+env.bind("brixi-range-slider", RangeSlider);

@@ -23,13 +23,13 @@
     <script type="module" src="/spa/js/phone-input.js"></script>
 </head>
 <body>
-    <phone-input-component
+    <brixi-phone-input
     data-label="Phone Number"
     data-name="phone"
-></phone-input-component>
+></brixi-phone-input>
 
 <script>
-    const inputComponent = document.querySelector('phone-input-component');
+    const inputComponent = document.querySelector('brixi-phone-input');
     inputComponent.addEventListener('input', (event) => {
         console.log(event.detail)
     });

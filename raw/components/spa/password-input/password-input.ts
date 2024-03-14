@@ -4,7 +4,7 @@ import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import env from "~brixi/controllers/env";
 import { InputBase, IInputBase } from "../input-base";
 
-env.css("input");
+env.css(["input", "button"]);
 
 interface IPasswordInput extends IInputBase {
     label: string;
@@ -217,10 +217,12 @@ export default class PasswordInput extends InputBase<IPasswordInput> {
                     ?autofocus=${this.model.autofocus}
                     style="padding-right:36px;"
                 />
-                <button type="button" @click=${this.toggleVisibility} class="eye">${this.renderEyeIcon()}</button>
+                <button type="button" class="bttn absolute r-0 b-0" kind="text" color="primary" size="slim" icon="center" dull="" type="button" @click=${this.toggleVisibility}>
+                    ${this.renderEyeIcon()}
+                </button>
             </input-container>
         `;
         render(view, this);
     }
 }
-env.bind("password-input-component", PasswordInput);
+env.bind("brixi-password-input", PasswordInput);

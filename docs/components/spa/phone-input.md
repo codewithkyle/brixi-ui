@@ -1,8 +1,8 @@
 ```html
-<phone-input-component
+<brixi-phone-input
     data-label="Phone Number"
     data-name="phone"
-></phone-input-component>
+></brixi-phone-input>
 ```
 
 ### Data Attributes
@@ -30,7 +30,7 @@ Not sure what `autocomplete` values you can use? Learn about the [autocomplete a
 The `input` event will fire while the user types.
 
 ```typescript
-document.body.querySelector('phone-input-component').addEventListener('input', (e) => {
+document.body.querySelector('brixi-phone-input').addEventListener('input', (e) => {
     const { name, value } = e.detail;
 });
 ```
@@ -38,7 +38,7 @@ document.body.querySelector('phone-input-component').addEventListener('input', (
 The `focus` event will fire when the user focuses the input.
 
 ```typescript
-document.body.querySelector('phone-input-component').addEventListener('focus', (e) => {
+document.body.querySelector('brixi-phone-input').addEventListener('focus', (e) => {
     const { name, value } = e.detail;
 });
 ```
@@ -46,7 +46,7 @@ document.body.querySelector('phone-input-component').addEventListener('focus', (
 The `blur` event will fire when the user blurs the input.
 
 ```typescript
-document.body.querySelector('phone-input-component').addEventListener('blur', (e) => {
+document.body.querySelector('brixi-phone-input').addEventListener('blur', (e) => {
     const { name, value } = e.detail;
 });
 ```

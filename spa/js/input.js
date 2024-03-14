@@ -46,4 +46,4 @@ import{UUID as n}from"./uuid.js";import{html as e,render as r}from"./lit-html.js
                 ${this.renderReadOnlyIcon()}
             </input-container>
             ${this.renderDatalist()}
-        `;r(t,this)}}l.bind("input-component",s);export{s as default};
+        `;r(t,this)}}l.bind("brixi-input",s);export{s as default};

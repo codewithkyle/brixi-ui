@@ -17,4 +17,4 @@ import{html as t,render as r}from"./lit-html.js";import{unsafeHTML as l}from"./u
                     ?autofocus=${this.model.autofocus}
                 />
             </input-container>
-        `;if(r(e,this),this.state!=="DISABLED"){const i=this.querySelector("input");o(i,{dateFormat:this.model.dateFormat,enableTime:this.model.enableTime,altFormat:this.model.displayFormat,altInput:!0,minDate:this.model.minDate,maxDate:this.model.maxDate,mode:this.model.mode,noCalendar:this.model.disableCalendar,time_24hr:this.model.timeFormat==="24"})}this.firstRender=!1}}s.bind("date-input-component",n);export{n as default};
+        `;if(r(e,this),this.state!=="DISABLED"){const i=this.querySelector("input");o(i,{dateFormat:this.model.dateFormat,enableTime:this.model.enableTime,altFormat:this.model.displayFormat,altInput:!0,minDate:this.model.minDate,maxDate:this.model.maxDate,mode:this.model.mode,noCalendar:this.model.disableCalendar,time_24hr:this.model.timeFormat==="24"})}this.firstRender=!1}}s.bind("brixi-date-input",n);export{n as default};

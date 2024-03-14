@@ -18,4 +18,4 @@ import{UUID as o}from"./uuid.js";import{html as a,render as u}from"./lit-html.js
                     ?autofocus=${this.model.autofocus}
                 />
             </input-container>
-        `;u(e,this)}}r.bind("phone-input-component",l);export{l as default};
+        `;u(e,this)}}r.bind("brixi-phone-input",l);export{l as default};
