@@ -180,4 +180,4 @@ export default class EmailInput extends InputBase<IInput> {
         render(view, this);
     }
 }
-env.bind("email-input-component", EmailInput);
+env.bind("brixi-email-input", EmailInput);
