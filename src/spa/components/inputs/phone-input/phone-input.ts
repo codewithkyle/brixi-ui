@@ -189,4 +189,4 @@ export default class PhoneInput extends InputBase<IPhoneInput> {
         render(view, this);
     }
 }
-env.bind("phone-input-component", PhoneInput);
+env.bind("brixi-phone-input", PhoneInput);
