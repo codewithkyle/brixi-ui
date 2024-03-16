@@ -214,7 +214,7 @@ export default class MultiSelect extends Component<IMultiSelect> {
         const { name, checked, value } = e.detail;
         const updatedModel = this.get();
         const out = [];
-        this.querySelectorAll(".options checkbox-component").forEach((checkbox) => {
+        this.querySelectorAll(".options brixi-checkbox").forEach((checkbox) => {
             for (let j = 0; j < updatedModel.options.length; j++) {
                 // @ts-ignore
                 if (updatedModel.options[j].uid === checkbox.getName()) {
@@ -302,14 +302,13 @@ export default class MultiSelect extends Component<IMultiSelect> {
         if (this.model.search !== null) {
             out = html`
                 <div class="search">
-                    <checkbox-component
+                    <brixi-checkbox
                         data-checked="${this.hasOneCheck()}"
                         data-type="line"
                         class="inline-flex mr-0.5 js-master-checkbox"
-                        style="width:24px;height:24px;"
                         data-value="all"
                         @change=${this.checkAllCallback}
-                    ></checkbox-component>
+                    ></brixi-checkbox>
                     <i>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path
@@ -363,13 +362,13 @@ export default class MultiSelect extends Component<IMultiSelect> {
                 <div class="options">
                     ${options.map((option) => {
                         return html`
-                            <checkbox-component
+                            <brixi-checkbox
                                 data-name="${option.uid}"
                                 data-checked="${option.checked}"
                                 data-label="${option.label}"
                                 data-value="${option.value}"
                                 @change=${this.checkboxCallback}
-                            ></checkbox-component>
+                            ></brixi-checkbox>
                         `;
                     })}
                 </div>
@@ -389,4 +388,4 @@ export default class MultiSelect extends Component<IMultiSelect> {
         }
     }
 }
-env.bind("multi-select-component", MultiSelect);
+env.bind("brixi-multi-select", MultiSelect);
