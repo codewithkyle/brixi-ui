@@ -1,1 +1,70 @@
-<p>Coming soon</p>
+<brixi-steps 
+    class="vertical" 
+    css="steps-vertical"
+>
+    <button state="completed">
+        <i>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+        </i>
+        <div class="copy">
+            <h3>Create account</h3>
+            <p>Vitae sed mi luctus laoreet.</p>
+        </div>
+    </button>
+    <button state="active">
+        <i>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+        </i>
+        <div class="copy">
+            <h3>Profile information</h3>
+            <p>Cursus semper viverra facilisis et et some more.</p>
+        </div>
+    </button>
+    <button state="pending">
+        <i>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+        </i>
+        <div class="copy">
+            <h3>Business information</h3>
+            <p>Penatibus eu quis ante.</p>
+        </div>
+    </button>
+    <button state="pending">
+        <i>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+        </i>
+        <div class="copy">
+            <h3>Review</h3>
+        </div>
+    </button>
+</brixi-steps>
+
+<brixi-steps class="mt-2 horizontal" css="steps-horizontal" style="grid-template-columns: repeat(4, minmax(300px, 25%));">
+    <button state="completed">
+        <h4>Step 1</h4>
+        <h3>Create account</h3>
+        <p>Vitae sed mi luctus laoreet.</p>
+    </button>
+    <button state="completed">
+        <h4>Step 2</h4>
+        <h3>Profile information</h3>
+        <p>Cursus semper viverra facilisis et et some more.</p>
+    </button>
+    <button state="active">
+        <h4>Step 3</h4>
+        <h3>Business information</h3>
+        <p>Penatibus eu quis ante.</p>
+    </button>
+    <button state="pending">
+        <h4>Step 4</h4>
+        <h3>Review</h3>
+    </button>
+</brixi-steps>
