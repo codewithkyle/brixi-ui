@@ -41,7 +41,7 @@ export default class ProgressIndicator extends Component<IProgressIndicator> {
         });
     }
 
-    public tick(amount = 1): void {
+    public progress(amount = 1): void {
         const updatedModel = this.get();
         if (updatedModel.tick < updatedModel.total) {
             updatedModel.tick += amount;
@@ -114,4 +114,4 @@ export default class ProgressIndicator extends Component<IProgressIndicator> {
         render(view, this);
     }
 }
-env.bind("progress-indicator-component", ProgressIndicator);
+env.bind("brixi-progress-indicator", ProgressIndicator);

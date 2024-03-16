@@ -33,17 +33,17 @@ export default class ProgressLabel extends Component<IProgressLabel> {
         this.set(settings);
     }
 
-    public tick(): void {
+    public progress(): void {
         if (!this.indicator) {
-            this.indicator = this.querySelector("progress-indicator");
+            this.indicator = this.querySelector("brixi-progress-indicator");
         }
         // @ts-ignore
-        this.indicator?.tick();
+        this.indicator?.progress();
     }
 
     public reset(): void {
         if (!this.indicator) {
-            this.indicator = this.querySelector("progress-indicator");
+            this.indicator = this.querySelector("brixi-progress-indicator");
         }
         // @ts-ignore
         this.indicator?.reset();
@@ -58,7 +58,7 @@ export default class ProgressLabel extends Component<IProgressLabel> {
 
     override render() {
         const view = html`
-            <progress-indicator data-total="${this.model.total}"></progress-indicator>
+            <brixi-progress-indicator data-total="${this.model.total}"></brixi-progress-indicator>
             <div class="ml-0.5" flex="column wrap">
                 <h2 class="block font-bold font-sm line-snug">${this.model.title}</h2>
                 <h3 class="${this.model.subtitle?.length ? "block" : "none"} font-xs dark:font-grey-300 line-snug">${this.model.subtitle}</h3>
@@ -67,4 +67,4 @@ export default class ProgressLabel extends Component<IProgressLabel> {
         render(view, this);
     }
 }
-env.bind("progress-label", ProgressLabel);
+env.bind("brixi-progress-label", ProgressLabel);

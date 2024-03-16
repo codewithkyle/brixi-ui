@@ -112,18 +112,18 @@ export default class RadioGroup extends Component<IRadioGroup> {
             </p>
             ${this.model.options.map((option: IRadio) => {
                 return html`
-                    <radio-component
+                    <brixi-radio
                         data-label="${option.label}"
                         data-value="${option.value}"
                         data-checked="${option.checked}"
                         data-disabled="${option.disabled}"
                         data-name="${option.name}"
                         data-required="${option.required}"
-                    ></radio-component>
+                    ></brixi-radio>
                 `;
             })}
         `;
         render(view, this);
     }
 }
-env.bind("radio-group", RadioGroup);
+env.bind("brixi-radio-group", RadioGroup);

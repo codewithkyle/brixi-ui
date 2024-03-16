@@ -1,9 +1,9 @@
 ```html
-<progress-badge
+<brixi-progress-badge
     data-total="100"
     data-label="Saving"
     data-color="primary"
-></progress-badge>
+></brixi-progress-badge>
 ```
 
 ### Data Attributes
@@ -24,10 +24,10 @@ type Color = "grey" | "primary" | "success" | "warning" | "danger";
 
 ### Event Listeners
 
-The `tick` event will fire when the `tick()` method is called.
+The `tick` event will fire when the `progress()` method is called.
 
 ```typescript
-document.body.querySelector('progress-badge').addEventListener('tick', (e) => {
+document.body.querySelector('brixi-progress-badge').addEventListener('tick', (e) => {
     console.error(e.detail.tick); // Current tick
 });
 ```
@@ -35,7 +35,7 @@ document.body.querySelector('progress-badge').addEventListener('tick', (e) => {
 The `finished` event will fire when the desired (total) number of ticks has been reached.
 
 ```typescript
-document.body.querySelector('progress-badge').addEventListener('finished', (e) => {
+document.body.querySelector('brixi-progress-badge').addEventListener('finished', (e) => {
     // ...snip...
 });
 ```

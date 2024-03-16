@@ -6,7 +6,7 @@ export default class DownloadButtonComponent extends HTMLElement {
     connectedCallback(){
         this.iconEl = this.querySelector("svg, img");
         this.spanEl = this.querySelector("span");
-        this.progressEl = this.querySelector("progress-indicator");
+        this.progressEl = this.querySelector("brixi-progress-indicator");
 
         this.ogText = this.spanEl?.innerHTML;
         this.fileURL = this.getAttribute("data-file-url");
