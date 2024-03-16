@@ -1,8 +1,8 @@
 ```html
-<steps-component
+<brixi-steps
     data-step="profile"
     data-steps='[{"label":"Create account","description":"Vitae sed mi luctus laoreet.","name":"create"},{"label":"Profile information","description":"Cursus semper viverra facilisis et et some more.","name":"profile"},{"label":"Business information","description":"Penatibus eu quis ante.","name":"business"},{"label":"Review","name":"review"}]'
-></steps-component>
+></brixi-steps>
 ```
 
 ### Data Attributes
@@ -31,7 +31,7 @@ type Step = {
 The `step` event will fire when the user clicks to go back 1 or more steps.
 
 ```typescript
-document.body.querySelector('steps-component').addEventListener('step', (e) => {
+document.body.querySelector('brixi-steps').addEventListener('step', (e) => {
     console.error(e.detail.step);
 });
 ```

@@ -284,4 +284,4 @@ ${this.model.value ?? ""}</textarea
         render(view, this);
     }
 }
-env.bind("textarea-component", Textarea);
+env.bind("brixi-textarea", Textarea);

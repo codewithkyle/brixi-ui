@@ -124,4 +124,4 @@ export default class Steps extends Component<ISteps> {
         render(view, this);
     }
 }
-env.bind("steps-component", Steps);
+env.bind("brixi-steps", Steps);

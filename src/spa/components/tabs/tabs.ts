@@ -53,7 +53,7 @@ export default class Tabs extends Component<ITabs> {
      */
     public getOrder(): Array<string | number> {
         const values = [];
-        this.querySelectorAll("tab-component").forEach((tab: Tab) => {
+        this.querySelectorAll("brixi-tab").forEach((tab: Tab) => {
             values.push(tab.model.value);
         });
         return values;
@@ -131,7 +131,7 @@ export default class Tabs extends Component<ITabs> {
     }
 
     public resetIndexes() {
-        this.querySelectorAll("tab-component").forEach((tab: Tab, index) => {
+        this.querySelectorAll("brixi-tab").forEach((tab: Tab, index) => {
             tab.setAttribute("data-index", index.toString());
         });
     }
@@ -140,7 +140,7 @@ export default class Tabs extends Component<ITabs> {
         let out: string | TemplateResult;
         if (this.model.expandable) {
             out = html`
-                <button-component
+                <brixi-button
                     data-kind="text"
                     data-color="grey"
                     data-icon='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>'
@@ -148,7 +148,7 @@ export default class Tabs extends Component<ITabs> {
                     data-shape="round"
                     style="margin-bottom:6px;"
                     @click=${this.addTab.bind(this)}
-                ></button-component>
+                ></brixi-button>
             `;
         } else {
             out = "";
@@ -162,14 +162,14 @@ export default class Tabs extends Component<ITabs> {
                 ${this.model.tabs.map((tab, index) => {
                     const isActive = index === this.model.active;
                     return html`
-                        <tab-component
+                        <brixi-tab
                             data-label=${tab.label}
                             data-value=${tab.value}
                             data-icon=${tab.icon}
                             data-active=${isActive}
                             data-index=${index}
                             @tab=${this.handleClick}
-                        ></tab-component>
+                        ></brixi-tab>
                     `;
                 })}
             </tabs-container>
@@ -242,5 +242,5 @@ class Tab extends Component<ITab> {
         render(view, this);
     }
 }
-env.bind("tab-component", Tab);
-env.bind("tabs-component", Tabs);
+env.bind("brixi-tab", Tab);
+env.bind("brixi-tabs", Tabs);
