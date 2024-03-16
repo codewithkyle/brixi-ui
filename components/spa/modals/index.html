@@ -31,9 +31,9 @@
     <button sfx="button" kind="solid" color="grey" class="m-0.5 bttn js-bttn-raw">Raw</button>
 
     <script type="module">
-        import modals from "/js/modals.js";
-        import "/js/input.js";
-        import { html } from "/js/lit-html.js";
+        import modals from "/spa/js/modals.js";
+        import "/spa/js/input.js";
+        import { html } from "/spa/js/lit-html.js";
 
         document.body.querySelector(".js-bttn-confirm-danger").addEventListener("click", ()=>{
             modals.dangerous({
@@ -93,12 +93,12 @@
             modals.form({
                 title: "New Project",
                 view: html`
-                    <input-component
+                    <brixi-input
                         data-placeholder="Project Name"
                         data-name="projectName"
                         data-required="true"
                     >
-                    </input-component>
+                    </brixi-input>
                 `,
                 callbacks: {
                     submit: (data, form, modal)=>{

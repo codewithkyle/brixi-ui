@@ -72,11 +72,11 @@ modals.confirm({
 modals.form({
     title: "New Project",
     view: html`
-        <input-component
+        <brixi-input
             data-placeholder="Project Name"
             data-name="projectName"
             data-required="true"
-        ></input-component>
+        ></brixi-input>
     `,
     callbacks: {
         submit: (data, form, modal)=>{

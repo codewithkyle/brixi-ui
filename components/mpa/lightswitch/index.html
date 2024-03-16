@@ -31,7 +31,125 @@
     </script>
 </head>
 <body>
-    <p>Coming soon</p>
+    <div class="w-1/4 p-1 radius-0.5 border-solid border-1 border-grey-300 dark:border-grey-700">
+
+    <brixi-lightswitch 
+        class="mb-1" 
+        state="IDLING" 
+        color="success"
+        x-data="{ checked: false }"
+    >
+        <input 
+            type="checkbox" 
+            name="demo1" 
+            id="demo1" 
+            value="demo"
+            x-on:change="checked = !checked"
+        >
+        <label for="demo1">
+            <div class="mr-0.75" flex="column wrap">
+                <span class="block line-snug font-sm font-medium font-grey-700 dark:font-grey-300">Exmaple Lightswitch</span>
+                <span class="block line-snug font-xs font-grey-500 dark:font-grey-300">Lorem ipsum dolor amet.</span>
+            </div>
+            <light-switch tabindex="0" aria-label="disabled" role="button">
+                <i :style="{ transform: checked ? 'translate(26px, 3px)' : 'translate(6px, 3px)'}"></i>
+            </light-switch>
+        </label>
+    </brixi-lightswitch>
+
+    <brixi-lightswitch 
+        class="mb-1" 
+        state="IDLING" 
+        color="primary"
+        x-data="{ checked: false }"
+    >
+        <input 
+            type="checkbox" 
+            name="demo2" 
+            id="demo2" 
+            value="demo"
+            x-on:change="checked = !checked"
+        >
+        <label for="demo2">
+            <light-switch tabindex="0" aria-label="disabled" role="button">
+                <i :style="{ transform: checked ? 'translate(26px, 3px)' : 'translate(6px, 3px)'}"></i>
+            </light-switch>
+        </label>
+    </brixi-lightswitch>
+
+    <brixi-lightswitch 
+        class="mb-1" 
+        state="IDLING" 
+        color="warning"
+        x-data="{ checked: false }"
+    >
+        <input 
+            type="checkbox" 
+            name="demo3" 
+            id="demo3" 
+            value="demo"
+            x-on:change="checked = !checked"
+        >
+        <label for="demo3">
+            <div class="mr-0.75" flex="column wrap">
+                <span class="block line-snug font-sm font-medium font-grey-700 dark:font-grey-300">Exmaple Lightswitch</span>
+                <span class="block line-snug font-xs font-grey-500 dark:font-grey-300">Lorem ipsum dolor amet.</span>
+            </div>
+            <light-switch tabindex="0" aria-label="disabled" role="button">
+                <i :style="{ transform: checked ? 'translate(26px, 3px)' : 'translate(6px, 3px)'}"></i>
+            </light-switch>
+        </label>
+    </brixi-lightswitch>
+
+    <brixi-lightswitch 
+        class="mb-1" 
+        state="IDLING" 
+        color="danger"
+        x-data="{ checked: false }"
+    >
+        <input 
+            type="checkbox" 
+            name="demo4" 
+            id="demo4" 
+            value="demo"
+            x-on:change="checked = !checked"
+        >
+        <label for="demo4">
+            <div class="mr-0.75" flex="column wrap">
+                <span class="block line-snug font-sm font-medium font-grey-700 dark:font-grey-300">Exmaple Lightswitch</span>
+                <span class="block line-snug font-xs font-grey-500 dark:font-grey-300">Lorem ipsum dolor amet.</span>
+            </div>
+            <light-switch tabindex="0" aria-label="disabled" role="button">
+                <i :style="{ transform: checked ? 'translate(26px, 3px)' : 'translate(6px, 3px)'}"></i>
+            </light-switch>
+        </label>
+    </brixi-lightswitch>
+
+    <brixi-lightswitch 
+        class="mb-1" 
+        state="DISABLED" 
+        x-data="{ checked: false }"
+    >
+        <input 
+            type="checkbox" 
+            name="demo5" 
+            id="demo5" 
+            value="demo"
+            x-on:change="checked = !checked"
+            disabled
+        >
+        <label for="demo5">
+            <div class="mr-0.75" flex="column wrap">
+                <span class="block line-snug font-sm font-medium font-grey-700 dark:font-grey-300">Exmaple Lightswitch</span>
+                <span class="block line-snug font-xs font-grey-500 dark:font-grey-300">Lorem ipsum dolor amet.</span>
+            </div>
+            <light-switch tabindex="0" aria-label="disabled" role="button">
+                <i :style="{ transform: checked ? 'translate(26px, 3px)' : 'translate(6px, 3px)'}"></i>
+            </light-switch>
+        </label>
+    </brixi-lightswitch>
+
+</div>
 
 </body>
 </html>
