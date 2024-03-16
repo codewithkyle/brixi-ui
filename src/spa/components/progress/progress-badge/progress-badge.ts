@@ -33,17 +33,17 @@ export default class ProgressBadge extends Component<IProgressBadge> {
         this.set(settings);
     }
 
-    public tick(): void {
+    public progress(): void {
         if (!this.indicator) {
-            this.indicator = this.querySelector("progress-indicator");
+            this.indicator = this.querySelector("brixi-progress-indicator");
         }
         // @ts-ignore
-        this.indicator?.tick();
+        this.indicator?.progress();
     }
 
     public reset(): void {
         if (!this.indicator) {
-            this.indicator = this.querySelector("progress-indicator");
+            this.indicator = this.querySelector("brixi-progress-indicator");
         }
         // @ts-ignore
         this.indicator?.reset();
@@ -52,10 +52,10 @@ export default class ProgressBadge extends Component<IProgressBadge> {
     override render() {
         this.setAttribute("color", this.model.color);
         const view = html`
-            <progress-indicator data-size="18" data-total="${this.model.total}" data-color="${this.model.color}"> </progress-indicator>
+            <brixi-progress-indicator data-size="18" data-total="${this.model.total}" data-color="${this.model.color}"></brixi-progress-indicator>
             <span>${this.model.label}</span>
         `;
         render(view, this);
     }
 }
-env.bind("progress-badge", ProgressBadge);
+env.bind("brixi-progress-badge", ProgressBadge);

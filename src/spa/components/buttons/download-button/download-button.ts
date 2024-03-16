@@ -74,7 +74,7 @@ export default class DownloadButton extends Component<IDownloadButton> {
             switch (type) {
                 case "tick":
                     // @ts-ignore
-                    this.indicator.tick(data);
+                    this.indicator.progress(data);
                     break;
                 case "start":
                     this.indicator = new ProgressIndicator();

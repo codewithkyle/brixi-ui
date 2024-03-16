@@ -1,31 +1,31 @@
-<progress-badge
+<brixi-progress-badge
     data-total="100"
     data-label="Saving"
     data-color="primary"
-></progress-badge>
-<progress-badge
+></brixi-progress-badge>
+<brixi-progress-badge
     data-total="100"
     data-label="Saving"
     data-color="success"
-></progress-badge>
-<progress-badge
+></brixi-progress-badge>
+<brixi-progress-badge
     data-total="100"
     data-label="Saving"
     data-color="warning"
-></progress-badge>
-<progress-badge
+></brixi-progress-badge>
+<brixi-progress-badge
     data-total="100"
     data-label="Saving"
     data-color="danger"
-></progress-badge>
-<progress-badge
+></brixi-progress-badge>
+<brixi-progress-badge
     data-total="100"
     data-label="Saving"
     data-color="grey"
-></progress-badge>
+></brixi-progress-badge>
 
 <script>
-    const example = document.querySelector("progress-badge");
+    const example = document.querySelector("brixi-progress-badge");
     example.addEventListener("finished", (e) => {
         alert("Finished");
         e.currentTarget.reset();
@@ -34,6 +34,6 @@
         console.log(e.detail.tick);
     });
     setInterval(() => {
-        example?.tick();
+        example?.progress();
     }, 150);
 </script>

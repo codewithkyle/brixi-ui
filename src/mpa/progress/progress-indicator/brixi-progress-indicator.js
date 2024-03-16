@@ -24,7 +24,7 @@ export default class ProgressIndicatorComponent extends HTMLElement {
                     cancelable: true,
                 }));
             } else {
-                this.dispatchEvent(new CustomEvent("finished", {
+                this.dispatchEvent(new CustomEvent("tick", {
                     detail: {
                         tick: this.tick,
                     },

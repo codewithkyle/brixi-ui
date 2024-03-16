@@ -33,17 +33,17 @@ export default class ProgressToast extends Component<IProgressToast> {
         this.set(settings);
     }
 
-    public tick(amount = 1): void {
+    public progress(amount = 1): void {
         if (!this.indicator) {
-            this.indicator = this.querySelector("progress-indicator");
+            this.indicator = this.querySelector("brixi-progress-indicator");
         }
         // @ts-ignore
-        this.indicator?.tick(amount);
+        this.indicator?.progress(amount);
     }
 
     public reset(): void {
         if (!this.indicator) {
-            this.indicator = this.querySelector("progress-indicator");
+            this.indicator = this.querySelector("brixi-progress-indicator");
         }
         // @ts-ignore
         this.indicator?.reset();
@@ -62,7 +62,7 @@ export default class ProgressToast extends Component<IProgressToast> {
 
     override render() {
         const view = html`
-            <progress-indicator data-total="${this.model.total}" data-color="white" @finished=${this.finishedCallback}></progress-indicator>
+            <brixi-progress-indicator data-total="${this.model.total}" data-color="white" @finished=${this.finishedCallback}></brixi-progress-indicator>
             <div class="ml-0.75" flex="column wrap" style="flex:1;">
                 <h2 class="block font-medium font-base mb-0.5 font-grey-800 dark:font-white">${this.model.title}</h2>
                 <h3 class="${this.model.subtitle?.length ? "block" : "none"} font-xs font-grey-700 dark:font-grey-300">${this.model.subtitle}</h3>
@@ -71,4 +71,4 @@ export default class ProgressToast extends Component<IProgressToast> {
         render(view, this);
     }
 }
-env.bind("progress-toast", ProgressToast);
+env.bind("brixi-progress-toast", ProgressToast);

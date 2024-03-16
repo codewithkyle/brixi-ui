@@ -50,4 +50,4 @@ export default class Spinner extends Component<ISpinner> {
         render(view, this);
     }
 }
-env.bind("spinner-component", Spinner);
+env.bind("brixi-spinner", Spinner);
