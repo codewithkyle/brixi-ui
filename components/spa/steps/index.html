@@ -23,20 +23,20 @@
     <script type="module" src="/spa/js/steps.js"></script>
 </head>
 <body>
-    <steps-component
+    <brixi-steps
     data-step="profile"
     data-steps='[{"label":"Create account","description":"Vitae sed mi luctus laoreet.","name":"create"},{"label":"Profile information","description":"Cursus semper viverra facilisis et et some more.","name":"profile"},{"label":"Business information","description":"Penatibus eu quis ante.","name":"business"},{"label":"Review","name":"review"}]'
-></steps-component>
+></brixi-steps>
 
-<steps-component
+<brixi-steps
     class="mt-2"
     data-step="business"
     data-layout="horizontal"
     data-steps='[{"label":"Create account","description":"Vitae sed mi luctus laoreet.","name":"create"},{"label":"Profile information","description":"Cursus semper viverra facilisis et et some more.","name":"profile"},{"label":"Business information","description":"Penatibus eu quis ante.","name":"business"},{"label":"Review","name":"review"}]'
-></steps-component>
+></brixi-steps>
 
 <script>
-    document.querySelector('steps-component').addEventListener('step', (e) => {
+    document.querySelector('brixi-steps').addEventListener('step', (e) => {
         console.log(e.detail.step);
     });
 </script>

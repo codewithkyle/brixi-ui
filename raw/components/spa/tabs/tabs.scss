@@ -1,4 +1,4 @@
-tabs-component {
+brixi-tabs {
     white-space: nowrap;
     overflow-x: auto;
     overflow-y: hidden;
@@ -15,7 +15,7 @@ tabs-component {
         align-items: end;
     }
 
-    tab-component {
+    brixi-tab {
         height: 100%;
         display: inline-flex;
         align-items: start;

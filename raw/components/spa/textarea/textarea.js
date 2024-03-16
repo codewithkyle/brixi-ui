@@ -37,4 +37,4 @@ import{html as t,render as r}from"./lit-html.js";import{unsafeHTML as i}from"./u
 ${this.model.value??""}</textarea
             >
             ${this.renderCounter()} ${this.renderReadOnlyIcon()}
-        `;r(e,this)}}a.bind("textarea-component",s);export{s as default};
+        `;r(e,this)}}a.bind("brixi-textarea",s);export{s as default};

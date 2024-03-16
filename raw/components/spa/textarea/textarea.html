@@ -1,4 +1,4 @@
-<textarea-component
+<brixi-textarea
     data-label="Example"
     data-required="true"
     data-name="example"
@@ -7,9 +7,9 @@
     data-rows="3"
     data-maxlength="250"
     class="mb-2"
-></textarea-component>
+></brixi-textarea>
 
-<textarea-component
+<brixi-textarea
     data-label="Example"
     data-required="true"
     data-name="example"
@@ -20,20 +20,20 @@
     data-read-only="true"
     data-value="This is a read-only input."
     class="mb-2"
-></textarea-component>
+></brixi-textarea>
 
-<textarea-component
+<brixi-textarea
     data-label="Example"
     data-required="true"
     data-name="example"
     data-rows="3"
     data-disabled="true"
-></textarea-component>
+></brixi-textarea>
 
 <link href="/css/link.css" rel="stylesheet" />
 
 <script>
-    const textarea = document.querySelector("textarea-component");
+    const textarea = document.querySelector("brixi-textarea");
     textarea.addEventListener("input", (e) => {
         console.log("input", e.detail);
     });

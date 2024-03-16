@@ -46,7 +46,71 @@
     </script>
 </head>
 <body>
-    <p>Coming soon</p>
+    <brixi-textarea state="IDLING" css="link" web-component class="mb-1">
+    <label for="demo1">Example</label>
+    <p>This is an <a class="link" href="https://example.com" target="_blank">example</a> input.</p>
+    <textarea 
+        placeholder="Send a message to our support team..."
+        autocomplete="off" 
+        rows="3" 
+        maxlength="250" 
+        minlength="0" 
+        name="example" 
+        id="demo1" 
+        required
+    ></textarea>
+</brixi-textarea>
+
+<brixi-textarea 
+    state="IDLING" 
+    css="link button toast" 
+    web-component 
+    class="mb-1"
+    x-data=""
+>
+    <label for="demo2">Example</label>
+    <p>This is an <a class="link" href="https://example.com" target="_blank">example</a> input.</p>
+    <textarea 
+        autocomplete="off" 
+        rows="3" 
+        name="example" 
+        id="demo2" 
+        readonly
+        x-ref="demo2"
+    >Click to copy this read only text!</textarea>
+    <button 
+        class="bttn absolute r-0 b-0" 
+        kind="text" 
+        color="primary" 
+        size="slim" 
+        icon="center" 
+        shape="round"
+        dull
+        type="button"
+        x-on:click="window.navigator.clipboard.writeText($refs.demo2.value).then(()=>{ $dispatch('alert:toast', 'Copied to clpboard') });"
+        >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M8 8m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z"></path>
+            <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"></path>
+        </svg>
+    </button>
+</brixi-textarea>
+
+<brixi-textarea state="DISABLED" css="link" web-component>
+    <label for="demo3">Example</label>
+    <p>This is an <a class="link" href="https://example.com" target="_blank">example</a> input.</p>
+    <textarea 
+        placeholder="Send a message to our support team..."
+        autocomplete="off" 
+        rows="3" 
+        maxlength="250" 
+        minlength="0" 
+        name="example" 
+        id="demo3" 
+        disabled
+    ></textarea>
+</brixi-textarea>
 
 </body>
 </html>

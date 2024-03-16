@@ -18,4 +18,4 @@ import{html as i,render as n}from"./lit-html.js";import o from"./component.js";i
             </button>
         `}render(){const t=i`
             ${this.model.steps.map((e,s)=>{switch(this.model.layout){case"horizontal":return this.renderHorizontalStep(e,s);case"vertical":return this.renderVerticalStep(e,s);default:return""}})}
-        `;this.classList.add(this.model.layout),this.model.layout==="horizontal"&&(this.style.gridTemplateColumns=`repeat(${this.model.steps.length}, minmax(300px, ${Math.floor(p(1,this.model.steps.length))}%))`),n(t,this)}}r.bind("steps-component",a);export{a as default};
+        `;this.classList.add(this.model.layout),this.model.layout==="horizontal"&&(this.style.gridTemplateColumns=`repeat(${this.model.steps.length}, minmax(300px, ${Math.floor(p(1,this.model.steps.length))}%))`),n(t,this)}}r.bind("brixi-steps",a);export{a as default};

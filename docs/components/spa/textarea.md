@@ -1,5 +1,5 @@
 ```html
-<textarea-component
+<brixi-textarea
     data-label="Example"
     data-required="true"
     data-name="example"
@@ -7,7 +7,7 @@
     data-placeholder="Send a message to our support team..."
     data-rows="3"
     data-maxlength="250"
-></textarea-component>
+></brixi-textarea>
 ```
 
 ### Data Attributes
@@ -37,7 +37,7 @@ Not sure what `autocomplete` values you can use? Learn about the [autocomplete a
 The `input` event will fire while the user types.
 
 ```typescript
-document.body.querySelector('textarea-component').addEventListener('input', (e) => {
+document.body.querySelector('brixi-textarea').addEventListener('input', (e) => {
     const { name, value } = e.detail;
 });
 ```
@@ -45,7 +45,7 @@ document.body.querySelector('textarea-component').addEventListener('input', (e) 
 The `focus` event will fire when the user focuses the input.
 
 ```typescript
-document.body.querySelector('textarea-component').addEventListener('focus', (e) => {
+document.body.querySelector('brixi-textarea').addEventListener('focus', (e) => {
     const { name, value } = e.detail;
 });
 ```
@@ -53,7 +53,7 @@ document.body.querySelector('textarea-component').addEventListener('focus', (e) 
 The `blur` event will fire when the user blurs the input.
 
 ```typescript
-document.body.querySelector('textarea-component').addEventListener('blur', (e) => {
+document.body.querySelector('brixi-textarea').addEventListener('blur', (e) => {
     const { name, value } = e.detail;
 });
 ```
