@@ -67,7 +67,7 @@ class ModalMaker {
             },
             settings
         );
-        const el = new ModalComponent(data.view, data.width, "raw");
+        const el = new ModalComponent(data.view, data.width);
         document.body.appendChild(el);
         return el;
     }
@@ -105,11 +105,11 @@ class ModalMaker {
                 }}
             >
                 <div class="block w-full py-1.5 px-2">
-                    ${data.title?.length ? html`<h2>${data.title}</h2>` : ""} ${data.message?.length ? html`<p class="mb-1.5">${unsafeHTML(data.message)}</p>` : ""} ${data.view}
+                    ${data.title?.length ? html`<h2 class="font-lg font-medium font-grey-800 dark:font-grey-300 line-snug block mb-1">${data.title}</h2>` : ""} ${data.message?.length ? html`<p class="font-grey-700 dark:font-grey-300 font-sm line-normal mb-1.5 block">${unsafeHTML(data.message)}</p>` : ""} ${data.view}
                 </div>
                 <div class="w-full px-1 pb-1">
                     <div class="w-full py-0.75 px-1 bg-grey-50 dark:bg-grey-950/60 radius-0.5" flex="row nowrap items-center justify-end">
-                        <button-component
+                        <brixi-button
                             data-label="${data.cancel}"
                             data-type="button"
                             data-color="grey"
@@ -122,13 +122,13 @@ class ModalMaker {
                                 }
                                 el.remove();
                             }}
-                        ></button-component>
-                        <submit-button data-label="${data.submit}"></submit-button>
+                        ></brixi-button>
+                        <brixi-submit-button data-label="${data.submit}"></brixi-submit-button>
                     </div>
                 </div>
             </form-component>
         `;
-        el = new ModalComponent(view, data.width, "static-content");
+        el = new ModalComponent(view, data.width);
         document.body.appendChild(el);
     }
 
@@ -150,14 +150,14 @@ class ModalMaker {
         let el: HTMLElement;
         const view = html`
             <div class="block w-full py-1.5 px-2">
-                <h2>${data.title}</h2>
-                <p>${unsafeHTML(data.message)}</p>
+                <h2 class="font-lg font-medium font-grey-800 dark:font-grey-300 line-snug block mb-1">${data.title}</h2>
+                <p class="font-grey-700 dark:font-grey-300 font-sm line-normal block">${unsafeHTML(data.message)}</p>
             </div>
             <div class="w-full px-1 pb-1">
                 <div class="w-full py-0.75 px-1 bg-grey-50 dark:bg-grey-950/60 radius-0.5" flex="row nowrap items-center justify-end">
                     ${data.actions.map(
                         (action) => html`
-                            <button-component
+                            <brixi-button
                                 data-label="${action.label}"
                                 data-type="button"
                                 data-color="grey"
@@ -169,13 +169,13 @@ class ModalMaker {
                                     el.remove();
                                 }}
                                 class="ml-0.5"
-                            ></button-component>
+                            ></brixi-button>
                         `
                     )}
                 </div>
             </div>
         `;
-        el = new ModalComponent(view, data.width, "static-content");
+        el = new ModalComponent(view, data.width);
         document.body.appendChild(el);
     }
 
@@ -197,12 +197,12 @@ class ModalMaker {
         let el: HTMLElement;
         const view = html`
             <div class="block w-full py-1.5 px-2">
-                <h2>${data.title}</h2>
-                <p>${unsafeHTML(data.message)}</p>
+                <h2 class="font-lg font-medium font-grey-800 dark:font-grey-300 line-snug block mb-1">${data.title}</h2>
+                <p class="font-grey-700 dark:font-grey-300 font-sm line-normal block">${unsafeHTML(data.message)}</p>
             </div>
             <div class="w-full px-1 pb-1">
                 <div class="w-full py-0.75 px-1 bg-grey-50 dark:bg-grey-950/60 radius-0.5" flex="row nowrap items-center justify-end">
-                    <button-component
+                    <brixi-button
                         data-label="${data.cancel}"
                         data-type="button"
                         data-color="grey"
@@ -214,8 +214,8 @@ class ModalMaker {
                             el.remove();
                         }}
                         class="mr-0.5"
-                    ></button-component>
-                    <button-component
+                    ></brixi-button>
+                    <brixi-button
                         data-label="${data.confirm}"
                         data-type="button"
                         data-color="primary"
@@ -226,11 +226,11 @@ class ModalMaker {
                             }
                             el.remove();
                         }}
-                    ></button-component>
+                    ></brixi-button>
                 </div>
             </div>
         `;
-        el = new ModalComponent(view, data.width, "static-content");
+        el = new ModalComponent(view, data.width);
         document.body.appendChild(el);
     }
 
@@ -252,12 +252,12 @@ class ModalMaker {
         let el: HTMLElement;
         const view = html`
             <div class="block w-full py-1.5 px-2">
-                <h2>${data.title}</h2>
-                <p>${unsafeHTML(data.message)}</p>
+                <h2 class="font-lg font-medium font-grey-800 dark:font-grey-300 line-snug block mb-1">${data.title}</h2>
+                <p class="font-grey-700 dark:font-grey-300 font-sm line-normal block">${unsafeHTML(data.message)}</p>
             </div>
             <div class="w-full px-1 pb-1">
                 <div class="w-full py-0.75 px-1 bg-grey-150 dark:bg-grey-950/60 radius-0.5" flex="row nowrap items-center justify-end">
-                    <button-component
+                    <brixi-button
                         data-label="${data.cancel}"
                         data-type="button"
                         data-color="grey"
@@ -269,8 +269,8 @@ class ModalMaker {
                             el.remove();
                         }}
                         class="mr-0.5"
-                    ></button-component>
-                    <button-component
+                    ></brixi-button>
+                    <brixi-button
                         data-label="${data.confirm}"
                         data-type="button"
                         data-color="danger"
@@ -281,11 +281,11 @@ class ModalMaker {
                             }
                             el.remove();
                         }}
-                    ></button-component>
+                    ></brixi-button>
                 </div>
             </div>
         `;
-        el = new ModalComponent(view, data.width, "static-content");
+        el = new ModalComponent(view, data.width);
         document.body.appendChild(el);
     }
 }
@@ -296,11 +296,10 @@ class ModalComponent extends HTMLElement {
     private view: TemplateResult | HTMLElement;
     private width: number;
 
-    constructor(view: TemplateResult | HTMLElement, width: number, className: string) {
+    constructor(view: TemplateResult | HTMLElement, width: number) {
         super();
         this.view = view;
         this.width = width;
-        this.className = className;
         env.css(["modals", "button"]).then(() => this.render());
     }
 
@@ -314,4 +313,4 @@ class ModalComponent extends HTMLElement {
         render(view, this);
     }
 }
-env.bind("modal-component", ModalComponent);
+env.bind("brixi-modal", ModalComponent);

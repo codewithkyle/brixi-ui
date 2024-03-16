@@ -1,5 +1,5 @@
 import { UUID } from "@codewithkyle/uuid";
-import { html, render } from "lit-html";
+import { html, render, TemplateResult } from "lit-html";
 import { unsafeHTML } from "lit-html/directives/unsafe-html";
 import Component from "~brixi/component";
 import env from "~brixi/controllers/env";
@@ -12,8 +12,6 @@ export type LightswitchColor = "primary" | "success" | "warning" | "danger";
 export interface ILightswitch {
     label: string;
     instructions: string;
-    enabledLabel: string;
-    disabledLabel: string;
     enabled: boolean;
     name: string;
     disabled: boolean;
@@ -31,8 +29,6 @@ export default class Lightswitch extends Component<ILightswitch> {
             name: "",
             label: "",
             instructions: "",
-            enabledLabel: null,
-            disabledLabel: null,
             enabled: false,
             disabled: false,
             color: "success",
@@ -45,8 +41,6 @@ export default class Lightswitch extends Component<ILightswitch> {
         return [
             "data-label",
             "data-instructions",
-            "data-enabled-label",
-            "data-disabled-label",
             "data-enabled",
             "data-disabled",
             "data-color",
@@ -161,22 +155,16 @@ export default class Lightswitch extends Component<ILightswitch> {
         }
     };
 
-    private resize() {
-        const label: HTMLElement = this.querySelector("light-switch");
-        const span1: HTMLElement = label.querySelector("span:first-of-type");
-        const span2: HTMLElement = label.querySelector("span:last-of-type");
-        const i = this.querySelector("i");
-        if (this.model.enabled) {
-            label.style.width = `${span1.scrollWidth + 32}px`;
-            span1.style.transform = `translateX(6px)`;
-            span2.style.transform = `translateX(6px)`;
-            i.style.transform = `translate(6px, 3px)`;
-        } else {
-            label.style.width = `${span2.scrollWidth + 32}px`;
-            span1.style.transform = `translateX(-${span1.scrollWidth}px)`;
-            span2.style.transform = `translateX(-${span1.scrollWidth}px)`;
-            i.style.transform = `translate(-${span1.scrollWidth}px, 3px)`;
+    private renderLabel(): TemplateResult | string {
+        if (!this.model.label?.length && !this.model.instructions?.length) {
+            return "";
         }
+        return html`
+            <div class="ml-0.75" flex="column wrap">
+                <span class="block line-snug font-sm font-medium font-grey-700 dark:font-grey-300">${this.model.label}</span>
+                <span class="block line-snug font-xs font-grey-500 dark:font-grey-300">${this.model.instructions}</span>
+            </div>
+        `;
     }
 
     override render() {
@@ -194,19 +182,13 @@ export default class Lightswitch extends Component<ILightswitch> {
                 value=${this.model.value ?? ""}
             />
             <label for="${this.inputId}">
+                ${this.renderLabel()}
                 <light-switch tabindex="0" @keyup=${this.handleKeyup} @keydown=${this.handleKeydown} aria-label="${this.model.enabled ? "enabled" : "disabled"}">
-                    <span>${unsafeHTML(this.model.enabledLabel)}</span>
-                    <i></i>
-                    <span>${unsafeHTML(this.model.disabledLabel)}</span>
+                    <i style="transform: ${this.model.enabled ? 'translate(26px, 3px)' : 'translate(6px, 3px)'}"></i>
                 </light-switch>
-                <div class="ml-0.75" flex="column wrap">
-                    <span class="block line-snug font-sm font-medium font-grey-700 dark:font-grey-300">${this.model.label}</span>
-                    <span class="block line-snug font-xs font-grey-500 dark:font-grey-300">${this.model.instructions}</span>
-                </div>
             </label>
         `;
         render(view, this);
-        this.resize();
     }
 }
-env.bind("lightswitch-component", Lightswitch);
+env.bind("brixi-lightswitch", Lightswitch);
