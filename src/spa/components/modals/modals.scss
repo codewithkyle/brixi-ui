@@ -1,4 +1,4 @@
-modal-component {
+brixi-modal {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -38,34 +38,6 @@ modal-component {
             border-color: var(--grey-800);
             box-shadow: var(--shadow-black-lg);
             background-color: var(--grey-900);
-        }
-    }
-
-    &.static-content {
-        .modal {
-            h2 {
-                font-size: var(--font-lg);
-                font-weight: var(--font-medium);
-                color: var(--grey-800);
-                line-height: 1.375;
-                margin-bottom: 1rem;
-                display: block;
-
-                @media (prefers-color-scheme: dark) {
-                    color: var(--grey-300);
-                }
-            }
-
-            p {
-                color: var(--grey-700);
-                font-size: var(--font-sm);
-                line-height: 1.618;
-                display: block;
-
-                @media (prefers-color-scheme: dark) {
-                    color: var(--grey-300);
-                }
-            }
         }
     }
 }
