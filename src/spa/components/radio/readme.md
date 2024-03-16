@@ -1,9 +1,9 @@
 ```html
-<radio-component
+<brixi-radio
     data-label="Example"
     data-name="example"
     data-value="example"
-></radio-component>
+></brixi-radio>
 ```
 
 ### Data Attributes
@@ -24,7 +24,7 @@ Not sure what Data Attributes are? Learn about [Data Attributes on MDN](https://
 The `change` event will fire as users interact with the radio inputs.
 
 ```typescript
-document.body.querySelector('radio-component').addEventListener('change', (e) => {
+document.body.querySelector('brixi-radio').addEventListener('change', (e) => {
     const { name, value } = e.detail;
 });
 ```
