@@ -109,6 +109,18 @@ async function renderMPAComponent(name, p) {
         window.addEventListener("alert:toast", (e) => {
             notifications.toast(e.detail)
         });
+        window.addEventListener("alert:info", (e) => {
+            notifications.alert(e.detail.title, e.detail.message);
+        });
+        window.addEventListener("alert:success", (e) => {
+            notifications.success(e.detail.title, e.detail.message);
+        });
+        window.addEventListener("alert:warn", (e) => {
+            notifications.warn(e.detail.title, e.detail.message);
+        });
+        window.addEventListener("alert:error", (e) => {
+            notifications.error(e.detail.title, e.detail.message);
+        });
     </script>
 </head>
 <body>
