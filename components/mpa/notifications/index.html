@@ -28,10 +28,51 @@
         window.addEventListener("alert:toast", (e) => {
             notifications.toast(e.detail)
         });
+        window.addEventListener("alert:info", (e) => {
+            notifications.alert(e.detail.title, e.detail.message);
+        });
+        window.addEventListener("alert:success", (e) => {
+            notifications.success(e.detail.title, e.detail.message);
+        });
+        window.addEventListener("alert:warn", (e) => {
+            notifications.warn(e.detail.title, e.detail.message);
+        });
+        window.addEventListener("alert:error", (e) => {
+            notifications.error(e.detail.title, e.detail.message);
+        });
     </script>
 </head>
 <body>
-    <p>Coming soon</p>
+    <div css="button" class="w-full text-center">
+    <button 
+        kind="solid" 
+        color="grey" 
+        class="m-0.5 bttn"
+        x-data=""
+        x-on:click="$dispatch('alert:info', { title: 'Something happened', message: 'You did something that triggered this alert' })"
+    >General</button>
+    <button 
+        kind="solid" 
+        color="grey" 
+        class="m-0.5 bttn"
+        x-data=""
+        x-on:click="$dispatch('alert:warn', { title: 'Something happened', message: 'You did something that triggered this alert' })"
+    >Warning</button>
+    <button 
+        kind="solid" 
+        color="grey" 
+        class="m-0.5 bttn"
+        x-data=""
+        x-on:click="$dispatch('alert:error', { title: 'Something happened', message: 'You did something that triggered this alert' })"
+    >Danger</button>
+    <button 
+        kind="solid" 
+        color="grey" 
+        class="m-0.5 bttn"
+        x-data=""
+        x-on:click="$dispatch('alert:success', { title: 'Something happened', message: 'You did something that triggered this alert' })"
+    >Success</button>
+</div>
 
 </body>
 </html>

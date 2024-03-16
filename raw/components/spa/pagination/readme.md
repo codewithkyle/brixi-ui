@@ -1,8 +1,8 @@
 ```html
-<pagination-component
+<brixi-pagination
     data-total-pages="10"
     data-active-page="1"
-></pagination-component>
+></brixi-pagination>
 ```
 
 ### Data Attributes
@@ -19,7 +19,7 @@ Not sure what Data Attributes are? Learn about [Data Attributes on MDN](https://
 The `change` event will fire when the user clicks to change pages.
 
 ```typescript
-document.body.querySelector('pagination-component').addEventListener('change', (e) => {
+document.body.querySelector('brixi-pagination').addEventListener('change', (e) => {
     console.error(e.detail.page);
 });
 ```

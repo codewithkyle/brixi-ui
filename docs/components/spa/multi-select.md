@@ -1,5 +1,5 @@
 ```html
-<multi-select-component
+<brixi-multi-select
     data-label="Fruit"
     data-name="fruit"
     data-search="fuzzy"
@@ -17,7 +17,7 @@
             "value": "bananas"
         }
     ]'
-></multi-select-component>
+></brixi-multi-select>
 ```
 
 ### Data Attributes
@@ -54,7 +54,7 @@ type MultiSelectOption = {
 The `change` event will fire when the user checks/unchecks options.
 
 ```typescript
-document.body.querySelector('multi-select-component').addEventListener('change', (e) => {
+document.body.querySelector('brixi-multi-select').addEventListener('change', (e) => {
     const { name, value } = e.detail;
 });
 ```

@@ -28,10 +28,22 @@
         window.addEventListener("alert:toast", (e) => {
             notifications.toast(e.detail)
         });
+        window.addEventListener("alert:info", (e) => {
+            notifications.alert(e.detail.title, e.detail.message);
+        });
+        window.addEventListener("alert:success", (e) => {
+            notifications.success(e.detail.title, e.detail.message);
+        });
+        window.addEventListener("alert:warn", (e) => {
+            notifications.warn(e.detail.title, e.detail.message);
+        });
+        window.addEventListener("alert:error", (e) => {
+            notifications.error(e.detail.title, e.detail.message);
+        });
     </script>
 </head>
 <body>
-    <p>Coming soon</p>
+    <p css="link">Use an <a class="link" href="https://ui.brixi.dev/mpa/input">Input</a> with <a class="link" href="https://ui.brixi.dev/mpa/input-chip">Input Chips</a>.</p>
 
 </body>
 </html>

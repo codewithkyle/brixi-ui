@@ -23,7 +23,7 @@
     <script type="module" src="/spa/js/multi-select.js"></script>
 </head>
 <body>
-    <multi-select-component
+    <brixi-multi-select
     data-label="Fruit"
     data-name="fruit"
     data-search="fuzzy"
@@ -42,9 +42,9 @@
             "value": "bananas"
         }
     ]'
-></multi-select-component>
+></brixi-multi-select>
 
-<multi-select-component
+<brixi-multi-select
     class="mt-2"
     data-label="Fruit"
     data-name="fruit"
@@ -64,10 +64,10 @@
             "value": "bananas"
         }
     ]'
-></multi-select-component>
+></brixi-multi-select>
 
 <script>
-    document.querySelector('multi-select-component').addEventListener('change', (e) => {
+    document.querySelector('brixi-multi-select').addEventListener('change', (e) => {
         console.log(e.detail);
     });
 </script>
