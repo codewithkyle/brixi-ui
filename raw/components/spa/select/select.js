@@ -21,4 +21,4 @@ import{html as t,render as a}from"./lit-html.js";import{unsafeHTML as i}from"./u
                     </svg>
                 </i>
             </select-container>
-        `;a(e,this)}}l.bind("select-component",r);export{r as default};
+        `;a(e,this)}}l.bind("brixi-select",r);export{r as default};

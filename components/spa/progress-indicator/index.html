@@ -23,35 +23,35 @@
     <script type="module" src="/spa/js/progress-indicator.js"></script>
 </head>
 <body>
-    <progress-indicator
+    <brixi-progress-indicator
     data-total="100"
-></progress-indicator>
+></brixi-progress-indicator>
 
-<progress-indicator
+<brixi-progress-indicator
     data-total="100"
     data-color="primary"
-></progress-indicator>
+></brixi-progress-indicator>
 
-<progress-indicator
+<brixi-progress-indicator
     data-total="100"
     data-color="success"
-></progress-indicator>
+></brixi-progress-indicator>
 
-<progress-indicator
+<brixi-progress-indicator
     data-total="100"
     data-color="warning"
-></progress-indicator>
+></brixi-progress-indicator>
 
-<progress-indicator
+<brixi-progress-indicator
     data-total="100"
     data-color="danger"
-></progress-indicator>
-    
+></brixi-progress-indicator>
 
 <script>
+    const indicators = document.querySelectorAll('brixi-progress-indicator');
     setInterval(() => {
-        document.querySelectorAll('progress-indicator').forEach((element) => {
-            element.tick();
+        indicators.forEach((element) => {
+            if (element?.progress) element.progress();
         });
     }, 150);
 </script>

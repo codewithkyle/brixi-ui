@@ -1,10 +1,10 @@
 ```html
-<radio-group
+<brixi-radio-group
     data-label="Example"
     data-name="example"
     data-instructions="Lorem ipsum..."
     data-options='[{"label": "Example 1","value":"example1"},{"label":"Example 2","value":"example2"},{"label":"Example 3","checked": true,"value":"example3"}]'
-></radio-group>
+></brixi-radio-group>
 ```
 
 ### Data Attributes
@@ -38,7 +38,7 @@ type Radio = {
 The `change` event will fire as users interact with the radio inputs.
 
 ```typescript
-document.body.querySelector('radio-component').addEventListener('change', (e) => {
+document.body.querySelector('brixi-radio-group').addEventListener('change', (e) => {
     const { name, value } = e.detail;
 });
 ```

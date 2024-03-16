@@ -28,6 +28,9 @@
         window.addEventListener("alert:toast", (e) => {
             notifications.toast(e.detail)
         });
+        window.addEventListener("alert:snackbar", (e) => {
+            notifications.snackbar(e.detail)
+        });
         window.addEventListener("alert:info", (e) => {
             notifications.alert(e.detail.title, e.detail.message);
         });
@@ -43,7 +46,15 @@
     </script>
 </head>
 <body>
-    <p>Coming soon</p>
+    <div css="button" class="w-full text-center">
+    <button 
+        kind="solid" 
+        color="grey" 
+        class="bttn"
+        x-data=""
+        x-on:click="$dispatch('alert:snackbar','You did something that triggered this response.')"
+        >Trigger snackbar</button>
+</div>
 
 </body>
 </html>

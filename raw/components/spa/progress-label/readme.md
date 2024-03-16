@@ -1,9 +1,9 @@
 ```html
-<progress-label
+<brixi-progress-label
     data-total="100"
     data-title="Example label"
     data-subtitle="0 of 100"
-></progress-label>
+></brixi-progress-label>
 ```
 
 ### Data Attributes
@@ -18,10 +18,10 @@ Not sure what Data Attributes are? Learn about [Data Attributes on MDN](https://
 
 ### Event Listeners
 
-The `tick` event will fire when the `tick()` method is called.
+The `tick` event will fire when the `progress()` method is called.
 
 ```typescript
-document.body.querySelector('progress-label').addEventListener('tick', (e) => {
+document.body.querySelector('brixi-progress-label').addEventListener('tick', (e) => {
     console.error(e.detail.tick); // Current tick
 });
 ```
@@ -29,7 +29,7 @@ document.body.querySelector('progress-label').addEventListener('tick', (e) => {
 The `finished` event will fire when the desired (total) number of ticks has been reached.
 
 ```typescript
-document.body.querySelector('progress-label').addEventListener('finished', (e) => {
+document.body.querySelector('brixi-progress-label').addEventListener('finished', (e) => {
     // ...snip...
 });
 ```

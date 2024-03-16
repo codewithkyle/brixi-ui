@@ -14,4 +14,4 @@ import{html as s,render as o}from"./lit-html.js";import i from"./component.js";i
                     ></path>
                 </g>
             </svg>
-        `;o(e,this)}}r.bind("spinner-component",t);export{t as default};
+        `;o(e,this)}}r.bind("brixi-spinner",t);export{t as default};

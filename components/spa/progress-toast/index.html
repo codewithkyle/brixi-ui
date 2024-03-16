@@ -23,19 +23,19 @@
     <script type="module" src="/spa/js/progress-toast.js"></script>
 </head>
 <body>
-    <progress-toast
+    <brixi-progress-toast
     data-title="Downloading messages"
     data-subtitle="0 of 1000"
     data-total="1000"
-></progress-toast>
+></brixi-progress-toast>
 
 <script>
-    const example = document.querySelector("progress-toast");
+    const example = document.querySelector("brixi-progress-toast");
     example.addEventListener("tick", (e) => {
         example.setProgress(`${e.detail.tick} of 1000`);
     });
     setInterval(() => {
-        example?.tick(10);
+        example?.progress(10);
     }, 150);
 </script>
 

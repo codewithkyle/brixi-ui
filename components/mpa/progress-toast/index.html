@@ -28,6 +28,9 @@
         window.addEventListener("alert:toast", (e) => {
             notifications.toast(e.detail)
         });
+        window.addEventListener("alert:snackbar", (e) => {
+            notifications.snackbar(e.detail)
+        });
         window.addEventListener("alert:info", (e) => {
             notifications.alert(e.detail.title, e.detail.message);
         });
@@ -43,7 +46,39 @@
     </script>
 </head>
 <body>
-    <p>Coming soon</p>
+    <brixi-progress-toast
+    css="progress-label progress-indicator tooltip"
+>
+    <brixi-progress-label 
+        x-data="{ progress: 0, total: 1000 }"
+        x-on:tick="progress = $event.detail.tick"
+        flex="items-start"
+    >
+        <brixi-progress-indicator web-component style="width: 24px; height: 24px;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" stroke="currentColor" color="grey">
+                <circle class="inner" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" cx="16" cy="16" r="11.05"></circle>
+                <circle class="outter" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" cx="16" cy="16" r="11.05" style="stroke-dashoffset: 0;"></circle>
+            </svg>
+        </brixi-progress-indicator>
+        <div class="ml-0.75" flex="column wrap">
+            <h2 class="block font-bold font-sm line-snug">Example label</h2>
+            <h3 
+                class="block font-xs dark:font-grey-300 line-snug"
+                x-text="`${progress} of ${total}`"
+            ></h3>
+        </div>
+    </brixi-progress-label>
+</brixi-progress-toast>
+
+<script>
+    setTimeout(() => {
+        const example = document.querySelector("brixi-progress-indicator");
+        example.setTotal(1000);
+        setInterval(() => {
+            example?.progress();
+        }, 150);
+    }, 1000);
+</script>
 
 </body>
 </html>

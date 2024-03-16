@@ -233,4 +233,4 @@ export default class Select extends Component<ISelect> {
         render(view, this);
     }
 }
-env.bind("select-component", Select);
+env.bind("brixi-select", Select);

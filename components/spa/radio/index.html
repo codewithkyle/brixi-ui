@@ -23,22 +23,22 @@
     <script type="module" src="/spa/js/radio.js"></script>
 </head>
 <body>
-    <radio-component
+    <brixi-radio
     data-label="Example"
     data-name="example"
     data-value="example"
-></radio-component>
+></brixi-radio>
 
-<radio-component
+<brixi-radio
     class="mt-2"
     data-label="Example"
     data-name="example"
     data-value="example"
     data-disabled="true"
-></radio-component>
+></brixi-radio>
 
 <script>
-    document.querySelector('radio-component').addEventListener("change", e => {
+    document.querySelector('brixi-radio').addEventListener("change", e => {
         console.log(e.detail);
     });
 </script>

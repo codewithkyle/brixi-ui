@@ -28,6 +28,9 @@
         window.addEventListener("alert:toast", (e) => {
             notifications.toast(e.detail)
         });
+        window.addEventListener("alert:snackbar", (e) => {
+            notifications.snackbar(e.detail)
+        });
         window.addEventListener("alert:info", (e) => {
             notifications.alert(e.detail.title, e.detail.message);
         });
@@ -43,7 +46,13 @@
     </script>
 </head>
 <body>
-    <p>Coming soon</p>
+    <div class="bg-grey-100 dark:bg-grey-800 radius-0.5 p-1 mb-1" flex="items-center row nowrap" style="max-width: 320px">
+    <div class="skeleton -image -round mr-1" style="width: 96px"></div>
+    <div class="block w-full">
+        <div class="skeleton -copy mb-1 w-3/4"></div>
+        <div class="skeleton -copy"></div>
+    </div>
+</div>
 
 </body>
 </html>

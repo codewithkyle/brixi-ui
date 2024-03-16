@@ -1,8 +1,8 @@
 ```html
-<spinner-component
+<brixi-spinner
     data-color="grey"
     data-size="18"
-></spinner-component>
+></brixi-spinner>
 ```
 
 ### Data Attributes

@@ -1,6 +1,6 @@
 
 self.manifest = {
-    "version": "fdc886d10c9b478fe21a18aab0ee4ce4",
+    "version": "1361d891c72b40337480e5046f7e6b2d",
     "assets": [
 		"/spa/js/accordion.js",
 		"/spa/js/alert.js",
@@ -87,9 +87,10 @@ self.manifest = {
 		"/mpa/js/brixi-input.js",
 		"/mpa/js/brixi-overflow-menu.js",
 		"/mpa/js/brixi-phone-input.js",
+		"/mpa/js/brixi-progress-indicator.js",
 		"/mpa/js/brixi-range-slider.js",
+		"/mpa/js/brixi-select.js",
 		"/mpa/js/download-button.js",
-		"/mpa/js/progress-indicator.js",
 		"/css/accordion.css",
 		"/css/alert.css",
 		"/css/assist-chip.css",

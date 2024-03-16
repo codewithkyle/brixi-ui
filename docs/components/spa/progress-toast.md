@@ -1,9 +1,9 @@
 ```html
-<progress-toast
+<brixi-progress-toast
     data-title="Downloading messages"
     data-subtitle="0 of 1000"
     data-total="1000"
-></progress-toast>
+></brixi-progress-toast>
 ```
 
 ### Data Attributes
@@ -18,10 +18,10 @@ Not sure what Data Attributes are? Learn about [Data Attributes on MDN](https://
 
 ### Event Listeners
 
-The `tick` event will fire when the `tick()` method is called.
+The `tick` event will fire when the `progress()` method is called.
 
 ```typescript
-document.body.querySelector('progress-toast').addEventListener('tick', (e) => {
+document.body.querySelector('brixi-progress-toast').addEventListener('tick', (e) => {
     console.error(e.detail.tick); // Current tick
 });
 ```

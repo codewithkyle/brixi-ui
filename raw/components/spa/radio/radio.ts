@@ -37,6 +37,7 @@ export default class Radio extends Component<IRadio> {
 
     override async connected() {
         const settings = parseDataset(this.dataset, this.model);
+        this.state = settings?.disabled ? "DISABLED" : "IDLING";
         this.set(settings);
     }
 
@@ -153,4 +154,4 @@ export default class Radio extends Component<IRadio> {
         render(view, this);
     }
 }
-env.bind("radio-component", Radio);
+env.bind("brixi-radio", Radio);

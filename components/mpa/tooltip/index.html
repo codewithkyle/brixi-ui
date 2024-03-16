@@ -28,6 +28,9 @@
         window.addEventListener("alert:toast", (e) => {
             notifications.toast(e.detail)
         });
+        window.addEventListener("alert:snackbar", (e) => {
+            notifications.snackbar(e.detail)
+        });
         window.addEventListener("alert:info", (e) => {
             notifications.alert(e.detail.title, e.detail.message);
         });
@@ -43,7 +46,7 @@
     </script>
 </head>
 <body>
-    <p>Coming soon</p>
+    <tool-tip class="visible">Example tooltip</tool-tip>
 
 </body>
 </html>
