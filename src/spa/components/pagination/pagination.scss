@@ -1,7 +1,12 @@
-pagination-component {
+brixi-pagination {
     display: inline-flex;
     flex-flow: row nowrap;
     overflow-x: auto;
     align-items: center;
     position: relative;
+
+    button,
+    brixi-button {
+        min-width: 36px;
+    }
 }

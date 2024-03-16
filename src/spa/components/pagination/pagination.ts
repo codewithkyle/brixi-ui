@@ -84,19 +84,18 @@ export default class Pagination extends Component<IPagination> {
     override render() {
         const visiblePageNumbers: number[] = this.calcVisiblePageNumbers();
         const view = html`
-            <button-component
+            <brixi-button
                 data-kind="text"
                 data-color="grey"
-                data-size="slim"
-                tooltip="Back"
-                data-icon-position="center"
+                data-icon-position="left"
                 data-icon='<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><polyline points="15 6 9 12 15 18"></polyline></svg>'
+                data-label="Previous"
                 @click=${this.handleBack}
                 data-disabled="${this.model.activePage === 1}"
-            ></button-component>
+            ></brixi-button>
             ${visiblePageNumbers.map((pageNumber) => {
                 return html`
-                    <button-component
+                    <brixi-button
                         data-kind="text"
                         data-color="grey"
                         data-icon-position="center"
@@ -104,21 +103,20 @@ export default class Pagination extends Component<IPagination> {
                         class="${pageNumber === this.model.activePage ? "is-active" : ""}"
                         style="min-width: 36px;"
                         @click=${this.jumpToPage.bind(this, pageNumber)}
-                    ></button-component>
+                    ></brixi-button>
                 `;
             })}
-            <button-component
+            <brixi-button
                 data-kind="text"
                 data-color="grey"
-                data-size="slim"
-                tooltip="Next"
-                data-icon-position="center"
+                data-icon-position="right"
                 data-icon='<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><polyline points="9 6 15 12 9 18"></polyline></svg>'
+                data-label="Next"
                 data-disabled="${this.model.activePage === this.model.totalPages}"
                 @click=${this.handleForward}
-            ></button-component>
+            ></brixi-button>
         `;
         render(view, this);
     }
 }
-env.bind("pagination-component", Pagination);
+env.bind("brixi-pagination", Pagination);
