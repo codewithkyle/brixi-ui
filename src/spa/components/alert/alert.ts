@@ -100,7 +100,7 @@ export default class Alert extends Component<IAlert> {
         let out: string | TemplateResult;
         if (this.model.closeable) {
             out = html`
-                <button-component
+                <brixi-button
                     class="close"
                     @click=${this.handleClose}
                     data-type="button"
@@ -109,7 +109,7 @@ export default class Alert extends Component<IAlert> {
                     data-icon='<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>'
                     data-icon-position="center"
                     data-shape="round"
-                ></button-component>
+                ></brixi-button>
             `;
         } else {
             out = "";

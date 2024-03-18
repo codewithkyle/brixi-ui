@@ -90,7 +90,7 @@ class ModalMaker {
         );
         let el: HTMLElement;
         const view = html`
-            <form-component
+            <brixi-form
                 class="w-full"
                 @submit=${(e: Event) => {
                     e.preventDefault();
@@ -126,7 +126,7 @@ class ModalMaker {
                         <brixi-submit-button data-label="${data.submit}"></brixi-submit-button>
                     </div>
                 </div>
-            </form-component>
+            </brixi-form>
         `;
         el = new ModalComponent(view, data.width);
         document.body.appendChild(el);

@@ -14,7 +14,7 @@ export default class Form extends Component<IForm> {
     }
 
     public start() {
-        const el = this.querySelector("submit-button");
+        const el = this.querySelector("brixi-submit-button");
         if (el) {
             // @ts-ignore
             el.trigger("START");
@@ -22,7 +22,7 @@ export default class Form extends Component<IForm> {
     }
 
     public stop() {
-        const el = this.querySelector('submit-button[state="SUBMITTING"]');
+        const el = this.querySelector('brixi-submit-button[state="SUBMITTING"]');
         if (el) {
             // @ts-ignore
             el.trigger("STOP");

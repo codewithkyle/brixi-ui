@@ -66,7 +66,7 @@ export default class ToggleButton extends Component<IToggleButton> {
     private renderButton() {
         const button = this.model.buttons[this.model.state];
         return html`
-            <button-component
+            <brixi-button
                 data-label="${button?.label ?? ""}"
                 data-icon="${button?.icon ?? ""}"
                 data-color="${button?.color ?? "grey"}"
@@ -76,7 +76,7 @@ export default class ToggleButton extends Component<IToggleButton> {
                 data-icon-position="${button?.iconPosition ?? "left"}"
                 @click="${this.handleClick}"
                 @action=${this.handleAction}
-            ></button-component>
+            ></brixi-button>
         `;
     }
 

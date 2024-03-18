@@ -1,9 +1,9 @@
 brixi-overflow-menu {
-    border-radius: 0.25rem;
+    border-radius: 0.75rem;
     background-color: var(--white);
     border: 1px solid var(--grey-300);
-    box-shadow: var(--shadow-black-sm);
-    padding: 0.25rem 0;
+    box-shadow: var(--shadow-black-md);
+    padding: 0.5rem 0;
     display: inline-block;
     position: fixed;
     z-index: 1000;
@@ -14,8 +14,8 @@ brixi-overflow-menu {
     pointer-events: none;
 
     @media (prefers-color-scheme: dark) {
-        background-color: var(--grey-900);
-        border-color: var(--grey-800);
+        background-color: var(--grey-950);
+        border-color: var(--grey-700);
     }
 
     &.is-visible {
@@ -25,22 +25,24 @@ brixi-overflow-menu {
     }
 
     button {
-        width: 100%;
+        width: calc(100% - 1rem);
+        margin: 0 0.5rem;
+        border-radius: 0.5rem;
+        overflow: hidden;
         display: flex;
         align-items: center;
         flex-flow: row nowrap;
-        min-height: 36px;
-        padding: 0 1rem;
+        height: 32px;
+        padding: 0 0.5rem;
         color: var(--grey-700);
         position: relative;
         font-size: var(--font-sm);
-        font-weight: var(--font-medium);
         line-height: 1;
         white-space: nowrap;
         outline-offset: 0;
 
         @media (prefers-color-scheme: dark) {
-            color: var(--grey-400);
+            color: var(--grey-300);
         }
 
         &:focus-visible {
@@ -77,7 +79,7 @@ brixi-overflow-menu {
             transition: all 80ms var(--ease-in-out);
 
             @media (prefers-color-scheme: dark) {
-                background-color: var(--grey-300);
+                background-color: var(--white);
             }
         }
 
@@ -109,12 +111,16 @@ brixi-overflow-menu {
             }
         }
 
+        & + button {
+            margin-top: 0.25rem;
+        }
+
         i {
             display: inline-flex;
             justify-content: center;
             align-items: center;
-            margin-right: 0.5rem;
-            margin-left: -0.375rem;
+            margin-right: 0.25rem;
+            margin-left: -0.25rem;
             width: 24px;
             height: 24px;
 
@@ -133,11 +139,11 @@ brixi-overflow-menu {
     hr {
         display: block;
         width: 100%;
-        margin: 0.25rem 0;
+        margin: 0.5rem 0;
         border-bottom: 1px solid var(--grey-300);
 
         @media (prefers-color-scheme: dark) {
-            border-bottom-color: var(--grey-800);
+            border-bottom-color: var(--grey-700);
         }
     }
 }

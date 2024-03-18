@@ -15,21 +15,34 @@ export interface ICheckboxGroup {
     disabled: boolean;
     label: string;
     name: string;
+    required: boolean;
+    error: string;
 }
 export default class CheckboxGroup extends Component<ICheckboxGroup> {
     constructor() {
         super();
+        this.stateMachine = {
+            IDLING: {
+                ERROR: "ERROR",
+                DISABLED: "DISABLED",
+            },
+            ERROR: {
+                RESET: "IDLING",
+            },
+        };
         this.model = {
             label: "",
             instructions: "",
             disabled: false,
             name: "",
             options: [],
+            required: false,
+            error: "",
         };
     }
 
     static get observedAttributes() {
-        return ["data-label", "data-instructions", "data-disabled", "data-name", "data-options"];
+        return ["data-label", "data-instructions", "data-disabled", "data-name", "data-options", "data-required"];
     }
 
     override async connected() {
@@ -82,13 +95,35 @@ export default class CheckboxGroup extends Component<ICheckboxGroup> {
         }
     }
 
+    public validate(): boolean {
+        if (this.state === "DISABLED" || !this.model.required) {
+            return true;
+        }
+        const updated = this.get();
+        const checked = updated.options.filter((option) => option.checked);
+        if (checked.length === 0) {
+            this.setError("Please select at least one option");
+            return false;
+        }
+        this.clearError();
+        return true;
+    }
+
+    private handleChange = (e: CustomEvent) => {
+        const updated = this.get();
+        const index = updated.options.findIndex((option) => option.value === e.detail.value);
+        updated.options[index].checked = e.detail.checked;
+        this.set(updated);
+        this.validate();
+    }
+
     override render() {
         this.setAttribute("state", this.state);
         this.setAttribute("form-input", "");
         const view = html`
             <p>
                 <strong>${this.model.label}</strong>
-                ${unsafeHTML(this.model.instructions)}
+                ${this.state === "ERROR" ? this.model.error : unsafeHTML(this.model.instructions)}
             </p>
             ${this.model.options.map((option: ICheckbox) => {
                 return html`
@@ -98,6 +133,7 @@ export default class CheckboxGroup extends Component<ICheckboxGroup> {
                         data-checked="${option?.checked ?? false}"
                         data-disabled="${option?.disabled ?? false}"
                         data-name="${this.model.name}"
+                        @change=${this.handleChange}
                     ></brixi-checkbox>
                 `;
             })}

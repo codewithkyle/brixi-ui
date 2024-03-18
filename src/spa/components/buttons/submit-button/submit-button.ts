@@ -61,7 +61,7 @@ export default class SubmitButton extends Component<ISubmitButton> {
     private renderIcon(): string | TemplateResult {
         let icon: string | TemplateResult = "";
         if (this.state === "SUBMITTING") {
-            icon = html` <spinner-component data-size="16" class="mr-0.5"></spinner-component> `;
+            icon = html` <brixi-spinner data-size="16" class="mr-0.5"></brixi-spinner> `;
         } else if (this.model.icon?.length) {
             icon = html`${unsafeHTML(this.model.icon)}`;
         } else {

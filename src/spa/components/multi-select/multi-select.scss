@@ -195,7 +195,6 @@ brixi-multi-select {
         border: var(--input-border);
         background-color: var(--white);
         box-shadow: var(--bevel);
-        //transition: all 80ms var(--ease-in-out);
         outline-offset: 0;
 
         @media (prefers-color-scheme: dark) {
@@ -259,9 +258,9 @@ brixi-multi-select {
         overflow: hidden;
 
         @media (prefers-color-scheme: dark) {
-            border-color: var(--grey-800);
             box-shadow: none;
-            background-color: var(--grey-900);
+            background-color: var(--grey-950);
+            border-color: var(--grey-700);
         }
 
         .search {
@@ -273,6 +272,7 @@ brixi-multi-select {
             align-items: center;
             flex-flow: row nowrap;
             height: 42px;
+            background-color: transparent;
 
             &:focus-within {
                 i {
@@ -281,8 +281,7 @@ brixi-multi-select {
             }
 
             @media (prefers-color-scheme: dark) {
-                background-color: var(--grey-900);
-                border-bottom-color: var(--grey-800);
+                border-bottom-color: var(--grey-700);
 
                 &:focus-within {
                     i {
