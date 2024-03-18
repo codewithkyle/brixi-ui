@@ -33,11 +33,22 @@ brixi-modal {
         max-width: calc(100vw - 2rem);
         max-height: calc(100vh - 2rem);
         overflow-y: auto;
+        animation: pop-in 150ms var(--ease-in) forwards;
 
         @media (prefers-color-scheme: dark) {
             border-color: var(--grey-800);
             box-shadow: var(--shadow-black-lg);
             background-color: var(--grey-900);
         }
+    }
+}
+@keyframes pop-in {
+    0% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
     }
 }
