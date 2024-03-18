@@ -1,11 +1,11 @@
-import{html as a,render as f}from"./lit-html.js";import{unsafeHTML as o}from"./unsafe-html.js";import"./button.js";import"./submit-button.js";import"./form.js";import{noop as n}from"./general.js";import d from"./env.js";class u{raw(l){const t=Object.assign({view:a``,width:512},l),e=new s(t.view,t.width);return document.body.appendChild(e),e}form(l){const t=Object.assign({title:"",message:"",view:a``,width:512,callbacks:{onSubmit:n,onCancel:n},cancel:"Cancel",submit:"Submit"},l);let e;const i=a`
-            <form-component
+import{html as l,render as f}from"./lit-html.js";import{unsafeHTML as o}from"./unsafe-html.js";import"./button.js";import"./submit-button.js";import"./form.js";import{noop as n}from"./general.js";import d from"./env.js";class u{raw(i){const t=Object.assign({view:l``,width:512},i),e=new s(t.view,t.width);return document.body.appendChild(e),e}form(i){const t=Object.assign({title:"",message:"",view:l``,width:512,callbacks:{onSubmit:n,onCancel:n},cancel:"Cancel",submit:"Submit"},i);let e;const a=l`
+            <brixi-form
                 class="w-full"
                 @submit=${c=>{c.preventDefault();const r=c.currentTarget;if(r.checkValidity()){const m=r.serialize();t.callbacks.submit(m,r,e)}}}
             >
                 <div class="block w-full py-1.5 px-2">
-                    ${t.title?.length?a`<h2 class="font-lg font-medium font-grey-800 dark:font-grey-300 line-snug block mb-1">${t.title}</h2>`:""}
-                    ${t.message?.length?a`<p class="font-grey-700 dark:font-grey-300 font-sm line-normal mb-1.5 block">${o(t.message)}</p>`:""} ${t.view}
+                    ${t.title?.length?l`<h2 class="font-lg font-medium font-grey-800 dark:font-grey-300 line-snug block mb-1">${t.title}</h2>`:""}
+                    ${t.message?.length?l`<p class="font-grey-700 dark:font-grey-300 font-sm line-normal mb-1.5 block">${o(t.message)}</p>`:""} ${t.view}
                 </div>
                 <div class="w-full px-1 pb-1">
                     <div class="w-full py-0.75 px-1 bg-grey-50 dark:bg-grey-950/60 radius-0.5" flex="row nowrap items-center justify-end">
@@ -20,15 +20,15 @@ import{html as a,render as f}from"./lit-html.js";import{unsafeHTML as o}from"./u
                         <brixi-submit-button data-label="${t.submit}"></brixi-submit-button>
                     </div>
                 </div>
-            </form-component>
-        `;e=new s(i,t.width),document.body.appendChild(e)}passive(l){const t=Object.assign({title:"",message:"",actions:[{label:"Close",callback:n}],width:512},l);let e;const i=a`
+            </brixi-form>
+        `;e=new s(a,t.width),document.body.appendChild(e)}passive(i){const t=Object.assign({title:"",message:"",actions:[{label:"Close",callback:n}],width:512},i);let e;const a=l`
             <div class="block w-full py-1.5 px-2">
                 <h2 class="font-lg font-medium font-grey-800 dark:font-grey-300 line-snug block mb-1">${t.title}</h2>
                 <p class="font-grey-700 dark:font-grey-300 font-sm line-normal block">${o(t.message)}</p>
             </div>
             <div class="w-full px-1 pb-1">
                 <div class="w-full py-0.75 px-1 bg-grey-50 dark:bg-grey-950/60 radius-0.5" flex="row nowrap items-center justify-end">
-                    ${t.actions.map(c=>a`
+                    ${t.actions.map(c=>l`
                             <brixi-button
                                 data-label="${c.label}"
                                 data-type="button"
@@ -40,7 +40,7 @@ import{html as a,render as f}from"./lit-html.js";import{unsafeHTML as o}from"./u
                         `)}
                 </div>
             </div>
-        `;e=new s(i,t.width),document.body.appendChild(e)}confirm(l){const t=Object.assign({title:"",message:"",confirm:"Submit",cancel:"Cancel",callbacks:{cancel:n,confirm:n},width:512},l);let e;const i=a`
+        `;e=new s(a,t.width),document.body.appendChild(e)}confirm(i){const t=Object.assign({title:"",message:"",confirm:"Submit",cancel:"Cancel",callbacks:{cancel:n,confirm:n},width:512},i);let e;const a=l`
             <div class="block w-full py-1.5 px-2">
                 <h2 class="font-lg font-medium font-grey-800 dark:font-grey-300 line-snug block mb-1">${t.title}</h2>
                 <p class="font-grey-700 dark:font-grey-300 font-sm line-normal block">${o(t.message)}</p>
@@ -64,7 +64,7 @@ import{html as a,render as f}from"./lit-html.js";import{unsafeHTML as o}from"./u
                     ></brixi-button>
                 </div>
             </div>
-        `;e=new s(i,t.width),document.body.appendChild(e)}dangerous(l){const t=Object.assign({title:"",message:"",confirm:"Delete",cancel:"Cancel",callbacks:{cancel:n,confirm:n},width:512},l);let e;const i=a`
+        `;e=new s(a,t.width),document.body.appendChild(e)}dangerous(i){const t=Object.assign({title:"",message:"",confirm:"Delete",cancel:"Cancel",callbacks:{cancel:n,confirm:n},width:512},i);let e;const a=l`
             <div class="block w-full py-1.5 px-2">
                 <h2 class="font-lg font-medium font-grey-800 dark:font-grey-300 line-snug block mb-1">${t.title}</h2>
                 <p class="font-grey-700 dark:font-grey-300 font-sm line-normal block">${o(t.message)}</p>
@@ -88,7 +88,7 @@ import{html as a,render as f}from"./lit-html.js";import{unsafeHTML as o}from"./u
                     ></brixi-button>
                 </div>
             </div>
-        `;e=new s(i,t.width),document.body.appendChild(e)}}const g=new u;var M=g;class s extends HTMLElement{constructor(l,t){super(),this.view=l,this.width=t,d.css(["modals","button"]).then(()=>this.render())}render(){this.tabIndex=0,this.focus();const l=a`
+        `;e=new s(a,t.width),document.body.appendChild(e)}}const g=new u;var M=g;class s extends HTMLElement{constructor(i,t){super(),this.view=i,this.width=t,d.css(["modals","button"]).then(()=>this.render())}render(){this.tabIndex=0,this.focus();const i=l`
             <div class="backdrop"></div>
             <div class="modal" style="width:${this.width}px;">${this.view}</div>
-        `;f(l,this)}}d.bind("brixi-modal",s);export{M as default};
+        `;f(i,this)}}d.bind("brixi-modal",s);export{M as default};

@@ -60,7 +60,7 @@ brixi-checkbox-group {
             color: var(--danger-700) !important;
 
             strong {
-                color: var(--danger-700) !important;
+                color: var(--grey-800);
             }
         }
 
@@ -69,7 +69,7 @@ brixi-checkbox-group {
                 color: var(--danger-500) !important;
 
                 strong {
-                    color: var(--danger-500) !important;
+                    color: var(--grey-300);
                 }
             }
         }
@@ -110,8 +110,8 @@ brixi-checkbox-group {
             width: 100%;
             font-size: var(--font-sm);
             font-weight: var(--font-medium);
-            color: var(--grey-800);
             margin-bottom: 0.5rem;
+            color: var(--grey-800);
 
             @media (prefers-color-scheme: dark) {
                 color: var(--grey-300);

@@ -76,7 +76,8 @@ brixi-button {
             outline-color: var(--grey-900);
         }
 
-        &[color="primary"] {
+        &[color="primary"],
+        &[color="info"] {
             outline-color: var(--primary-500);
         }
 
@@ -97,7 +98,8 @@ brixi-button {
                 outline-color: var(--grey-400);
             }
 
-            &[color="primary"] {
+            &[color="primary"],
+            &[color="info"] {
                 outline-color: var(--primary-400);
             }
 
@@ -222,7 +224,8 @@ brixi-button {
                 box-shadow: none;
             }
 
-            &[color="primary"] {
+            &[color="primary"],
+            &[color="info"] {
                 &:hover,
                 &:focus-visible {
                     box-shadow: var(--button-shadow), 0 0 0 8px hsl(var(--primary-500-hsl) / 0.05);
@@ -443,7 +446,8 @@ brixi-button {
                 }
             }
 
-            &[color="primary"] {
+            &[color="primary"],
+            &[color="info"] {
                 &:hover,
                 &:focus-visible {
                     color: var(--primary-700);
@@ -582,7 +586,8 @@ brixi-button {
             }
         }
 
-        &[color="primary"]:not([dull]) {
+        &[color="primary"]:not([dull]),
+        &[color="info"]:not([dull]) {
             color: var(--primary-700);
 
             &::before {
@@ -768,7 +773,8 @@ brixi-button {
                 color: var(--grey-300);
             }
 
-            &[color="primary"] {
+            &[color="primary"],
+            &[color="info"] {
                 &::before {
                     background-color: var(--primary-500);
                 }
@@ -859,7 +865,8 @@ brixi-button {
             }
         }
 
-        &[color="primary"]:not([dull]) {
+        &[color="primary"]:not([dull]),
+        &[color="info"]:not([dull]) {
             color: var(--primary-700);
             border-color: var(--primary-200);
 

@@ -31,7 +31,7 @@ notifications-component {
         animation: grow 300ms forwards var(--ease-in);
 
         @media (prefers-color-scheme: dark) {
-            background-color: hsl(var(--grey-900-hsl) / 0.87);
+            background-color: hsl(var(--grey-950-hsl) / 0.87);
             backdrop-filter: blur(8px);
         }
 

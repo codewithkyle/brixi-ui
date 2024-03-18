@@ -192,7 +192,9 @@ export default class Input extends InputBase<IInput> {
     private renderLabel(): string | TemplateResult {
         let output: string | TemplateResult = "";
         if (this.model.label?.length) {
-            output = html`<label for="${this.inputId}">${unsafeHTML(this.model.label)}</label>`;
+            output = html`<label for="${this.inputId}"
+                >${unsafeHTML(this.model.label)} ${this.model.required ? "" : html`<span class="font-grey-400 dark:font-grey-500 font-xs">(optional)</span>`}</label
+            >`;
         }
         return output;
     }

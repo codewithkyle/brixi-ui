@@ -16,7 +16,9 @@ import{UUID as n}from"./uuid.js";import{html as e,render as r}from"./lit-html.js
                         <path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"></path>
                     </svg>
                 </button>
-            `),t}renderLabel(){let t="";return this.model.label?.length&&(t=e`<label for="${this.inputId}">${i(this.model.label)}</label>`),t}renderDatalist(){let t="";return this.model.datalist.length&&(t=e`
+            `),t}renderLabel(){let t="";return this.model.label?.length&&(t=e`<label for="${this.inputId}"
+                >${i(this.model.label)} ${this.model.required?"":e`<span class="font-grey-400 dark:font-grey-500 font-xs">(optional)</span>`}</label
+            >`),t}renderDatalist(){let t="";return this.model.datalist.length&&(t=e`
                 <datalist id="${this.inputId}-datalist">
                     ${this.model.datalist.map(a=>e` <option value="${a}"></option> `)}
                 </datalist>

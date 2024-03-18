@@ -1,4 +1,4 @@
-import{html as t,render as r}from"./lit-html.js";import i from"./env.js";import"./button.js";import{parseDataset as o}from"./general.js";import a from"./component.js";import{unsafeHTML as l}from"./unsafe-html.js";i.css(["alert","button"]);class n extends a{constructor(){super();this.handleClose=()=>{const e=new CustomEvent("close",{bubbles:!0,cancelable:!0});this.dispatchEvent(e),this.remove()};this.handleActionClick=e=>{const s=new CustomEvent("action",{detail:{id:e.currentTarget.dataset.id??null},bubbles:!0,cancelable:!0});this.dispatchEvent(s)};this.model={type:"info",heading:null,description:null,list:[],closeable:!1,actions:[]}}static get observedAttributes(){return["data-type","data-heading","data-description","data-list","data-closeable","data-actions"]}async connected(){const e=o(this.dataset,this.model);this.set(e)}renderIcon(){switch(this.model.type){case"danger":return t` <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+import{html as t,render as n}from"./lit-html.js";import i from"./env.js";import"./button.js";import{parseDataset as o}from"./general.js";import a from"./component.js";import{unsafeHTML as l}from"./unsafe-html.js";i.css(["alert","button"]);class r extends a{constructor(){super();this.handleClose=()=>{const e=new CustomEvent("close",{bubbles:!0,cancelable:!0});this.dispatchEvent(e),this.remove()};this.handleActionClick=e=>{const s=new CustomEvent("action",{detail:{id:e.currentTarget.dataset.id??null},bubbles:!0,cancelable:!0});this.dispatchEvent(s)};this.model={type:"info",heading:null,description:null,list:[],closeable:!1,actions:[]}}static get observedAttributes(){return["data-type","data-heading","data-description","data-list","data-closeable","data-actions"]}async connected(){const e=o(this.dataset,this.model);this.set(e)}renderIcon(){switch(this.model.type){case"danger":return t` <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path
                         fill-rule="evenodd"
                         d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
@@ -23,7 +23,7 @@ import{html as t,render as r}from"./lit-html.js";import i from"./env.js";import"
                         clip-rule="evenodd"
                     />
                 </svg>`}}renderCloseButton(){let e;return this.model.closeable?e=t`
-                <button-component
+                <brixi-button
                     class="close"
                     @click=${this.handleClose}
                     data-type="button"
@@ -32,7 +32,7 @@ import{html as t,render as r}from"./lit-html.js";import i from"./env.js";import"
                     data-icon='<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>'
                     data-icon-position="center"
                     data-shape="round"
-                ></button-component>
+                ></brixi-button>
             `:e="",e}renderList(){let e;return this.model.list.length?e=t`
                 <ul>
                     ${this.model.list.map(s=>t` <li>${l(decodeURI(s))}</li> `)}
@@ -50,4 +50,4 @@ import{html as t,render as r}from"./lit-html.js";import i from"./env.js";import"
                 ${this.model.heading?t`<h3>${this.model.heading}</h3>`:""} ${this.model.description?t`<p>${l(decodeURI(this.model.description))}</p>`:""}
                 ${this.renderList()} ${this.renderActions()}
             </div>
-        `;this.setAttribute("kind",this.model.type),!this.model.heading&&!this.model.list.length&&this.setAttribute("flex","items-center"),r(e,this)}}i.bind("brixi-alert",n);export{n as default};
+        `;this.setAttribute("kind",this.model.type),!this.model.heading&&!this.model.list.length&&this.setAttribute("flex","items-center"),n(e,this)}}i.bind("brixi-alert",r);export{r as default};
