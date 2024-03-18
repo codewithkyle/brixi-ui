@@ -92,13 +92,13 @@ export default class CheckboxGroup extends Component<ICheckboxGroup> {
             </p>
             ${this.model.options.map((option: ICheckbox) => {
                 return html`
-                    <checkbox-component
+                    <brixi-checkbox
                         data-label="${option?.label ?? ""}"
                         data-value="${option?.value ?? ""}"
                         data-checked="${option?.checked ?? false}"
                         data-disabled="${option?.disabled ?? false}"
                         data-name="${this.model.name}"
-                    ></checkbox-component>
+                    ></brixi-checkbox>
                 `;
             })}
         `;

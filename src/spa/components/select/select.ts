@@ -193,7 +193,7 @@ export default class Select extends Component<ISelect> {
     };
 
     public renderLabel(): string | TemplateResult {
-        return html`<label for="${this.inputId}">${unsafeHTML(this.model.label)}</label>`;
+        return html`<label for="${this.inputId}">${unsafeHTML(this.model.label)} ${this.model.required ? "" : html`<span class="font-grey-400 dark:font-grey-500 font-xs">(optional)</span>`}</label>`;
     }
 
     render() {

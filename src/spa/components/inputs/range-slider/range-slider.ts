@@ -188,7 +188,7 @@ export default class RangeSlider extends InputBase<IRangeSlider> {
     private renderLabel(): string | TemplateResult {
         let output: string | TemplateResult = "";
         if (this.model.label?.length) {
-            output = html`<label for="${this.inputId}">${unsafeHTML(this.model.label)}</label>`;
+            output = html`<label for="${this.inputId}">${unsafeHTML(this.model.label)} </label>`;
         }
         return output;
     }
