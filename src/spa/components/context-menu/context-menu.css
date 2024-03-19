@@ -1,0 +1,54 @@
+brixi-context-menu {
+    display: inline-block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: var(--grey-800);
+    box-shadow: var(--shadow-black-md);
+    border: 1px solid var(--grey-600);
+    padding: 0.5rem 0;
+    min-width: 200px;
+    border-radius: 0.75rem;
+
+    @media (prefers-color-scheme: dark) {
+        border-color: var(--grey-700);
+        background-color: var(--grey-950);
+    }
+
+    & button {
+        white-space: nowrap;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-flow: row nowrap;
+        padding: 0 1rem;
+        width: calc(100% - 1rem);
+        margin: 0 0.5rem;
+        height: 32px;
+        border-radius: 0.5rem;
+
+        &:hover,
+        &:focus-visible {
+            background-color: var(--primary-500);
+        }
+
+        & span {
+            display: inline-block;
+            font-size: var(--font-xs);
+            color: var(--white);
+        }
+    }
+
+    & hr {
+        display: block;
+        width: 100%;
+        height: 1px;
+        background-color: var(--grey-600);
+        margin: 0.5rem 0;
+
+        @media (prefers-color-scheme: dark) {
+            background-color: var(--grey-700);
+        }
+    }
+}
+

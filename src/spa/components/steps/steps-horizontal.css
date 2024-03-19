@@ -1,0 +1,112 @@
+brixi-steps {
+    &.horizontal {
+        overflow-x: auto;
+        white-space: nowrap;
+        display: grid;
+        gap: 2rem;
+
+        & button {
+            display: inline-flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            flex-flow: column wrap;
+            vertical-align: top;
+            text-align: left;
+            padding: 0.875rem 1rem calc(0.875rem + 0.25rem + 5px);
+            cursor: default;
+            white-space: normal;
+            min-width: 300px;
+            transition: all 80ms var(--ease-in-out);
+            overflow: hidden;
+
+            &::after {
+                content: "";
+                display: inline-block;
+                width: 100%;
+                height: 5px;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                transition: all 80ms var(--ease-in-out);
+                border-radius: 4px 4px 0 0;
+                transform: translateY(2px);
+            }
+
+            &::before {
+                content: "";
+                display: inline-block;
+                width: 100%;
+                height: calc(100% - 0.7rem);
+                position: absolute;
+                top: 0;
+                left: 0;
+                transition: all 80ms var(--ease-in-out);
+                border-radius: 0.5rem;
+                background-color: var(--grey-500);
+                opacity: 0;
+            }
+
+            &[state="pending"] {
+                &::after {
+                    background-color: var(--grey-300);
+
+                    @media (prefers-color-scheme: dark) {
+                        background-color: var(--grey-700);
+                    }
+                }
+            }
+
+            &[state="active"] {
+                &::after {
+                    background-color: var(--primary-500);
+                    transform: translateY(0px);
+
+                    @media (prefers-color-scheme: dark) {
+                        background-color: var(--primary-400);
+                    }
+                }
+                &::before {
+                    opacity: 0.05;
+                }
+            }
+
+            &[state="completed"] {
+                cursor: pointer;
+
+                &::after {
+                    background-color: var(--primary-500);
+
+                    @media (prefers-color-scheme: dark) {
+                        background-color: var(--primary-400);
+                    }
+                }
+
+                &:hover,
+                &:focus-visible {
+                    &::before {
+                        opacity: 0.05;
+                    }
+                }
+
+                &:active {
+                    &::after {
+                        transform: translateY(0);
+                    }
+                    &::before {
+                        opacity: 0.05;
+                    }
+                }
+            }
+
+            & h3 {
+                font-size: var(--font-sm);
+            }
+
+            & h3,
+            & p,
+            & h4 {
+                line-height: 1.618;
+            }
+        }
+    }
+}

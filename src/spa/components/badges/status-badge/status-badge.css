@@ -1,0 +1,163 @@
+brixi-status-badge {
+    display: inline-flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+    line-height: 24px;
+    padding: 0 0.75rem;
+    font-size: var(--font-xs);
+    font-weight: var(--font-medium);
+    background-color: hsl(var(--grey-500-hsl) / 0.1);
+    color: var(--grey-700);
+    border-radius: 0.75rem;
+
+    @media (prefers-color-scheme: dark) {
+        background-color: hsl(var(--grey-300-hsl) / 0.05);
+        color: var(--grey-300);
+    }
+
+    &[color="grey"] {
+        background-color: hsl(var(--grey-500-hsl) / 0.1);
+        color: var(--grey-700);
+
+        &[dot] {
+            &::before {
+                background-color: var(--grey-400);
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            background-color: hsl(var(--grey-300-hsl) / 0.05);
+            color: var(--grey-400);
+
+            &[dot] {
+                &::before {
+                    background-color: var(--grey-400);
+                }
+            }
+        }
+    }
+
+    &[color="primary"] {
+        background-color: hsl(var(--primary-500-hsl) / 0.1);
+        color: var(--primary-700);
+
+        &[dot] {
+            &::before {
+                background-color: var(--primary-400);
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            background-color: hsl(var(--primary-300-hsl) / 0.05);
+            color: var(--primary-400);
+
+            &[dot] {
+                &::before {
+                    background-color: var(--primary-400);
+                }
+            }
+        }
+    }
+
+    &[color="danger"] {
+        background-color: hsl(var(--danger-500-hsl) / 0.1);
+        color: var(--danger-700);
+
+        &[dot] {
+            &::before {
+                background-color: var(--danger-400);
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            background-color: hsl(var(--danger-300-hsl) / 0.05);
+            color: var(--danger-400);
+
+            &[dot] {
+                &::before {
+                    background-color: var(--danger-400);
+                }
+            }
+        }
+    }
+
+    &[color="warning"] {
+        background-color: hsl(var(--warning-500-hsl) / 0.1);
+        color: var(--warning-700);
+
+        &[dot] {
+            &::before {
+                background-color: var(--warning-400);
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            background-color: hsl(var(--warning-300-hsl) / 0.05);
+            color: var(--warning-400);
+
+            &[dot] {
+                &::before {
+                    background-color: var(--warning-400);
+                }
+            }
+        }
+    }
+
+    &[color="success"] {
+        background-color: hsl(var(--success-500-hsl) / 0.1);
+        color: var(--success-700);
+
+        &[dot] {
+            &::before {
+                background-color: var(--success-400);
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            background-color: hsl(var(--success-300-hsl) / 0.05);
+            color: var(--success-400);
+
+            &[dot] {
+                &::before {
+                    background-color: var(--success-400);
+                }
+            }
+        }
+    }
+
+    &[dot] {
+        &::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            display: inline-block;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        &[dot="right"] {
+            &::before {
+                order: 2;
+                margin-left: 0.5rem;
+            }
+        }
+
+        &[dot="left"] {
+            &::before {
+                order: -1;
+                margin-right: 0.5rem;
+            }
+        }
+    }
+
+    & img,
+    & svg {
+        width: 18px;
+        height: 18px;
+        object-fit: cover;
+        margin-right: 0.25rem;
+        margin-left: -0.25rem;
+    }
+}
