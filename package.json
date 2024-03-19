@@ -26,7 +26,7 @@
         "bundle": "node ./build/bundle.js",
         "brixi": "brixi && mv ./brixi/brixi.css ./src/spa/stylesheets/brixi.css && rmdir ./brixi",
         "lint": "run-s lint:*",
-        "lint:prettier": "prettier --write \"./src/**/*.ts\" && prettier --write \"./src/**/*.scss\"",
+        "lint:prettier": "prettier --write \"./src/**/*.ts\" && prettier --write \"./src/**/*.css\"",
         "lint:tsc": "tsc",
         "lint:types": "node ./build/types.js",
         "build": "run-s build:*",
