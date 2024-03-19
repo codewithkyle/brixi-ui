@@ -109,6 +109,33 @@
 .max-h-screen {
     max-height: 100vh !important;
 }
+.cursor-default {
+    cursor: default !important;
+}
+.cursor-pointer {
+    cursor: pointer !important;
+}
+.cursor-not-allowed {
+    cursor: not-allowed !important;
+}
+.events-none {
+    pointer-events: none !important;
+}
+.events-auto {
+    position: auto !important;
+}
+.select-none {
+    user-select: none !important;
+}
+.select-auto {
+    user-select: auto !important;
+}
+.select-all {
+    user-select: all !important;
+}
+.select-text {
+    user-select: text !important;
+}
 .bg-transparent {
     background-color: transparent !important;
 }
@@ -3029,33 +3056,6 @@
 }
 .list-item {
     display: list-item !important;
-}
-.cursor-default {
-    cursor: default !important;
-}
-.cursor-pointer {
-    cursor: pointer !important;
-}
-.cursor-not-allowed {
-    cursor: not-allowed !important;
-}
-.events-none {
-    pointer-events: none !important;
-}
-.events-auto {
-    position: auto !important;
-}
-.select-none {
-    user-select: none !important;
-}
-.select-auto {
-    user-select: auto !important;
-}
-.select-all {
-    user-select: all !important;
-}
-.select-text {
-    user-select: text !important;
 }
 [flex] {
     display: flex !important;

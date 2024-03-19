@@ -99,3 +99,14 @@ brixi-group-button {
         }
     }
 }
+@media (prefers-color-scheme: dark) {
+    brixi-group-button {
+        & button {
+            &:not(:last-of-type):not(:only-child) {
+                &::after {
+                    background-color: var(--grey-800);
+                }
+            }
+        }
+    }
+}
