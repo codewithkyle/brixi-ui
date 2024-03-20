@@ -1,0 +1,36 @@
+<brixi-color-input 
+    state="IDLING"
+    x-data="{ color: '#ff0000' }"
+>
+    <input 
+        type="color" 
+        name="demo" 
+        id="demo1" 
+        :value="color"
+        x-on:input="color = $event.target.value"
+    >
+    <label for="demo1">
+        <color-preview
+            :style="{ backgroundColor: color }"
+        ></color-preview>
+        <span>Background Color</span>
+    </label>
+</brixi-color-input>
+<brixi-color-input 
+    class="mt-2" 
+    state="DISABLED"
+    x-data="{ color: '#ff0000' }"
+>
+    <input 
+        type="color" 
+        name="demo" 
+        id="demo2" 
+        disabled
+        :value="color"
+        x-on:input="color = $event.target.value"
+    >
+    <label for="demo2">
+        <color-preview style="background-color:#ff0000;"></color-preview>
+        <span>Background Color</span>
+    </label>
+</brixi-color-input>

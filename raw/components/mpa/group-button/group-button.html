@@ -1,0 +1,35 @@
+<brixi-group-button
+    css="button"
+    x-data="{ active: '' }"
+>
+    <button 
+        kind="outline" 
+        color="grey" 
+        class="bttn" 
+        type="button"
+        x-on:click="active = 'example1'"
+        :class="{ 'is-active': active === 'example1' }"
+    >
+        <span>Example 1</span> 
+    </button>
+    <button 
+        kind="outline" 
+        color="grey" 
+        class="bttn" 
+        type="button"
+        x-on:click="active = 'example2'"
+        :class="{ 'is-active': active === 'example2' }"
+    >
+        <span>Example 2</span> 
+    </button>
+    <button 
+        kind="outline" 
+        color="grey" 
+        class="bttn" 
+        type="button"
+        x-on:click="active = 'example3'"
+        :class="{ 'is-active': active === 'example3' }"
+    >
+        <span>Example 3</span> 
+    </button>
+</brixi-group-button>

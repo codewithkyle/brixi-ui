@@ -1,0 +1,18 @@
+<brixi-progress-badge css="progress-indicator tooltip" color="primary">
+    <brixi-progress-indicator web-component style="width: 18px; height: 18px;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" stroke="currentColor" color="primary">
+            <circle class="inner" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" cx="16" cy="16" r="11.05"></circle>
+            <circle class="outter" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" cx="16" cy="16" r="11.05" style="stroke-dashoffset: 2;"></circle>
+        </svg>
+    </brixi-progress-indicator>
+    <span>Saving</span>
+</brixi-progress-badge>
+<script>
+    setTimeout(() => {
+        const progressEl = document.querySelector("brixi-progress-indicator");
+        progressEl.setTotal(1000);
+        setInterval(() => {
+            progressEl.progress();
+        }, 100);
+    }, 1000);
+</script>

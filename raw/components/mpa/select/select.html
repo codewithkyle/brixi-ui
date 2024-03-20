@@ -1,0 +1,36 @@
+<brixi-select class="mb-2" state="IDLING" web-component>
+    <label for="demo1">Example Select</label>
+    <p>This is an example select component</p>
+    <select-container>
+        <i class="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"></path><path d="M12 8v4"></path><path d="M12 16h.01"></path></svg>
+        </i>
+        <select id="demo1" name="example" required>
+            <option value=""></option>
+            <option value="option1">Option 1</option>
+            <option value="option2">Option 2</option>
+        </select>
+        <i class="selector">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path>
+            </svg>
+        </i>
+    </select-container>
+</brixi-select>
+
+<brixi-select state="DISABLED" web-component>
+    <label for="demo2">Example Select</label>
+    <p>This is an example select component</p>
+    <select-container>
+        <select id="demo2" name="example" disabled>
+            <option value=""></option>
+            <option value="option1">Option 1</option>
+            <option value="option2">Option 2</option>
+        </select>
+        <i class="selector">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path>
+            </svg>
+        </i>
+    </select-container>
+</brixi-select>

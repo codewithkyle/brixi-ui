@@ -1,0 +1,30 @@
+<div css="button" class="w-full text-center">
+    <button 
+        kind="solid" 
+        color="grey" 
+        class="m-0.5 bttn"
+        x-data=""
+        x-on:click="$dispatch('alert:info', { title: 'Something happened', message: 'You did something that triggered this alert' })"
+    >General</button>
+    <button 
+        kind="solid" 
+        color="grey" 
+        class="m-0.5 bttn"
+        x-data=""
+        x-on:click="$dispatch('alert:warn', { title: 'Something happened', message: 'You did something that triggered this alert' })"
+    >Warning</button>
+    <button 
+        kind="solid" 
+        color="grey" 
+        class="m-0.5 bttn"
+        x-data=""
+        x-on:click="$dispatch('alert:error', { title: 'Something happened', message: 'You did something that triggered this alert' })"
+    >Danger</button>
+    <button 
+        kind="solid" 
+        color="grey" 
+        class="m-0.5 bttn"
+        x-data=""
+        x-on:click="$dispatch('alert:success', { title: 'Something happened', message: 'You did something that triggered this alert' })"
+    >Success</button>
+</div>
