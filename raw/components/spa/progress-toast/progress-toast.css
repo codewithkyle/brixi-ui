@@ -1,0 +1,33 @@
+brixi-progress-toast {
+    background-color: var(--white);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow-black-md);
+    display: flex;
+    flex-flow: row nowrap;
+    width: 300px;
+    margin: 0 0 1rem;
+    transform-origin: top left;
+    transition: all 300ms var(--ease-in-out);
+    pointer-events: all;
+    position: relative;
+    transform: translateX(100%);
+    opacity: 0;
+    animation: grow 300ms forwards var(--ease-in);
+    border: 2px solid var(--grey-300);
+
+    @media (prefers-color-scheme: dark) {
+        background-color: var(--grey-900);
+        border-color: var(--grey-400);
+    }
+}
+@keyframes grow {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}

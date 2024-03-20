@@ -1,0 +1,34 @@
+.link {
+    text-decoration: none;
+    color: var(--primary-700);
+    outline-offset: 0;
+
+    &:focus-visible {
+        outline: var(--focus-ring);
+        outline-offset: var(--focus-ring-offset);
+        transition: outline-offset 80ms var(--ease-in-out);
+    }
+
+    &:hover {
+        color: var(--primary-600);
+        text-decoration: underline;
+    }
+
+    &:active {
+        color: var(--primary-800);
+        text-decoration: underline;
+        outline-offset: 0;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        color: var(--primary-300);
+
+        &:hover {
+            color: var(--primary-400);
+        }
+
+        &:active {
+            color: var(--primary-200);
+        }
+    }
+}
