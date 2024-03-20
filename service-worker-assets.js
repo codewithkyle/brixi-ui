@@ -1,6 +1,6 @@
 
 self.manifest = {
-    "version": "1de21456208b72e16416fb29a69be568",
+    "version": "cbef64ff1ab8bb6e152c34fe0aef68f8",
     "assets": [
 		"/spa/js/accordion.js",
 		"/spa/js/alert.js",
@@ -174,6 +174,7 @@ self.manifest = {
 		"/service-worker-assets.js",
 		"/raw/components/mpa/accordion/accordion.css",
 		"/raw/components/mpa/accordion/accordion.html",
+		"/raw/components/mpa/accordion/readme.md",
 		"/raw/components/mpa/alert/alert.css",
 		"/raw/components/mpa/alert/alert.html",
 		"/raw/components/mpa/assist-chip/assist-chip.css",
