@@ -1,1 +1,56 @@
-var r=Object.defineProperty;var s=(e,i,t)=>i in e?r(e,i,{enumerable:!0,configurable:!0,writable:!0,value:t}):e[i]=t;var n=(e,i,t)=>(s(e,typeof i!="symbol"?i+"":i,t),t);class h extends HTMLElement{constructor(){super();n(this,"onBlur",()=>{if(this.inputEl!=null){if(this.inputEl.required&&this.inputEl.value.trim().length==0){this.renderError("This field is required.");return}else if(this.inputEl?.minLength!==-1&&this.inputEl.value.length<this.inputEl.minLength){this.renderError(`This field must be at least ${this.inputEl.minLength} characters.`);return}else if(this.inputEl.maxLength!==-1&&this.inputEl.value.length>this.inputEl.maxLength){this.renderError(`This field must be less than ${this.inputEl.maxLength} characters.`);return}this.clearError()}});n(this,"onInput",()=>{this.clearError()})}connectedCallback(){if(this.inputEl=this.querySelector("input"),this.descEl=this.querySelector("p"),this.descEl==null){this.descEl=document.createElement("p");const t=this.querySelector("input-container");this.insertBefore(this.descEl,t)}this.instructions=this.descEl?.innerHTML??"",this.inputEl?.addEventListener("blur",this.onBlur.bind(this)),this.inputEl?.addEventListener("input",this.onInput.bind(this))}renderError(t){this.inputEl!=null&&(this.setAttribute("state","ERROR"),this.descEl.innerHTML=t)}clearError(){this.inputEl==null||this.inputEl.getAttribute("state")==="IDLING"||(this.setAttribute("state","IDLING"),this.descEl!=null&&(this.descEl.innerHTML=this.instructions))}}export{h as BrixiInputComponent};
+export class BrixiInputComponent extends HTMLElement{
+
+    constructor(){
+        super();
+    }
+
+    connectedCallback(){
+        this.inputEl = this.querySelector("input");
+        this.descEl = this.querySelector("p");
+        if (this.descEl == null) {
+            this.descEl = document.createElement("p");
+            const containerEl = this.querySelector("input-container");
+            this.insertBefore(this.descEl, containerEl);
+        }
+        this.instructions = this.descEl?.innerHTML ?? "";
+
+        this.inputEl?.addEventListener("blur", this.onBlur.bind(this));
+        this.inputEl?.addEventListener("input", this.onInput.bind(this));
+    }
+
+    onBlur = () => {
+        if (this.inputEl == null) return;
+        if (this.inputEl.required && this.inputEl.value.trim().length == 0) {
+            this.renderError("This field is required.");
+            return;
+        }
+        else if (this.inputEl?.minLength !== -1 && this.inputEl.value.length < this.inputEl.minLength){
+            this.renderError(`This field must be at least ${this.inputEl.minLength} characters.`);
+            return;
+        }
+        else if (this.inputEl.maxLength !== -1 && this.inputEl.value.length > this.inputEl.maxLength){
+            this.renderError(`This field must be less than ${this.inputEl.maxLength} characters.`);
+            return;
+        }
+        this.clearError();
+    }
+    onInput = () => {
+        this.clearError();
+    }
+
+    /*
+    * @param {string} error
+    */
+    renderError(error){
+        if (this.inputEl == null) return;
+        this.setAttribute("state", "ERROR");
+        this.descEl.innerHTML = error;
+    }
+    
+    clearError(){
+        if (this.inputEl == null || this.inputEl.getAttribute("state") === "IDLING") return;
+        this.setAttribute("state", "IDLING");
+        if (this.descEl == null) return;
+        this.descEl.innerHTML = this.instructions;
+    }
+}

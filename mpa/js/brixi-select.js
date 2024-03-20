@@ -1,1 +1,48 @@
-var i=Object.defineProperty;var l=(s,t,e)=>t in s?i(s,t,{enumerable:!0,configurable:!0,writable:!0,value:e}):s[t]=e;var r=(s,t,e)=>(l(s,typeof t!="symbol"?t+"":t,e),e);class c extends HTMLElement{constructor(){super();r(this,"onBlur",()=>{if(this.selectEl!=null){if(this.selectEl.required&&this.selectEl.value.trim().length==0){this.renderError("This field is required.");return}this.clearError()}});r(this,"onInput",()=>{this.clearError()})}connectedCallback(){if(this.selectEl=this.querySelector("select"),this.descEl=this.querySelector("p"),this.descEl==null){this.descEl=document.createElement("p");const e=this.querySelector("select-container");this.insertBefore(this.descEl,e)}this.instructions=this.descEl?.innerHTML??"",this.selectEl?.addEventListener("blur",this.onBlur.bind(this)),this.selectEl?.addEventListener("change",this.onInput.bind(this))}renderError(e){this.selectEl!=null&&(this.setAttribute("state","ERROR"),this.descEl.innerHTML=e)}clearError(){this.selectEl==null||this.selectEl.getAttribute("state")==="IDLING"||(this.setAttribute("state","IDLING"),this.descEl!=null&&(this.descEl.innerHTML=this.instructions))}}export{c as BrixiSelectComponent};
+export class BrixiSelectComponent extends HTMLElement{
+
+    constructor(){
+        super();
+    }
+
+    connectedCallback(){
+        this.selectEl = this.querySelector("select");
+        this.descEl = this.querySelector("p");
+        if (this.descEl == null) {
+            this.descEl = document.createElement("p");
+            const containerEl = this.querySelector("select-container");
+            this.insertBefore(this.descEl, containerEl);
+        }
+        this.instructions = this.descEl?.innerHTML ?? "";
+
+        this.selectEl?.addEventListener("blur", this.onBlur.bind(this));
+        this.selectEl?.addEventListener("change", this.onInput.bind(this));
+    }
+
+    onBlur = () => {
+        if (this.selectEl == null) return;
+        if (this.selectEl.required && this.selectEl.value.trim().length == 0) {
+            this.renderError("This field is required.");
+            return;
+        }
+        this.clearError();
+    }
+    onInput = () => {
+        this.clearError();
+    }
+
+    /*
+    * @param {string} error
+    */
+    renderError(error){
+        if (this.selectEl == null) return;
+        this.setAttribute("state", "ERROR");
+        this.descEl.innerHTML = error;
+    }
+    
+    clearError(){
+        if (this.selectEl == null || this.selectEl.getAttribute("state") === "IDLING") return;
+        this.setAttribute("state", "IDLING");
+        if (this.descEl == null) return;
+        this.descEl.innerHTML = this.instructions;
+    }
+}

@@ -1,1 +1,21 @@
-class s extends HTMLElement{constructor(){super()}positionToElement(h,o=0){const t=this.getBoundingClientRect(),i=h.getBoundingClientRect();let n=i.top+i.height+o;n+t.height>=window.innerHeight&&(n=i.top-t.height-o);let e=i.right-t.width;e+t.width>=window.innerWidth?e=window.innerWidth-t.width:e<0&&(e=0),this.style.transform=`translate(${e}px, ${n}px)`}}export{s as default};
+export default class OverflowMenu extends HTMLElement {
+    constructor(){
+        super();
+    }
+
+    positionToElement(target, topOffset = 0) {
+        const elBounds = this.getBoundingClientRect();
+        const targetBounds = target.getBoundingClientRect();
+        let top = targetBounds.top + targetBounds.height + topOffset;
+        if (top + elBounds.height >= window.innerHeight) {
+            top = targetBounds.top - elBounds.height - topOffset;
+        }
+        let left = targetBounds.right - elBounds.width;
+        if (left + elBounds.width >= window.innerWidth) {
+            left = window.innerWidth - elBounds.width;
+        } else if (left < 0) {
+            left = 0;
+        }
+        this.style.transform = `translate(${left}px, ${top}px)`;
+    }
+}

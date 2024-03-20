@@ -1,1 +1,96 @@
-var h=Object.defineProperty;var c=(s,t,e)=>t in s?h(s,t,{enumerable:!0,configurable:!0,writable:!0,value:e}):s[t]=e;var l=(s,t,e)=>(c(s,typeof t!="symbol"?t+"":t,e),e);class d extends HTMLElement{constructor(){super();l(this,"onClick",()=>{if(this.downloading)return;this.downloading=!0;const e=new Worker(this.workerURL);e.onmessage=a=>{const{type:o,data:i}=a.data;switch(o){case"start":this.progressEl.setTotal(i),this.iconEl!=null&&(this.iconEl.style.display="none"),this.spanEl.innerHTML="Downloading...",this.progressEl.style.display="inline-flex";break;case"tick":this.progressEl.progress(i);break;case"done":const n=new Blob([i]);this.dispatchEvent(new CustomEvent("download",{detail:{blob:n},bubbles:!0,cancelable:!0}));const r=document.createElement("a");r.href=URL.createObjectURL(n),r.download=this.fileURL.split("/").pop(),r.click(),URL.revokeObjectURL(r.href),this.reset(),e.terminate(),this.downloading=!1;break;case"error":this.dispatchEvent(new CustomEvent("error",{detail:{error:i},bubbles:!0,cancelable:!0})),this.reset(),e.terminate();break;default:console.warn(`Unhandled file download worker message type: ${o}`);break}},e.postMessage({url:this.fileURL,options:{method:"GET"}})});this.downloading=!1}connectedCallback(){if(this.iconEl=this.querySelector("svg, img"),this.spanEl=this.querySelector("span"),this.progressEl=this.querySelector("brixi-progress-indicator"),this.ogText=this.spanEl?.innerHTML,this.fileURL=this.getAttribute("data-file-url"),this.workerURL=this.getAttribute("data-worker-url"),!this.fileURL||!this.workerURL){console.error("DownloadButtonComponent: missing data-file-url or data-worker-url attribute");return}this.addEventListener("click",this.onClick)}reset(){this.progressEl.style.display="none",this.spanEl.innerHTML=this.ogText,this.iconEl!=null&&(this.iconEl.style.display="inline-block"),this.downloading=!1}}export{d as default};
+export default class DownloadButtonComponent extends HTMLElement {
+    constructor(){
+        super();
+        this.downloading = false;
+    }
+    connectedCallback(){
+        this.iconEl = this.querySelector("svg, img");
+        this.spanEl = this.querySelector("span");
+        this.progressEl = this.querySelector("brixi-progress-indicator");
+
+        this.ogText = this.spanEl?.innerHTML;
+        this.fileURL = this.getAttribute("data-file-url");
+        this.workerURL = this.getAttribute("data-worker-url");
+
+        if (!this.fileURL || !this.workerURL){
+            console.error("DownloadButtonComponent: missing data-file-url or data-worker-url attribute");
+            return;
+        }
+
+        this.addEventListener("click", this.onClick);
+    }
+
+    onClick = () => {
+        if (this.downloading) return;
+        this.downloading = true;
+
+        const worker = new Worker(this.workerURL);
+        worker.onmessage = (e) => {
+            const { type, data } = e.data;
+            switch (type) {
+                case "start":
+                    this.progressEl.setTotal(data);
+                    if (this.iconEl != null){
+                        this.iconEl.style.display = "none";
+                    }
+                    this.spanEl.innerHTML = "Downloading...";
+                    this.progressEl.style.display = "inline-flex";
+                    break;
+                case "tick":
+                    this.progressEl.progress(data);
+                    break;
+                case "done":
+                    const blob = new Blob([data]);
+                    this.dispatchEvent(
+                        new CustomEvent("download", {
+                            detail: {
+                                blob: blob,
+                            },
+                            bubbles: true,
+                            cancelable: true,
+                        })
+                    );
+                    const a = document.createElement("a");
+                    a.href= URL.createObjectURL(blob);
+                    a.download = this.fileURL.split("/").pop();
+                    a.click();
+                    URL.revokeObjectURL(a.href);
+                    this.reset();
+                    worker.terminate();
+                    this.downloading = false;
+                    break;
+                case "error":
+                    this.dispatchEvent(
+                        new CustomEvent("error", {
+                            detail: {
+                                error: data,
+                            },
+                            bubbles: true,
+                            cancelable: true,
+                        })
+                    );
+                    this.reset();
+                    worker.terminate();
+                    break;
+                default:
+                    console.warn(`Unhandled file download worker message type: ${type}`);
+                    break;
+            }
+        };
+        worker.postMessage({
+            url: this.fileURL,
+            options: {
+                method: "GET",
+            },
+        });
+    }
+
+    reset(){
+        this.progressEl.style.display = "none";
+        this.spanEl.innerHTML = this.ogText;
+        if (this.iconEl != null){
+            this.iconEl.style.display = "inline-block";
+        }
+        this.downloading = false;
+    }
+}
