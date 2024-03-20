@@ -32,7 +32,7 @@
         "build": "run-s build:*",
         "build:nav": "node ./build/navigation-generator.js",
         "build:spa": "twist --src=./src/spa --out=./public/spa/js --type=esbuild",
-        "build:mpa": "twist --src=./src/mpa --out=./public/mpa/js --type=esbuild",
+        "build:mpa": "twist --src=./src/mpa --out=./public/mpa/js --type=none",
         "build:sandbox": "twist --src=./src/sandbox --out=./temp_js_files --type=esbuild && find ./temp_js_files -type f -name '*.js' -exec mv {} ./public/spa/js \\;",
         "build:css": "rm -rf ./public/css && mkdir ./public/css && find ./src -type f -name '*.css' -exec cp {} ./public/css/ \\;",
         "watch": "run-p watch:*",
