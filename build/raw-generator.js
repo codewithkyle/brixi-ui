@@ -71,7 +71,7 @@ const mpajsDir = path.join(cwd, "public", "mpa", "js");
             .trim();
         const readme = path.join(lDir, "readme.md");
         const css = path.join(cssDir, `${name}.css`);
-        const js = path.join(mpajsDir, `${name}.js`);
+        const js = path.join(mpajsDir, `brixi-${name}.js`);
         const html = file;
         const pDir = path.join(publicMPADir, name);
         if (!fs.existsSync(pDir)) {
