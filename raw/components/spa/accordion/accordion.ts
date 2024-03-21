@@ -37,14 +37,14 @@ export default class Accordion extends Component<IAccordion> {
             <accordion-section>
                 <input type="checkbox" name="${name}" id="${name}" />
                 <label sfx="button" role="button" tabindex="0" for="${name}">
-                    <span>${section.label}</span>
+                    <span class="font-md font-medium">${section.label}</span>
                     <i>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
                     </i>
                 </label>
-                <accordion-content>${unsafeHTML(decodeURI(section.content))}</accordion-content>
+                <accordion-content class="line-normal font-sm font-grey-700 dark:font-grey-300">${unsafeHTML(decodeURI(section.content))}</accordion-content>
             </accordion-section>
         `;
     }
